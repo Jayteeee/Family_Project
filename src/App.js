@@ -8,6 +8,7 @@ import { history } from "./redux/configureStore";
 import { useDispatch } from "react-redux";
 import { userActions } from "./redux/modules/user";
 import { getToken } from "./shared/token";
+import Main from "./pages/Main";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,12 +20,15 @@ function App() {
   }, []);
 
   return (
-    <ConnectedRouter history={history}>
-      <Switch>
-        <Route path="/signup" exact component={Signup} />
-        <Route path="/login" exact component={Login} />
-      </Switch>
-    </ConnectedRouter>
+    <div className="App">
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route path="/family" component={Main} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/login" exact component={Login} />
+        </Switch>
+      </ConnectedRouter>
+    </div>
   );
 }
 export default App;
