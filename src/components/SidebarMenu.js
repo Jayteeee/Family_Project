@@ -3,61 +3,52 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
 const SidebarMenu = (props) => {
-  const familyId = props.familyId;
-  console.log(familyId);
+  const {
+    NowFamilyId,
+    NowMissionId,
+    NowEventId,
+    NowPhotoAlbumId,
+    NowVoiceAlbumId,
+  } = props;
+  console.log(props);
 
   return (
     <>
       <SidebarMenuWrap>
-        <Menu>
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              history.replace(`/family/${familyId}`);
-            }}
-          >
-            홈
-          </span>
+        <Menu
+          onClick={() => {
+            history.replace(`/family/${NowFamilyId}`);
+          }}
+        >
+          <span>홈</span>
         </Menu>
-        <Menu>
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              history.push(`/family/${familyId}/mission`);
-            }}
-          >
-            미션
-          </span>
+        <Menu
+          onClick={() => {
+            history.push(`/family/${NowFamilyId}/mission/${NowMissionId}`);
+          }}
+        >
+          <span>미션</span>
         </Menu>
-        <Menu>
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              history.push(`/family/${familyId}/calendar`);
-            }}
-          >
-            캘린더
-          </span>
+        <Menu
+          onClick={() => {
+            history.push(`/family/${NowFamilyId}/calendar/${NowEventId}`);
+          }}
+        >
+          <span>캘린더</span>
         </Menu>
-        <Menu>
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              history.push(`/family/${familyId}/gallery`);
-            }}
-          >
-            갤러리
-          </span>
+        <Menu
+          onClick={() => {
+            history.push(`/family/${NowFamilyId}/gallery/${NowPhotoAlbumId}`);
+          }}
+        >
+          <span>갤러리</span>
         </Menu>
-        <Menu>
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              history.push("/");
-            }}
-          >
-            음성메세지
-          </span>
+        <Menu
+          onClick={() => {
+            history.push(`/family/${NowFamilyId}/voiceMsg/${NowVoiceAlbumId}`);
+          }}
+        >
+          <span>음성메세지</span>
         </Menu>
       </SidebarMenuWrap>
     </>
@@ -75,6 +66,7 @@ const Menu = styled.div`
   width: 100%;
   margin-top: 10px;
   padding: 5px 15px;
+  cursor: pointer;
   &:hover {
     background: #d6d6d6;
   }

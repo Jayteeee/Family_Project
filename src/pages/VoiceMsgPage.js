@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const FamilyPage = () => {
+const VoiceMsgPage = () => {
   return (
     <>
-      <div>가족 페이지</div>
+      <div>음성메세지 페이지</div>
     </>
   );
 };
 
-export default FamilyPage;
+export default VoiceMsgPage;

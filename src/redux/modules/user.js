@@ -3,7 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 
 // 로컬스토리지 token 작업 임포트
-import { getToken, insertToken, removeToken } from "../../shared/token";
+import { getToken, insertToken, removeToken } from "../../shared/Token";
 
 // const BASE_URL = "http://52.78.246.163";
 // const BASE_URL = "http://3.34.129.39";

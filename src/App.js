@@ -1,19 +1,26 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
+
+// 라우터
 import { Route, Switch } from "react-router-dom";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import { ConnectedRouter } from "connected-react-router";
+
+// 리덕스
 import { history } from "./redux/configureStore";
 import { useDispatch } from "react-redux";
 import { userActions } from "./redux/modules/user";
-import { getToken } from "./shared/token";
-import Main from "./pages/Main";
+
+// 페이지
+import { Main, Login, Signup } from "./pages/index";
+
+// 토근
+import { getToken } from "./shared/Token";
 
 function App() {
   const dispatch = useDispatch();
   let token = getToken();
-  React.useEffect(() => {
+
+  useEffect(() => {
     if (token) {
       dispatch(userActions.getUserInfo(token));
     }
@@ -23,7 +30,7 @@ function App() {
     <div className="App">
       <ConnectedRouter history={history}>
         <Switch>
-          <Route path="/family" component={Main} />
+          <Route path="/family/:familyId" component={Main} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/login" exact component={Login} />
         </Switch>
