@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "./redux/configureStore";
+import { useDispatch } from "react-redux";
+import { userActions } from "./redux/modules/user";
+import { getToken } from "./shared/token";
 
 function App() {
+  const dispatch = useDispatch();
+  let token = getToken();
+  React.useEffect(() => {
+    if (token) {
+      dispatch(userActions.getUserInfo(token));
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route path="/signup" exact component={Signup} />
+        <Route path="/login" exact component={Login} />
+      </Switch>
+    </ConnectedRouter>
   );
 }
-
 export default App;
