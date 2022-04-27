@@ -3,7 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 
 // 로컬스토리지 token 작업 임포트
-import { getToken, insertToken, removeToken } from "../../shared/token";
+import { getToken, insertToken, removeToken } from "../../shared/Token";
 
 // const BASE_URL = "http://52.78.246.163";
 // const BASE_URL = "http://3.34.129.39";
@@ -15,11 +15,16 @@ const initialState = {
 
 // 액션
 const LOG_IN = "LOG_IN";
+const KAKAO_LOGIN = "KAKAO_LOGIN";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 
 // 액션 생성함수
 const login = createAction(LOG_IN, (token, user) => ({ token, user }));
+const kakaologin = createAction(KAKAO_LOGIN, (token, user) => ({
+  token,
+  user,
+}));
 const logOut = createAction(LOG_OUT);
 const getUser = createAction(GET_USER, (user) => ({ user }));
 
@@ -92,6 +97,23 @@ const loginDB = (inputs) => {
   };
 };
 
+const kakaoLoginDB = () => {
+  return async function (dispatch, getState, { history }) {
+    // axios
+    await axios
+      .get()
+      .then((res) => {
+        console.log(res);
+        const token = res.data.code;
+        insertToken(token);
+        // history.go(0);
+      })
+      .catch((error) => {
+        console.log(error.toJSON());
+      });
+  };
+};
+
 // /user/getuser
 const getUserInfo = (token) => {
   return async function (dispatch, getState, { history }) {
@@ -143,6 +165,7 @@ export default handleActions(
 export const userActions = {
   signUpDB,
   loginDB,
+  kakaoLoginDB,
   getUserInfo,
   userLogout,
 };

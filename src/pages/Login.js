@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { userActions } from "../redux/modules/user";
-import { Button } from "../elements";
+import { Button, RactangleImage } from "../elements";
+import kakaoImg from "../shared/images/kakao_login_large_narrow.png";
+import { KakaoPath } from "../shared/kakao/KakaoPath";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,11 @@ const Login = () => {
   const logOut = () => {
     dispatch(userActions.userLogout());
   };
+
+  const kakaoLogin = () => {
+    // dispatch(userActions.kakaoLoginDB());
+  };
+
   return (
     <LoginWrap>
       <label>아이디</label>
@@ -40,6 +47,14 @@ const Login = () => {
       <br />
       <Button onClick={login}>로그인 하기</Button>
       <Button onClick={logOut}>로그아웃 하기</Button>
+      <a href={KakaoPath}>
+        <img
+          style={{ cursor: "pointer" }}
+          alt="카카오로그인"
+          src={kakaoImg}
+          // onClick={kakaoLogin}
+        />
+      </a>
     </LoginWrap>
   );
 };
