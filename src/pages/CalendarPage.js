@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const FamilyPage = () => {
+const CalendarPage = () => {
   return (
     <>
-      <div>가족 페이지</div>
+      <div>캘린더 페이지</div>
     </>
   );
 };
 
-export default FamilyPage;
+export default CalendarPage;

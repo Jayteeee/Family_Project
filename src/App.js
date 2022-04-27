@@ -1,14 +1,22 @@
 import "./App.css";
 import React, { useEffect } from "react";
+
+// 라우터
 import { Route, Switch } from "react-router-dom";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import { ConnectedRouter } from "connected-react-router";
+
+// 리덕스
 import { history } from "./redux/configureStore";
 import { useDispatch } from "react-redux";
 import { userActions } from "./redux/modules/user";
+
+// 페이지
+import { Main, Login, Signup } from "./pages/index";
+
+// 토큰
 import { getToken } from "./shared/Token";
-import Main from "./pages/Main";
+
+// 카카오
 import KakaoRedirectHandler from "./shared/kakao/KakaoRedirectHandeler";
 
 function App() {

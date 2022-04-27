@@ -175,7 +175,7 @@ export const Dummy = [
             eventList: [
               {
                 familyId: "123456787",
-                eventId: "asdfasdf",
+                eventId: "asdfasdf434",
                 event: "부모님께 연락하기",
                 startDate: "2022-04-15 01:30",
                 endDate: "2022-04-15 01:30",
@@ -222,5 +222,219 @@ export const Dummy = [
     familyId: "123asdfasfd7",
     familyTitle: "가족2",
     familyImg: "url",
+    familyHost: "유저 닉네임",
+    createdAt: "2022-04-15 00:51",
+    email: "user1@gamil.com", // 수정/삭제 고유값
+    userNickname: "유저 닉네임", // 생성한 유저의 닉네임
+    profileImg: "url",
+    todayMood: "이모지", // 이모지 사용
+    calendar: "", // 패기지 사용
+    missionStatus: "끈끈해요(75%)",
+    randomMsg: "오늘은 부모님께 안부전화 한 통 어떨까요?",
+    recentPhoto: [
+      {
+        familyId: "123asdfasfd7",
+        photoId: "adsfasdfsasad",
+        photoFile: "url",
+        photoTotalLike: 5,
+        commentCnt: 3,
+      },
+    ],
+    recentBadgeList: [
+      {
+        familyId: "123asdfasfd7",
+        badgeId: "asdfkadsjfdffd",
+        badgeTitle: "뱃지 타이틀",
+      },
+    ],
+    familyMemberlist: [
+      {
+        familyId: "123asdfasfd7",
+        familyTitle: "가족가족21",
+        familyMemberNicname: "아빠",
+        familyMemberId: "1234213",
+        email: "user1@gamil.com",
+        userNickname: "닉네임1",
+        profileImg: "",
+        todayMood: "이모지", // 이모지 사용
+      },
+      {
+        familyId: "123asdfasfd7",
+        familyTitle: "가족2",
+        familyMemberNicname: "엄마",
+        familyMemberId: "2342fag4",
+        email: "user2@gamil.com",
+        userNickname: "닉네임2",
+        profileImg: "url",
+        todayMood: "이모지", // 이모지 사용
+      },
+      {
+        familyId: "123asdfasfd7",
+        familyTitle: "가족2",
+        familyMemberNicname: "자녀",
+        familyMemberId: "2342sd4",
+        email: "user3@gamil.com",
+        userNickname: "닉네임3",
+        profileImg: "url",
+        todayMood: "이모지", // 이모지 사용
+      },
+    ],
+    sidebar: [
+      {
+        familyId: "123asdfasfd7",
+        familyTitle: "가족2",
+        familyImg: "url",
+        familyHost: "user1@gamil.com",
+        createdAt: "2022-04-15 00:51",
+        email: "user1@gamil.com", // 수정/삭제 고유값
+        userNickname: "유저 닉네임", // 생성한 유저의 닉네임
+        profileImg: "url",
+        mission: [
+          {
+            familyId: "123asdfasfd7",
+            missionId: "asdfadsfasd",
+            totalMission: 12,
+            completedMission: 9,
+            completePercentage: 50,
+            totalBadge: 3,
+            badgeList: [
+              {
+                badgeId: "asdfdsa3342",
+                badgeChk: false,
+                badgeTitle: "뱃지 타이틀",
+                badgeCnt: 3,
+              },
+              {
+                badgeId: "asdfdsadasdf22",
+                badgeChk: false,
+                badgeTitle: "뱃지 타이틀2",
+                badgeCnt: 3,
+              },
+            ],
+            weekMissionList: [
+              {
+                missionId: "asdfassdsddfczx",
+                missionName: "우리가족 피크닉 가기",
+                missionChk: false,
+                missionMemberList: [
+                  {
+                    memberId: "asdfadsfgfdsw",
+                    familyMemberNicname: "아빠",
+                    memberMissionChk: false,
+                  },
+                  {
+                    memberId: "asdfadsfsdxdfaf",
+                    familyMemberNicname: "엄마",
+                    memberMissionChk: false,
+                  },
+                  {
+                    memberId: "asdfadsfffdgxcv",
+                    familyMemberNicname: "자녀",
+                    memberMissionChk: false,
+                  },
+                ],
+              },
+            ],
+            completedMissionList: [
+              {
+                missionId: "asdfadsf5tfd",
+                familyMemberNicname: "아빠",
+              },
+              {
+                missionId: "asdfadsfdfsd123",
+                familyMemberNicname: "엄마",
+              },
+              {
+                missionId: "asdfadsfsdfffdsf",
+                familyMemberNicname: "자녀",
+              },
+            ],
+          },
+        ],
+        photoAlbumList: [
+          {
+            familyId: "123asdfasfd7",
+            photoAlbumId: "23dfgsdf41233",
+            photoAlbumName: "앨범1",
+            createdAt: "2022-04-15 00:51",
+            email: "user1",
+            userNickname: "닉네임",
+            profileImg: "url",
+            photoList: [
+              {
+                photoAlbumId: "23dfgsdf41233",
+                photoId: "23dfgsdf4d546",
+                photoName: "사진1",
+                createdAt: "2022-04-15 00:51",
+                photoFile: "url",
+                content: "가족 사진입니다.",
+                email: "user1",
+                userNickname: "닉네임",
+                profileImg: "url",
+                totalLike: 2,
+                likeChk: "false",
+                commentList: [
+                  {
+                    photoId: "23dfgsdf4d546",
+                    commentId: "alskdjfaklsdjfaa",
+                    createdAt: "2022-04-15 01:30",
+                    comment: "댓글달아봐요",
+                    email: "user1", // 수정/삭제 고유값
+                    userNickname: "닉네임", // 유저닉네임
+                    profileImg: "url",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        calendarList: [
+          {
+            familyId: "123asdfasfd7",
+            eventList: [
+              {
+                familyId: "123asdfasfd7",
+                eventId: "asdfasdfassdvc",
+                event: "부모님께 연락하기",
+                startDate: "2022-04-15 01:30",
+                endDate: "2022-04-15 01:30",
+                color: "",
+              },
+            ],
+            photoList: [
+              {
+                familyId: "123asdfasfd7",
+                photoId: "asdfadsffff",
+                photoFile: "url",
+              },
+            ],
+          },
+        ], // 데이터 형식 (미정)
+        voiceAlbumList: [
+          {
+            familyId: "123asdfasfd7",
+            voiceAlbumId: "asdfdfdfsdf",
+            voiceAlbumName: "일상",
+            createdAt: "2022-04-15 00:51",
+            email: "user1",
+            userNickname: "닉네임",
+            profileImg: "url",
+            voiceList: [
+              {
+                voiceAlbumId: "asdfdfdfsdf",
+                voiceAlbumName: "일상",
+                voiceFileId: "asdfadsf",
+                voiceTitle: "잔소리1",
+                createdAt: "2022-04-15 00:51",
+                email: "user1",
+                userNickname: "닉네임",
+                profileImg: "url",
+                voiceFile: "",
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
 ];
