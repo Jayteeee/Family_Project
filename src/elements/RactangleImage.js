@@ -4,6 +4,10 @@ import styled from "styled-components";
 const RactangleImage = (props) => {
   const { XS, S, M, L, ...styles } = props;
 
+  if (XS) {
+    return <XSmallRactangleImage {...styles} />;
+  }
+
   if (S) {
     return <SmallRactangleImage {...styles} />;
   }
@@ -35,6 +39,27 @@ const ImageDefault = styled.div`
   height: var(--size);
   background-image: url("${(props) => props.src}");
   background-size: cover;
+`;
+
+const XSmallRactangleImage = styled.div`
+  cursor: pointer;
+  background-size: cover;
+
+  --size: ${({ size }) => (size ? `${size}` : "15px")};
+  width: var(--size);
+  height: var(--size);
+  ${({ padding }) => (padding ? `padding:  ${padding};` : "padding: 0;")};
+  ${({ margin }) => (margin ? `margin: ${margin};` : "margin: 3px 5px;")};
+  ${({ borderRadius }) =>
+    borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 0px;"};
+  ${({ borderColor }) =>
+    borderColor
+      ? `border: 1px solid ${borderColor};`
+      : "border: 1px solid black;"};
+  ${({ src }) =>
+    src
+      ? `background-image: url(${src});`
+      : "background-image: url('https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png')"};
 `;
 
 const SmallRactangleImage = styled.div`
