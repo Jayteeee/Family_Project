@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+
+// 라이브러리, 패키지
+import styled from "styled-components";
 import { IoMdNotifications } from "react-icons/io";
 
-import styled from "styled-components";
-import { CircleImage, Text } from "../elements";
+// 리덕스
+import { useDispatch } from "react-redux";
 
+// 엘리먼트
+import { CircleImage } from "../elements";
+
+// 모달
 import { ModalPortal } from "../shared/modal/portals";
-import ProFileModal from "../shared/modal/component/ProFileModal";
+import { ProfileModal } from "../shared/modal/component/";
 
 const Header = () => {
-  // 로그아웃 추가
   const [modalOn, setModalOn] = useState(false);
 
   // 토글
@@ -36,28 +42,9 @@ const Header = () => {
           </HeaderRightBox>
         </HeaderWarp>
       </div>
-
+      {/* 프로필 모달 */}
       <ModalPortal>
-        {modalOn && (
-          <ProFileModal onClose={handleModal}>
-            <UserInfo>
-              <div
-                className="flex-row"
-                style={{ justifyContent: "space-between", width: "100%" }}
-              >
-                <Text size="15px" fontWeight="700">
-                  아이디: abcd@gmail.com
-                </Text>
-              </div>
-              <Text size="15px">닉네임: 홍길동</Text>
-            </UserInfo>
-            <FamilyEdit>
-              <Text size="15px" fontWeight="700">
-                가족 수정
-              </Text>
-            </FamilyEdit>
-          </ProFileModal>
-        )}
+        {modalOn && <ProfileModal onClose={handleModal}></ProfileModal>}
       </ModalPortal>
     </>
   );
@@ -94,34 +81,6 @@ const ProfileBox = styled.div`
     background: #d6d6d6;
   }
   padding: 10px;
-`;
-
-const UserInfo = styled.div`
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  border-bottom: 1px solid rgba(29, 28, 29, 0.13);
-  background: #fff;
-  width: 100%;
-  padding: 16px 20px;
-  &:hover {
-    background: #f8f8f8;
-  }
-`;
-
-const FamilyEdit = styled.div`
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  border-bottom: 1px solid rgba(29, 28, 29, 0.13);
-  background: rgba(255, 255, 255, 1);
-  width: 100%;
-  padding: 16px 20px;
-  &:hover {
-    background: #f8f8f8;
-  }
 `;
 
 export default Header;
