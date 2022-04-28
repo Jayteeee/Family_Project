@@ -2,9 +2,8 @@ import React from "react";
 import { IoMdNotifications } from "react-icons/io";
 
 import styled from "styled-components";
-import { Input, CircleImage } from "../elements";
+import { CircleImage } from "../elements";
 
-// 내비게이션 바
 const Header = () => {
   return (
     <>

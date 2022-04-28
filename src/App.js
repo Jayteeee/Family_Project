@@ -13,7 +13,7 @@ import { userActions } from "./redux/modules/user";
 // 페이지
 import { Main, Login, Signup } from "./pages/index";
 
-// 토근
+// 토큰
 import { getToken } from "./shared/Token";
 
 function App() {
