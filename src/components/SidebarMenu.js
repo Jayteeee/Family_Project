@@ -12,7 +12,7 @@ const SidebarMenu = (props) => {
     NowPhotoAlbumId,
     NowVoiceAlbumId,
   } = props;
-  console.log(props);
+  console.log("사이드바에 적용할 Id값: ", props);
 
   return (
     <>
@@ -29,7 +29,7 @@ const SidebarMenu = (props) => {
         <Menu
           className="res-menu"
           onClick={() => {
-            history.push(`/family/${NowFamilyId}/mission/${NowMissionId}`);
+            history.push(`/family/${NowFamilyId}/mission/`);
           }}
         >
           <RactangleImage XS className="res-menuIcon" />
@@ -38,7 +38,7 @@ const SidebarMenu = (props) => {
         <Menu
           className="res-menu"
           onClick={() => {
-            history.push(`/family/${NowFamilyId}/calendar/${NowEventId}`);
+            history.push(`/family/${NowFamilyId}/calendar/`);
           }}
         >
           <RactangleImage XS className="res-menuIcon" />
@@ -47,7 +47,7 @@ const SidebarMenu = (props) => {
         <Menu
           className="res-menu"
           onClick={() => {
-            history.push(`/family/${NowFamilyId}/gallery/${NowPhotoAlbumId}`);
+            history.push(`/family/${NowFamilyId}/gallery/`);
           }}
         >
           <RactangleImage XS className="res-menuIcon" />
@@ -56,7 +56,7 @@ const SidebarMenu = (props) => {
         <Menu
           className="res-menu"
           onClick={() => {
-            history.push(`/family/${NowFamilyId}/voiceMsg/${NowVoiceAlbumId}`);
+            history.push(`/family/${NowFamilyId}/voiceMsg/`);
           }}
         >
           <RactangleImage XS className="res-menuIcon" />

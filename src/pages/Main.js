@@ -27,37 +27,18 @@ import Header from "../components/Header";
 const Main = (props) => {
   const dispatch = useDispatch();
 
-  console.log(props);
-
   const familyId = props.match?.params.familyId;
-  console.log(familyId);
 
   // familList
   const familyList = useSelector((state) => state.family.familyList);
-  console.log(familyList);
+  console.log("전체 familyList: ", familyList);
 
-  const NowFamilyList = familyList.filter((f) => f.familyId == familyId);
-  console.log(NowFamilyList);
+  const NowFamily = familyList.filter((f) => f.familyId == familyId);
+  console.log("현재 가족 ", NowFamily);
 
-  // 현재 가족 family, mission, calendar(event), photoAlbum, voiceAlbum 아이디 목록
-  // 가족 생성할 시 사이드바 있어야 함
-  const NowFamilyId = NowFamilyList[0]?.familyId;
-  console.log(NowFamilyId);
-
-  const NowMissionId = NowFamilyList[0]?.sidebar[0].mission[0].missionId;
-  console.log(NowMissionId);
-
-  const NowEventId =
-    NowFamilyList[0]?.sidebar[0].calendarList[0].eventList[0].eventId;
-  console.log(NowEventId);
-
-  const NowPhotoAlbumId =
-    NowFamilyList[0]?.sidebar[0].photoAlbumList[0].photoAlbumId;
-  console.log(NowPhotoAlbumId);
-
-  const NowVoiceAlbumId =
-    NowFamilyList[0]?.sidebar[0].voiceAlbumList[0].voiceAlbumId;
-  console.log(NowVoiceAlbumId);
+  // 현재 가족 familyId
+  const NowFamilyId = NowFamily[0]?.familyId;
+  console.log("현재 familyId: ", NowFamilyId);
 
   // familyId 변경될때마다 리랜더링
   useEffect(() => {
@@ -68,7 +49,6 @@ const Main = (props) => {
   const [currentValue, setCurrentValue] = useState("가족");
   const [showOptions, setShowOptions] = useState(false);
 
-  console.log(showOptions);
   const handleOnChangeSelectValue = (e) => {
     // 선택한 value값
     setCurrentValue(e.target.getAttribute("value"));
@@ -88,6 +68,7 @@ const Main = (props) => {
               className="res-select"
             >
               <Label>{currentValue}</Label>
+
               <SelectOptions show={showOptions} id="optionList">
                 {familyList.map((f, i) => {
                   return (
@@ -104,36 +85,31 @@ const Main = (props) => {
               </SelectOptions>
             </SelectBox>
           </FamilySelectBox>
+
           <Sidebar className="res-sidbar">
-            <SidebarMenu
-              NowFamilyId={NowFamilyId}
-              NowMissionId={NowMissionId}
-              NowEventId={NowEventId}
-              NowPhotoAlbumId={NowPhotoAlbumId}
-              NowVoiceAlbumId={NowVoiceAlbumId}
-            />
+            <SidebarMenu NowFamilyId={NowFamilyId} />
           </Sidebar>
         </div>
         <PageWrap>
           <Switch>
             <Route path="/family/:familyId/" exact component={FamilyPage} />
             <Route
-              path="/family/:familyId/mission/:missionId"
+              path="/family/:familyId/mission"
               exact
               component={MissionPage}
             />
             <Route
-              path="/family/:familyId/calendar/:eventId"
+              path="/family/:familyId/calendar"
               exact
               component={CalendarPage}
             />
             <Route
-              path="/family/:familyId/gallery/:photoAlbumId"
+              path="/family/:familyId/gallery"
               exact
               component={GalleryPage}
             />
             <Route
-              path="/family/:familyId/voiceMsg/:voiceAlbumId"
+              path="/family/:familyId/voiceMsg"
               exact
               component={VoiceMsgPage}
             />
