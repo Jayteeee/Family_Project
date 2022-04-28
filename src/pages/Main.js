@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -23,6 +23,8 @@ import {
 // 컴포넌트
 import SidebarMenu from "../components/SidebarMenu";
 import Header from "../components/Header";
+
+export const MainContext = createContext();
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -59,7 +61,11 @@ const Main = (props) => {
 
   return (
     <>
-      <Header />
+      <MainContext.Provider value={familyId}>
+        <div>
+          <Header />
+        </div>
+      </MainContext.Provider>
       <MainWrap className="res-mainWrap">
         <div style={{ display: "inline-flex", flexDirection: "column" }}>
           <FamilySelectBox className="res-selectBox">
