@@ -28,9 +28,9 @@ const RactangleImage = (props) => {
 };
 
 Image.defaultProps = {
-  // shape: false,
-  // src: "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
-  // size: 36,
+  shape: false,
+  src: "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+  size: 36,
 };
 
 const ImageDefault = styled.div`
