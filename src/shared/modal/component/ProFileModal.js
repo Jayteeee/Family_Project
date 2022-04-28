@@ -15,7 +15,7 @@ import { AddFamilyModal, EditFamilyModal, LogoutModal } from "./index";
 // 엘리먼트
 import { CircleImage, Text } from "../../../elements";
 
-const ProFileModal = ({ onClose, props }) => {
+const ProfileModal = ({ onClose, props }) => {
   const userInfo = useSelector((state) => state.user.user);
   console.log("유저정보: ", userInfo);
 
@@ -91,12 +91,13 @@ const ProFileModal = ({ onClose, props }) => {
             </TopDiv>
             <BottomDiv>
               <UserInfo>
-                <CircleImage S src={userInfo.profileImg} />
+                <CircleImage S src={userInfo?.profileImg} />
                 <div align="left" style={{ margin: "0 10px" }}>
                   <Text size="15px" fontWeight="700">
-                    아이디: {userInfo.email}
+                    아이디:
+                    {userInfo?.email}
                   </Text>
-                  <Text size="15px">닉네임: {userInfo.nickname}</Text>
+                  <Text size="15px">닉네임: {userInfo?.nickname}</Text>
                 </div>
               </UserInfo>
               <MenuBox onClick={handleAddFamilyModal}>
@@ -221,4 +222,4 @@ const MenuBox = styled.div`
   }
 `;
 
-export default ProFileModal;
+export default ProfileModal;
