@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { userActions } from "./redux/modules/user";
 
 // 페이지
-import { Main, Login, Signup } from "./pages/index";
+import { Main, LandingPage, Auth } from "./pages/index";
 
 // 토큰
 import { getToken } from "./shared/Token";
@@ -19,7 +19,6 @@ import { getToken } from "./shared/Token";
 function App() {
   const dispatch = useDispatch();
   let token = getToken();
-
   useEffect(() => {
     if (token) {
       dispatch(userActions.getUserInfo(token));
@@ -31,8 +30,8 @@ function App() {
       <ConnectedRouter history={history}>
         <Switch>
           <Route path="/family/:familyId" component={Main} />
-          <Route path="/signup" exact component={Signup} />
-          <Route path="/login" exact component={Login} />
+          <Route path="/" exact component={LandingPage} />
+          <Route path="/kakao/code" exact component={Auth} />
         </Switch>
       </ConnectedRouter>
     </div>

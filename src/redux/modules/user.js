@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
+import jwt from "jwt-decode";
 
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/Token";
@@ -70,7 +71,7 @@ const loginDB = (inputs) => {
     //     console.log(res);
     //     const token = res.data.token;
     //     insertToken(token);
-    //     history.go(0);
+    //     history.push('/')
     //   })
     //   .catch((err) => {
     //     console.log(err);
@@ -104,16 +105,12 @@ const getUserInfo = (token) => {
 
     console.log(fakeResposeUser);
     dispatch(getUser(fakeResposeUser));
-    //   const config = { Authorization: `Bearer ${token}` };
-    //   await axios
-    //     .get(`${BASE_URL}/user/getuser`, { headers: config })
-    //     .then((res) => {
-    //       dispatch(getUser(res.data));
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       console.log(err.response);
-    //     });
+
+    // const user = jwt(token)
+    // console.log(user)
+
+    // dispatch(getUser(token, user));
+    // localStorage.setItem('isLogin',token)
   };
 };
 

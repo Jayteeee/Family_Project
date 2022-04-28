@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Button, Input } from "../elements";
-import { userActions } from "../redux/modules/user";
+import { Button, Input } from "../../elements";
+import { userActions } from "../../redux/modules/user";
 
 //회원가입
-const SignUp = () => {
+const Signup = () => {
   const dispatch = useDispatch();
   const [inputs, setInputs] = React.useState({});
 
@@ -35,28 +35,28 @@ const SignUp = () => {
             id="email"
             placeholder="name@work-email.com"
             onChange={handleChange}
-            value={inputs.email}
+            value={inputs.email || ""}
           />
 
           <Input
             id="nickname"
             placeholder="Nickname"
             onChange={handleChange}
-            value={inputs.nickname}
+            value={inputs.nickname || ""}
           />
           <Input
             id="password"
             type="password"
             placeholder="Please enter your password"
             onChange={handleChange}
-            value={inputs.password}
+            value={inputs.password || ""}
           />
           <Input
             id="passwordCheck"
             type="password"
             placeholder="Please enter your password"
             onChange={handleChange}
-            value={inputs.passwordCheck}
+            value={inputs.passwordCheck || ""}
           />
           <Button L onClick={handleSubmit}>
             회원가입
@@ -70,10 +70,11 @@ const SignUp = () => {
 const SignUpWrap = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 400px;
+  width: 20rem;
+  padding: 2em;
   margin: auto;
+  border: 1px solid black;
+  background-color: red;
 `;
 
-export default SignUp;
+export default Signup;
