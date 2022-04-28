@@ -11,13 +11,10 @@ import { useDispatch } from "react-redux";
 import { userActions } from "./redux/modules/user";
 
 // 페이지
-import { Main, Login, Signup } from "./pages/index";
+import { Main, LandingPage, Auth } from "./pages/index";
 
 // 토큰
 import { getToken } from "./shared/Token";
-
-// 카카오
-import KakaoRedirectHandler from "./shared/kakao/KakaoRedirectHandeler";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,9 +30,8 @@ function App() {
       <ConnectedRouter history={history}>
         <Switch>
           <Route path="/family/:familyId" component={Main} />
-          <Route path="/signup" exact component={Signup} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/client/callback" component={KakaoRedirectHandler} />
+          <Route path="/" exact component={LandingPage} />
+          <Route path="/kakao/code" exact component={Auth} />
         </Switch>
       </ConnectedRouter>
     </div>

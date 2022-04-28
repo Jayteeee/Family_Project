@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { userActions } from "../redux/modules/user";
-import { Button, RactangleImage } from "../elements";
-import kakaoImg from "../shared/images/kakao_login_large_narrow.png";
-import { KakaoPath } from "../shared/kakao/KakaoPath";
+import { userActions } from "../../redux/modules/user";
+import { Button } from "../../elements";
+import kakaoImg from "../../shared/images/kakao_login_large_narrow.png";
+import { KakaoPath } from "../../shared/KakaoPath";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -24,36 +24,34 @@ const Login = () => {
     dispatch(userActions.userLogout());
   };
 
-  const kakaoLogin = () => {
-    // dispatch(userActions.kakaoLoginDB());
-  };
-
   return (
     <LoginWrap>
-      <label>아이디</label>
+      <strong>로그인</strong>
+      {/* <label>아이디</label> */}
       <input
         id="email"
         type="text"
         onChange={handleChange}
         value={inputs.email}
+        placeholder="아이디"
       ></input>
-      <label>비밀번호</label>
+      {/* <label>비밀번호</label> */}
       <input
         id="password"
         type="password"
         onChange={handleChange}
         value={inputs.password}
+        placeholder="비밀번호"
       ></input>
       <br />
-      <Button onClick={login}>로그인 하기</Button>
-      <Button onClick={logOut}>로그아웃 하기</Button>
+      <Button L onClick={login}>
+        로그인 하기
+      </Button>
+      {/* <Button L onClick={logOut}>
+        로그아웃 하기
+      </Button> */}
       <a href={KakaoPath}>
-        <img
-          style={{ cursor: "pointer" }}
-          alt="카카오로그인"
-          src={kakaoImg}
-          // onClick={kakaoLogin}
-        />
+        <img alt="카카오로그인" src={kakaoImg} />
       </a>
     </LoginWrap>
   );
@@ -61,7 +59,16 @@ const Login = () => {
 const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
-  margin: 4% auto;
+  width: 20rem;
+  padding: 2em;
+  margin: auto;
+  border: 1px solid black;
+  background-color: red;
+  & > a {
+    & > img {
+      width: 16em;
+    }
+  }
 `;
+
 export default Login;
