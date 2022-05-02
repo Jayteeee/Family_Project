@@ -91,33 +91,76 @@ const mainPage = {
       userInfo: {
         userId: "userId@userId.com",
         nickname: "닉네임",
-        profileImg: "프로필 사진 URL",
+        profileImg:
+          "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
         todayMood: "이모지",
       },
     },
+
     {
       familyMemberNicname: "엄마",
-      familyMemberId: "1542368defse2",
+      familyMemberId: "368defse2",
       userInfo: {
         userId: "userId@userId.com",
         nickname: "닉네임",
-        profileImg: "프로필 사진 URL",
+        profileImg:
+          "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
         todayMood: "이모지",
       },
     },
     {
       familyMemberNicname: "자녀",
-      familyMemberId: "1542368defs231a",
+      familyMemberId: "68defs231a",
       userInfo: {
         userId: "userId@userId.com",
         nickname: "닉네임",
-        profileImg: "프로필 사진 URL",
+        profileImg:
+          "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
         todayMood: "이모지",
       },
     },
   ],
 };
+
+// 가족 구성원 수정페이지
+const nowFamilyMemberList = [
+  {
+    familyMemberNickname: "아빠",
+    familyMemberId: "1542368defsea",
+    userInfo: {
+      userId: "userId1@userId.com",
+      nickname: "닉네임",
+      profileImg:
+        "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+      todayMood: "이모지",
+    },
+  },
+  {
+    familyMemberNickname: "엄마",
+    familyMemberId: "1542368defse2",
+    userInfo: {
+      userId: "userId2@userId.com",
+      nickname: "닉네임",
+      profileImg:
+        "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+      todayMood: "이모지",
+    },
+  },
+  {
+    familyMemberNickname: "자녀",
+    familyMemberId: "1542368defs231a",
+    userInfo: {
+      userId: "userId3@userId.com",
+      nickname: "닉네임",
+      profileImg:
+        "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+      todayMood: "이모지",
+    },
+  },
+];
+
 // 미션 페이지
+
 // 이번주 미션 페이지
 const missionPage = {
   missionBox: {
@@ -219,7 +262,9 @@ const familyMemberList = [
     profileImg: "프로필 사진 URL",
   },
 ];
+
 // 갤러리 페이지
+
 // 사진앨범 페이지
 const photoAlbumList = [
   {
@@ -284,7 +329,9 @@ const detailPhotoPage = {
     },
   ],
 };
+
 // 캘린더 페이지
+
 // 일정보기 페이지 / params로 date 보내야함('YYYY-MM')
 const eventCalendarList = [
   {
@@ -362,6 +409,8 @@ export const DummyData = {
   familyList,
   // 메인 페이지
   mainPage,
+  // 가족 구성원 수정페이지
+  nowFamilyMemberList,
   // 미션 페이지
   missionPage,
   badgePage,

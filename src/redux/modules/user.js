@@ -109,7 +109,6 @@ const getUserInfo = (token) => {
 
     // const user = jwt(token)
     // console.log(user)
-
     // dispatch(getUser(token, user));
     // localStorage.setItem('isLogin',token)
   };

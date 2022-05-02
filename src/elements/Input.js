@@ -65,14 +65,13 @@ const DefaultInput = styled.input`
   border-radius: 4px;
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 1px red, 0 0 0 5px gray;
+    box-shadow: 0 0 0 0px grey, 0 0 0 3px #d6d6d6;
   }
 
   width: ${({ width }) => (width ? `${width};` : "100%;")};
   height: ${({ height }) => (height ? `${height};` : "44px;")};
   padding: ${({ padding }) => (padding ? `${padding};` : "0;")};
   margin: ${({ margin }) => (margin ? `${margin};` : "0;")};
-  border: 1px solid rgba(29, 28, 29, 0.3);
   text-align: ${({ text_align }) => (text_align ? `${text_align};` : "")};
   background-color: ${({ bg }) => (bg ? `${bg};` : "")};
   ${({ size }) => (size ? `font-size: ${size};` : "")}
