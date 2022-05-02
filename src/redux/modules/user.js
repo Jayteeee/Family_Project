@@ -28,7 +28,7 @@ const getUser = createAction(GET_USER, (user) => ({ user }));
 const userLogout = () => {
   return async function (dispatch, getState, { history }) {
     dispatch(logOut());
-    history.replace("/login");
+    window.location.reload();
   };
 };
 
@@ -36,13 +36,14 @@ const userLogout = () => {
 // /user/signup
 const signUpDB = (inputs) => {
   return async function (dispatch, getState, { history }) {
-    const { email, password, nickname } = inputs;
+    const { userId, password, nickname } = inputs;
     let fakeResponse = {
-      email,
+      userId,
       password,
       nickname,
     };
     console.log("회원가입 됐다치고", fakeResponse);
+    window.location.reload();
 
     // console.log("미들웨어:", inputs);
 
@@ -80,10 +81,10 @@ const loginDB = (inputs) => {
 
     // 서버 열리면 이 아래로 다 지워버리면 됩니다!
     console.log("로그인 성공했다 치고");
-    const { email, password } = inputs;
+    const { userId, password } = inputs;
 
     // /user/getuser axios 요청 또 해야되나?
-    let fakeResponseData = { email, nickname: "닉네임", profileImg: "" };
+    let fakeResponseData = { userId, nickname: "닉네임", profileImg: "" };
     let fakeResponseToken = "토큰입니다";
 
     insertToken(fakeResponseToken);
@@ -97,7 +98,7 @@ const loginDB = (inputs) => {
 const getUserInfo = (token) => {
   return async function (dispatch, getState, { history }) {
     let fakeResposeUser = {
-      email: "asdf@gmail.com",
+      userId: "asdf@gmail.com",
       nickname: "닉네임~",
       profileImg:
         "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",

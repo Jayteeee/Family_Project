@@ -12,7 +12,7 @@ import { CircleImage } from "../elements";
 
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
-import { ProfileModal } from "../shared/modal/component/";
+import { ProfileModal } from "../shared/modal/component";
 
 const Header = () => {
   const [modalOn, setModalOn] = useState(false);

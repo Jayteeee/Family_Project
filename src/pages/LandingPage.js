@@ -11,7 +11,7 @@ const LandingPage = () => {
         <div>
           <Description />
         </div>
-        <div style={{ backgroundColor: "green" }}>
+        <Question>
           <div>
             {isClient === false ? (
               <div>
@@ -31,14 +31,13 @@ const LandingPage = () => {
               </div>
             )}
           </div>
-        </div>
+        </Question>
       </Box>
     </Container>
   );
 };
 
 const Container = styled.div`
-  background: yellow;
   height: 100%;
 `;
 
@@ -58,6 +57,10 @@ const MsgBox = styled.div`
   & > span {
     cursor: pointer;
   }
+`;
+
+const Question = styled.div`
+  background-color: yellow;
 `;
 
 export default LandingPage;

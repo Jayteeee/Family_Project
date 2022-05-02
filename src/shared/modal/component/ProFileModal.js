@@ -95,7 +95,7 @@ const ProfileModal = ({ onClose, props }) => {
                 <div align="left" style={{ margin: "0 10px" }}>
                   <Text size="15px" fontWeight="700">
                     아이디:
-                    {userInfo?.email}
+                    {userInfo?.userId}
                   </Text>
                   <Text size="15px">닉네임: {userInfo?.nickname}</Text>
                 </div>

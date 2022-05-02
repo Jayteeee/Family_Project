@@ -2,11 +2,23 @@ import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
 // 모달
 import { ModalPortal } from "../portals";
 
+// 페이지
+import { userActions } from "../../../redux/modules/user";
+
+// 엘리먼트
+import { Button } from "../../../elements";
+
 const LogoutModal = ({ onClose }) => {
+  const dispatch = useDispatch();
+  const logOut = () => {
+    dispatch(userActions.userLogout());
+  };
+
   return (
     <ModalPortal>
       <Background
@@ -22,10 +34,17 @@ const LogoutModal = ({ onClose }) => {
             e.stopPropagation();
           }}
         >
-          <h1>
-            죄송합니다! 이 기능은 <br />
-            구현되지 않았습니다!
-          </h1>
+          <h1>정말 로그아웃 하시겠습니까?</h1>
+          <br />
+          <Button
+            M
+            onClick={() => {
+              logOut();
+            }}
+          >
+            {" "}
+            로그아웃{" "}
+          </Button>
         </Content>
       </Background>
     </ModalPortal>
@@ -45,6 +64,7 @@ const Background = styled.div`
 
 const Content = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 205;

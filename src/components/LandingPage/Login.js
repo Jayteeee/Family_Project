@@ -20,19 +20,15 @@ const Login = () => {
     dispatch(userActions.loginDB(inputs));
   };
 
-  const logOut = () => {
-    dispatch(userActions.userLogout());
-  };
-
   return (
     <LoginWrap>
       <strong>로그인</strong>
       {/* <label>아이디</label> */}
       <input
-        id="email"
+        id="userId"
         type="text"
         onChange={handleChange}
-        value={inputs.email}
+        value={inputs.userId}
         placeholder="아이디"
       ></input>
       {/* <label>비밀번호</label> */}
@@ -47,9 +43,6 @@ const Login = () => {
       <Button L onClick={login}>
         로그인 하기
       </Button>
-      {/* <Button L onClick={logOut}>
-        로그아웃 하기
-      </Button> */}
       <a href={KakaoPath}>
         <img alt="카카오로그인" src={kakaoImg} />
       </a>

@@ -43,10 +43,10 @@ const deleteFamily = createAction(DELETE_FAMILY, (familyId) => ({
 // api 응답 받는 미들웨어
 const getFamilyDB = () => {
   return async function (dispatch, getState, { history }) {
-    // const { email } = getState().user.user;
+    // const { userId } = getState().user.user;
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
-    //   .get(`${BASE_URL}/family/${email}`, { headers: config })
+    //   .get(`${BASE_URL}/family/${userId}`, { headers: config })
     //   .then((res) => {
     //     // console.log(res)
     //     // console.log(channel);
@@ -86,7 +86,7 @@ const addFamilyDB = (newFamily) => {
       familyImg: "url",
       familyHost: "홍길동",
       createdAt: "2022-05-18 00:51",
-      email: "user3@gamil.com",
+      userId: "user3@gamil.com",
       userNickname: "홍길동",
       profileImg: "url",
       todayMood: "이모지", // 이모지 사용
