@@ -29,10 +29,10 @@ const Login = () => {
       <strong>로그인</strong>
       {/* <label>아이디</label> */}
       <input
-        id="email"
+        id="userId"
         type="text"
         onChange={handleChange}
-        value={inputs.email}
+        value={inputs.userId}
         placeholder="아이디"
       ></input>
       {/* <label>비밀번호</label> */}

@@ -4,15 +4,9 @@ import { history } from "../redux/configureStore";
 
 import { RactangleImage } from "../elements/index";
 
-const SidebarMenu = (props) => {
-  const {
-    NowFamilyId,
-    NowMissionId,
-    NowEventId,
-    NowPhotoAlbumId,
-    NowVoiceAlbumId,
-  } = props;
-  console.log("사이드바에 적용할 Id값: ", props);
+const SidebarMenu = (familyId) => {
+  const { NowFamilyId } = familyId;
+  console.log("사이드바에 적용할 Id값: ", NowFamilyId);
 
   return (
     <>
@@ -79,8 +73,8 @@ const Menu = styled.div`
   width: 100%;
   padding: 5px 15px;
   cursor: pointer;
-  // justify-content: center;
   justify-item: center;
+  // justify-content: center;
   &:hover {
     background: #d6d6d6;
   }

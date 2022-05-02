@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Button = (props) => {
   // styles 에 오는것들 : width, height, padding, margin, bg, color, fontWeight, fontSize, borderRadius, borderColor
+  console.log(props);
   const {
     children,
     shape,

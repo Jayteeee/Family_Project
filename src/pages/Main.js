@@ -27,6 +27,8 @@ import Header from "../components/Header";
 export const MainContext = createContext();
 
 const Main = (props) => {
+  const bg = "black";
+
   const dispatch = useDispatch();
 
   const familyId = props.match?.params.familyId;
@@ -42,13 +44,16 @@ const Main = (props) => {
   const NowFamilyId = NowFamily[0]?.familyId;
   console.log("현재 familyId: ", NowFamilyId);
 
+  const NowFamilyTitle = NowFamily[0]?.familyTitle;
+  console.log("현재 familyTitle: ", NowFamilyTitle);
+
   // familyId 변경될때마다 리랜더링
   useEffect(() => {
     dispatch(familyActions.getFamilyDB());
   }, [familyId]);
 
   // div로 만든 Dropdown
-  const [currentValue, setCurrentValue] = useState("가족");
+  const [currentValue, setCurrentValue] = useState(NowFamilyTitle);
   const [showOptions, setShowOptions] = useState(false);
 
   const handleOnChangeSelectValue = (e) => {
@@ -61,10 +66,8 @@ const Main = (props) => {
 
   return (
     <>
-      <MainContext.Provider value={familyId}>
-        <div>
-          <Header />
-        </div>
+      <MainContext.Provider value={NowFamily}>
+        <Header bg={bg} />
       </MainContext.Provider>
       <MainWrap className="res-mainWrap">
         <div style={{ display: "inline-flex", flexDirection: "column" }}>
@@ -73,8 +76,8 @@ const Main = (props) => {
               onClick={() => setShowOptions((prev) => !prev)}
               className="res-select"
             >
-              <Label>{currentValue}</Label>
-
+              {/* 가족 타이틀 수정시 label에 바로 적용 안되는 문제 있음 */}
+              <Label>{currentValue ? currentValue : "가족"}</Label>
               <SelectOptions show={showOptions} id="optionList">
                 {familyList.map((f, i) => {
                   return (
@@ -91,7 +94,6 @@ const Main = (props) => {
               </SelectOptions>
             </SelectBox>
           </FamilySelectBox>
-
           <Sidebar className="res-sidbar">
             <SidebarMenu NowFamilyId={NowFamilyId} />
           </Sidebar>
@@ -130,6 +132,7 @@ const MainWrap = styled.div`
   display: flex;
   height: calc(100vh - 44px);
   color: #282828;
+  /* ${({ bg }) => (bg ? `background: ${bg};` : "background: red;")}; */
 `;
 
 const SelectBox = styled.div`
@@ -151,10 +154,12 @@ const SelectBox = styled.div`
     // text-align: center;
   }
 `;
+
 const Label = styled.label`
   font-size: 15px;
   text-align: center;
 `;
+
 const SelectOptions = styled.ul`
   position: absolute;
   list-style: none;
@@ -169,6 +174,7 @@ const SelectOptions = styled.ul`
   background-color: #222222;
   color: #fefefe;
 `;
+
 const Option = styled.li`
   font-size: 14px;
   padding: 6px 8px;

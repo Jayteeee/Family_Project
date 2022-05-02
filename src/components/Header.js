@@ -14,7 +14,10 @@ import { CircleImage } from "../elements";
 import { ModalPortal } from "../shared/modal/portals";
 import { ProfileModal } from "../shared/modal/component/";
 
-const Header = () => {
+const Header = (props) => {
+  const { bg } = props;
+
+  console.log(bg);
   const [modalOn, setModalOn] = useState(false);
 
   // 토글
@@ -26,7 +29,7 @@ const Header = () => {
     <>
       <div>
         <HeaderWarp>
-          <RogoBox>로고</RogoBox>
+          <RogoBox>도란도란</RogoBox>
           <HeaderRightBox>
             <IoMdNotifications
               style={{
@@ -52,7 +55,9 @@ const Header = () => {
 
 const HeaderWarp = styled.header`
   height: 44px;
-  background: #fff;
+  /* background: red; */
+  ${(props) => (props.bg ? `background: ${props.bg};` : "")};
+
   color: #282828;
   display: flex;
   align-items: center;

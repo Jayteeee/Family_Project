@@ -10,7 +10,12 @@ import { familyActions } from "../../../redux/modules/family";
 
 // 모달
 import { ModalPortal } from "../portals";
-import { AddFamilyModal, EditFamilyModal, LogoutModal } from "./index";
+import {
+  AddFamilyModal,
+  EditFamilyModal,
+  DeleteFamilyModal,
+  LogoutModal,
+} from "./index";
 
 // 엘리먼트
 import { CircleImage, Text } from "../../../elements";
@@ -18,9 +23,6 @@ import { CircleImage, Text } from "../../../elements";
 const ProfileModal = ({ onClose, props }) => {
   const userInfo = useSelector((state) => state.user.user);
   console.log("유저정보: ", userInfo);
-
-  const familyId = props;
-  console.log(familyId);
 
   const familyTitle = useSelector((state) => state.family);
   console.log("패밀리 타이틀: ", familyTitle);
@@ -31,18 +33,28 @@ const ProfileModal = ({ onClose, props }) => {
 
   const handleAddFamilyModal = () => {
     setaddFamilyModal(!addFamilyModal);
+    document.getElementById("profileMenu").style.display = "none";
   };
   // 가족 수정하기 모달
   const [editFamilyModal, setEditFamilyModal] = useState(false);
 
   const handleEditFamilyModal = () => {
     setEditFamilyModal(!editFamilyModal);
+    document.getElementById("profileMenu").style.display = "none";
+  };
+  // 가족 제거하기 모달
+  const [deleteFamilyModal, setDeleteFamilyModal] = useState(false);
+
+  const handleDeleteFamilyModal = () => {
+    setDeleteFamilyModal(!deleteFamilyModal);
+    document.getElementById("profileMenu").style.display = "none";
   };
   // 로그아웃 모달
   const [logoutModal, setlogoutModal] = useState(false);
 
   const handleLogoutModal = () => {
     setlogoutModal(!logoutModal);
+    document.getElementById("profileMenu").style.display = "none";
   };
 
   return (
@@ -60,6 +72,7 @@ const ProfileModal = ({ onClose, props }) => {
             onClick={(e) => {
               e.stopPropagation();
             }}
+            id="profileMenu"
           >
             {/* 여기부터 실제 모달에 보여지는 컨텐츠 들입니다 */}
             <TopDiv>
@@ -95,7 +108,7 @@ const ProfileModal = ({ onClose, props }) => {
                 <div align="left" style={{ margin: "0 10px" }}>
                   <Text size="15px" fontWeight="700">
                     아이디:
-                    {userInfo?.email}
+                    {userInfo?.userId}
                   </Text>
                   <Text size="15px">닉네임: {userInfo?.nickname}</Text>
                 </div>
@@ -108,6 +121,11 @@ const ProfileModal = ({ onClose, props }) => {
               <MenuBox onClick={handleEditFamilyModal}>
                 <Text size="15px" fontWeight="700">
                   가족 수정하기
+                </Text>
+              </MenuBox>
+              <MenuBox onClick={handleDeleteFamilyModal}>
+                <Text size="15px" fontWeight="700">
+                  가족 제거하기
                 </Text>
               </MenuBox>
               <MenuBox onClick={handleLogoutModal}>
@@ -126,6 +144,12 @@ const ProfileModal = ({ onClose, props }) => {
       {/* 가족 수정하기 모달 */}
       <ModalPortal>
         {editFamilyModal && <EditFamilyModal onClose={handleEditFamilyModal} />}
+      </ModalPortal>
+      {/* 가족 제거하기 모달 */}
+      <ModalPortal>
+        {deleteFamilyModal && (
+          <DeleteFamilyModal onClose={handleDeleteFamilyModal} />
+        )}
       </ModalPortal>
       {/* 로그아웃 모달 */}
       <ModalPortal>

@@ -4,18 +4,39 @@ import { MainContext } from "../../../pages/Main";
 // 라이브러리, 패키지
 import styled from "styled-components";
 
+// 리덕스
+import { useDispatch } from "react-redux";
+
 // 모달
 import { ModalPortal } from "../portals";
 
 // 엘리먼트
-import { Input } from "../../../elements";
+import { Input, Button } from "../../../elements";
+import { familyActions } from "../../../redux/modules/family";
 
 const AddFamilyModal = ({ onClose }) => {
+  const dispatch = useDispatch();
+
   console.log(onClose);
 
-  const familyId = useContext(MainContext);
+  const NowFamilyTitle = useContext(MainContext)[0].familyTitle;
 
-  console.log("현재 familyId: ", familyId);
+  console.log("현재 가족 이름: ", NowFamilyTitle);
+
+  // 가족 이름 input
+  const [familyTitle, setfamilyTitle] = useState("");
+
+  const handleAddFamily = (e) => {
+    const { value } = e.target;
+    setfamilyTitle(value);
+  };
+
+  console.log(familyTitle);
+
+  // 가족 생성 함수
+  const addFamily = () => {
+    dispatch(familyActions.addFamilyDB(familyTitle));
+  };
 
   return (
     <ModalPortal>
@@ -33,20 +54,35 @@ const AddFamilyModal = ({ onClose }) => {
           }}
         >
           <div style={{ textAlign: "start" }}>
-            <label htmlFor="changeName">이름</label>
-
+            <label htmlFor="changeName">가족 생성하기</label>
             <div style={{ margin: "8px 0 20px" }}>
               <div>
                 <Input
                   id="changeName"
-                  // placeholder={}
+                  placeholder="가족 이름을 입력해주세요"
                   size="18px"
-                  padding="0 36px 0 38px"
+                  padding="0 36px 0 36px"
                   margin="0 0 20px"
-                  // value={}
+                  onChange={handleAddFamily}
+                  value={familyTitle}
                 />
               </div>
             </div>
+            <Button
+              style={{ minWidth: "80px" }}
+              // width="80px"
+              height="36px"
+              fontSize="15px"
+              bg="black"
+              color="white"
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+                addFamily();
+              }}
+            >
+              가족 생성
+            </Button>
           </div>
         </Content>
       </Background>

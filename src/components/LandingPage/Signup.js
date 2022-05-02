@@ -17,12 +17,12 @@ const Signup = () => {
 
   const handleSubmit = () => {
     // 프론트 유효성검사 더 강화해야함
-    if (!inputs.email || !inputs.password || !inputs.nickname) {
+    if (!inputs.userId || !inputs.password || !inputs.nickname) {
       alert("빈값이 있네요~");
       return;
     }
 
-    const { email, nickname, password, passwordCheck } = inputs;
+    const { userId, nickname, password, passwordCheck } = inputs;
 
     dispatch(userActions.signUpDB(inputs));
   };
@@ -32,10 +32,10 @@ const Signup = () => {
       <div>
         <SignUpWrap>
           <Input
-            id="email"
-            placeholder="name@work-email.com"
+            id="userId"
+            placeholder="name@work-userId.com"
             onChange={handleChange}
-            value={inputs.email || ""}
+            value={inputs.userId || ""}
           />
 
           <Input
