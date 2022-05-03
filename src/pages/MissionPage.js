@@ -36,7 +36,7 @@ const MissionPage = (props) => {
 
   return (
     <>
-      <MissionPageWrap className="res-MissionPageWrap">
+      <MissionPageWrap className="res-missionPageWrap">
         <MissionHeader />
         <MissionStatusBox missionStatus={missionStatus} />
         <MissionList

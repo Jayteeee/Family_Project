@@ -73,12 +73,12 @@ const getFamilyMemberDB = () => {
   };
 };
 
-const getSearchMemberDB = (familyId, userId) => {
+const getSearchMemberDB = (familyId, email) => {
   return async function (dispatch, getState, { history }) {
-    console.log("가족 아이디:", familyId, "입력한 userId :", userId);
+    console.log("가족 아이디:", familyId, "입력한 email :", email);
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
-    //   .get(`${BASE_URL}/family/search/keyword?keyword=${userId}`, {
+    //   .get(`${BASE_URL}/family/search/keyword?keyword=${email}`, {
     //     headers: config,
     //   })
     //   .then((res) => {

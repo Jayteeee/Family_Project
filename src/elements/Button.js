@@ -91,7 +91,16 @@ const SmallButton = styled.button`
 
 const MediumButton = styled.button`
   cursor: pointer;
-
+  &:hover {
+    background: #f8f8f8;
+  }
+  ${({ hover }) =>
+    hover
+      ? `&:hover {
+    background: ${hover}};`
+      : `&:hover {
+    background: black;
+  }`}
   ${({ width }) => (width ? `width: ${width};` : "width: 120px;")};
   ${({ height }) => (height ? `  height: ${height};` : "height: 4vh")};
   ${({ padding }) => (padding ? `padding:  ${padding};` : "padding: 0;")};
@@ -108,6 +117,8 @@ const MediumButton = styled.button`
     borderColor
       ? `border: 1px solid ${borderColor};`
       : "border: 1px solid black;"};
+  ${({ alignItems }) =>
+    alignItems ? `align-items: ${alignItems};` : "align-items: center;"};
 `;
 
 const LargeButton = styled.button`

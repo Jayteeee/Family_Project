@@ -21,7 +21,11 @@
 .res-loginbar {
   display: none !important;
 }
+/* 반응형CSS 웹뷰(Midium) */
+@media only screen and (max-width: 1199px) {
 
+}
+/* 반응형CSS 태블릿 뷰 */
 @media only screen and (max-width: 839px) {
   .res-mainWrap {
     flex-direction: column !important;
@@ -80,7 +84,7 @@
   .hr {
     display: none;
   }
-  .res-MissionPageWrap {
+  .res-missionPageWrap {
     padding-top: 50px;
     height: calc(100vh - 150px) !important;
   }
@@ -91,6 +95,15 @@
   .res-twoStatusBox {
     display: flex;
     /* margin; */
+  }
+  .res-missionSelect {
+    display: flex !important;
+  }
+  .res-monthMissionTitle {
+    display: none !important;
+  }
+  .res-wepPastMissionList {
+    display: none !important;
   }
   .res-login {
     display: none !important;
@@ -118,7 +131,28 @@
     width: 100% !important;
   }
 }
-
+/* 반응형CSS 모바일 뷰 */
+@media only screen and (max-width: 599px) {
+  .res-missinoListBox {
+    margin-top: 0px !important;
+  }
+  .res-statusBox {
+    padding: 0px 20px !important;
+    height: 9rem !important;
+  }
+  .res-stausMiddleBox {
+  padding: 15px !important;
+  }
+  .res-selectBox.div.div {
+    padding: 10px !important;
+  }
+  .res-missionStatusTitle {
+font-size: 15px !important;
+  }
+  .res-missionStatus {
+font-size: 24px !important;
+  }
+}
 .flex-row {
   display: flex;
   flex-direction: row;
