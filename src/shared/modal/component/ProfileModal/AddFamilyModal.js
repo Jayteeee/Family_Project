@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { MainContext } from "../../../pages/Main";
+import { MainContext } from "../../../../pages/Main";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -8,11 +8,11 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 // 모달
-import { ModalPortal } from "../portals";
+import { ModalPortal } from "../../portals";
 
 // 엘리먼트
-import { Input, Button } from "../../../elements";
-import { familyActions } from "../../../redux/modules/family";
+import { Input, Button } from "../../../../elements";
+import { familyActions } from "../../../../redux/modules/family";
 
 const AddFamilyModal = ({ onClose }) => {
   const dispatch = useDispatch();

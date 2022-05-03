@@ -25,40 +25,72 @@
 @media only screen and (max-width: 839px) {
   .res-mainWrap {
     flex-direction: column !important;
+    font-size: 15px !important;
   }
   .res-sidbar {
     width: 100% !important;
-    height: 60px !important;
+    height: 80px !important;
     bottom: 0px !important;
+    border-radius: 0px !important;
     position: absolute !important;
     display: flex !important;
   }
-  .res-selectBox {
+  .res-selectWrap {
     padding: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
   }
-  .res-select {
+  .res-selectBox {
+    position: absolute !important;
     cursor: pointer !important;
     width: 100% !important;
-    padding: 10px 20px !important;
+    /* padding: 10px 20px !important; */
     border-bottom: 1px solid rgba(29, 28, 29, 0.13) !important;
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;
     border-radius: 0px !important;
-    font-size: 15px !important;
+  }
+  .res-label {
+    font-size: 20px !important;
+    padding: 10px !important;
+  }
+  .res-selectOptions {
+    top: 48px !important;
   }
   .res-menuWrap {
     display: flex !important;
-    border-top: 1px solid rgba(29, 28, 29, 0.13) !important;
     margin-top: 0px !important;
     font-size: 15px !important;
     text-align: center !important;
+    border-radius: 0px !important;
+    width: 100% !important;
   }
-  .res-menu {
+  .res-menuBox {
     justify-content: center !important;
     flex-direction: column !important;
+    border-radius: 0px !important;
+    font-size: 15px !important;
+    width: 100% !important;
+    padding: 0 !important;
   }
-  .res-menuIcon {
+  .res-menus {
+    margin: 2px 0 !important;
+  }
+  .hr {
+    display: none;
+  }
+  .res-MissionPageWrap {
+    padding-top: 50px;
+    height: calc(100vh - 150px) !important;
+  }
+  .res-missionStatusBox {
+    flex-direction: column !important;
+    margin: 0;
+  }
+  .res-twoStatusBox {
+    display: flex;
+    /* margin; */
   }
   .res-login {
     display: none !important;

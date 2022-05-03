@@ -5,13 +5,13 @@ import styled from "styled-components";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
-import { familyMemberActions } from "../../../redux/modules/familymember";
+import { familyMemberActions } from "../../../../redux/modules/familymember";
 
 // 모달
-import { ModalPortal } from "../portals";
+import { ModalPortal } from "../../portals";
 
 // 엘리먼트
-import { Button, Input, Text } from "../../../elements";
+import { Button, Input, Text } from "../../../../elements";
 
 const EditMemberNameModal = (props) => {
   const { onClose, familyId, familyMemberId, familyMemberNickname } = props;

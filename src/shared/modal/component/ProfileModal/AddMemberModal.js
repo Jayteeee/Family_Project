@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { MainContext } from "../../../pages/Main";
+import { MainContext } from "../../../../pages/Main";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -8,11 +8,11 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
 // 모달
-import { ModalPortal } from "../portals";
+import { ModalPortal } from "../../portals";
 
 // 엘리먼트
-import { Button, Input, Text } from "../../../elements";
-import { familyMemberActions } from "../../../redux/modules/familymember";
+import { Button, Input, Text } from "../../../../elements";
+import { familyMemberActions } from "../../../../redux/modules/familymember";
 
 const AddMemberModal = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -57,6 +57,7 @@ const AddMemberModal = ({ onClose }) => {
         selectUserId
       )
     );
+    onClose();
   };
 
   const familyMemberList = useSelector(
