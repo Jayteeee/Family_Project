@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { MainContext } from "../../../../pages/Main";
+import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -65,18 +64,19 @@ const AddScheduleModal = ({ onClose }, props) => {
                 </div>
               </Box>
 
-              <div>
-                <div>
-                  <Input
-                    id="changeName"
-                    placeholder="제목 추가"
-                    size="18px"
-                    padding="0 36px 0 36px"
-                    onChange={handleAddSchedule}
-                    value={event}
-                  />
-                </div>
-              </div>
+              <Input
+                id="changeName"
+                placeholder="제목 추가"
+                size="18px"
+                padding="0 36px 0 36px"
+                onChange={handleAddSchedule}
+                value={event}
+                style={{
+                  border: "none",
+                  borderRadius: "8px",
+                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.2)",
+                }}
+              />
               <CommonBox>
                 <Box>
                   <span>당일</span>
@@ -132,7 +132,6 @@ const AddScheduleModal = ({ onClose }, props) => {
               </CommonBox>
               {selec ? (
                 <Calendar
-                  calendarType="US"
                   showNeighboringMonth={false}
                   formatDay={(locale, date) => dayjs(date).format("DD")}
                   selectRange={oneDay ? false : true}
@@ -233,6 +232,7 @@ const Background = styled.div`
     background-color: transparent;
     color: #222;
     padding: 3%;
+    border: none;
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     font-family: Arial, Helvetica, sans-serif;
@@ -245,9 +245,6 @@ const Background = styled.div`
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {
     background-color: #f8f8fa;
-  }
-  .react-calendar__navigation button[disabled] {
-    background-color: #f0f0f0;
   }
 
   .react-calendar__tile {
@@ -308,7 +305,6 @@ const Content = styled.div`
   display: flex;
   justify-content: center;
   z-index: 205;
-  height: 700px;
   width: 420px;
   max-width: 100%;
   border-radius: 8px;
@@ -334,6 +330,10 @@ const Box = styled.div`
 const CommonBox = styled.div`
   border: 1px solid gray;
   margin: 1em auto;
+  padding: 0.5em;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 `;
 
 const Up = styled.div`

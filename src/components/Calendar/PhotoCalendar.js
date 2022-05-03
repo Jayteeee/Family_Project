@@ -4,6 +4,9 @@ import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
 import dayjs from "dayjs";
 import { DummyData } from "../../shared/DummyData";
+// 모달
+import { ModalPortal } from "../../shared/modal/portals";
+import GetPhotoModal from "../../shared/modal/component/calendar/GetPhotoModal";
 
 const PhotoCalendar = () => {
   const [value, setValue] = React.useState(new Date());
@@ -12,9 +15,16 @@ const PhotoCalendar = () => {
     { createdAt: "2022-11-11" },
   ]);
   const [style, setStyle] = React.useState("");
+  const [modalOn, setModalOn] = React.useState(false);
+  const [day, setDay] = React.useState("");
   const list = DummyData.photoCalendarPage.photoCalendarList;
 
   const docs = document.getElementsByClassName("highlight");
+
+  // 토글
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
 
   for (let i = 0; i < docs.length; i++) {
     if (style !== "") {
@@ -35,9 +45,19 @@ const PhotoCalendar = () => {
           minDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
           maxDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
           navigationLabel={null}
+          next2Label={null}
+          prev2Label={null}
           formatDay={(locale, date) => dayjs(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
           showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
           className="mx-auto w-full text-sm border-b"
+          onClickDay={(value, event) => {
+            if (
+              mark.find((x) => x.createdAt == dayjs(value).format("YYYY-MM-DD"))
+            ) {
+              handleModal();
+              setDay(value);
+            }
+          }}
           tileClassName={({ date, view }) => {
             if (
               mark.find((x) => x.createdAt === dayjs(date).format("YYYY-MM-DD"))
@@ -48,6 +68,11 @@ const PhotoCalendar = () => {
           }}
         />
       </Container>
+      <ModalPortal>
+        {modalOn && (
+          <GetPhotoModal onClose={handleModal} day={day}></GetPhotoModal>
+        )}
+      </ModalPortal>
     </div>
   );
 };
@@ -60,10 +85,10 @@ const Container = styled.div`
   .react-calendar {
     width: 100%;
     max-width: 100%;
-    height: 100%;
     padding: 20% 3% 3%;
-    background-color: transparent;
+    background-color: #fff;
     color: #222;
+    border: none;
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     font-family: Arial, Helvetica, sans-serif;
@@ -75,7 +100,7 @@ const Container = styled.div`
     display: flex;
     height: 44px;
     top: 5rem;
-    left: 28rem;
+    left: 31rem;
     margin-bottom: 1em;
   }
   abbr[title] {
@@ -96,9 +121,7 @@ const Container = styled.div`
   .react-calendar__navigation button:enabled:focus {
     background-color: #f8f8fa;
   }
-  .react-calendar__navigation button[disabled] {
-    background-color: #f0f0f0;
-  }
+
   .react-calendar__tile {
     max-width: 100%;
     width: 5em;
@@ -106,6 +129,7 @@ const Container = styled.div`
     background: none;
     text-align: center;
     line-height: 16px;
+    color: black;
     border-radius: 100% !important;
   }
   .react-calendar__tile:enabled:hover,

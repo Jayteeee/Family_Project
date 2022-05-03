@@ -20,10 +20,21 @@ const CalendarPage = (props) => {
     },
   ]);
   const [status, setStatus] = React.useState(true);
+  console.log(dayjs(mark.startDate).format("YYYY년 M월"));
 
   // const events = DummyData.eventCalendarList; //더미데이터
+  const thisMonth = document.getElementsByClassName(
+    "react-calendar__navigation__label__labelText"
+  )[0]?.childNodes[0].data;
+
+  console.log(thisMonth);
 
   const list = useSelector((state) => state.calendar.scheduleList);
+
+  const scheduleList = list.map((x) =>
+    dayjs(x.startDate).format("YYYY년 M월") == thisMonth ? x : null
+  );
+  console.log(scheduleList);
 
   const [modalOn, setModalOn] = React.useState(false);
 
@@ -34,7 +45,7 @@ const CalendarPage = (props) => {
 
   React.useEffect(() => {
     setMark(list);
-  }, []);
+  }, [list]);
 
   return (
     <Container>
@@ -61,13 +72,14 @@ const CalendarPage = (props) => {
       <FlexBox>
         {status === true ? <ScheduleCalendar /> : <PhotoCalendar />}
         <ScheduleArea>
-          {dayjs(new Date()).format("MM") ===
-          list.find((x) => dayjs(x.startDate).format("MM")) ? (
-            <div className="text-gray-500 mt-4">
-              {list.map((x) => dayjs(x.startDate)).format("MM월 DD일 ")}
-              {list.map((x) => dayjs(x.event))}
-            </div>
-          ) : null}
+          {scheduleList.map((x) => (
+            <ul key={x?.fakeId}>
+              {`${dayjs(x?.startDate).format("MM월 DD일")} - ${dayjs(
+                x?.endDate
+              ).format("DD일")}`}
+              {x?.event}
+            </ul>
+          ))}
         </ScheduleArea>
       </FlexBox>
       <CreateButton onClick={handleModal}>+</CreateButton>
@@ -84,7 +96,7 @@ const Container = styled.div`
 
 const Box = styled.div`
   position: absolute;
-  left: 36.5%;
+  left: 39%;
   top: 18%;
 `;
 
@@ -124,6 +136,7 @@ const ScheduleArea = styled.div`
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   padding: 20px;
   margin: 3rem 0;
+  background-color: #fff;
   text-align: start;
 `;
 

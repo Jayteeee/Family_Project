@@ -5,20 +5,33 @@ import "react-calendar/dist/Calendar.css"; // css import
 import dayjs from "dayjs";
 import { DummyData } from "../../shared/DummyData";
 import { useSelector } from "react-redux";
+// 모달
+import { ModalPortal } from "../../shared/modal/portals";
+import GetScheduleModal from "../../shared/modal/component/calendar/GetScheduleModal";
 
 const ScheduleCalendar = () => {
   const [value, setValue] = React.useState(new Date());
   const [mark, setMark] = React.useState([{}]);
+  const [modalOn, setModalOn] = React.useState(false);
+  const [day, setDay] = React.useState("");
   // const events = DummyData.eventCalendarList;
   const list = useSelector((state) => state.calendar.scheduleList);
-  console.log(list);
 
   const docs = document.getElementsByClassName("dot");
+  // 토글
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
 
   const reCheck = () => {
-    if (mark !== "") {
+    if (docs.length > 0) {
       for (let i = 0; i < docs.length; i++) {
-        docs[i].style.backgroundColor = mark[i].color;
+        const index = Array.from(docs).findIndex(
+          (x) => x.getAttribute("date") == mark[i].startDate
+        );
+        if (index != -1) {
+          docs[index].style.backgroundColor = mark[i].color;
+        }
       }
     }
   };
@@ -39,6 +52,14 @@ const ScheduleCalendar = () => {
           navigationLabel={null}
           showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
           className="mx-auto w-full text-sm border-b"
+          next2Label={null}
+          prev2Label={null}
+          onClickDay={(value, event) => {
+            if (mark.find((x) => x.startDate == value)) {
+              handleModal();
+              setDay(value);
+            }
+          }}
           tileContent={({ date, view }) => {
             // 날짜 타일에 컨텐츠 추가하기 (html 태그)
             // 추가할 html 태그를 변수 초기화
@@ -47,11 +68,11 @@ const ScheduleCalendar = () => {
             if (
               mark.find(
                 (x) =>
-                  dayjs(x.startDate).format("YYYY-MM-DD") ===
-                  dayjs(date).format("YYYY-MM-DD")
+                  dayjs(date).format("YYYY-MM-DD") ===
+                  dayjs(x.startDate).format("YYYY-MM-DD")
               )
             ) {
-              html.push(<div className="dot"></div>);
+              html.push(<div className="dot" date={date}></div>);
               reCheck();
             }
             // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
@@ -65,6 +86,11 @@ const ScheduleCalendar = () => {
           }}
         />
       </Container>
+      <ModalPortal>
+        {modalOn && (
+          <GetScheduleModal onClose={handleModal} day={day}></GetScheduleModal>
+        )}
+      </ModalPortal>
     </div>
   );
 };
@@ -77,10 +103,10 @@ const Container = styled.div`
   .react-calendar {
     width: 100%;
     max-width: 100%;
-    height: 100%;
-    background-color: transparent;
+    background-color: #fff;
     color: #222;
     padding: 20% 3% 3%;
+    border: none;
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     font-family: Arial, Helvetica, sans-serif;
@@ -92,7 +118,7 @@ const Container = styled.div`
     display: flex;
     height: 44px;
     top: 5rem;
-    left: 28rem;
+    left: 31rem;
     margin-bottom: 1em;
   }
 
@@ -107,9 +133,7 @@ const Container = styled.div`
   .react-calendar__navigation button:enabled:focus {
     background-color: #f8f8fa;
   }
-  .react-calendar__navigation button[disabled] {
-    background-color: #f0f0f0;
-  }
+
   abbr[title] {
     text-decoration: none;
     font-size: 14px;
@@ -123,6 +147,7 @@ const Container = styled.div`
     width: 5em;
     height: 5em;
     background: none;
+    color: black;
     text-align: center;
     border-radius: 100% !important;
   }

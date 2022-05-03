@@ -15,7 +15,7 @@ const initialState = {
 // 액션
 const GET_SCHEDULE = "GET_SCHEDULE";
 const ADD_SCHEDULE = "ADD_SCHEDULE";
-const EDIT_SCHEDULE_NAME = "EDIT_SCHEDULE";
+const EDIT_SCHEDULE = "EDIT_SCHEDULE";
 const DELETE_SCHEDULE = "DELETE_SCHEDULE";
 
 // 액션 생성함수
@@ -25,15 +25,11 @@ const getSchedule = createAction(GET_SCHEDULE, (scheduleList) => ({
 const addSchedule = createAction(ADD_SCHEDULE, (newSchedule) => ({
   newSchedule,
 }));
-const editScheduleName = createAction(
-  EDIT_SCHEDULE_NAME,
-  (scheduleId, scheduleTitle) => ({
-    scheduleId,
-    scheduleTitle,
-  })
-);
-const deleteSchedule = createAction(DELETE_SCHEDULE, (scheduleId) => ({
-  scheduleId,
+const editSchedule = createAction(EDIT_SCHEDULE, (newSchedule) => ({
+  newSchedule,
+}));
+const deleteSchedule = createAction(DELETE_SCHEDULE, (fakeId) => ({
+  fakeId,
 }));
 
 // api 응답 받는 미들웨어
@@ -75,6 +71,7 @@ const addScheduleDB = (event, myPic, date) => {
       startDate: `${date[0]}`, // 시작 날짜
       endDate: `${date[1]}`, // 종료 날짜
       color: `${myPic}`, // 색깔
+      fakeId: `${`${new Date().getMinutes()}-${new Date().getSeconds()}`}`,
     };
 
     dispatch(addSchedule(newSchedule));
@@ -82,7 +79,7 @@ const addScheduleDB = (event, myPic, date) => {
   };
 };
 
-const editScheduleNameDB = (scheduleId, scheduleTitle) => {
+const editScheduleDB = (event, myPic, date, fakeId) => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
@@ -101,10 +98,19 @@ const editScheduleNameDB = (scheduleId, scheduleTitle) => {
     //     console.log(err);
     //     console.log(err.response);
     //   });
-    dispatch(editScheduleName(scheduleId, scheduleTitle));
+
+    const newSchedule = {
+      event: `${event}`, // 일정명
+      startDate: `${date[0]}`, // 시작 날짜
+      endDate: `${date[1]}`, // 종료 날짜
+      color: `${myPic}`, // 색깔
+      fakeId: `${fakeId}`, // 고유값
+    };
+    dispatch(editSchedule(newSchedule));
+    console.log(newSchedule);
   };
 };
-const deleteScheduleDB = (scheduleId) => {
+const deleteScheduleDB = (fakeId) => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
@@ -115,7 +121,7 @@ const deleteScheduleDB = (scheduleId) => {
     //     console.log(res);
     //     // window.alert(res.msg)
     //     alert("삭제!");
-    dispatch(deleteSchedule(scheduleId));
+    dispatch(deleteSchedule(fakeId));
     history.go(0);
     //   })
     //   .catch((err) => {
@@ -137,31 +143,19 @@ export default handleActions(
       produce(state, (draft) => {
         draft.scheduleList.push(action.payload.newSchedule);
       }),
-    [EDIT_SCHEDULE_NAME]: (state, action) =>
+    [EDIT_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
-        const { scheduleId, scheduleTitle } = action.payload;
-        // 현재 가족
-        let nowSchedule = draft.scheduleList.find(
-          (l) => l.scheduleId === scheduleId
-        );
+        const fakeId = action.payload.newSchedule.fakeId;
         // 변경해야할 배열 인덱스
-        let index = draft.scheduleList.findIndex(
-          (l) => l.scheduleId === scheduleId
-        );
+        let index = draft.scheduleList.findIndex((l) => l.fakeId == fakeId);
 
-        nowSchedule = { ...nowSchedule, scheduleTitle: scheduleTitle };
-
-        draft.scheduleList[index] = nowSchedule;
+        draft.scheduleList[index] = action.payload.newSchedule;
       }),
     [DELETE_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
-        const { scheduleId } = action.payload;
-        let newArr = draft.scheduleList.filter(
-          (l) => l.scheduleId !== scheduleId
-        );
-        console.log(
-          state.scheduleList.filter((l) => l.scheduleId !== scheduleId)
-        );
+        const { fakeId } = action.payload;
+        let newArr = draft.scheduleList.filter((l) => l.fakeId !== fakeId);
+        console.log(state.scheduleList.filter((l) => l.fakeId !== fakeId));
         draft.scheduleList = newArr;
       }),
   },
@@ -171,10 +165,10 @@ export default handleActions(
 export const scheduleActions = {
   getSchedule,
   addSchedule,
-  editScheduleName,
+  editSchedule,
   deleteSchedule,
   getScheduleDB,
   addScheduleDB,
-  editScheduleNameDB,
+  editScheduleDB,
   deleteScheduleDB,
 };
