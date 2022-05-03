@@ -27,6 +27,9 @@ const MissionPage = (props) => {
   const { monthMissionList } = nowMissionData;
   console.log("이번달 미션리스트:", monthMissionList);
 
+  const { pastMissionList } = nowMissionData;
+  console.log("이번달 미션리스트:", pastMissionList);
+
   useEffect(() => {
     dispatch(missionActions.getMissionPage(familyId));
   }, []);
@@ -36,7 +39,10 @@ const MissionPage = (props) => {
       <MissionPageWrap className="res-MissionPageWrap">
         <MissionHeader />
         <MissionStatusBox missionStatus={missionStatus} />
-        <MissionList monthMissionList={monthMissionList} />
+        <MissionList
+          monthMissionList={monthMissionList}
+          pastMissionList={pastMissionList}
+        />
       </MissionPageWrap>
     </>
   );

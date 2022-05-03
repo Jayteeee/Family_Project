@@ -217,8 +217,9 @@ const missionPage = {
     {
       familyId: "123456787",
       missionId: "asdfassdsddf",
-      missionName: "우리가족 피크닉 가기",
+      missionTitle: "호캉스 가기",
       missionChk: false,
+      completedAt: "YYYY-MM-DD",
       missionMemberList: [
         {
           familyId: "123456787",
@@ -264,8 +265,9 @@ const pastMissionList = [
   {
     familyId: "123456787",
     missionId: "asdfassdsddf",
-    missionName: "우리가족 피크닉 가기",
+    missionTitle: "호캉스 가기",
     missionChk: false,
+    completedAt: "YYYY-MM-DD",
     missionMemberList: [
       {
         familyId: "123456787",
