@@ -41,7 +41,7 @@ const getFamilyDB = () => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
-    //   .get(`${BASE_URL}/familylist/, { headers: config })
+    //   .get(`${BASE_URL}/familylist/`, { headers: config })
     //   .then((res) => {
     //     console.log(res)
     //     const {familyList} = res.data

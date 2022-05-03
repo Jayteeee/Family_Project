@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+
+// 리덕스
+import { useDispatch, useSelector } from "react-redux";
 
 // 모달
-import { ModalPortal } from "../portals";
-
-// 페이지
-import { userActions } from "../../../redux/modules/user";
+import { ModalPortal } from "../../portals";
 
 // 엘리먼트
-import { Button } from "../../../elements";
+import { Button, Text } from "../../../../elements";
+import { familyMemberActions } from "../../../../redux/modules/familymember";
 
-const LogoutModal = ({ onClose }) => {
+const DeleteMemberModal = (props) => {
+  const { onClose, familyId, familyMemberId } = props;
   const dispatch = useDispatch();
-  const logOut = () => {
-    dispatch(userActions.userLogout());
-  };
+  console.log(familyId, familyMemberId);
 
+  const deleteMember = () => {
+    dispatch(
+      familyMemberActions.deleteFamilyMemberDB(familyId, familyMemberId)
+    );
+    onClose();
+  };
   return (
     <ModalPortal>
       <Background
@@ -33,18 +38,12 @@ const LogoutModal = ({ onClose }) => {
           onClick={(e) => {
             e.stopPropagation();
           }}
+          id="deleteFamilyMember"
         >
-          <h1>정말 로그아웃 하시겠습니까?</h1>
-          <br />
-          <Button
-            M
-            onClick={() => {
-              logOut();
-            }}
-          >
-            {" "}
-            로그아웃{" "}
-          </Button>
+          <DeleteMemberBox>
+            <Text>정말 가족을 삭제하시겠습니까?</Text>
+            <Button onClick={deleteMember}>삭제하기</Button>
+          </DeleteMemberBox>
         </Content>
       </Background>
     </ModalPortal>
@@ -64,7 +63,6 @@ const Background = styled.div`
 
 const Content = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 205;
@@ -78,4 +76,9 @@ const Content = styled.div`
   overflow: scroll;
 `;
 
-export default LogoutModal;
+const DeleteMemberBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export default DeleteMemberModal;

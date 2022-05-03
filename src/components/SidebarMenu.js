@@ -1,7 +1,19 @@
 import React from "react";
+import {
+  MdHome,
+  MdVerified,
+  MdEvent,
+  MdPhotoLibrary,
+  MdOutlineVoicemail,
+} from "react-icons/md";
+
+// 라이브러리, 패키지
 import styled from "styled-components";
+
+// 리덕스
 import { history } from "../redux/configureStore";
 
+// 엘리먼트
 import { RactangleImage } from "../elements/index";
 
 const SidebarMenu = (familyId) => {
@@ -11,73 +23,77 @@ const SidebarMenu = (familyId) => {
   return (
     <>
       <SidebarMenuWrap className="res-menuWrap">
-        <Menu
-          className="res-menu"
+        <MenuBox
+          className="res-menuBox"
           onClick={() => {
             history.replace(`/family/${NowFamilyId}`);
           }}
         >
-          <RactangleImage XS className="res-menuIcon" />
-          <span>홈</span>
-        </Menu>
-        <Menu
-          className="res-menu"
+          <MdHome style={{ fontSize: "24px" }} />
+          <Menus className="res-menus">홈</Menus>
+        </MenuBox>
+        <MenuBox
+          className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/mission/`);
           }}
         >
-          <RactangleImage XS className="res-menuIcon" />
-          <span> 미션</span>
-        </Menu>
-        <Menu
-          className="res-menu"
+          <MdVerified style={{ fontSize: "24px" }} />
+          <Menus className="res-menus"> 미션</Menus>
+        </MenuBox>
+        <MenuBox
+          className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/calendar/`);
           }}
         >
-          <RactangleImage XS className="res-menuIcon" />
-          <span>캘린더</span>
-        </Menu>
-        <Menu
-          className="res-menu"
+          <MdEvent style={{ fontSize: "24px" }} />
+          <Menus className="res-menus">캘린더</Menus>
+        </MenuBox>
+        <MenuBox
+          className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/gallery/`);
           }}
         >
-          <RactangleImage XS className="res-menuIcon" />
-          <span>갤러리</span>
-        </Menu>
-        <Menu
-          className="res-menu"
+          <MdPhotoLibrary style={{ fontSize: "24px" }} />
+          <Menus className="res-menus">갤러리</Menus>
+        </MenuBox>
+        <MenuBox
+          className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/voiceMsg/`);
           }}
         >
-          <RactangleImage XS className="res-menuIcon" />
-          <span>음성메세지</span>
-        </Menu>
+          <MdOutlineVoicemail style={{ fontSize: "24px" }} />
+          <Menus className="res-menus">음성메세지</Menus>
+        </MenuBox>
       </SidebarMenuWrap>
     </>
   );
 };
 
 const SidebarMenuWrap = styled.div`
-  height: calc(82vh - 10px);
-  overflow-y: auto;
-  margin-top: 10px;
+  height: 100vh;
 `;
 
-const Menu = styled.div`
+const MenuBox = styled.div`
   display: flex;
   align-items: center;
+  text-align: center;
   width: 100%;
-  padding: 5px 15px;
+  padding: 20px 40px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #8f8f8f;
   cursor: pointer;
-  justify-item: center;
-  // justify-content: center;
   &:hover {
     background: #d6d6d6;
   }
+`;
+
+const Menus = styled.span`
+  margin-left: 10px;
 `;
 
 export default SidebarMenu;

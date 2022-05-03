@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import profileImg from "../shared/images/profileImg.png";
 
 const CircleImage = (props) => {
   const { XS, S, M, L, ...styles } = props;
@@ -55,11 +56,11 @@ const XSmallCircleImg = styled.div`
   ${({ borderColor }) =>
     borderColor
       ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid black;"};
+      : "border: 1px solid transparent;"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
-      : "background-image: url('https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png')"};
+      : `background-image: url(${profileImg})`};
 `;
 
 const SmallCircleImg = styled.div`
@@ -76,11 +77,11 @@ const SmallCircleImg = styled.div`
   ${({ borderColor }) =>
     borderColor
       ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid black;"};
+      : "border: 1px solid transparent;"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
-      : "background-image: url('https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png')"};
+      : `background-image: url(${profileImg})`};
 `;
 
 const MediumCircleImg = styled.div`
@@ -97,7 +98,7 @@ const MediumCircleImg = styled.div`
   ${({ borderColor }) =>
     borderColor
       ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid black;"};
+      : "border: 1px solid transparent;"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
@@ -118,7 +119,7 @@ const LargeCircleImg = styled.div`
   ${({ borderColor }) =>
     borderColor
       ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid black;"};
+      : "border: 1px solid transparent;"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`

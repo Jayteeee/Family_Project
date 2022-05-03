@@ -6,7 +6,7 @@ const MissionHeader = () => {
   return (
     <>
       <MissionHeaderBox>
-        <div>헤더</div>
+        <div>5월</div>
       </MissionHeaderBox>
     </>
   );
@@ -14,12 +14,12 @@ const MissionHeader = () => {
 
 const MissionHeaderBox = styled.div`
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  border-bottom: 1px solid rgba(29, 28, 29, 0.13);
-  background: rgba(255, 255, 255, 1);
-  width: 100%;
+  text-align: left;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 0px 3px 0px #d6d6d6;
+  background: #fff;
+  margin: 20px 20px 10px 20px;
   padding: 16px 20px;
   &:hover {
     background: #f8f8f8;

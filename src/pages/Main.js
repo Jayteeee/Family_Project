@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+import { TiArrowSortedDown } from "react-icons/ti";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -70,33 +71,53 @@ const Main = (props) => {
         <Header bg={bg} />
       </MainContext.Provider>
       <MainWrap className="res-mainWrap">
-        <div style={{ display: "inline-flex", flexDirection: "column" }}>
-          <FamilySelectBox className="res-selectBox">
+        <div
+          style={{
+            display: "inline-flex",
+            flexDirection: "column",
+          }}
+        >
+          <SidbarWrap className="res-selectWrap">
             <SelectBox
               onClick={() => setShowOptions((prev) => !prev)}
-              className="res-select"
+              className="res-selectBox"
             >
               {/* 가족 타이틀 수정시 label에 바로 적용 안되는 문제 있음 */}
-              <Label>{currentValue ? currentValue : "가족"}</Label>
-              <SelectOptions show={showOptions} id="optionList">
-                {familyList.map((f, i) => {
-                  return (
-                    <Option
-                      key={f.familyId}
-                      id={f.familyId}
-                      value={f.familyTitle}
-                      onClick={handleOnChangeSelectValue}
-                    >
-                      {f.familyTitle}
-                    </Option>
-                  );
-                })}
+              <Label className="res-label">
+                {currentValue ? currentValue : "Family title"}
+                <TiArrowSortedDown
+                  style={{
+                    margin: "0 15px",
+                    textAlign: "center",
+                    fontSize: "16px",
+                  }}
+                />
+              </Label>
+              <SelectOptions
+                className="res-selectOptions"
+                show={showOptions}
+                id="optionList"
+              >
+                <div style={{ padding: "10px" }}>
+                  {familyList.map((f, i) => {
+                    return (
+                      <Option
+                        key={f.familyId}
+                        id={f.familyId}
+                        value={f.familyTitle}
+                        onClick={handleOnChangeSelectValue}
+                      >
+                        {f.familyTitle}
+                      </Option>
+                    );
+                  })}
+                </div>
               </SelectOptions>
             </SelectBox>
-          </FamilySelectBox>
-          <Sidebar className="res-sidbar">
-            <SidebarMenu NowFamilyId={NowFamilyId} />
-          </Sidebar>
+            <Sidebar className="res-sidbar">
+              <SidebarMenu NowFamilyId={NowFamilyId} />
+            </Sidebar>
+          </SidbarWrap>
         </div>
         <PageWrap>
           <Switch>
@@ -132,75 +153,75 @@ const MainWrap = styled.div`
   display: flex;
   height: calc(100vh - 44px);
   color: #282828;
-  /* ${({ bg }) => (bg ? `background: ${bg};` : "background: red;")}; */
+  background: #f9f9ff;
+`;
+
+const SidbarWrap = styled.div`
+  border: none;
+  overflow-y: hidden;
+`;
+
+const Sidebar = styled.nav`
+  width: 296px;
+  display: inline-flex;
+  flex-direction: column;
+  background: #fff;
+  vertical-align: top;
+  border: none;
 `;
 
 const SelectBox = styled.div`
   position: relative;
   width: 100%;
-  padding: 8px;
-  border-radius: 12px;
   background-color: #ffffff;
   align-self: center;
-  border: 1px solid #d6d6d6;
+  border: none;
+  text-align: left;
   cursor: pointer;
-  &::before {
-    content: "⌵";
-    position: absolute;
-    top: 1px;
-    left: 10px;
-    color: gray;
-    font-size: 20px;
-    // text-align: center;
-  }
 `;
 
-const Label = styled.label`
-  font-size: 15px;
-  text-align: center;
+const Label = styled.div`
+  display: flex;
+  font-size: 24px;
+  font-weight: 700;
+  width: 100%;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #d6d6d6;
+  }
+  padding: 40px 40px 40px 10px;
 `;
 
 const SelectOptions = styled.ul`
   position: absolute;
   list-style: none;
-  top: 50px;
+  text-align: left;
+  top: 80px;
   left: 0;
   width: 100%;
   overflow: hidden;
-  // height: 100%;
   max-height: ${(props) => (props.show ? "none" : "0")};
   padding: 0;
-  border-radius: 8px;
   background-color: #222222;
   color: #fefefe;
 `;
 
 const Option = styled.li`
   font-size: 14px;
-  padding: 6px 8px;
+  padding: 6px;
   height: 100%;
   transition: background-color 0.2s ease-in;
   &:hover {
-    background-color: #595959;
+    background-color: #d6d6d6;
   }
-`;
-
-const Sidebar = styled.nav`
-  width: 200px;
-  display: inline-flex;
-  flex-direction: column;
-  background: #fff;
-  vertical-align: top;
-  border-right: 1px solid rgba(29, 28, 29, 0.13);
-`;
-
-const FamilySelectBox = styled.div`
-  padding: 50px 20px 10px 20px;
-  border-right: 1px solid rgba(29, 28, 29, 0.13);
 `;
 
 const PageWrap = styled.div`
   flex: 1;
+  height: calc(100vh - 44px);
 `;
 
 export default Main;

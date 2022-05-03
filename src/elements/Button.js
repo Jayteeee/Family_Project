@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const Button = (props) => {
   // styles 에 오는것들 : width, height, padding, margin, bg, color, fontWeight, fontSize, borderRadius, borderColor
-  console.log(props);
   const {
     children,
     shape,
@@ -86,6 +85,8 @@ const SmallButton = styled.button`
     borderColor
       ? `border: 1px solid ${borderColor};`
       : "border: 1px solid transparent;"};
+  ${({ alignItems }) =>
+    alignItems ? `align-items: ${alignItems};` : "align-items: center;"};
 `;
 
 const MediumButton = styled.button`
