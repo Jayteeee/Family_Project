@@ -4,7 +4,7 @@ import SimpleSlider from "./SimpleSlider";
 
 const Description = () => {
   return (
-    <Container>
+    <Container className="res-cont">
       <div>로고</div>
       <br />
       <div>
@@ -19,10 +19,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 50em;
+  max-width: 100%;
   height: 100%;
   padding: 2rem;
   margin: 5rem;
-  background-color: green;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
 `;
 
 export default Description;

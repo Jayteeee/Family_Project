@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 import { DummyData } from "../../shared/DummyData";
-import moment from "moment";
+import dayjs from "dayjs";
 // import { getToken } from "../../shared/Token";
 
 const BASE_URL = "";

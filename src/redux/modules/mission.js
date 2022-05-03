@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import moment from "moment";
+import dayjs from "dayjs";
 import { history } from "../configureStore";
 // import axios from "axios";
 import { familyActions } from "./family";
@@ -83,8 +83,8 @@ export default handleActions(
         );
         newArr = [...newArr, content].sort(
           (a, b) =>
-            new moment(a.createdAt).format("YYYYMMDDHHmm") -
-            new moment(b.createdAt).format("YYYYMMDDHHmm")
+            new dayjs(a.createdAt).format("YYYYMMDDHHmm") -
+            new dayjs(b.createdAt).format("YYYYMMDDHHmm")
         );
         draft.oneChannel.contentList = newArr;
       }),

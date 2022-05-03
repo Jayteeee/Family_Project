@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
-import moment from "moment";
+import dayjs from "dayjs";
 import { DummyData } from "../../shared/DummyData";
 
 const PhotoCalendar = () => {
@@ -22,15 +22,6 @@ const PhotoCalendar = () => {
     }
   }
 
-  // let { url = "afefa", color = "red" } = props;
-
-  // console.log(props);
-
-  // url =
-  //   "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201901/20/28017477-0365-4a43-b546-008b603da621.jpg";
-
-  // color = "red";
-
   React.useEffect(() => {
     setMark(list);
   }, []);
@@ -39,33 +30,21 @@ const PhotoCalendar = () => {
     <div>
       <Container>
         <Calendar
-          calendarType="US"
           onChange={setValue}
           value={value}
           minDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
           maxDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
           navigationLabel={null}
-          formatDay={(locale, date) => moment(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
+          formatDay={(locale, date) => dayjs(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
           showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
           className="mx-auto w-full text-sm border-b"
           tileClassName={({ date, view }) => {
             if (
-              mark.find(
-                (x) => x.createdAt === moment(date).format("YYYY-MM-DD")
-              )
+              mark.find((x) => x.createdAt === dayjs(date).format("YYYY-MM-DD"))
             ) {
               setStyle(true);
               return "highlight";
-              // html.push(<div className="dot"></div>);
             }
-            // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
-            // return (
-            //   <>
-            //     <div className="flex justify-center items-center absoluteDiv">
-            //       {html}
-            //     </div>
-            //   </>
-            // );
           }}
         />
       </Container>
@@ -74,22 +53,30 @@ const PhotoCalendar = () => {
 };
 
 const Container = styled.div`
-  width: 40vw;
+  width: 30vw;
   max-width: 90%;
-  height: 60vh;
-  margin: 30px auto;
+  margin: 3rem auto;
 
   .react-calendar {
     width: 100%;
     max-width: 100%;
     height: 100%;
-    padding: 3%;
+    padding: 20% 3% 3%;
     background-color: transparent;
     color: #222;
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.5em;
+  }
+
+  .react-calendar__navigation {
+    position: absolute;
+    display: flex;
+    height: 44px;
+    top: 5rem;
+    left: 28rem;
+    margin-bottom: 1em;
   }
   abbr[title] {
     text-decoration: none;
@@ -116,7 +103,6 @@ const Container = styled.div`
     max-width: 100%;
     width: 5em;
     height: 5em;
-    padding: 10px 6.6667px;
     background: none;
     text-align: center;
     line-height: 16px;

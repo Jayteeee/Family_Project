@@ -1,13 +1,20 @@
 import React from "react";
-import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { userActions } from "../../redux/modules/user";
-import { Button, Input } from "../../elements";
-import kakaoImg from "../../shared/images/kakao_login_large_narrow.png";
-import { KakaoPath } from "../../shared/KakaoPath";
 
-const Login = () => {
+// 라이브러리, 패키지
+import styled from "styled-components";
+
+// 리덕스
+import { useDispatch } from "react-redux";
+
+// 엘리먼트
+import { Input, Button } from "../../../../elements";
+import { userActions } from "../../../../redux/modules/user";
+import kakaoImg from "../../../images/kakao_login_large_narrow.png";
+import { KakaoPath } from "../../../../shared/KakaoPath";
+
+const LoginModal = () => {
   const dispatch = useDispatch();
+
   const [inputs, setInputs] = React.useState({});
 
   const handleChange = (e) => {
@@ -22,8 +29,6 @@ const Login = () => {
 
   return (
     <LoginWrap>
-      <strong>로그인</strong>
-      {/* <label>아이디</label> */}
       <Input
         M
         id="userId"
@@ -56,13 +61,12 @@ const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 20rem;
-  padding: 2em 2em 0;
+  padding: 2em 0 0;
   margin: auto;
   & > a {
     & > img {
-      width: 16em;
+      width: 20rem;
     }
   }
 `;
-
-export default Login;
+export default LoginModal;
