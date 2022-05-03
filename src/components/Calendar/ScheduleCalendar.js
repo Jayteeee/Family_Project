@@ -1,26 +1,38 @@
-import React, { cloneElement } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
-import moment from "moment";
+import dayjs from "dayjs";
 import { DummyData } from "../../shared/DummyData";
+import { useSelector } from "react-redux";
 
 const ScheduleCalendar = () => {
   const [value, setValue] = React.useState(new Date());
-  const [mark, setMark] = React.useState([]);
-  const eventCalendarList = DummyData.eventCalendarList;
+  const [mark, setMark] = React.useState([{}]);
+  // const events = DummyData.eventCalendarList;
+  const list = useSelector((state) => state.calendar.scheduleList);
+  console.log(list);
+
+  const docs = document.getElementsByClassName("dot");
+
+  const reCheck = () => {
+    if (mark !== "") {
+      for (let i = 0; i < docs.length; i++) {
+        docs[i].style.backgroundColor = mark[i].color;
+      }
+    }
+  };
 
   React.useEffect(() => {
-    setMark(eventCalendarList);
-  }, []);
+    setMark(list);
+  }, [list]);
 
   return (
     <div>
       <Container>
         <Calendar
-          calendarType="US"
           onChange={setValue} // useState로 포커스 변경 시 현재 날짜 받아오기
-          formatDay={(locale, date) => moment(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
+          formatDay={(locale, date) => dayjs(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
           value={value}
           minDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
           maxDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
@@ -34,10 +46,13 @@ const ScheduleCalendar = () => {
             // 현재 날짜가 post 작성한 날짜 배열(mark)에 있다면, dot div 추가
             if (
               mark.find(
-                (x) => x.startDate === moment(date).format("YYYY-MM-DD")
+                (x) =>
+                  dayjs(x.startDate).format("YYYY-MM-DD") ===
+                  dayjs(date).format("YYYY-MM-DD")
               )
             ) {
               html.push(<div className="dot"></div>);
+              reCheck();
             }
             // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
             return (
@@ -55,10 +70,9 @@ const ScheduleCalendar = () => {
 };
 
 const Container = styled.div`
-  width: 40vw;
+  width: 30vw;
   max-width: 90%;
-  height: 60vh;
-  margin: 30px auto;
+  margin: 3rem auto;
 
   .react-calendar {
     width: 100%;
@@ -66,12 +80,22 @@ const Container = styled.div`
     height: 100%;
     background-color: transparent;
     color: #222;
-    padding: 3%;
+    padding: 20% 3% 3%;
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.5em;
   }
+
+  .react-calendar__navigation {
+    position: absolute;
+    display: flex;
+    height: 44px;
+    top: 5rem;
+    left: 28rem;
+    margin-bottom: 1em;
+  }
+
   .react-calendar__navigation button {
     color: #6f48eb;
     min-width: 44px;
@@ -98,10 +122,8 @@ const Container = styled.div`
     max-width: 100%;
     width: 5em;
     height: 5em;
-    padding: 10px 6.6667px;
     background: none;
     text-align: center;
-    line-height: 16px;
     border-radius: 100% !important;
   }
   .react-calendar__tile:enabled:hover,
@@ -126,10 +148,9 @@ const Container = styled.div`
   .dot {
     height: 8px;
     width: 8px;
-    background-color: #f87171;
     border-radius: 50%;
-    display: flex;
-    margin: auto;
+    position: absolute;
+    display: inline;
   }
 `;
 

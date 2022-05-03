@@ -3,12 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import image from "../../shared/images/profile_img.png";
 
 const SimpleSlider = () => {
-  const params = useParams();
   //전체값의 순서랑 게시물 하나의 번호 비교
   const settings = {
     arrows: false, //화살표 x
@@ -21,17 +18,47 @@ const SimpleSlider = () => {
   };
   return (
     <>
-      <Styled_Slide {...settings} dotsClass="reset">
-        <div>
-          <div>두꺼운 글자</div>
-          <div>글자도 넘어가나?</div>
-          <img alt="description1" src={image} />
+      <Styled_Slide
+        {...settings}
+        dotsClass="reset"
+        className="res-ss res-reset"
+      >
+        <div className="res-ss">
+          <h3 className="res-ss">
+            도란도란의 캘린더 기능은
+            <br />
+            가족들의 일정을 한눈에 파악할 수 있도록 돕습니다.
+          </h3>
+          <h5 className="res-ss">
+            부모님 생신 잊어버린 적 있으시죠? <br />
+            그러고 싶지 않았지만 잊고 부랴부랴 챙기는 경험, 이제는 없어집니다!
+          </h5>
+          <img alt="description1" src={image} className="res-ss" />
         </div>
-        <div>
-          <img alt="description2" src={image} />
+        <div className="res-ss">
+          <h3 className="res-ss">
+            도란도란의 미션 기능은
+            <br />
+            가족들과의 관계 개선을 돕습니다.
+          </h3>
+          <h5 className="res-ss">
+            부모님께 연락드리기 잊으신 적 있으시죠? <br />
+            중요하지만 미루게 되는 가족들과의 관계 개선! 다양한 미션을 통해
+            해결해보세요.
+          </h5>
+          <img alt="description2" src={image} className="res-ss" />
         </div>
-        <div>
-          <img alt="description3" src={image} />
+        <div className="res-ss">
+          <h3 className="res-ss">
+            도란도란의 갤러리 기능은
+            <br />
+            가족들과의 추억을 한눈에 파악할 수 있도록 돕습니다.
+          </h3>
+          <h5 className="res-ss">
+            지난 번에 올렸던 귀여운 손주사진을 못찾으시겠다구요? <br />
+            도란도란 캘린더 기능으로 소중한 추억 원할 때마다 편하게 찾아보세요!
+          </h5>
+          <img alt="description3" src={image} className="res-ss" />
         </div>
       </Styled_Slide>
     </>
@@ -40,23 +67,22 @@ const SimpleSlider = () => {
 const Styled_Slide = styled(Slider)`
   .slick-list {
     //얘로 크기조정
-    max-width: 600px;
-    max-height: 600px;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-    background: #fff0f3;
     border-radius: 10px;
     align-items: center;
     text-align: start;
-    font-size: 20px;
     margin-left: 40px;
+    @media only screen and (max-width: 839px) {
+      margin: 0px;
+    }
   }
   img {
-    width: 90%;
     height: auto;
     align-items: center;
   }
   .reset {
-    height: auto;
     bottom: 2rem;
     transform: none;
     list-style: none;
@@ -66,27 +92,29 @@ const Styled_Slide = styled(Slider)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0;
     background-color: transparent;
     z-index: 1;
+    @media only screen and (max-width: 839px) {
+      display: flex;
+      flex-direction: row;
+      bottom: 0px;
+      position: relative;
+    }
   }
   .reset li {
     position: relative;
     display: inline-block;
-    height: 1.25rem;
-    width: 1.25rem;
-    padding: 0;
-    cursor: pointer;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin: 10px 0px;
   }
 
   .reset li button {
     font-size: 0;
     line-height: 0;
     display: block;
-    width: 20px;
-    height: 20px;
-    padding: 5px;
-    cursor: pointer;
+    height: 1.8rem;
+    width: 1.8rem;
     color: transparent;
     border: 0;
     outline: 0;
@@ -94,22 +122,22 @@ const Styled_Slide = styled(Slider)`
   }
 
   .reset li button:before {
-    font-size: 2.7rem;
-    line-height: 20px;
+    font-size: 3rem;
     position: absolute;
     top: 0;
     left: 0;
-    width: 20px;
-    height: 20px;
+    height: 1.8rem;
+    width: 1.8rem;
     content: "•";
     text-align: center;
     opacity: 0.75;
     color: #6d6968;
+    cursor: pointer;
   }
 
   .reset li.slick-active button:before {
     opacity: 0.75;
-    color: #ffffff;
+    color: #000;
   }
 `;
 export default SimpleSlider;

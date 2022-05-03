@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Description, Login, Signup } from "../components/LandingPage";
+import {
+  Description,
+  Login,
+  Signup,
+  LoginBarMenu,
+} from "../components/LandingPage";
 
-const LandingPage = () => {
+const LandingPage = (props) => {
   const [isClient, setIsClient] = React.useState(false);
 
   return (
@@ -11,7 +16,7 @@ const LandingPage = () => {
         <div>
           <Description />
         </div>
-        <Question>
+        <Question className="res-login">
           <div>
             {isClient === false ? (
               <div>
@@ -32,6 +37,9 @@ const LandingPage = () => {
             )}
           </div>
         </Question>
+        <LoginBar className="res-loginbar">
+          <LoginBarMenu />
+        </LoginBar>
       </Box>
     </Container>
   );
@@ -39,6 +47,7 @@ const LandingPage = () => {
 
 const Container = styled.div`
   height: 100%;
+  width: 100%;
 `;
 
 const Box = styled.div`
@@ -54,13 +63,23 @@ const MsgBox = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  margin-bottom: 20px;
   & > span {
     cursor: pointer;
   }
 `;
 
 const Question = styled.div`
-  background-color: yellow;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+`;
+
+const LoginBar = styled.nav`
+  display: inline-flex;
+  flex-direction: column;
+  background: #fff;
+  vertical-align: top;
+  border-right: 1px solid rgba(29, 28, 29, 0.13);
 `;
 
 export default LandingPage;

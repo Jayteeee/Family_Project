@@ -31,34 +31,43 @@ const Signup = () => {
     <>
       <div>
         <SignUpWrap>
+          <strong>회원가입</strong>
           <Input
+            M
             id="userId"
             placeholder="name@work-userId.com"
             onChange={handleChange}
             value={inputs.userId || ""}
+            margin="10px auto"
           />
 
           <Input
+            M
             id="nickname"
             placeholder="Nickname"
             onChange={handleChange}
             value={inputs.nickname || ""}
+            margin="10px auto"
           />
           <Input
+            M
             id="password"
             type="password"
             placeholder="Please enter your password"
             onChange={handleChange}
             value={inputs.password || ""}
+            margin="10px auto"
           />
           <Input
+            M
             id="passwordCheck"
             type="password"
             placeholder="Please enter your password"
             onChange={handleChange}
             value={inputs.passwordCheck || ""}
+            margin="10px auto"
           />
-          <Button L onClick={handleSubmit}>
+          <Button L onClick={handleSubmit} margin="10px auto 0">
             회원가입
           </Button>
         </SignUpWrap>
@@ -71,10 +80,8 @@ const SignUpWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 20rem;
-  padding: 2em;
+  padding: 10px 2em;
   margin: auto;
-  border: 1px solid black;
-  background-color: red;
 `;
 
 export default Signup;

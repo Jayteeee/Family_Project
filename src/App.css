@@ -18,28 +18,27 @@
   width: 100vw;
   height: 100vh;
 }
+.res-loginbar {
+  display: none !important;
+}
 
 @media only screen and (max-width: 839px) {
   .res-mainWrap {
     flex-direction: column !important;
     font-size: 15px !important;
-    
   }
   .res-sidbar {
     width: 100% !important;
     height: 80px !important;
-    bottom: 0px !important;  
+    bottom: 0px !important;
     border-radius: 0px !important;
     position: absolute !important;
     display: flex !important;
-   
   }
   .res-selectWrap {
     padding: 0 !important;
     border-radius: 0 !important;
     margin: 0 !important;
-    
-   
   }
   .res-selectBox {
     position: absolute !important;
@@ -51,8 +50,6 @@
     border-left: none !important;
     border-right: none !important;
     border-radius: 0px !important;
-    
-
   }
   .res-label {
     font-size: 20px !important;
@@ -68,7 +65,7 @@
     text-align: center !important;
     border-radius: 0px !important;
     width: 100% !important;
-  } 
+  }
   .res-menuBox {
     justify-content: center !important;
     flex-direction: column !important;
@@ -94,6 +91,31 @@
   .res-twoStatusBox {
     display: flex;
     /* margin; */
+  }
+  .res-login {
+    display: none !important;
+  }
+  .res-loginbar {
+    width: 100% !important;
+    height: 60px !important;
+    bottom: 0px !important;
+    position: fixed !important;
+    display: flex !important;
+  }
+  .res-cont {
+    box-sizing: border-box !important;
+    margin: 1.5% 0 !important;
+    padding: 5% !important;
+    width: 100% !important;
+  }
+  .res-ss {
+    box-sizing: border-box !important;
+    padding: 5% 1% 1% !important;
+    width: 100% !important;
+  }
+  .res-modal {
+    border-radius: 12px 12px 0px 0px !important;
+    width: 100% !important;
   }
 }
 
