@@ -5,11 +5,10 @@ import styled from "styled-components";
 import { RiArrowLeftSLine } from "react-icons/ri";
 
 // 리덕스
-import { useDispatch, useSelector } from "react-redux";
-import { familyActions } from "../../../redux/modules/family";
+import { useSelector } from "react-redux";
 
 // 모달
-import { ModalPortal } from "../portals";
+import { ModalPortal } from "../../portals";
 import {
   AddFamilyModal,
   EditFamilyModal,
@@ -18,9 +17,12 @@ import {
 } from "./index";
 
 // 엘리먼트
-import { CircleImage, Text } from "../../../elements";
+import { CircleImage, Text } from "../../../../elements";
 
-const ProfileModal = ({ onClose, props }) => {
+// 이미지
+import profileImg from "../../../images/profileImg.png";
+
+const ProfileModal = ({ onClose }) => {
   const userInfo = useSelector((state) => state.user.user);
   console.log("유저정보: ", userInfo);
 
@@ -104,7 +106,10 @@ const ProfileModal = ({ onClose, props }) => {
             </TopDiv>
             <BottomDiv>
               <UserInfo>
-                <CircleImage S src={userInfo?.profileImg} />
+                <CircleImage
+                  S
+                  src={userInfo.profileImg ? userInfo.profileImg : profileImg}
+                />
                 <div align="left" style={{ margin: "0 10px" }}>
                   <Text size="15px" fontWeight="700">
                     아이디:

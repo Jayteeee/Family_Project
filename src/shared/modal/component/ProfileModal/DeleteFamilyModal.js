@@ -1,18 +1,18 @@
 import React, { useState, useContext, useEffect } from "react";
-import { MainContext } from "../../../pages/Main";
+import { MainContext } from "../../../../pages/Main";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
-import { familyActions } from "../../../redux/modules/family";
+import { familyActions } from "../../../../redux/modules/family";
 
 // 모달
-import { ModalPortal } from "../portals";
+import { ModalPortal } from "../../portals";
 
 // 엘리먼트
-import { Button, Text } from "../../../elements";
+import { Button, Text } from "../../../../elements";
 
 const DeleteFamilyModal = ({ onClose }) => {
   const dispatch = useDispatch();

@@ -1,24 +1,28 @@
 import React, { useState, useContext, useEffect } from "react";
-import { MainContext } from "../../../pages/Main";
+import { MainContext } from "../../../../pages/Main";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
-import { familyActions } from "../../../redux/modules/family";
-import { familyMemberActions } from "../../../redux/modules/familymember";
+import { familyActions } from "../../../../redux/modules/family";
+import { familyMemberActions } from "../../../../redux/modules/familymember";
 
 // 모달
-import { ModalPortal } from "../portals";
+import { ModalPortal } from "../../portals";
 import {
   AddMemberModal,
+  EditFamilyTitleModal,
   EditMemberNameModal,
   DeleteMemberModal,
 } from "./index";
 
 // 엘리먼트
-import { CircleImage, Input, Text } from "../../../elements";
+import { CircleImage, Input, Text } from "../../../../elements";
+
+// 이미지
+import profileImg from "../../../images/profileImg.png";
 
 const EditFamilyModal = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -27,7 +31,7 @@ const EditFamilyModal = ({ onClose }) => {
 
   console.log("현재 가족 이름:", familyTitle, "현재 가족 아이디:", familyId);
 
-  // 가족 타이틀 변경 input
+  // 가족 타이틀 수정 input
   const [changeTitle, setChangeTitle] = useState(familyTitle);
 
   const handleTitleChange = (e) => {
@@ -35,8 +39,9 @@ const EditFamilyModal = ({ onClose }) => {
     setChangeTitle(value);
   };
 
-  const changeFamilyName = () => {
+  const editFamilyTitle = () => {
     dispatch(familyActions.editFamilyNameDB(familyId, changeTitle));
+    handleEditFamilyTitleModal();
   };
 
   const familyMemberList = useSelector(
@@ -45,6 +50,13 @@ const EditFamilyModal = ({ onClose }) => {
 
   console.log("가족 맴버 리스트:", familyMemberList);
 
+  // 가족 타이틀 수정하기 모달
+  const [editFamilyTitleModal, setEditFamilyTitleModal] = useState(false);
+
+  const handleEditFamilyTitleModal = () => {
+    setEditFamilyTitleModal(!editFamilyTitleModal);
+    //  document.getElementById("profileMenu").style.display = "none";
+  };
   // 가족 구성원 추가하기 모달
   const [addMemberModal, setAddMemberModal] = useState(false);
 
@@ -109,7 +121,7 @@ const EditFamilyModal = ({ onClose }) => {
                     onChange={handleTitleChange}
                     value={changeTitle}
                   />
-                  <ModalBtn onClick={changeFamilyName}>수정</ModalBtn>
+                  <ModalBtn onClick={editFamilyTitle}>수정</ModalBtn>
                 </div>
               </SettingBox>
               <MemberBox>
@@ -120,7 +132,11 @@ const EditFamilyModal = ({ onClose }) => {
                       <MemberListBox>
                         <CircleImage
                           S
-                          src={f.userInfo.profileImg}
+                          src={
+                            f.userInfo?.profileImg
+                              ? f.userInfo.profileImg
+                              : profileImg
+                          }
                           margin="0 10px"
                         />
                         {f.familyMemberNickname}
@@ -150,10 +166,13 @@ const EditFamilyModal = ({ onClose }) => {
           </Content>
         </Background>
       </ModalPortal>
-      {/* 가족 구성원 수정하기 모달 */}
       <ModalPortal>
-        {addMemberModal && <AddMemberModal onClose={handleAddMemberModal} />}
+        {/* 가족 타이틀 수정하기 모달 */}
+        {editFamilyTitleModal && (
+          <EditFamilyTitleModal onClose={handleEditFamilyTitleModal} />
+        )}
       </ModalPortal>
+      {/* 가족 구성원 수정하기 모달 */}
       <ModalPortal>
         {editMemberNameModal && (
           <EditMemberNameModal
@@ -164,6 +183,7 @@ const EditFamilyModal = ({ onClose }) => {
           />
         )}
       </ModalPortal>
+      {/* 가족 구성원 제거하기 모달 */}
       <ModalPortal>
         {deleteMemberModal && (
           <DeleteMemberModal
@@ -172,6 +192,10 @@ const EditFamilyModal = ({ onClose }) => {
             familyMemberId={familyMemberId}
           />
         )}
+      </ModalPortal>
+      {/* 가족 구성원 추가하기 모달 */}
+      <ModalPortal>
+        {addMemberModal && <AddMemberModal onClose={handleAddMemberModal} />}
       </ModalPortal>
     </>
   );

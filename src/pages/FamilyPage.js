@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { ModalPortal } from "../shared/modal/portals";
-import { AddFamilyModal } from "../shared/modal/component";
+import { AddFamilyModal } from "../shared/modal/component/ProfileModal";
 import { Button } from "../elements";
 
 const FamilyPage = () => {

@@ -9,28 +9,45 @@ import { missionActions } from "../redux/modules/mission";
 
 // 컴포넌트
 import MissionHeader from "../components/Mission/MissionHeader";
+import MissionStatusBox from "../components/Mission/MissionStatusBox";
+import MissionList from "../components/Mission/MissionList";
 
 const MissionPage = (props) => {
   const dispatch = useDispatch();
 
-  const { familyId, missionId } = props.match?.params;
-  console.log("현재 미션페이지 familyId, missionId값: ", familyId, missionId);
+  const { familyId } = props.match?.params;
+  console.log("현재 미션페이지 패밀리 아이디:", familyId);
 
-  const nowFamily = useSelector((state) => state.family.familyList).find(
-    (f) => f.familyId === familyId
-  );
-  console.log("현재 미션페이지 가족 데이터: ", nowFamily);
+  const nowMissionData = useSelector((state) => state.mission.nowMissionData);
+  console.log("현재 미션 데이터: ", nowMissionData);
+
+  const missionStatus = nowMissionData.missionBox;
+  console.log("미션 현황:", missionStatus);
+
+  const { monthMissionList } = nowMissionData;
+  console.log("이번달 미션리스트:", monthMissionList);
 
   useEffect(() => {
-    dispatch(missionActions.getMissionPage(familyId, missionId));
-  }, [nowFamily]);
+    dispatch(missionActions.getMissionPage(familyId));
+  }, []);
 
   return (
     <>
-      {/* <MissionHeader /> */}
-      <div>미션 페이지</div>
+      <MissionPageWrap className="res-MissionPageWrap">
+        <MissionHeader />
+        <MissionStatusBox missionStatus={missionStatus} />
+        <MissionList monthMissionList={monthMissionList} />
+      </MissionPageWrap>
     </>
   );
 };
+
+const MissionPageWrap = styled.div`
+  width: 100%;
+  height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+`;
 
 export default MissionPage;

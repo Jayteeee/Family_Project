@@ -8,7 +8,7 @@ const familyList = [
     createdAt: "2022-04-15 00:51",
     userId: "user1@gamil.com",
     userNickname: "유저 닉네임",
-    profileImg: "url",
+    profileImg: false,
     todayMood: "이모지", // 이모지 사용
     missionStatus: "끈끈해요(75%)",
     randomMsg: "오늘은 부모님께 안부전화 한 통 어떨까요?",
@@ -21,7 +21,7 @@ const familyList = [
     createdAt: "2022-04-15 00:51",
     userId: "user1@gamil.com",
     userNickname: "유저 닉네임",
-    profileImg: "url",
+    profileImg: false,
     todayMood: "이모지", // 이모지 사용
     missionStatus: "끈끈해요(80%)",
     randomMsg: "오늘은 부모님께 안부전화 한 통 어떨까요?",
@@ -91,8 +91,7 @@ const mainPage = {
       userInfo: {
         userId: "userId@userId.com",
         nickname: "닉네임",
-        profileImg:
-          "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+        profileImg: false,
         todayMood: "이모지",
       },
     },
@@ -103,8 +102,7 @@ const mainPage = {
       userInfo: {
         userId: "userId@userId.com",
         nickname: "닉네임",
-        profileImg:
-          "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+        profileImg: false,
         todayMood: "이모지",
       },
     },
@@ -114,8 +112,7 @@ const mainPage = {
       userInfo: {
         userId: "userId@userId.com",
         nickname: "닉네임",
-        profileImg:
-          "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+        profileImg: false,
         todayMood: "이모지",
       },
     },
@@ -130,8 +127,7 @@ const nowFamilyMemberList = [
     userInfo: {
       userId: "userId1@userId.com",
       nickname: "닉네임",
-      profileImg:
-        "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+      profileImg: false,
       todayMood: "이모지",
     },
   },
@@ -141,8 +137,7 @@ const nowFamilyMemberList = [
     userInfo: {
       userId: "userId2@userId.com",
       nickname: "닉네임",
-      profileImg:
-        "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+      profileImg: false,
       todayMood: "이모지",
     },
   },
@@ -152,8 +147,7 @@ const nowFamilyMemberList = [
     userInfo: {
       userId: "userId3@userId.com",
       nickname: "닉네임",
-      profileImg:
-        "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+      profileImg: false,
       todayMood: "이모지",
     },
   },
@@ -164,13 +158,62 @@ const nowFamilyMemberList = [
 // 이번주 미션 페이지
 const missionPage = {
   missionBox: {
-    familyId: "123456787",
     totalMission: 12,
     completedMission: 9,
     completePercentage: 50,
     totalBadge: 3,
   },
-  weekMissionList: [
+  monthMissionList: [
+    {
+      familyId: "123456787",
+      missionId: "asdfassdsddf",
+      missionTitle: "우리가족 피크닉 가기", //name -> title 수
+      missionChk: false,
+      completedAt: "YYYY-MM-DD",
+      missionMemberList: [
+        {
+          familyMemberId: "1234213",
+          familyMemberNicname: "아빠",
+          memberMissionChk: false,
+          profileImg: false,
+        },
+        {
+          familyMemberId: "2342fag4",
+          familyMemberNicname: "엄마",
+          memberMissionChk: false,
+          profileImg: false,
+        },
+        {
+          familyMemberId: "2342sd4",
+          familyMemberNicname: "아들",
+          memberMissionChk: false,
+          profileImg: false,
+        },
+      ],
+    },
+    {
+      familyId: "123456787",
+      missionId: "4435dfassds3ddf",
+      missionTitle: "서로 전화하기", //name -> title 수
+      missionChk: false,
+      completedAt: "YYYY-MM-DD",
+      missionMemberList: [
+        {
+          familyMemberId: "1234213",
+          familyMemberNicname: "아빠",
+          memberMissionChk: false,
+          profileImg: false,
+        },
+        {
+          familyMemberId: "2342sd434",
+          familyMemberNicname: "딸",
+          memberMissionChk: false,
+          profileImg: false,
+        },
+      ],
+    },
+  ],
+  pastMissionList: [
     {
       familyId: "123456787",
       missionId: "asdfassdsddf",
@@ -199,6 +242,7 @@ const missionPage = {
     },
   ],
 };
+
 // 배지 페이지
 const badgePage = {
   familyId: "123456787",
@@ -249,17 +293,17 @@ const familyMemberList = [
   {
     familyMemberId: "dfaefadf",
     familyMemberNickname: "아빠",
-    profileImg: "프로필 사진 URL",
+    profileImg: false,
   },
   {
     familyMemberId: "dfaefadfdfe",
     familyMemberNickname: "엄마",
-    profileImg: "프로필 사진 URL",
+    profileImg: false,
   },
   {
     familyMemberId: "dfaefawdfedf",
     familyMemberNickname: "자녀",
-    profileImg: "프로필 사진 URL",
+    profileImg: false,
   },
 ];
 
@@ -312,19 +356,19 @@ const detailPhotoPage = {
     {
       familyId: "123456787",
       photoId: "23dfgsdf4d",
-      profileImg: "url",
+      profileImg: false,
       familyMemberNicname: "아빠",
     },
     {
       familyId: "123456787",
       photoId: "23dfgsdf4d",
-      profileImg: "url",
+      profileImg: false,
       familyMemberNicname: "엄마",
     },
     {
       familyId: "123456787",
       photoId: "23dfgsdf4d",
-      profileImg: "url",
+      profileImg: false,
       familyMemberNicname: "자녀",
     },
   ],
@@ -407,7 +451,7 @@ const voiceFilePage = {
       voicePlayTime: "mm:ss",
       createdAt: "2022-04-15 00:51",
       familyMemberNickname: "자녀",
-      profileImg: "url",
+      profileImg: false,
     },
   ],
 };

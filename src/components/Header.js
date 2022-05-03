@@ -12,15 +12,16 @@ import { CircleImage } from "../elements";
 
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
-import { ProfileModal } from "../shared/modal/component";
+import { ProfileModal } from "../shared/modal/component/ProfileModal";
 
 const Header = (props) => {
   const { bg } = props;
 
   console.log(bg);
+
+  // 프로필 수정 모달
   const [modalOn, setModalOn] = useState(false);
 
-  // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
   };
@@ -55,16 +56,14 @@ const Header = (props) => {
 
 const HeaderWarp = styled.header`
   height: 44px;
-  /* background: red; */
-  ${(props) => (props.bg ? `background: ${props.bg};` : "")};
-
+  background: #fff;
   color: #282828;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 203;
   text-align: center;
-  border-bottom: 1px solid #d6d6d6;
+  border-bottom: 1px solid #dbdbdb;
 `;
 
 const RogoBox = styled.div`
