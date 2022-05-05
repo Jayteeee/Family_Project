@@ -6,6 +6,8 @@ import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
+import { MdOutlineClear, MdCancel, MdDone } from "react-icons/md";
+import { TiArrowSortedDown } from "react-icons/ti";
 
 // 리덕스
 import { useDispatch } from "react-redux";
@@ -14,17 +16,17 @@ import { useDispatch } from "react-redux";
 import { ModalPortal } from "../../portals";
 
 // 엘리먼트
-import { Input, Button } from "../../../../elements";
+import { Input, Button, Text } from "../../../../elements";
 import { scheduleActions } from "../../../../redux/modules/calendar";
 
 const AddScheduleModal = ({ onClose }, props) => {
   const dispatch = useDispatch();
-
   const [event, setEvent] = React.useState("");
   const [selec, setSelec] = React.useState(false);
-  const [oneDay, setOneDay] = React.useState(false);
   const [date, onChange] = React.useState([]);
-  const [myPic, setMyPic] = React.useState("gray");
+  const [myPic, setMyPic] = React.useState("#CE5F5F");
+  const [showOptions, setShowOptions] = React.useState(false);
+  const [showBorder, setShowBorder] = React.useState(false);
 
   const handleAddSchedule = (e) => {
     const { value } = e.target;
@@ -33,6 +35,12 @@ const AddScheduleModal = ({ onClose }, props) => {
 
   const addSchedule = () => {
     dispatch(scheduleActions.addScheduleDB(event, myPic, date));
+  };
+
+  const reset = () => {
+    let input = document.getElementById("changeName");
+    console.log(input);
+    input.value = null;
   };
 
   return (
@@ -51,167 +59,189 @@ const AddScheduleModal = ({ onClose }, props) => {
           }}
         >
           <ContentBox>
-            <div>
-              <Box>
-                <label htmlFor="changeName">일정 추가하기</label>
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClose();
+            <XButton>
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
+              >
+                <MdOutlineClear />
+              </div>
+            </XButton>
+            <InnerBox>
+              <TitleBox>
+                <SelectBox onClick={() => setShowOptions((prev) => !prev)}>
+                  <Label className="res-label">
+                    <Preview value={myPic}></Preview>
+                    <TiArrowSortedDown />
+                  </Label>
+                </SelectBox>
+                <SelectOptions
+                  show={showOptions}
+                  onClick={() => {
+                    setShowOptions((prev) => !prev);
                   }}
                 >
-                  ✖
-                </div>
-              </Box>
+                  <div>
+                    <Color
+                      value="#CE5F5F"
+                      onClick={() => setMyPic("#CE5F5F")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#CE5F5F" />
+                    </Color>
+                    <Color
+                      value="#EA7B46"
+                      onClick={() => setMyPic("#EA7B46")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#EA7B46" />
+                    </Color>
+                    <Color
+                      value="#F4CC4D"
+                      onClick={() => setMyPic("#F4CC4D")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#F4CC4D" />
+                    </Color>
+                    <Color
+                      value="#5FCE89"
+                      onClick={() => setMyPic("#5FCE89")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#5FCE89" />
+                    </Color>
+                    <Color
+                      value="#5FB3CE"
+                      onClick={() => setMyPic("#5FB3CE")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#5FB3CE" />
+                    </Color>
+                    <Color
+                      value="#8C98F8"
+                      onClick={() => setMyPic("#8C98F8")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#8C98F8" />
+                    </Color>
+                    <Color
+                      value="#C588F6"
+                      onClick={() => setMyPic("#C588F6")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#C588F6" />
+                    </Color>
+                    <Color
+                      value="#F688EB"
+                      onClick={() => setMyPic("#F688EB")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#F688EB" />
+                    </Color>
+                    <Color
+                      value="#C2C2C2"
+                      onClick={() => setMyPic("#C2C2C2")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#C2C2C2" />
+                    </Color>
+                    <Color
+                      value="#424242"
+                      onClick={() => setMyPic("#424242")}
+                      mypic={myPic}
+                    >
+                      <MdDone mypic={myPic} value="#424242" />
+                    </Color>
+                  </div>
+                </SelectOptions>
 
-              <Input
-                id="changeName"
-                placeholder="제목 추가"
-                size="18px"
-                padding="0 36px 0 36px"
-                onChange={handleAddSchedule}
-                value={event}
-                style={{
-                  border: "none",
-                  borderRadius: "8px",
-                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.2)",
-                }}
-              />
+                <InputBox show={showBorder}>
+                  <InsertBox
+                    onFocus={() => {
+                      setShowBorder((prev) => !prev);
+                    }}
+                  >
+                    <Text B2>제목</Text>
+                    <Input
+                      id="changeName"
+                      size="18px"
+                      onChange={handleAddSchedule}
+                      value={event}
+                      style={{
+                        border: "none",
+                      }}
+                    />
+                  </InsertBox>
+                  <ResetBox
+                    show={showBorder}
+                    onClick={() => {
+                      reset();
+                    }}
+                  >
+                    <MdCancel />
+                  </ResetBox>
+                </InputBox>
+              </TitleBox>
               <CommonBox>
-                <Box>
-                  <span>당일</span>
-                  <Select oneDay={oneDay}>
-                    <Option
-                      value={!oneDay}
-                      onClick={() => {
-                        setOneDay(false);
-                      }}
-                    >
-                      <p></p>
-                    </Option>
-                    <Option
-                      value={oneDay}
-                      onClick={() => {
-                        setOneDay(true);
-                      }}
-                    >
-                      <p></p>
-                    </Option>
-                  </Select>
+                <Box
+                  onClick={(e) => {
+                    setSelec(!selec);
+                  }}
+                >
+                  <Text B2 style={{ marginBottom: "6px" }}>
+                    시작일{" "}
+                  </Text>
+                  <Text S15>
+                    {dayjs(date[0]).locale("ko").format(`MM월DD일 dddd`)}
+                  </Text>
                 </Box>
+                <p style={{ margin: "20px 16px", fontSize: "24px" }}>-</p>
                 <Box>
-                  <div>
-                    <span>시작일 </span>
-                    <span>
-                      {dayjs(date[0]).locale("ko").format(`MM월DD일 dddd`)}
-                    </span>
-                  </div>
-                  <span
-                    onClick={() => {
-                      setSelec(!selec);
-                    }}
-                  >
-                    📅
-                  </span>
-                </Box>
-                <Box>
-                  <div>
-                    <span>종료일 </span>
-                    <span>
-                      {dayjs(date[1]).locale("ko").format(`MM월DD일 dddd`)}
-                    </span>
-                  </div>
-                  <span
-                    onClick={() => {
-                      setSelec(!selec);
-                    }}
-                  >
-                    📅
-                  </span>
+                  <Text B2 style={{ marginBottom: "6px" }}>
+                    종료일{" "}
+                  </Text>
+                  <Text S15>
+                    {dayjs(date[1]).locale("ko").format(`MM월DD일 dddd`)}
+                  </Text>
                 </Box>
               </CommonBox>
               {selec ? (
-                <Calendar
-                  showNeighboringMonth={false}
-                  formatDay={(locale, date) => dayjs(date).format("DD")}
-                  selectRange={oneDay ? false : true}
-                  returnValue="range"
-                  onChange={onChange}
-                ></Calendar>
+                <CalendarBox>
+                  <Calendar
+                    showNeighboringMonth={false}
+                    formatDay={(locale, date) => dayjs(date).format("DD")}
+                    selectRange={true}
+                    returnValue="range"
+                    onChange={onChange}
+                  ></Calendar>
+                </CalendarBox>
               ) : null}
-
-              <CommonBox>
-                <Up>
-                  <Color
-                    value="red"
-                    onClick={() => setMyPic("red")}
-                    mypic={myPic}
-                  ></Color>
-                  <Color
-                    value="orange"
-                    onClick={() => setMyPic("orange")}
-                    mypic={myPic}
-                  ></Color>
-                  <Color
-                    value="yellow"
-                    onClick={() => setMyPic("yellow")}
-                    mypic={myPic}
-                  ></Color>
-                  <Color
-                    value="green"
-                    onClick={() => setMyPic("green")}
-                    mypic={myPic}
-                  ></Color>
-                  <Color
-                    value="blue"
-                    onClick={() => setMyPic("blue")}
-                    mypic={myPic}
-                  ></Color>
-                </Up>
-                <Down>
-                  <Color
-                    value="darkblue"
-                    onClick={() => setMyPic("darkblue")}
-                    mypic={myPic}
-                  ></Color>
-                  <Color
-                    value="purple"
-                    onClick={() => setMyPic("purple")}
-                    mypic={myPic}
-                  ></Color>
-                  <Color
-                    value="black"
-                    onClick={() => setMyPic("black")}
-                    mypic={myPic}
-                  ></Color>
-                  <Color
-                    value="brown"
-                    onClick={() => setMyPic("brown")}
-                    mypic={myPic}
-                  ></Color>
-                  <Color
-                    value="gray"
-                    onClick={() => setMyPic("gray")}
-                    mypic={myPic}
-                  ></Color>
-                </Down>
-              </CommonBox>
-            </div>
-
-            <Button
-              style={{ minWidth: "80px" }}
-              height="36px"
-              fontSize="15px"
-              bg="black"
-              color="white"
-              onClick={(e) => {
-                e.stopPropagation();
-                onClose();
-                addSchedule();
-              }}
-            >
-              추가하기
-            </Button>
+            </InnerBox>
+            <ButtonBox>
+              <Text
+                BL
+                style={{
+                  minWidth: "96px",
+                  height: "56px",
+                  width: "96px",
+                  backgroundColor: "#8C98F8",
+                  color: "white",
+                  margin: "40px 0 0 0",
+                  borderRadius: "8px",
+                  alignText: "center",
+                  padding: "16px 32px",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                  addSchedule();
+                }}
+              >
+                저장
+              </Text>
+            </ButtonBox>
           </ContentBox>
         </Content>
       </Background>
@@ -229,12 +259,12 @@ const Background = styled.div`
   text-align: center;
   background-color: rgba(0, 0, 0, 0.5);
   .react-calendar {
-    background-color: transparent;
     color: #222;
     padding: 3%;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15),
+      0px 0px 40px rgba(0, 0, 0, 0.25);
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.5em;
   }
@@ -278,39 +308,80 @@ const Background = styled.div`
     font-weight: bold;
   }
 `;
-
-const Select = styled.div`
-  width: 2em;
-  height: 1em;
-  display: flex;
+const SelectBox = styled.div`
+  width: 80px;
+  height: 100%;
+  padding: 24px 12px;
+  margin: auto 24px auto 0px;
   align-items: center;
-  justify-content: center;
-  padding: 1px;
-  background-color: gray;
-  border-radius: 20px;
-  ${({ oneDay }) =>
-    oneDay ? `background-color:gray` : `background-color:#bebaba`};
+  cursor: pointer;
+  background-color: #f5f5f5;
+  border-radius: 8px;
 `;
 
-const Option = styled.div`
-  border-radius: 20px;
-  padding: 5px;
-  margin: 1px;
+const Label = styled.div`
+  display: flex;
+  font-size: 24px;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+`;
+
+const SelectOptions = styled.ul`
+  position: fixed;
+  list-style: none;
+  text-align: left;
+  overflow: hidden;
+  width: 80px;
+  max-height: ${(props) => (props.show ? "none" : "0")};
+  background-color: #fff;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 12px;
+  }
+`;
+
+const Preview = styled.div`
+  width: 100%;
+  margin-right: 8px;
+  border-radius: 4px;
+  height: 24px;
   ${({ value }) =>
-    value ? "background-color: white;" : "background-color: transparent;"};
+    value ? `background-color: ${value};` : "background-color: gray;"}
+  cursor: pointer;
+`;
+
+const Color = styled.li`
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  list-style: none;
+  ${({ value }) =>
+    value ? `background-color: ${value};` : "background-color: gray;"}
+  margin: 5px 10px 5px 0;
+  cursor: pointer;
+  & > svg {
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    ${({ mypic, value }) => (mypic === value ? null : `display: none;`)}
+  }
 `;
 
 const Content = styled.div`
   display: flex;
   justify-content: center;
   z-index: 205;
-  width: 420px;
   max-width: 100%;
   border-radius: 8px;
   background-color: #fff;
-  padding: 40px 0px;
-
+  padding: 24px;
   position: relative;
   overflow: scroll;
 `;
@@ -321,42 +392,93 @@ const ContentBox = styled.div`
   justify-content: space-between;
 `;
 
+const InputBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 16px;
+  border: ${({ show }) => (show ? `2px solid #8c98f8` : `2px solid #E5E5E5`)};
+  border-radius: 8px;
+`;
+
+const InsertBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  & > input:focus {
+    box-shadow: none;
+  }
+  & > input:focus-visible {
+    outline: none;
+  }
+`;
+
+const ResetBox = styled.div`
+  width: 20px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  svg {
+    display: ${({ show }) => (show ? null : "none")};
+    width: 100%;
+    height: 100%;
+    color: #757575;
+  }
+`;
+
 const Box = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 1%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 8px 16px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+`;
+
+const XButton = styled.div`
+  height: 56px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  svg {
+    width: 100%;
+    height: 40%;
+  }
+`;
+
+const InnerBox = styled.div`
+  padding: 0 40px;
 `;
 
 const CommonBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
   border: 1px solid gray;
-  margin: 1em auto;
-  padding: 0.5em;
   border: none;
   border-radius: 8px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 `;
 
-const Up = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 1em auto;
-`;
-const Down = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 1em auto;
-`;
-const Color = styled.div`
-  width: 2em;
-  height: 2em;
-  ${({ value }) =>
-    value ? `background-color: ${value};` : "background-color: gray;"}
-  margin: auto;
-  cursor: pointer;
-  ${({ mypic, value }) =>
-    mypic === value
-      ? `border: 2px solid black ;`
-      : `border: 2px solid transparent;`}
+const CalendarBox = styled.div`
+  position: fixed;
+  margin: 16px 8px;
 `;
 
+const TitleBox = styled.div`
+  display: flex;
+  margin: 14px 0px;
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+`;
 export default AddScheduleModal;

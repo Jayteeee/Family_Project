@@ -14,12 +14,16 @@ const initialState = {
 
 // 액션
 const GET_SCHEDULE = "GET_SCHEDULE";
+const GET_ONE_SCHEDULE = "GET_ONE_SCHEDULE";
 const ADD_SCHEDULE = "ADD_SCHEDULE";
 const EDIT_SCHEDULE = "EDIT_SCHEDULE";
 const DELETE_SCHEDULE = "DELETE_SCHEDULE";
 
 // 액션 생성함수
 const getSchedule = createAction(GET_SCHEDULE, (scheduleList) => ({
+  scheduleList,
+}));
+const getOneSchedule = createAction(GET_ONE_SCHEDULE, (scheduleList) => ({
   scheduleList,
 }));
 const addSchedule = createAction(ADD_SCHEDULE, (newSchedule) => ({
@@ -48,7 +52,32 @@ const getScheduleDB = () => {
     //     console.log("패밀리 데이터 안옴", error);
     //     console.log(error.response);
     //   });
-    dispatch(getSchedule(DummyData.scheduleList));
+    dispatch(getSchedule(DummyData.eventCalendarList));
+  };
+};
+const getOneScheduleDB = (day) => {
+  return async function (dispatch, getState, { history }) {
+    // const config = { Authorization: `Bearer ${getToken()}` };
+    // await axios
+    //   .get(`${BASE_URL}/schedulelist/, { headers: config })
+    //   .then((res) => {
+    //     console.log(res)
+    //     const {scheduleList} = res.data
+    //     console.log(scheduleList);
+    //     dispatch(getSchedule(scheduleList));
+    //   })
+    //   .catch((error) => {
+    //     console.log("패밀리 데이터 안옴", error);
+    //     console.log(error.response);
+    //   });
+    let scheduleList = [];
+    DummyData.eventModalList.map((x) => {
+      if (x.startDate == day) {
+        scheduleList.push(x);
+      }
+    });
+
+    dispatch(getOneSchedule(scheduleList));
   };
 };
 
@@ -137,7 +166,12 @@ export default handleActions(
     [GET_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
         draft.scheduleList = action.payload.scheduleList;
-        // console.log(state.scheduleList);
+        console.log(state.scheduleList);
+      }),
+    [GET_ONE_SCHEDULE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.scheduleOneList = action.payload.scheduleList;
+        console.log(state.scheduleList);
       }),
     [ADD_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
@@ -168,6 +202,7 @@ export const scheduleActions = {
   editSchedule,
   deleteSchedule,
   getScheduleDB,
+  getOneScheduleDB,
   addScheduleDB,
   editScheduleDB,
   deleteScheduleDB,

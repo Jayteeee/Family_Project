@@ -4,28 +4,50 @@ import React from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
-import { useSelector } from "react-redux";
+import {
+  MdOutlineClear,
+  MdOutlineCreate,
+  MdDeleteOutline,
+} from "react-icons/md";
 
 // 리덕스
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { scheduleActions } from "../../../../redux/modules/calendar";
 
 // 모달
 import { ModalPortal } from "../../portals";
 import EditScheduleModal from "./EditScheduleModal";
 
 // 엘리먼트
-import { Input, Button } from "../../../../elements";
+import { Text, Button, CircleImage } from "../../../../elements";
 
-const GetScheduleModal = ({ onClose, day }) => {
+const GetScheduleModal = ({ onClose, day, event }) => {
   const dispatch = useDispatch();
   const [normal, setNormal] = React.useState(false);
 
-  const list = useSelector((state) => state.calendar.scheduleList);
-  const theDay = list.find((x) => x.startDate == day);
+  const list = useSelector((state) => state.calendar.scheduleOneList);
+  console.log(event.clientX);
+  const theDay = list?.find(
+    (x) => x.startDate == dayjs(day).format("YYYY-MM-DD")
+  );
+
+  const fakeId = day?.fakeId;
+
+  const deleteSchedule = () => {
+    dispatch(scheduleActions.deleteScheduleDB(fakeId));
+  };
+
+  console.log(theDay);
+
+  React.useEffect(() => {
+    dispatch(scheduleActions.getOneScheduleDB(dayjs(day).format("YYYY-MM-DD")));
+  }, []);
 
   return (
     <ModalPortal>
       <Background
+        none={normal}
+        positionSet={event}
         className="flex-row"
         onClick={(e) => {
           e.stopPropagation();
@@ -39,49 +61,56 @@ const GetScheduleModal = ({ onClose, day }) => {
           }}
         >
           <CheckBox none={normal}>
-            <SBox>
-              <Stitle>
-                <ColorBox color={theDay.color}></ColorBox>
-                <Title>{theDay.event}</Title>
-              </Stitle>
-              <Sday>
-                <p>{`${dayjs(theDay.startDate)
-                  .locale("ko")
-                  .format(`MM월 DD일 dddd`)} - ${dayjs(theDay.endDate)
-                  .locale("ko")
-                  .format(`MM월 DD일 dddd`)}`}</p>
-              </Sday>
-            </SBox>
             <ButtonBox>
-              <Button
-                style={{ minWidth: "80px" }}
-                height="36px"
-                fontSize="15px"
-                bg="white"
-                color="black"
-                margin="0.3rem"
+              <Buttons
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteSchedule();
+                }}
+              >
+                <MdDeleteOutline />
+              </Buttons>
+              <Buttons
                 onClick={(e) => {
                   e.stopPropagation();
                   setNormal(true);
                 }}
               >
-                수정/삭제
-              </Button>
-              <Button
-                style={{ minWidth: "80px" }}
-                height="36px"
-                fontSize="15px"
-                bg="black"
-                color="white"
-                margin="0.3rem"
+                <MdOutlineCreate />
+              </Buttons>
+              <Buttons
                 onClick={(e) => {
                   e.stopPropagation();
                   onClose();
                 }}
               >
-                확인
-              </Button>
+                <MdOutlineClear />
+              </Buttons>
             </ButtonBox>
+            <SBox>
+              <Stitle>
+                <ColorBox color={theDay?.color}></ColorBox>
+                <Text S1 style={{ marginLeft: "1rem" }}>
+                  {theDay?.event}
+                </Text>
+              </Stitle>
+              <Sday>
+                <Text B1>{`${dayjs(theDay?.startDate)
+                  .locale("ko")
+                  .format(`MM월 DD일, dddd`)} - ${dayjs(theDay?.endDate)
+                  .locale("ko")
+                  .format(`MM월 DD일, dddd`)}`}</Text>
+              </Sday>
+              <SUser>
+                <CircleImage
+                  XS
+                  src={theDay?.profileImg}
+                  margin="0px 8px 0px 0px"
+                  alt="profileImage"
+                ></CircleImage>
+                <Text B3>{`${theDay?.familyMemberNickname}`}</Text>
+              </SUser>
+            </SBox>
           </CheckBox>
           <CheckBox none={!normal}>
             <EditScheduleModal onClose={onClose} day={theDay} />
@@ -94,13 +123,27 @@ const GetScheduleModal = ({ onClose, day }) => {
 
 const Background = styled.div`
   z-index: 206;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
+  position: ${(props) => (props.none ? "fixed" : "absolute")};
+  left: ${(props) =>
+    props.none
+      ? 0
+      : `${
+          props.positionSet.target.offsetLeft +
+          props.positionSet.target.offsetWidth
+        }px`};
+  top: ${(props) =>
+    props.none
+      ? 0
+      : `${
+          props.positionSet.target.offsetTop +
+          props.positionSet.target.offsetHeight
+        }px`};
+  width: ${(props) => (props.none ? `100%` : null)};
+  height: ${(props) => (props.none ? `100%` : null)};
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => (props.none ? `rgba(0, 0, 0, 0.5)` : null)};
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 40px rgba(0, 0, 0, 0.25);
+  border-radius: ${(props) => (props.none ? null : "20%")};
 `;
 
 const Content = styled.div`
@@ -108,12 +151,9 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   z-index: 205;
-  width: 420px;
   max-width: 100%;
   border-radius: 8px;
   background-color: #fff;
-  padding: 40px 0px;
-
   position: relative;
   overflow: scroll;
 `;
@@ -125,20 +165,29 @@ const CheckBox = styled.div`
 const SBox = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 40px;
+  margin-top: 16px;
 `;
 
 const Stitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 2rem;
+  padding: 0 24px;
 `;
 
 const Sday = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 1rem 4.5rem;
+  padding: 16px 66px;
+`;
+
+const SUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 16px 66px;
 `;
 
 const ColorBox = styled.div`
@@ -148,13 +197,22 @@ const ColorBox = styled.div`
   background-color: ${(props) => props.color};
 `;
 
-const Title = styled.div`
-  margin-left: 1rem;
-`;
-
 const ButtonBox = styled.div`
   display: flex;
-  padding: 2rem 5rem 0;
+  align-items: center;
+  justify-content: end;
+`;
+
+const Buttons = styled.div`
+  width: 24px;
+  height: 24px;
+  margin: 16px 12px;
+  font-size: 18px;
+  cursor: pointer;
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export default GetScheduleModal;

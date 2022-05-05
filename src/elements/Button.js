@@ -108,6 +108,7 @@ const MediumButton = styled.button`
     borderColor
       ? `border: 1px solid ${borderColor};`
       : "border: 1px solid black;"};
+  text-align: center;
 `;
 
 const LargeButton = styled.button`

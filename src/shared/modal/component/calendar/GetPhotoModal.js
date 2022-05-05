@@ -22,7 +22,6 @@ const GetPhotoModal = ({ onClose, day }) => {
   const list = useSelector((state) => state.calendar.scheduleList);
 
   const theDay = list.find((x) => x.startDate == day);
-  console.log(theDay);
 
   return (
     <ModalPortal>
@@ -39,24 +38,7 @@ const GetPhotoModal = ({ onClose, day }) => {
             e.stopPropagation();
           }}
         >
-          <PhotoSlider day={theDay} />
-
-          <ButtonBox>
-            <Button
-              style={{ minWidth: "80px" }}
-              height="36px"
-              fontSize="15px"
-              bg="black"
-              color="white"
-              margin="0.3rem"
-              onClick={(e) => {
-                e.stopPropagation();
-                onClose();
-              }}
-            >
-              확인
-            </Button>
-          </ButtonBox>
+          <PhotoSlider day={theDay} onClose={onClose} />
         </Content>
       </Background>
     </ModalPortal>
@@ -79,19 +61,13 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   z-index: 205;
-  width: 420px;
+  width: 1000px;
+  height: 1000px;
   max-width: 100%;
-  border-radius: 8px;
-  background-color: #fff;
-  padding: 20px 0px;
+  background-color: transparent;
 
   position: relative;
   overflow: scroll;
-`;
-
-const ButtonBox = styled.div`
-  display: flex;
-  padding: 0 5rem;
 `;
 
 export default GetPhotoModal;

@@ -1,34 +1,47 @@
 import React from "react";
 import Slider from "react-slick";
+import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { DummyData } from "../../shared/DummyData";
+import { MdChevronLeft, MdChevronRight, MdClose } from "react-icons/md";
 
-const PhotoSlider = ({}) => {
-  //전체값의 순서랑 게시물 하나의 번호 비교
-  const settings = {
-    arrows: false, //화살표 x
-    dots: true, //이동 점
-    infinite: false, //끝-처음 반복
-    slidesToShow: 1, //한화면에 보이는 개수
-    slidesToScroll: 1, //넘어가는 화면 수
-  };
-
+const PhotoSlider = ({ onClose }) => {
   const list = DummyData.photoModalList;
 
-  console.log(list);
+  const settings = {
+    arrows: true, //화살표 o
+    dots: true, //이동 점
+    infinite: true, //끝-처음 반복
+    slidesToShow: 1, //한화면에 보이는 개수
+    slidesToScroll: 1, //넘어가는 화면 수
+    customPaging: function (i) {
+      const imgSrc = list[i].photoFile;
+      return (
+        <PagingAnchor>
+          {" "}
+          <Paging src={imgSrc} />{" "}
+        </PagingAnchor>
+      );
+    },
+  };
+  //전체값의 순서랑 게시물 하나의 번호 비교
+
+  const slider = React.useRef(null);
+  const slickRef = React.useRef(null);
+
   return (
     <>
       <Styled_Slide
         {...settings}
-        dotsClass="reset"
+        dotsClass="slick-dots slick-thumb"
         className="res-ss res-reset"
+        ref={slider}
       >
         {list.map((x) => {
           return (
             <div className="res-ss" key={x.photoId}>
-              <p>날짜</p>
               <img
                 key={x.photoId}
                 alt="photoId"
@@ -39,80 +52,106 @@ const PhotoSlider = ({}) => {
           );
         })}
       </Styled_Slide>
+      <XButton
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+      >
+        <MdClose />
+      </XButton>
+      <PButton onClick={() => slider?.current?.slickPrev()}>
+        <MdChevronLeft />
+      </PButton>
+      <NButton onClick={() => slider?.current?.slickNext()}>
+        <MdChevronRight />
+      </NButton>
     </>
   );
 };
+const XButton = styled.div`
+  position: absolute;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 40px;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  top: 11%;
+  right: 11%;
+  cursor: pointer;
+  z-index: 1;
+`;
+
 const Styled_Slide = styled(Slider)`
   .slick-list {
     //얘로 크기조정
-    max-width: 100%;
-    width: 90%;
-    max-height: 100%;
-    height: auto;
+    max-width: 80%;
+    max-height: 80%;
     object-fit: contain;
-    border-radius: 10px;
     align-items: center;
     text-align: start;
     margin: auto;
-    @media only screen and (max-width: 839px) {
+    /* @media only screen and (max-width: 839px) {
       margin: 0px;
+    } */
+    img {
+      height: 100%;
+      width: 100%;
     }
   }
-  img {
-    height: 100%;
-    width: 100%;
-    align-items: center;
-  }
-  .reset {
-    transform: none;
-    list-style: none;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    z-index: 1;
-    @media only screen and (max-width: 839px) {
-      display: flex;
-      flex-direction: row;
-      bottom: 0px;
-      position: relative;
-    }
-  }
-  .reset li {
-    position: relative;
-    display: inline-block;
-    height: 1.8rem;
-    width: 1.8rem;
-  }
 
-  .reset li button {
-    font-size: 0;
-    line-height: 0;
-    display: block;
-    height: 1.8rem;
-    width: 1.8rem;
-    color: transparent;
-    border: 0;
-    outline: 0;
-    background: 0 0;
-  }
-
-  .reset li button:before {
-    font-size: 3rem;
+  .slick-dots.slick-thumb {
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 1.8rem;
-    width: 1.8rem;
-    content: "•";
-    text-align: center;
-    opacity: 0.75;
-    color: #6d6968;
-    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+    bottom: 5%;
+    right: 27%;
+    list-style: none;
+    li {
+      position: relative;
+      display: inline-block;
+      margin: 0 50px;
+      &.slick-active {
+        span {
+          filter: none;
+        }
+      }
+    }
   }
+`;
+const PagingAnchor = styled.a`
+  display: block;
+  width: 100px;
+  height: 100px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+const Paging = styled.span`
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  vertical-align: end;
+  background: no-repeat url(${(props) => props.src});
+  background-size: 100% 100%;
+`;
 
-  .reset li.slick-active button:before {
-    opacity: 0.75;
-    color: #000;
-  }
+const PButton = styled.div`
+  position: absolute;
+  left: 0;
+  color: white;
+  font-size: 80px;
+  cursor: pointer;
+`;
+const NButton = styled.div`
+  position: absolute;
+  right: 0;
+  color: white;
+  font-size: 80px;
+  cursor: pointer;
 `;
 export default PhotoSlider;
