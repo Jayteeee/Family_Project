@@ -66,12 +66,17 @@ const AddMemberModal = ({ onClose }) => {
 
   console.log("가족 맴버 리스트:", familyMemberList);
 
-  useEffect(() => {
-    dispatch(familyMemberActions.getFamilyMemberDB());
-    dispatch(
-      familyMemberActions.getSearchMemberDB(familyMemberNickname, searchEmail)
-    );
-  }, [searchEmail, familyMemberList.length]);
+  useEffect(
+    () => {
+      dispatch(familyMemberActions.getFamilyMemberDB());
+      dispatch(
+        familyMemberActions.getSearchMemberDB(familyMemberNickname, searchEmail)
+      );
+    },
+    [
+      // searchEmail, familyMemberList.length
+    ]
+  );
 
   return (
     <ModalPortal>

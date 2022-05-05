@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, createContext } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -11,6 +11,9 @@ import { missionActions } from "../redux/modules/mission";
 import MissionHeader from "../components/Mission/MissionHeader";
 import MissionStatusBox from "../components/Mission/MissionStatusBox";
 import MissionList from "../components/Mission/MissionList";
+import { userActions } from "../redux/modules/user";
+
+export const MissionContext = createContext();
 
 const MissionPage = (props) => {
   const dispatch = useDispatch();
@@ -18,30 +21,40 @@ const MissionPage = (props) => {
   const { familyId } = props.match?.params;
   console.log("현재 미션페이지 패밀리 아이디:", familyId);
 
-  const nowMissionData = useSelector((state) => state.mission.nowMissionData);
-  console.log("현재 미션 데이터: ", nowMissionData);
+  const MissionData = useSelector((state) => state.mission);
+  console.log("현재 미션 데이터: ", MissionData);
 
-  const missionStatus = nowMissionData.missionBox;
+  const missionStatus = MissionData.nowMissionData.missionBox;
   console.log("미션 현황:", missionStatus);
 
-  const { monthMissionList } = nowMissionData;
-  console.log("이번달 미션리스트:", monthMissionList);
+  const { thisMonthMissionList } = MissionData?.nowMissionData;
+  console.log("이번달 미션리스트:", thisMonthMissionList);
 
-  const { pastMissionList } = nowMissionData;
-  console.log("이번달 미션리스트:", pastMissionList);
+  const { pastMissionList } = MissionData;
+  console.log("이전 미션리스트:", pastMissionList);
 
-  useEffect(() => {
-    dispatch(missionActions.getMissionPage(familyId));
-  }, []);
+  useEffect(
+    () => {
+      dispatch(missionActions.getMissionPage(familyId));
+      dispatch(missionActions.getPastMissionDB(familyId));
+      // dispatch(userActions.getUserInfo());
+    },
+    [
+      // thisMonthMissionList
+    ]
+  );
 
   return (
     <>
       <MissionPageWrap className="res-missionPageWrap">
-        <MissionHeader />
-        <MissionStatusBox missionStatus={missionStatus} />
+        <MissionContext.Provider value={familyId}>
+          <MissionHeader />
+        </MissionContext.Provider>
+        <MissionStatusBox missionStatus={missionStatus} familyId={familyId} />
         <MissionList
-          monthMissionList={monthMissionList}
+          monthMissionList={thisMonthMissionList}
           pastMissionList={pastMissionList}
+          familyId={familyId}
         />
       </MissionPageWrap>
     </>

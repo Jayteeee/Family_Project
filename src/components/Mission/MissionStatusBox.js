@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -8,8 +8,22 @@ import { Text } from "../../elements";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
+import { BadgeModal } from "../../shared/modal/component/MissionModal";
+import { missionActions } from "../../redux/modules/mission";
+import { useDispatch } from "react-redux";
 
-const MissionStatusBox = ({ missionStatus }) => {
+const MissionStatusBox = ({ missionStatus, familyId }) => {
+  const dispatch = useDispatch();
+  // 배지 목록 모달
+  const [modalOn, setModalOn] = useState(false);
+
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
+
+  const getBadgeList = () => {
+    dispatch(missionActions.getBadgeListDB(familyId));
+  };
   return (
     <>
       <MissionStatusWrap className="res-missionStatusBox">
@@ -82,7 +96,14 @@ const MissionStatusBox = ({ missionStatus }) => {
               </Text>
             </div>
           </StatusBox>
-          <StatusBox className="res-statusBox" style={{ cursor: "pointer" }}>
+          <StatusBox
+            className="res-statusBox"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              handleModal();
+              getBadgeList();
+            }}
+          >
             <div>
               <Text
                 className="res-missionStatusTitle"
@@ -104,6 +125,12 @@ const MissionStatusBox = ({ missionStatus }) => {
           </StatusBox>
         </TwoStatusBox>
       </MissionStatusWrap>
+      {/* 배지 목록 모달 */}
+      <ModalPortal>
+        {modalOn && (
+          <BadgeModal onClose={handleModal} familyId={familyId}></BadgeModal>
+        )}
+      </ModalPortal>
     </>
   );
 };

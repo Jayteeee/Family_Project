@@ -90,9 +90,14 @@ const EditFamilyModal = ({ onClose }) => {
     setfamilyMemberId(e?.target.getAttribute("id"));
   };
 
-  useEffect(() => {
-    dispatch(familyMemberActions.getFamilyMemberDB());
-  }, [familyMemberList.length]);
+  useEffect(
+    () => {
+      dispatch(familyMemberActions.getFamilyMemberDB());
+    },
+    [
+      // familyMemberList.length
+    ]
+  );
 
   return (
     <>

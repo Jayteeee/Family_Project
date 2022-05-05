@@ -19,46 +19,61 @@ const PastMissionList = ({ pastMissionList }) => {
             return (
               <MissionBox key={m.missionId}>
                 <MissionTitle>
-                  <MdCheckBox
-                    style={{
-                      margin: "1px 0 0 0",
-                      fontSize: "23px",
-                      cursor: "pointer",
-                    }}
-                  />
-                  <Text size="16px" padding="0 0 1px 0" margin="0 10px">
-                    {m.missionTitle}
-                  </Text>
                   <div
                     style={{
-                      textAlign: "right",
-                      flexGrow: "1",
+                      width: "67%",
+                      borderBottom: "2px solid #F5F5F5",
+                      padding: "5px 0",
+                      margin: "0 20px",
+                    }}
+                    className="res-missionTitle"
+                  >
+                    <Text
+                      size="16px"
+                      padding="0 0 1px 0"
+                      margin="0"
+                      width="100%"
+                      height="60px"
+                    >
+                      {m.missionTitle}
+                    </Text>
+                  </div>
+                  <div>{m.missionChk}</div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "120px",
+                      justifyContent: "center",
+                      marginRight: "4px",
                     }}
                   >
-                    <Button
-                      S
-                      width="63px"
-                      height="26px"
-                      fontSize="12px"
-                      bg="black"
-                      color="white"
-                      padding="0 0 1px 0"
-                    >
-                      달성 완료
-                    </Button>
+                    {m.familyMissionChk ? (
+                      <CompletedMission>달성완료</CompletedMission>
+                    ) : (
+                      <UncompletedMission>미완료</UncompletedMission>
+                    )}
                   </div>
                 </MissionTitle>
-                <MissionMemberBox>
-                  <div style={{ display: "flex" }}>
+                <MissionMemberBox className="res-missionMemberBox">
+                  <div style={{ display: "flex", margin: "0 20px" }}>
                     {m.missionMemberList ? (
                       m.missionMemberList.map((f, i) => {
                         return (
-                          <div key={f.familyMemberId}>
+                          <div
+                            key={f.familyMemberId}
+                            style={{ position: "relative" }}
+                          >
                             <CircleImage
                               XS
                               src={f.profileImg ? f.profileImg : profileImg}
-                              margin="0 3px 0 0"
+                              margin="0 10px 0 0"
+                              size="24px"
                             />
+                            {f.myMissionChk ? (
+                              <CompletedCicle />
+                            ) : (
+                              <UncompletedCicle />
+                            )}
                           </div>
                         );
                       })
@@ -71,7 +86,10 @@ const PastMissionList = ({ pastMissionList }) => {
                       textAlign: "right",
                       flexGrow: "1",
                       fontSize: "16px",
+                      color: "#A8A8A8",
+                      marginRight: "8%",
                     }}
+                    className="res-missionCompletedAt"
                   >
                     {m.completedAt} 달성
                   </div>
@@ -89,21 +107,76 @@ const PastMissionList = ({ pastMissionList }) => {
 
 const MissionBox = styled.div`
   text-align: left;
+  padding: 0 0 0 25px;
+`;
+
+const MissionChkBox = styled.label`
+  margin-top: 1px;
 `;
 
 const MissionTitle = styled.div`
-  background: #f4f4f4;
   width: 100%;
   display: flex;
   align-items: center;
   font-size: 16px;
-  padding: 10px;
+  padding: 10px 0;
+  height: 60px;
 `;
 
 const MissionMemberBox = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 0 0 10px 0;
+`;
+
+const UncompletedCicle = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  border: none;
+  background-color: #8f8f8f;
+  position: absolute;
+  top: 13px;
+  right: 7px;
+`;
+
+const CompletedCicle = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  border: none;
+  background-color: #f4cc4d;
+  position: absolute;
+  top: 13px;
+  right: 7px;
+`;
+
+const CompletedMission = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: right;
+  width: 100px;
+  height: 42px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 21px;
+  background: #8c98f8;
+  color: white;
+`;
+
+const UncompletedMission = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: right;
+  width: 85px;
+  height: 42px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 21px;
+  background: #f5f5f5;
+  color: #757575;
 `;
 
 export default PastMissionList;

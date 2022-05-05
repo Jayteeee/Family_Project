@@ -1,13 +1,28 @@
-import React from "react";
-import { MdOutlineAdd } from "react-icons/md";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import dayjs from "dayjs";
 
 // 엘리먼트
 import { Text, Button } from "../../elements/index";
 
-const MissionHeader = () => {
+// 모달
+import { ModalPortal } from "../../shared/modal/portals";
+import { AddMissionModal } from "../../shared/modal/component/MissionModal";
+
+const MissionHeader = (props) => {
+  console.log(props);
+  // 미션 추가하기 모달
+  const [modalOn, setModalOn] = useState(false);
+
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
+
+  // 오늘자 년도와 달
+  let nowMonth = dayjs(new Date()).format("YYYY년 M월");
+
   return (
     <>
       <MissionHeaderBox>
@@ -24,6 +39,7 @@ const MissionHeader = () => {
             width="159px"
             height="56px"
             hover="#6971b2"
+            onClick={handleModal}
           >
             <div
               style={{
@@ -32,17 +48,23 @@ const MissionHeader = () => {
                 justifyContent: "center",
               }}
             >
-              <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>{" "}
+              <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>
+                +
+              </span>{" "}
               미션 추가
             </div>
           </Button>
         </AddMissionBtn>
       </MissionHeaderBox>
       <MissionLowerHeader>
-        <Text size="24px" fontWeight="700">
-          2022년 5월
+        <Text size="24px" fontWeight="700" margin="5px 15px 0 15px">
+          {nowMonth}
         </Text>
       </MissionLowerHeader>
+      {/* 미션 추가 모달 */}
+      <ModalPortal>
+        {modalOn && <AddMissionModal onClose={handleModal}></AddMissionModal>}
+      </ModalPortal>
     </>
   );
 };
