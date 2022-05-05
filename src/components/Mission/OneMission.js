@@ -33,23 +33,23 @@ const OneMission = (props) => {
     familyMissionChk,
     missionMemberList,
     familyId,
-    // monthMissionList,
+    monthMissionList,
   } = props;
 
   console.log(props);
 
-  // const myFamilyMemberId = useSelector(
-  //   (state) => state.user.user.familyMemberId
-  // );
+  const myFamilyMemberId = useSelector(
+    (state) => state.user.user.familyMemberId
+  );
 
-  // console.log("나의 가족구성원Id:", myFamilyMemberId);
+  console.log("나의 가족구성원Id:", myFamilyMemberId);
 
-  // // user가 속해 있는 mission
-  // const myMission = monthMissionList.find((m) =>
-  //   m.missionMemberList.filter((f) => f.familyMemberId === myFamilyMemberId)
-  // );
+  // user가 속해 있는 mission
+  const myMission = monthMissionList.find((m) =>
+    m.missionMemberList.filter((f) => f.familyMemberId === myFamilyMemberId)
+  );
 
-  // console.log("내가 속해있는 미션:", myMission);
+  console.log("내가 속해있는 미션:", myMission);
 
   // 미션 체크관련 함수
   const [isChecked, setIsChecked] = useState(false);
