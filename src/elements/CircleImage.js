@@ -53,10 +53,10 @@ const XSmallCircleImg = styled.div`
   ${({ margin }) => (margin ? `margin: ${margin};` : "margin: 0;")};
   ${({ borderRadius }) =>
     borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 100px;"};
+
   ${({ borderColor }) =>
-    borderColor
-      ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid transparent;"};
+    borderColor ? `border: 1px solid ${borderColor};` : "border: none"};
+
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
@@ -75,9 +75,7 @@ const SmallCircleImg = styled.div`
   ${({ borderRadius }) =>
     borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 100px;"};
   ${({ borderColor }) =>
-    borderColor
-      ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid transparent;"};
+    borderColor ? `border: 1px solid ${borderColor};` : "border: none"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
@@ -96,13 +94,11 @@ const MediumCircleImg = styled.div`
   ${({ borderRadius }) =>
     borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 100px;"};
   ${({ borderColor }) =>
-    borderColor
-      ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid transparent;"};
+    borderColor ? `border: 1px solid ${borderColor};` : "border: none"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
-      : "background-image: url('https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png')"};
+      : `background-image: url(${profileImg})`};
 `;
 
 const LargeCircleImg = styled.div`
@@ -117,13 +113,11 @@ const LargeCircleImg = styled.div`
   ${({ borderRadius }) =>
     borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 20px;"};
   ${({ borderColor }) =>
-    borderColor
-      ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid transparent;"};
+    borderColor ? `border: 1px solid ${borderColor};` : "border: none"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
-      : "background-image: url('https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png')"};
+      : `background-image: url(${profileImg})`};
 `;
 
 export default CircleImage;

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import noImage from "../shared/images/noImage.png";
 
 const RactangleImage = (props) => {
   const { XS, S, M, L, ...styles } = props;
@@ -29,7 +30,7 @@ const RactangleImage = (props) => {
 
 Image.defaultProps = {
   shape: false,
-  src: "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+  src: { noImage },
   size: 36,
 };
 
@@ -53,13 +54,11 @@ const XSmallRactangleImage = styled.div`
   ${({ borderRadius }) =>
     borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 0px;"};
   ${({ borderColor }) =>
-    borderColor
-      ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid black;"};
+    borderColor ? `border: 1px solid ${borderColor};` : "border: none;"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
-      : "background-image: url('https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png')"};
+      : `background-image: url(${noImage});`};
 `;
 
 const SmallRactangleImage = styled.div`
@@ -74,13 +73,11 @@ const SmallRactangleImage = styled.div`
   ${({ borderRadius }) =>
     borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 20px;"};
   ${({ borderColor }) =>
-    borderColor
-      ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid black;"};
+    borderColor ? `border: 1px solid ${borderColor};` : "border: none"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
-      : "background-image: url('https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png')"};
+      : `background-image: url(${noImage});`};
 `;
 
 const MediumRactangleImage = styled.div`
@@ -97,13 +94,11 @@ const MediumRactangleImage = styled.div`
       ? `border-radius: ${borderRadius};`
       : "border-radius: 19.2px;"};
   ${({ borderColor }) =>
-    borderColor
-      ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid black;"};
+    borderColor ? `border: 1px solid ${borderColor};` : "border: none"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
-      : "background-image: url('https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png')"};
+      : `background-image: url(${noImage});`};
 `;
 
 const LargeRactangleImage = styled.div`
@@ -118,13 +113,11 @@ const LargeRactangleImage = styled.div`
   ${({ borderRadius }) =>
     borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 20px;"};
   ${({ borderColor }) =>
-    borderColor
-      ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid black;"};
+    borderColor ? `border: 1px solid ${borderColor};` : "border: none"};
   ${({ src }) =>
     src
       ? `background-image: url(${src});`
-      : "background-image: url('https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png')"};
+      : `background-image: url(${noImage});`};
 `;
 
 export default RactangleImage;

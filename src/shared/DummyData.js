@@ -6,7 +6,7 @@ const familyList = [
     familyImg: "url",
     familyHost: "유저 닉네임",
     createdAt: "2022-04-15 00:51",
-    userId: "user1@gamil.com",
+    email: "asdf@gmail.com",
     userNickname: "유저 닉네임",
     profileImg: false,
     todayMood: "이모지", // 이모지 사용
@@ -19,7 +19,7 @@ const familyList = [
     familyImg: "url",
     familyHost: "유저 닉네임",
     createdAt: "2022-04-15 00:51",
-    userId: "user1@gamil.com",
+    email: "asdf@gmail.com",
     userNickname: "유저 닉네임",
     profileImg: false,
     todayMood: "이모지", // 이모지 사용
@@ -110,7 +110,7 @@ const mainPage = {
       familyMemberNicname: "자녀",
       familyMemberId: "68defs231a",
       userInfo: {
-        userId: "userId@userId.com",
+        userId: "asdf@gmail.com",
         nickname: "닉네임",
         profileImg: false,
         todayMood: "이모지",
@@ -143,9 +143,9 @@ const nowFamilyMemberList = [
   },
   {
     familyMemberNickname: "자녀",
-    familyMemberId: "1542368defs231a",
+    familyMemberId: "68defs231a",
     userInfo: {
-      userId: "userId3@userId.com",
+      userId: "asdf@gmail.com",
       nickname: "닉네임",
       profileImg: false,
       todayMood: "이모지",
@@ -163,30 +163,30 @@ const missionPage = {
     completePercentage: 50,
     totalBadge: 3,
   },
-  monthMissionList: [
+  thisMonthMissionList: [
     {
       familyId: "123456787",
       missionId: "asdfassdsddf",
       missionTitle: "우리가족 피크닉 가기", //name -> title 수
-      missionChk: false,
+      familyMissionChk: false,
       completedAt: "YYYY-MM-DD",
       missionMemberList: [
         {
           familyMemberId: "1234213",
           familyMemberNicname: "아빠",
-          memberMissionChk: false,
+          myMissionChk: false,
           profileImg: false,
         },
         {
           familyMemberId: "2342fag4",
           familyMemberNicname: "엄마",
-          memberMissionChk: false,
+          myMissionChk: false,
           profileImg: false,
         },
         {
-          familyMemberId: "2342sd4",
-          familyMemberNicname: "아들",
-          memberMissionChk: false,
+          familyMemberId: "68defs231a",
+          familyMemberNicname: "자녀",
+          myMissionChk: false,
           profileImg: false,
         },
       ],
@@ -195,52 +195,53 @@ const missionPage = {
       familyId: "123456787",
       missionId: "4435dfassds3ddf",
       missionTitle: "서로 전화하기", //name -> title 수
-      missionChk: false,
+      familyMissionChk: true,
       completedAt: "YYYY-MM-DD",
       missionMemberList: [
         {
           familyMemberId: "1234213",
           familyMemberNicname: "아빠",
-          memberMissionChk: false,
+          myMissionChk: true,
           profileImg: false,
         },
         {
           familyMemberId: "2342sd434",
           familyMemberNicname: "딸",
-          memberMissionChk: false,
+          myMissionChk: true,
           profileImg: false,
         },
       ],
     },
   ],
-  pastMissionList: [
-    {
-      familyId: "123456787",
-      missionId: "asdfassdsddf",
-      missionName: "우리가족 피크닉 가기",
-      missionChk: false,
-      missionMemberList: [
-        {
-          familyId: "123456787",
-          familyMemberId: "1234213",
-          familyMemberNicname: "아빠",
-          memberMissionChk: false,
-        },
-        {
-          familyId: "123456787",
-          familyMemberId: "2342fag4",
-          familyMemberNicname: "엄마",
-          memberMissionChk: false,
-        },
-        {
-          familyId: "123456787",
-          familyMemberId: "2342sd4",
-          familyMemberNicname: "자녀",
-          memberMissionChk: false,
-        },
-      ],
-    },
-  ],
+  // pastMissionList: [
+  //   {
+  //     familyId: "123456787",
+  //     missionId: "asdfassdsddf",
+  //     missionTitle: "호캉스 가기",
+  //     missionChk: false,
+  //     completedAt: "YYYY-MM-DD",
+  //     missionMemberList: [
+  //       {
+  //         familyId: "123456787",
+  //         familyMemberId: "1234213",
+  //         familyMemberNicname: "아빠",
+  //         memberMissionChk: false,
+  //       },
+  //       {
+  //         familyId: "123456787",
+  //         familyMemberId: "2342fag4",
+  //         familyMemberNicname: "엄마",
+  //         memberMissionChk: false,
+  //       },
+  //       {
+  //         familyId: "123456787",
+  //         familyMemberId: "2342sd4",
+  //         familyMemberNicname: "자녀",
+  //         memberMissionChk: false,
+  //       },
+  //     ],
+  //   },
+  // ],
 };
 
 // 배지 페이지
@@ -248,9 +249,29 @@ const badgePage = {
   familyId: "123456787",
   badge: [
     {
-      badgeChk: false,
+      badgeChk: true,
       badgeTitle: "뱃지 타이틀",
-      badgeCnt: 3,
+      badgeCnt: 1,
+    },
+    {
+      badgeChk: false,
+      badgeTitle: "뱃지 타이틀2",
+      badgeCnt: 4,
+    },
+    {
+      badgeChk: false,
+      badgeTitle: "뱃지 타이틀2",
+      badgeCnt: 7,
+    },
+    {
+      badgeChk: false,
+      badgeTitle: "뱃지 타이틀2",
+      badgeCnt: 2,
+    },
+    {
+      badgeChk: false,
+      badgeTitle: "뱃지 타이틀2",
+      badgeCnt: 5,
     },
     {
       badgeChk: false,
@@ -264,26 +285,48 @@ const pastMissionList = [
   {
     familyId: "123456787",
     missionId: "asdfassdsddf",
-    missionName: "우리가족 피크닉 가기",
-    missionChk: false,
+    missionTitle: "호캉스 가기",
+    familyMissionChk: false,
+    completedAt: "YYYY-MM-DD",
     missionMemberList: [
       {
         familyId: "123456787",
         familyMemberId: "1234213",
         familyMemberNicname: "아빠",
-        memberMissionChk: false,
+        myMissionChk: false,
       },
       {
         familyId: "123456787",
         familyMemberId: "2342fag4",
         familyMemberNicname: "엄마",
-        memberMissionChk: false,
+        myMissionChk: false,
       },
       {
         familyId: "123456787",
-        familyMemberId: "2342sd4",
+        familyMemberId: "68defs231a",
         familyMemberNicname: "자녀",
-        memberMissionChk: false,
+        myMissionChk: false,
+      },
+    ],
+  },
+  {
+    familyId: "123456787",
+    missionId: "asd3234dsddf",
+    missionTitle: "여행 가기",
+    familyMissionChk: true,
+    completedAt: "YYYY-MM-DD",
+    missionMemberList: [
+      {
+        familyId: "123456787",
+        familyMemberId: "2342fag4",
+        familyMemberNicname: "엄마",
+        myMissionChk: true,
+      },
+      {
+        familyId: "123456787",
+        familyMemberId: "68defs231a",
+        familyMemberNicname: "자녀",
+        myMissionChk: true,
       },
     ],
   },
@@ -301,7 +344,7 @@ const familyMemberList = [
     profileImg: false,
   },
   {
-    familyMemberId: "dfaefawdfedf",
+    familyMemberId: "68defs231a",
     familyMemberNickname: "자녀",
     profileImg: false,
   },
@@ -367,7 +410,7 @@ const detailPhotoPage = {
     },
     {
       familyId: "123456787",
-      photoId: "23dfgsdf4d",
+      photoId: "68defs231a",
       profileImg: false,
       familyMemberNicname: "자녀",
     },

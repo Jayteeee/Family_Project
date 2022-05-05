@@ -22,8 +22,8 @@ const AddMemberModal = ({ onClose }) => {
   console.log("현재 가족 이름:", familyTitle, "현재 가족 아이디:", familyId);
 
   // 가족 구성원 추가하기 관련 코드
-  const [searchUserId, setSearchUserId] = useState(""); // 검색한 userId
-  const [selectUserId, setSelectUserId] = useState("");
+  const [searchEmail, setsearchEmail] = useState(""); // 검색한 userId
+  const [selectEmail, setSelectEmail] = useState("");
   const [familyMemberNickname, setfamilyMemberNickname] = useState("");
 
   const searchMemberList = useSelector(
@@ -31,17 +31,17 @@ const AddMemberModal = ({ onClose }) => {
   );
 
   console.log("검색한 맴버 리스트:", searchMemberList);
-  console.log("선택한 맴버:", selectUserId);
+  console.log("선택한 맴버:", selectEmail);
 
   // 검색한 userId 주입
-  const handleSearchUserId = (e) => {
-    setSearchUserId(e.target.value);
+  const handleSearchEmail = (e) => {
+    setsearchEmail(e.target.value);
   };
   // 선택한 userId input value에 주입
-  const handleSelectUserId = (e) => {
+  const handleSelectEmail = (e) => {
     console.log(e.target.getAttribute("value"));
     document.getElementById("addMember").value = e.target.getAttribute("value");
-    setSelectUserId(e.target.getAttribute("value"));
+    setSelectEmail(e.target.getAttribute("value"));
   };
   // input에 입력한 호칭 주입
   const handleMemberNickName = (e) => {
@@ -54,7 +54,7 @@ const AddMemberModal = ({ onClose }) => {
       familyMemberActions.addFamilyMemberDB(
         familyId,
         familyMemberNickname,
-        selectUserId
+        selectEmail
       )
     );
     onClose();
@@ -66,12 +66,17 @@ const AddMemberModal = ({ onClose }) => {
 
   console.log("가족 맴버 리스트:", familyMemberList);
 
-  useEffect(() => {
-    dispatch(familyMemberActions.getFamilyMemberDB());
-    dispatch(
-      familyMemberActions.getSearchMemberDB(familyMemberNickname, searchUserId)
-    );
-  }, [searchUserId, familyMemberList.length]);
+  useEffect(
+    () => {
+      dispatch(familyMemberActions.getFamilyMemberDB());
+      dispatch(
+        familyMemberActions.getSearchMemberDB(familyMemberNickname, searchEmail)
+      );
+    },
+    [
+      // searchEmail, familyMemberList.length
+    ]
+  );
 
   return (
     <ModalPortal>
@@ -97,7 +102,7 @@ const AddMemberModal = ({ onClose }) => {
                   placeholder="추가하고 싶은 사람의 email을 입력해 주세요"
                   size="15px"
                   padding="0 20px 0 20px"
-                  onChange={handleSearchUserId}
+                  onChange={handleSearchEmail}
                 />
               </form>
               {searchMemberList.length !== 0 && (
@@ -107,7 +112,7 @@ const AddMemberModal = ({ onClose }) => {
                       <SearchUserIdBox
                         key={f.userId}
                         value={f.userId}
-                        onClick={handleSelectUserId}
+                        onClick={handleSelectEmail}
                       >
                         {f.userId}
                       </SearchUserIdBox>

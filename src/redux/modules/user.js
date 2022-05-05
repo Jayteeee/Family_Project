@@ -36,9 +36,9 @@ const userLogout = () => {
 // /user/signup
 const signUpDB = (inputs) => {
   return async function (dispatch, getState, { history }) {
-    const { userId, password, nickname } = inputs;
+    const { email, password, nickname } = inputs;
     let fakeResponse = {
-      userId,
+      email,
       password,
       nickname,
     };
@@ -98,10 +98,11 @@ const loginDB = (inputs) => {
 const getUserInfo = (token) => {
   return async function (dispatch, getState, { history }) {
     let fakeResposeUser = {
-      userId: "asdf@gmail.com",
+      email: "asdf@gmail.com",
       nickname: "닉네임~",
       profileImg:
         "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
+      familyMemberId: "68defs231a",
     };
 
     console.log(fakeResposeUser);

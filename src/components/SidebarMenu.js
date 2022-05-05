@@ -1,4 +1,7 @@
 import React from "react";
+
+// 라이브러리, 패키지
+import styled from "styled-components";
 import {
   MdHome,
   MdVerified,
@@ -6,9 +9,6 @@ import {
   MdPhotoLibrary,
   MdOutlineVoicemail,
 } from "react-icons/md";
-
-// 라이브러리, 패키지
-import styled from "styled-components";
 
 // 리덕스
 import { history } from "../redux/configureStore";

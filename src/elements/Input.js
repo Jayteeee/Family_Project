@@ -62,7 +62,6 @@ const Input = (props) => {
 };
 
 const DefaultInput = styled.input`
-  border-radius: 4px;
   &:focus {
     outline: none;
     box-shadow: 0 0 0 0px grey, 0 0 0 3px #d6d6d6;
@@ -77,8 +76,10 @@ const DefaultInput = styled.input`
   ${({ size }) => (size ? `font-size: ${size};` : "")}
   ${({ borderColor }) =>
     borderColor
-      ? `border: 1px solid ${borderColor};`
-      : "border: 1px solid gray;"};
+      ? `border: 2px solid ${borderColor};`
+      : "border: 2px solid gray;"};
+  ${({ borderRadius }) =>
+    borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 4px;"}
 `;
 
 const SmallInput = styled.input`
