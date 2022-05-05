@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { RiArrowLeftSLine } from "react-icons/ri";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -32,10 +33,19 @@ const BadgeModal = ({ onClose, familyId }) => {
           onClick={(e) => {
             e.stopPropagation();
           }}
+          className="res-badgeContent"
         >
-          <BadgeWrap>
-            <BadgeHeaderBox>
-              <Text size="28px" fontWeight="600">
+          <BadgeWrap className="res-badgeWrap">
+            <BadgeHeaderBox className="res-badgeHeaderBox">
+              <CancelBtn
+                className="flex-row"
+                onClick={() => {
+                  onClose();
+                }}
+              >
+                <RiArrowLeftSLine size={24} />
+              </CancelBtn>
+              <Text size="28px" fontWeight="600" className="res-badgeTitle">
                 우리 가족 배지
               </Text>
               <Text size="20px">
@@ -43,12 +53,12 @@ const BadgeModal = ({ onClose, familyId }) => {
                 배지의 휙득 요건을 확인하고 도전해보세요.
               </Text>
             </BadgeHeaderBox>
-            <BadgeListBox>
-              <BadgRowBox>
+            <BadgeListBox className="res-badgeListBox">
+              <BadgRowBox className="res-badgeRowBox">
                 <BadgeBox>
                   <RactangleImage M size="150px" borderRadius="0" />
 
-                  <BadgeTextBox>
+                  <BadgeTextBox className="res-badgeTestBox">
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       단란한 시작
                     </Text>
@@ -60,7 +70,9 @@ const BadgeModal = ({ onClose, familyId }) => {
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
-                      <CompletedBadgeBar>성공</CompletedBadgeBar>
+                      <CompletedBadgeBar>
+                        <p style={{ margin: "1px 0 0 0" }}>성공</p>
+                      </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[0].badgeCnt}/1</BadghCnt>
                     <Text size="16px" padding="20px 0 0 0">
@@ -70,7 +82,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                 </BadgeBox>
                 <BadgeBox>
                   <RactangleImage M size="150px" borderRadius="0" />
-                  <BadgeTextBox>
+                  <BadgeTextBox className="res-badgeTestBox">
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       추억의 발자국
                     </Text>
@@ -81,7 +93,9 @@ const BadgeModal = ({ onClose, familyId }) => {
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
-                      <CompletedBadgeBar>성공</CompletedBadgeBar>
+                      <CompletedBadgeBar>
+                        <p style={{ margin: "1px 0 0 0" }}>성공</p>
+                      </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[1].badgeCnt}/15</BadghCnt>
                     <Text size="16px">
@@ -92,7 +106,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                 </BadgeBox>
                 <BadgeBox>
                   <RactangleImage M size="150px" borderRadius="0" />
-                  <BadgeTextBox>
+                  <BadgeTextBox className="res-badgeTestBox">
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       정겨운 목소리
                     </Text>
@@ -103,7 +117,9 @@ const BadgeModal = ({ onClose, familyId }) => {
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
-                      <CompletedBadgeBar>성공</CompletedBadgeBar>
+                      <CompletedBadgeBar>
+                        <p style={{ margin: "1px 0 0 0" }}>성공</p>
+                      </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[2].badgeCnt}/10</BadghCnt>
                     <Text size="16px">
@@ -113,10 +129,10 @@ const BadgeModal = ({ onClose, familyId }) => {
                   </BadgeTextBox>
                 </BadgeBox>
               </BadgRowBox>
-              <BadgRowBox>
+              <BadgRowBox className="res-badgeRowBox">
                 <BadgeBox>
                   <RactangleImage M size="150px" borderRadius="0" />
-                  <BadgeTextBox>
+                  <BadgeTextBox className="res-badgeTestBox">
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       협동의 즐거움
                     </Text>
@@ -127,7 +143,9 @@ const BadgeModal = ({ onClose, familyId }) => {
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
-                      <CompletedBadgeBar>성공</CompletedBadgeBar>
+                      <CompletedBadgeBar>
+                        <p style={{ margin: "1px 0 0 0" }}>성공</p>
+                      </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[3].badgeCnt}/20</BadghCnt>
                     <Text size="16px">
@@ -138,7 +156,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                 </BadgeBox>
                 <BadgeBox>
                   <RactangleImage M size="150px" borderRadius="0" />
-                  <BadgeTextBox>
+                  <BadgeTextBox className="res-badgeTestBox">
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       소통의 기쁨
                     </Text>
@@ -149,7 +167,9 @@ const BadgeModal = ({ onClose, familyId }) => {
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
-                      <CompletedBadgeBar>성공</CompletedBadgeBar>
+                      <CompletedBadgeBar>
+                        <p style={{ margin: "1px 0 0 0" }}>성공</p>
+                      </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[4].badgeCnt}/50</BadghCnt>
                     <Text size="16px" padding="20px 0 0 0">
@@ -159,7 +179,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                 </BadgeBox>
                 <BadgeBox>
                   <RactangleImage M size="150px" borderRadius="0" />
-                  <BadgeTextBox>
+                  <BadgeTextBox className="res-badgeTestBox">
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       함께하는 나날
                     </Text>
@@ -170,7 +190,9 @@ const BadgeModal = ({ onClose, familyId }) => {
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
-                      <CompletedBadgeBar>성공</CompletedBadgeBar>
+                      <CompletedBadgeBar>
+                        <p style={{ margin: "1px 0 0 0" }}>성공</p>
+                      </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[5].badgeCnt}/50</BadghCnt>
                     <Text size="16px" padding="20px 0 0 0">
@@ -205,7 +227,9 @@ const Content = styled.div`
   justify-content: center;
   z-index: 205;
   height: 700px;
+  /* height: 880px; // 반응형 용 */
   max-width: 1222px;
+  /* max-width: 800px; // 반응형용 */
   width: 100%;
   border-radius: 20px;
   background-color: #fff;
@@ -216,6 +240,7 @@ const Content = styled.div`
 
 const BadgeWrap = styled.div`
   display: flex;
+  /* display: ""  // 모바일 반응형 */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -224,6 +249,26 @@ const BadgeWrap = styled.div`
   width: 100%;
   height: 100%;
   background-color: #fff;
+  /* margin-top: 30px; // 모바일 반응형 */
+`;
+
+const CancelBtn = styled.div`
+  display: flex;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  textalign: left;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 15px;
+  margin-top: 15px;
+  color: #5c5c5c;
+  &:hover {
+    background: rgba(29, 28, 29, 0.1);
+    color: rgba(29, 28, 29, 1);
+  }
 `;
 
 const BadgeHeaderBox = styled.div`
@@ -234,27 +279,40 @@ const BadgeHeaderBox = styled.div`
   width: 100%;
   background-color: #fff;
   height: 30%;
+  /* height: 22%; // 반응형 용 */
   padding: 30px 0 40px;
+  /* padding: 10px 0 40px; // 반응형 용 */
   margin-top: 40px;
+  /* margin-top: 20px; // 반응형 용 */
+  /* margin-top: 200px; // 모바일 반응형 */
+  /* margin-bottom: 10px; // 모바일 반응형 */
 `;
 
 const BadgeListBox = styled.div`
   display: flex;
+  /* display: "";  // 모바일 반응형  */
   flex-direction: column;
+  /* flex-direction: row; // 반응형 용 */
   /* align-items: center; */
   justify-content: center;
   width: 100%;
   height: 70%;
+  /* height: 100%; // 모바이 반응형 */
   background-color: #fff;
+  /* margin-bottom: 50px; */
 `;
 
 const BadgRowBox = styled.div`
   display: flex;
+  /* flex-direction: column; // 반응형 용 */
+  /* flex-direction: column; // 모바일 반응형 */
   width: 100%;
+  /* height: 70%; // 모바일 반응형 */
 `;
 
 const BadgeBox = styled.div`
   display: flex;
+  /* flex-direction: row; */
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -264,10 +322,12 @@ const BadgeBox = styled.div`
 const BadgeTextBox = styled.div`
   text-align: left;
   padding-left: 20px;
+  /* padding-left: 24px; // 모바일 반응형 */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   height: 100%;
+  /* width: 180px; // 모바일 반응형 */
 `;
 
 const BadgeBar = styled.div`
@@ -330,6 +390,8 @@ const CompletedBadgeBar = styled.div`
   border-radius: 4px;
   font-size: 16px;
   z-index: 5;
+  color: white;
+  font-weight: 600;
 `;
 
 export default BadgeModal;

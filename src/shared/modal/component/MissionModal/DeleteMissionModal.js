@@ -65,8 +65,8 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  ${({ X }) => ` top: ${X}px`};
-  ${({ Y }) => `left: ${Y}px`};
+  /* ${({ X }) => ` top: ${X}px`};
+  ${({ Y }) => `left: ${Y}px`}; */
 
   z-index: 205;
   width: 108px;

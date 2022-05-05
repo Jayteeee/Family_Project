@@ -55,7 +55,10 @@ const PastMissionList = ({ pastMissionList }) => {
                   </div>
                 </MissionTitle>
                 <MissionMemberBox className="res-missionMemberBox">
-                  <div style={{ display: "flex", margin: "0 20px" }}>
+                  <div
+                    style={{ display: "flex", margin: "0 20px" }}
+                    className="res-pastMissionMember"
+                  >
                     {m.missionMemberList ? (
                       m.missionMemberList.map((f, i) => {
                         return (
@@ -108,10 +111,6 @@ const PastMissionList = ({ pastMissionList }) => {
 const MissionBox = styled.div`
   text-align: left;
   padding: 0 0 0 25px;
-`;
-
-const MissionChkBox = styled.label`
-  margin-top: 1px;
 `;
 
 const MissionTitle = styled.div`

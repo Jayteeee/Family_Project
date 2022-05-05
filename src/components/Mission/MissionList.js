@@ -113,7 +113,7 @@ const MissionList = ({ monthMissionList, pastMissionList, familyId }) => {
                 style={{
                   textAlign: "left",
                   marginBottom: "15px",
-                  marginLeft: "15px",
+                  marginLeft: "25px",
                 }}
               >
                 <Text size="24px" fontWeight="700">
@@ -124,119 +124,12 @@ const MissionList = ({ monthMissionList, pastMissionList, familyId }) => {
                 {monthMissionList ? (
                   monthMissionList.map((m, i) => {
                     return (
-                      <MissionBox key={m.missionId}>
-                        <MissionTitle>
-                          {/* {missionId === myMission.missionId ? ( */}
-                          <MissionChkBox>
-                            <label htmlFor="missionChk" className="checks">
-                              <input
-                                type="checkbox"
-                                value={m.missionId}
-                                id="missionChk"
-                                className="missionChk"
-                                name={m.missionId}
-                                onChange={(e) => checkHandler(e)}
-                              />
-                            </label>
-                          </MissionChkBox>
-                          {/* ) : (
-                          <MissionTitle></MissionTitle>
-                        )} */}
-                          <div
-                            style={{
-                              width: "67%",
-                              borderBottom: "2px solid #F5F5F5",
-                              padding: "5px 0",
-                              margin: "0 20px",
-                            }}
-                          >
-                            <Text
-                              size="16px"
-                              padding="0 0 1px 0"
-                              margin="0"
-                              width="100%"
-                              height="60px"
-                            >
-                              {m.missionTitle}
-                            </Text>
-                          </div>
-                          <div>{m.missionChk}</div>
-                          <div
-                            style={{
-                              display: "flex",
-                              width: "120px",
-                              justifyContent: "center",
-                              marginRight: "4px",
-                            }}
-                          >
-                            {m.familyMissionChk ? (
-                              <CompletedMission>달성완료</CompletedMission>
-                            ) : (
-                              <UncompletedMission>미완료</UncompletedMission>
-                            )}
-                          </div>
-                          <div
-                            style={{
-                              width: "3vw",
-                              display: "flex",
-                              float: "right",
-                              justifyContent: "right ",
-                              alignItems: "center",
-                            }}
-                            onClick={(e) => {
-                              // handleModalPosition();
-                              handleDeleteModal();
-                            }}
-                            // id={m.missionId}
-                          >
-                            <MissionDeleteBtn>
-                              <CgMoreVerticalAlt style={{ fontSize: "30px" }} />
-                            </MissionDeleteBtn>
-                          </div>
-                        </MissionTitle>
-
-                        <MissionMemberBox>
-                          <div style={{ display: "flex", margin: "0 30px" }}>
-                            {m.missionMemberList ? (
-                              m.missionMemberList.map((f, i) => {
-                                return (
-                                  <div
-                                    key={f.familyMemberId}
-                                    style={{ position: "relative" }}
-                                  >
-                                    <CircleImage
-                                      XS
-                                      src={
-                                        f.profileImg ? f.profileImg : profileImg
-                                      }
-                                      margin="0 10px 0 0"
-                                      size="24px"
-                                    />
-                                    {f.myMissionChk ? (
-                                      <CompletedCicle />
-                                    ) : (
-                                      <UncompletedCicle />
-                                    )}
-                                  </div>
-                                );
-                              })
-                            ) : (
-                              <div>미션 진행자 없습니다</div>
-                            )}
-                          </div>
-                          <div
-                            style={{
-                              textAlign: "right",
-                              flexGrow: "1",
-                              fontSize: "16px",
-                              color: "#A8A8A8",
-                              marginRight: "45px",
-                            }}
-                          >
-                            {m.completedAt} 달성
-                          </div>
-                        </MissionMemberBox>
-                      </MissionBox>
+                      <OneMission
+                        key={m.missionId}
+                        {...m}
+                        familyId={familyId}
+                        monthMissionList={monthMissionList}
+                      />
                     );
                   })
                 ) : (
@@ -278,7 +171,7 @@ const MissionList = ({ monthMissionList, pastMissionList, familyId }) => {
           className="res-selectMissionList-2"
           style={{ width: "100%", textAlign: "left" }}
         >
-          <Text margin="0 10px" fontWeight="700" size="24px">
+          <Text margin="0 25px" fontWeight="700" size="24px">
             이번 달 미션
           </Text>
           <MissionListBox className="res-missinoListBox">
@@ -309,7 +202,7 @@ const MissionList = ({ monthMissionList, pastMissionList, familyId }) => {
           className="res-wepPastMissionList"
           style={{ width: "100%", textAlign: "left" }}
         >
-          <Text margin="0 10px" fontWeight="700" size="24px">
+          <Text margin="0 25px" fontWeight="700" size="24px">
             지난 미션
           </Text>
           <MissionListBox>
@@ -433,7 +326,7 @@ const MissionSelect = styled.div`
   width: 200px;
   padding: 1px;
   margin: 10px auto 30px auto;
-  background-color: gray;
+  background-color: #a8a8a8;
   border-radius: 20px;
   display: none;
 `;
@@ -449,3 +342,126 @@ const Option = styled.div`
 `;
 
 export default MissionList;
+
+// {monthMissionList ? (
+//   monthMissionList.map((m, i) => {
+//     return (
+//       <MissionBox key={m.missionId}>
+//         <MissionTitle>
+//           {/* {missionId === myMission.missionId ? ( */}
+//           <MissionChkBox>
+//             <label htmlFor="missionChk" className="checks">
+//               <input
+//                 type="checkbox"
+//                 value={m.missionId}
+//                 id="missionChk"
+//                 className="missionChk"
+//                 name={m.missionId}
+//                 onChange={(e) => checkHandler(e)}
+//               />
+//             </label>
+//           </MissionChkBox>
+//           {/* ) : (
+//           <MissionTitle></MissionTitle>
+//         )} */}
+//           <div
+//             style={{
+//               width: "67%",
+//               borderBottom: "2px solid #F5F5F5",
+//               padding: "5px 0",
+//               margin: "0 20px",
+//             }}
+//           >
+//             <Text
+//               size="16px"
+//               padding="0 0 1px 0"
+//               margin="0"
+//               width="100%"
+//               height="60px"
+//             >
+//               {m.missionTitle}
+//             </Text>
+//           </div>
+//           <div>{m.missionChk}</div>
+//           <div
+//             style={{
+//               display: "flex",
+//               width: "120px",
+//               justifyContent: "center",
+//               marginRight: "4px",
+//             }}
+//           >
+//             {m.familyMissionChk ? (
+//               <CompletedMission>달성완료</CompletedMission>
+//             ) : (
+//               <UncompletedMission>미완료</UncompletedMission>
+//             )}
+//           </div>
+//           <div
+//             style={{
+//               width: "3vw",
+//               display: "flex",
+//               float: "right",
+//               justifyContent: "right ",
+//               alignItems: "center",
+//             }}
+//             onClick={(e) => {
+//               // handleModalPosition();
+//               handleDeleteModal();
+//             }}
+//             // id={m.missionId}
+//           >
+//             <MissionDeleteBtn>
+//               {!m.familyMissionChk && (
+//                 <CgMoreVerticalAlt
+//                   style={{ fontSize: "30px" }}
+//                 />
+//               )}
+//             </MissionDeleteBtn>
+//           </div>
+//         </MissionTitle>
+
+//         <MissionMemberBox>
+//           <div style={{ display: "flex", margin: "0 30px" }}>
+//             {m.missionMemberList ? (
+//               m.missionMemberList.map((f, i) => {
+//                 return (
+//                   <div
+//                     key={f.familyMemberId}
+//                     style={{ position: "relative" }}
+//                   >
+//                     <CircleImage
+//                       XS
+//                       src={
+//                         f.profileImg ? f.profileImg : profileImg
+//                       }
+//                       margin="0 10px 0 0"
+//                       size="24px"
+//                     />
+//                     {f.myMissionChk ? (
+//                       <CompletedCicle />
+//                     ) : (
+//                       <UncompletedCicle />
+//                     )}
+//                   </div>
+//                 );
+//               })
+//             ) : (
+//               <div>미션 진행자 없습니다</div>
+//             )}
+//           </div>
+//           <div
+//             style={{
+//               textAlign: "right",
+//               flexGrow: "1",
+//               fontSize: "16px",
+//               color: "#A8A8A8",
+//               marginRight: "45px",
+//             }}
+//           >
+//             {m.completedAt} 달성
+//           </div>
+//         </MissionMemberBox>
+//       </MissionBox>
+//     );
+//   })

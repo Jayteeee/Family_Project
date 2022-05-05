@@ -167,13 +167,18 @@ const OneMission = (props) => {
             id={missionId}
           >
             <MissionDeleteBtn>
-              <CgMoreVerticalAlt style={{ fontSize: "30px" }} />
+              {!familyMissionChk && (
+                <CgMoreVerticalAlt style={{ fontSize: "30px" }} />
+              )}
             </MissionDeleteBtn>
           </div>
         </MissionTitle>
 
-        <MissionMemberBox>
-          <div style={{ display: "flex", margin: "0 30px" }}>
+        <MissionMemberBox className="res-missionMemberBox">
+          <div
+            style={{ display: "flex", margin: "0 30px" }}
+            className="res-missionMember"
+          >
             {missionMemberList ? (
               missionMemberList.map((f, i) => {
                 return (

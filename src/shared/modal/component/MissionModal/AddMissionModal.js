@@ -3,6 +3,7 @@ import { MissionContext } from "../../../../pages/MissionPage";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import { RiArrowLeftSLine } from "react-icons/ri";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -97,6 +98,14 @@ const AddMissionModal = ({ onClose }) => {
           >
             <AddMissionWrap>
               <AddMissionHeader>
+                <CancelBtn
+                  className="flex-row"
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  <RiArrowLeftSLine size={24} />
+                </CancelBtn>
                 <Text size="24px" fontWeight="600">
                   미션추가하기
                 </Text>
@@ -222,6 +231,25 @@ const AddMissionWrap = styled.div`
   width: 100%;
   background-color: #fff;
   height: 100%;
+`;
+
+const CancelBtn = styled.div`
+  display: flex;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  textalign: left;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 15px;
+  margin-top: 15px;
+  color: #5c5c5c;
+  &:hover {
+    background: rgba(29, 28, 29, 0.1);
+    color: rgba(29, 28, 29, 1);
+  }
 `;
 
 const AddMissionHeader = styled.div`

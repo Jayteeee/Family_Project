@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import { RiArrowLeftSLine } from "react-icons/ri";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -87,6 +88,14 @@ const MissionMemberModal = ({ onClose, familyMemberList }) => {
           }}
         >
           <AddMissionWrap>
+            <CancelBtn
+              className="flex-row"
+              onClick={() => {
+                onClose();
+              }}
+            >
+              <RiArrowLeftSLine size={24} />
+            </CancelBtn>
             <Text size="22px" fontWeight="600">
               참여 구성원 추가하기
             </Text>
@@ -194,6 +203,25 @@ const AddMissionWrap = styled.div`
   justify-content: center;
   padding: 40px 20px;
   width: 100%;
+`;
+
+const CancelBtn = styled.div`
+  display: flex;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  textalign: left;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 15px;
+  margin-top: 15px;
+  color: #5c5c5c;
+  &:hover {
+    background: rgba(29, 28, 29, 0.1);
+    color: rgba(29, 28, 29, 1);
+  }
 `;
 
 const FamilyMemberTitle = styled.div`

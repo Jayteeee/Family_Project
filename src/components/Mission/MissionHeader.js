@@ -26,7 +26,12 @@ const MissionHeader = (props) => {
   return (
     <>
       <MissionHeaderBox>
-        <Text size="40px" fontWeight="700">
+        <Text
+          size="40px"
+          fontWeight="700"
+          margin="10px 0 0 0"
+          className="res-missionHeaderBox"
+        >
           미션
         </Text>
         <AddMissionBtn>
@@ -57,7 +62,12 @@ const MissionHeader = (props) => {
         </AddMissionBtn>
       </MissionHeaderBox>
       <MissionLowerHeader>
-        <Text size="24px" fontWeight="700" margin="5px 15px 0 15px">
+        <Text
+          size="24px"
+          fontWeight="700"
+          margin="5px 15px 0 15px"
+          className="res-missionMonth"
+        >
           {nowMonth}
         </Text>
       </MissionLowerHeader>
