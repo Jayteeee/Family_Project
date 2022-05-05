@@ -1,11 +1,17 @@
 import React from "react";
+
+// 라이브러리, 패키지
 import styled from "styled-components";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
+
+// 리덕스
 import { useSelector, useDispatch } from "react-redux";
+import { scheduleActions } from "../redux/modules/calendar";
+
+// 컴포넌트
 import ScheduleCalendar from "../components/Calendar/ScheduleCalendar";
 import PhotoCalendar from "../components/Calendar/PhotoCalendar";
-import { scheduleActions } from "../redux/modules/calendar";
 
 //엘리먼트
 import { Text, Button } from "../elements";
@@ -18,22 +24,17 @@ const CalendarPage = (props) => {
   const dispatch = useDispatch();
 
   const [status, setStatus] = React.useState("schedule");
-  console.log(status);
+  const [modalOn, setModalOn] = React.useState(false);
+
+  const list = useSelector((state) => state.calendar.scheduleList);
 
   const thisMonth = document.getElementsByClassName(
     "react-calendar__navigation__label__labelText"
   )[0]?.childNodes[0].data;
 
-  console.log(thisMonth);
-
-  const list = useSelector((state) => state.calendar.scheduleList);
-
   const scheduleList = list.map((x) =>
     dayjs(x.startDate).format("YYYY년 M월") == thisMonth ? x : null
   );
-  console.log(scheduleList);
-
-  const [modalOn, setModalOn] = React.useState(false);
 
   // 토글
   const handleModal = () => {
@@ -123,6 +124,12 @@ const CalendarPage = (props) => {
 
 const Container = styled.div`
   margin: 40px;
+  @media only screen and (max-width: 1199px) {
+    margin: 60px 40px;
+  }
+  @media only screen and (max-width: 839px) {
+    margin: 60px 24px;
+  }
 `;
 
 const Title = styled.div`
@@ -133,8 +140,9 @@ const Title = styled.div`
 
 const Wrap = styled.div`
   position: absolute;
-  top: 310px;
-  left: 612px;
+  /* top: 100px;
+  left: 30px; */
+  margin: 134px 276px;
   width: 208px;
   height: 42px;
 `;
@@ -200,6 +208,10 @@ const FlexBox = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: ${(props) => (props.center ? `center` : `flex-start`)};
+  @media only screen and (max-width: 1199px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 
 const FlexBox1 = styled.div`

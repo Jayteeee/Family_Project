@@ -17,29 +17,39 @@ const ScheduleCalendar = () => {
   const [modalOn, setModalOn] = React.useState(false);
   const [day, setDay] = React.useState("");
 
-  console.log(event);
+  const dots = document.getElementsByClassName("dot");
+  const events = document.getElementsByClassName("event");
 
-  // const search = list.map((x) => x.startDate == )
-
-  const docs = document.getElementsByClassName("dot");
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
   };
 
   const reCheck = () => {
-    if (docs.length > 0) {
-      for (let i = 0; i < docs.length; i++) {
-        const index = Array.from(docs).findIndex(
-          (x) => x.getAttribute("date") == list[i]?.startDate
+    if (dots.length > 0) {
+      for (let i = 0; i < dots.length; i++) {
+        const idx = Array.from(dots).findIndex(
+          (x) => x.getAttribute("date") === list[i]?.startDate
         );
-        if (index != -1) {
-          docs[index].style.backgroundColor = list[i]?.color;
-          console.log(docs[index].childNodes);
+        if (idx !== -1) {
+          dots[idx].style.backgroundColor = list[i]?.color;
+        }
+      }
+    }
+    if (events.length > 0) {
+      for (let i = 0; i < events.length; i++) {
+        const idx = Array.from(events).findIndex(
+          (x) => x.getAttribute("date") === list[i]?.startDate
+        );
+        if (idx != -1) {
+          let text = document.createTextNode(list[i]?.event);
+          events[idx].appendChild(text);
         }
       }
     }
   };
+
+  React.useEffect(() => {}, []);
 
   return (
     <div>
@@ -55,6 +65,7 @@ const ScheduleCalendar = () => {
           className="mx-auto w-full text-sm border-b"
           next2Label={null}
           prev2Label={null}
+          tileClassName={(date, view) => {}}
           onClickDay={(value, event) => {
             if (
               list.find((x) => x.startDate == dayjs(value).format("YYYY-MM-DD"))
@@ -68,22 +79,23 @@ const ScheduleCalendar = () => {
             // 날짜 타일에 컨텐츠 추가하기 (html 태그)
             // 추가할 html 태그를 변수 초기화
 
-            const me = list.findIndex(
-              (x) => x.startDate == dayjs(date).format("YYYY-MM-DD")
-            );
-            console.log(me);
             let html = [];
             // 현재 날짜가 post 작성한 날짜 배열(list)에 있다면, dot div 추가
             if (
               list.find((x) => x.startDate == dayjs(date).format("YYYY-MM-DD"))
             ) {
               html.push(
-                <div
-                  className="dot"
-                  date={dayjs(date).format("YYYY-MM-DD")}
-                ></div>
+                <>
+                  <div
+                    className="dot"
+                    date={dayjs(date).format("YYYY-MM-DD")}
+                  ></div>
+                  <div
+                    className="event"
+                    date={dayjs(date).format("YYYY-MM-DD")}
+                  ></div>
+                </>
               );
-              console.log("성공");
               reCheck();
             }
             // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
@@ -132,6 +144,10 @@ const Container = styled.div`
     font-weight: 600;
     font-size: 24px;
     line-height: 30px;
+    @media only screen and (max-width: 839px) {
+      top: 216px;
+      left: 24px;
+    }
   }
 
   .react-calendar__navigation button {

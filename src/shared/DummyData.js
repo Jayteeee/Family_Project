@@ -380,17 +380,24 @@ const detailPhotoPage = {
 const eventCalendarList = [
   {
     eventId: "asdfasdf434",
+    event: "아들 본가 내려가기",
+    startDate: "2022-05-05",
+    endDate: "2022-05-05",
+    color: "yellow",
+  },
+  {
+    eventId: "asdfasdf434",
+    event: "딸 본가 내려가기",
+    startDate: "2022-05-05",
+    endDate: "2022-05-05",
+    color: "yellow",
+  },
+  {
+    eventId: "asdfasdf434",
     event: "부모님께 연락하기",
     startDate: "2022-05-15",
     endDate: "2022-05-15",
     color: "red",
-  },
-  {
-    eventId: "asdfasdf434",
-    event: "본가 내려가기",
-    startDate: "2022-05-05",
-    endDate: "2022-05-05",
-    color: "yellow",
   },
 ];
 
