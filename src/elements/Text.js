@@ -172,7 +172,7 @@ const ButtonM = styled.p`
   font-size: 14px;
   line-height: 18px;
   cursor: pointer;
-  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
+  ${({ color }) => (color ? `color: ${color};` : `color: none`)};
 `;
 const ButtonS = styled.p`
   font-family: "Pretendard";

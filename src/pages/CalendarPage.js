@@ -191,8 +191,7 @@ const Option1 = styled.div`
     value === "schedule"
       ? "background-color: #8C98F8;"
       : "background-color: transparent;"};
-  ${({ value }) =>
-    value === "schedule" ? "color: white;" : "color: #757575;"};
+  ${({ value }) => (value === "schedule" ? "color: white;" : "color: #757575")};
   & > div {
     position: static;
     width: 52px;
@@ -214,7 +213,7 @@ const Option2 = styled.div`
     value === "memory"
       ? "background-color: #F4CC4D;"
       : "background-color: transparent;"};
-  ${({ value }) => (value === "memory" ? "color: white;" : "color: #757575;")};
+  ${({ value }) => (value === "memory" ? "color: white;" : "color: #757575")};
   & > div {
     position: static;
     width: 52px;
