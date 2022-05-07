@@ -33,23 +33,24 @@ const OneMission = (props) => {
     familyMissionChk,
     missionMemberList,
     familyId,
-    monthMissionList,
+    // monthMissionList,
   } = props;
 
   console.log(props);
 
-  const myFamilyMemberId = useSelector(
-    (state) => state.user.user.familyMemberId
-  );
+  // 배포할 때 모바일 환경에서 에러발생 / 화면이 안뜸.
+  // const myFamilyMemberId = useSelector(
+  //   (state) => state.user.user.familyMemberId
+  // );
 
-  console.log("나의 가족구성원Id:", myFamilyMemberId);
+  // console.log("나의 가족구성원Id:", myFamilyMemberId);
 
-  // user가 속해 있는 mission
-  const myMission = monthMissionList.find((m) =>
-    m.missionMemberList.filter((f) => f.familyMemberId === myFamilyMemberId)
-  );
+  // // user가 속해 있는 mission
+  // const myMission = monthMissionList.find((m) =>
+  //   m.missionMemberList.filter((f) => f.familyMemberId === myFamilyMemberId)
+  // );
 
-  console.log("내가 속해있는 미션:", myMission);
+  // console.log("내가 속해있는 미션:", myMission);
 
   // 미션 체크관련 함수
   const [isChecked, setIsChecked] = useState(false);
@@ -176,7 +177,7 @@ const OneMission = (props) => {
 
         <MissionMemberBox className="res-missionMemberBox">
           <div
-            style={{ display: "flex", margin: "0 30px" }}
+            style={{ display: "flex", margin: "0 35px" }}
             className="res-missionMember"
           >
             {missionMemberList ? (

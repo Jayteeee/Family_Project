@@ -8,6 +8,7 @@ import image from "./modules/image";
 import Family from "./modules/family";
 import Mission from "./modules/mission";
 import Calendar from "./modules/calendar";
+import Gallery from "./modules/gallery";
 import FamilyMember from "./modules/familymember";
 
 export const history = createBrowserHistory();
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   family: Family,
   mission: Mission,
   calendar: Calendar,
+  gallery: Gallery,
   familymember: FamilyMember,
 
   router: connectRouter(history),

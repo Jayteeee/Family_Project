@@ -163,6 +163,7 @@ const missionPage = {
     completePercentage: 50,
     totalBadge: 3,
   },
+
   thisMonthMissionList: [
     {
       familyId: "123456787",
@@ -191,58 +192,60 @@ const missionPage = {
         },
       ],
     },
-    {
-      familyId: "123456787",
-      missionId: "4435dfassds3ddf",
-      missionTitle: "서로 전화하기", //name -> title 수
-      familyMissionChk: true,
-      completedAt: "YYYY-MM-DD",
-      missionMemberList: [
-        {
-          familyMemberId: "1234213",
-          familyMemberNicname: "아빠",
-          myMissionChk: true,
-          profileImg: false,
-        },
-        {
-          familyMemberId: "2342sd434",
-          familyMemberNicname: "딸",
-          myMissionChk: true,
-          profileImg: false,
-        },
-      ],
-    },
+    // {
+    //   familyId: "123456787",
+    //   missionId: "4435dfassds3ddf",
+    //   missionTitle: "서로 전화하기", //name -> title 수
+    //   familyMissionChk: true,
+    //   completedAt: "YYYY-MM-DD",
+    //   missionMemberList: [
+    //     {
+    //       familyMemberId: "1234213",
+    //       familyMemberNicname: "아빠",
+    //       myMissionChk: true,
+    //       profileImg: false,
+    //     },
+    //     {
+    //       familyMemberId: "2342sd434",
+    //       familyMemberNicname: "딸",
+    //       myMissionChk: true,
+    //       profileImg: false,
+    //     },
+    //   ],
+    // },
   ],
-  // pastMissionList: [
-  //   {
-  //     familyId: "123456787",
-  //     missionId: "asdfassdsddf",
-  //     missionTitle: "호캉스 가기",
-  //     missionChk: false,
-  //     completedAt: "YYYY-MM-DD",
-  //     missionMemberList: [
-  //       {
-  //         familyId: "123456787",
-  //         familyMemberId: "1234213",
-  //         familyMemberNicname: "아빠",
-  //         memberMissionChk: false,
-  //       },
-  //       {
-  //         familyId: "123456787",
-  //         familyMemberId: "2342fag4",
-  //         familyMemberNicname: "엄마",
-  //         memberMissionChk: false,
-  //       },
-  //       {
-  //         familyId: "123456787",
-  //         familyMemberId: "2342sd4",
-  //         familyMemberNicname: "자녀",
-  //         memberMissionChk: false,
-  //       },
-  //     ],
-  //   },
-  // ],
 };
+
+// pastMissionList: [
+//   {
+//     familyId: "123456787",
+//     missionId: "asdfassdsddf",
+//     missionTitle: "호캉스 가기",
+//     missionChk: false,
+//     completedAt: "YYYY-MM-DD",
+//     missionMemberList: [
+//       {
+//         familyId: "123456787",
+//         familyMemberId: "1234213",
+//         familyMemberNicname: "아빠",
+//         memberMissionChk: false,
+//       },
+//       {
+//         familyId: "123456787",
+//         familyMemberId: "2342fag4",
+//         familyMemberNicname: "엄마",
+//         memberMissionChk: false,
+//       },
+//       {
+//         familyId: "123456787",
+//         familyMemberId: "2342sd4",
+//         familyMemberNicname: "자녀",
+//         memberMissionChk: false,
+//       },
+//     ],
+//   },
+// ],
+// };
 
 // 배지 페이지
 const badgePage = {
@@ -357,7 +360,27 @@ const photoAlbumList = [
   {
     photoAlbumId: "23dfgsdf4",
     photoAlbumName: "앨범1",
-    recentImage: "url", // 해당하는 앨범에 가장 최근 이미지(앨범 아이디로 체크)
+    recentImage: null, // 해당하는 앨범에 가장 최근 이미지(앨범 아이디로 체크)
+  },
+  {
+    photoAlbumId: "3dfgddf4",
+    photoAlbumName: "앨범2",
+    recentImage: null, // 해당하는 앨범에 가장 최근 이미지(앨범 아이디로 체크)
+  },
+  {
+    photoAlbumId: "2123dfgsdf4",
+    photoAlbumName: "앨범3",
+    recentImage: null, // 해당하는 앨범에 가장 최근 이미지(앨범 아이디로 체크)
+  },
+  {
+    photoAlbumId: "23df4gsdf4",
+    photoAlbumName: "앨범4",
+    recentImage: null, // 해당하는 앨범에 가장 최근 이미지(앨범 아이디로 체크)
+  },
+  {
+    photoAlbumId: "3dfdsgsdf4",
+    photoAlbumName: "앨범5",
+    recentImage: null, // 해당하는 앨범에 가장 최근 이미지(앨범 아이디로 체크)
   },
 ];
 // 사진 페이지

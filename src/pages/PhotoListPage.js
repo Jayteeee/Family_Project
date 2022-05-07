@@ -6,21 +6,20 @@ import styled from "styled-components";
 // 컴포넌트
 import GalleryHeader from "../components/Gallery/GalleryHeader";
 import PhotoAlbumList from "../components/Gallery/PhotoAlbumList";
+import PhotoList from "../components/Gallery/PhotoList";
 
-const GalleryPage = (props) => {
-  const { familyId } = props.match?.params;
-  console.log("현재 갤러리페이지 패밀리 아이디:", familyId);
+const PhotoListPage = () => {
   return (
     <>
-      <GalleryPageWrap className="res-pageWrap">
-        <GalleryHeader NowFamilyId={familyId} />
-        <PhotoAlbumList NowFamilyId={familyId} />
-      </GalleryPageWrap>
+      <PhotoListPageWrap className="res-pageWrap">
+        <GalleryHeader />
+        <PhotoList />
+      </PhotoListPageWrap>
     </>
   );
 };
 
-const GalleryPageWrap = styled.div`
+const PhotoListPageWrap = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
   display: flex;
@@ -28,4 +27,4 @@ const GalleryPageWrap = styled.div`
   overflow-y: scroll;
 `;
 
-export default GalleryPage;
+export default PhotoListPage;

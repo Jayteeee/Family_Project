@@ -74,7 +74,7 @@ const SidebarMenu = (familyId) => {
 };
 
 const SidebarMenuWrap = styled.div`
-  height: 100vh;
+  height: 60vh;
 `;
 
 const MenuBox = styled.div`
