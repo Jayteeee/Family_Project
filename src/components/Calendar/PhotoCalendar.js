@@ -49,7 +49,6 @@ const PhotoCalendar = () => {
           prev2Label={null}
           formatDay={(locale, date) => dayjs(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
           showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
-          className="mx-auto w-full text-sm border-b"
           onClickDay={(value, event) => {
             if (
               mark.find((x) => x.createdAt == dayjs(value).format("YYYY-MM-DD"))
@@ -81,24 +80,33 @@ const Container = styled.div`
   .react-calendar {
     width: 100%;
     max-width: 100%;
-    padding: 20% 3% 3%;
     background-color: #fff;
     color: #222;
     border: none;
-    border-radius: 20px;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15),
-      0px 0px 24px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    @media only screen and (max-width: 839px) {
+      padding: 0px;
+    }
   }
 
   .react-calendar__navigation {
     position: absolute;
     display: flex;
-    height: 30px;
-    top: 216px;
-    left: 336px;
+    top: 80px;
+    left: 0;
     font-weight: 600;
     font-size: 24px;
-    line-height: 30px;
+    @media only screen and (max-width: 1199px) {
+      top: 40px;
+      left: unset;
+      right: 0;
+      height: 44px;
+      width: 207px;
+    }
+    @media only screen and (max-width: 839px) {
+      top: 20px;
+      right: 0;
+    }
   }
 
   .react-calendar__navigation button {
@@ -131,9 +139,16 @@ const Container = styled.div`
     justify-content: center;
     color: black;
     border-radius: 24px;
+    @media only screen and (max-width: 1199px) {
+    }
+    @media only screen and (max-width: 839px) {
+      align-items: flex-start;
+    }
   }
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
+    background: transparent;
+    color: #000;
   }
   .react-calendar__tile--now {
   }
@@ -143,6 +158,12 @@ const Container = styled.div`
   .highlight {
     border-radius: 24px;
     color: #fff;
+    @media only screen and (max-width: 1199px) {
+    }
+    @media only screen and (max-width: 839px) {
+      height: 48px;
+      border-radius: 8px;
+    }
   }
 `;
 

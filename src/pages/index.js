@@ -5,6 +5,7 @@ import MissionPage from "./MissionPage";
 import CalendarPage from "./CalendarPage";
 import GalleryPage from "./GalleryPage";
 import VoiceMsgPage from "./VoiceMsgPage";
+import VoiceFilePage from "./VoiceFilePage";
 import Auth from "./Auth";
 
 export {
@@ -15,5 +16,6 @@ export {
   CalendarPage,
   GalleryPage,
   VoiceMsgPage,
+  VoiceFilePage,
   Auth,
 };

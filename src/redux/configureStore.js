@@ -9,6 +9,7 @@ import Family from "./modules/family";
 import Mission from "./modules/mission";
 import Calendar from "./modules/calendar";
 import FamilyMember from "./modules/familymember";
+import Voice from "./modules/voice";
 
 export const history = createBrowserHistory();
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   mission: Mission,
   calendar: Calendar,
   familymember: FamilyMember,
+  voice: Voice,
 
   router: connectRouter(history),
 });

@@ -1,7 +1,10 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
 * {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -117,7 +120,7 @@ input[id="missionChk"]:checked::before {
     margin: 2px 0 !important;
   }
   /* 미션페이지 */
-  .res-missionPageWrap {
+  .res-pageWrap {
     padding-top: 50px !important;
     height: calc(100vh - 150px) !important;
   }

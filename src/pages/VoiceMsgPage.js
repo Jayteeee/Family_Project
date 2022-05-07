@@ -1,23 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Howl, Howler } from "howler";
-import music from "../shared/voice/sound.mp3";
-import VoiceRecord from "../components/VoiceRecord";
+import {
+  VoiceAlbum,
+  VoiceHeader,
+  GradientCircleProgressbar,
+} from "../components/voice";
+import { useDispatch } from "react-redux";
+
+// 리덕스
+import { useParams } from "react-router-dom";
+import { voiceActions } from "../redux/modules/voice";
 
 const VoiceMsgPage = () => {
-  let sound = new Howl({
-    src: [`${music}`],
-    html5: true,
-  });
+  const params = useParams();
+  const dispatch = useDispatch();
+  const familyId = params.familyId;
 
-  // sound.play();
+  useEffect(() => {
+    dispatch(voiceActions.getVoicePage());
+  }, []);
   return (
     <>
-      <div>음성메세지 페이지</div>
-      <div>sound</div>
-      <VoiceRecord></VoiceRecord>
+      <VoicePageWrap>
+        <GradientCircleProgressbar
+          percentage="40"
+          primaryColor={["#8C98F8", "#8C98F8"]}
+        />
+        {/* <VoiceHeader></VoiceHeader>
+        <VoiceAlbum familyId={familyId}></VoiceAlbum> */}
+      </VoicePageWrap>
     </>
   );
 };
+
+const VoicePageWrap = styled.div`
+  /* position: relative; */
+  width: 100%;
+  height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+
+  // ------- 테스트 //
+  justify-content: center;
+  align-items: center;
+`;
 
 export default VoiceMsgPage;

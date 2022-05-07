@@ -29,7 +29,6 @@ const PhotoSlider = ({ onClose }) => {
   //전체값의 순서랑 게시물 하나의 번호 비교
 
   const slider = React.useRef(null);
-  const slickRef = React.useRef(null);
 
   return (
     <>
@@ -83,6 +82,16 @@ const XButton = styled.div`
   right: 11%;
   cursor: pointer;
   z-index: 1;
+  @media only screen and (max-width: 1199px) {
+    margin: 15% 10% 0 0;
+    top: 0;
+    right: 0;
+  }
+  @media only screen and (max-width: 839px) {
+    margin: 70% 10% 0 0;
+    top: 0;
+    right: 0;
+  }
 `;
 
 const Styled_Slide = styled(Slider)`
@@ -94,9 +103,6 @@ const Styled_Slide = styled(Slider)`
     align-items: center;
     text-align: start;
     margin: auto;
-    /* @media only screen and (max-width: 839px) {
-      margin: 0px;
-    } */
     img {
       height: 100%;
       width: 100%;
@@ -120,6 +126,20 @@ const Styled_Slide = styled(Slider)`
         }
       }
     }
+    @media only screen and (max-width: 839px) {
+      /* margin: 70% 10% 0 0; */
+      bottom: 0;
+      li {
+        position: relative;
+        display: inline-block;
+        margin: 0 5%;
+        &.slick-active {
+          span {
+            filter: none;
+          }
+        }
+      }
+    }
   }
 `;
 const PagingAnchor = styled.a`
@@ -138,6 +158,10 @@ const Paging = styled.span`
   vertical-align: end;
   background: no-repeat url(${(props) => props.src});
   background-size: 100% 100%;
+  @media only screen and (max-width: 839px) {
+    width: 50%;
+    height: 50%;
+  }
 `;
 
 const PButton = styled.div`
@@ -146,6 +170,9 @@ const PButton = styled.div`
   color: white;
   font-size: 80px;
   cursor: pointer;
+  @media only screen and (max-width: 839px) {
+    font-size: 40px;
+  }
 `;
 const NButton = styled.div`
   position: absolute;
@@ -153,5 +180,8 @@ const NButton = styled.div`
   color: white;
   font-size: 80px;
   cursor: pointer;
+  @media only screen and (max-width: 839px) {
+    font-size: 40px;
+  }
 `;
 export default PhotoSlider;

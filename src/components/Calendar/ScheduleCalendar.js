@@ -17,36 +17,9 @@ const ScheduleCalendar = () => {
   const [modalOn, setModalOn] = React.useState(false);
   const [day, setDay] = React.useState("");
 
-  const dots = document.getElementsByClassName("dot");
-  const events = document.getElementsByClassName("event");
-
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
-  };
-
-  const reCheck = () => {
-    if (dots.length > 0) {
-      for (let i = 0; i < dots.length; i++) {
-        const idx = Array.from(dots).findIndex(
-          (x) => x.getAttribute("date") === list[i]?.startDate
-        );
-        if (idx !== -1) {
-          dots[idx].style.backgroundColor = list[i]?.color;
-        }
-      }
-    }
-    if (events.length > 0) {
-      for (let i = 0; i < events.length; i++) {
-        const idx = Array.from(events).findIndex(
-          (x) => x.getAttribute("date") === list[i]?.startDate
-        );
-        if (idx != -1) {
-          let text = document.createTextNode(list[i]?.event);
-          events[idx].appendChild(text);
-        }
-      }
-    }
   };
 
   React.useEffect(() => {}, []);
@@ -62,7 +35,6 @@ const ScheduleCalendar = () => {
           maxDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
           navigationLabel={null}
           showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
-          className="mx-auto w-full text-sm border-b"
           next2Label={null}
           prev2Label={null}
           tileClassName={(date, view) => {}}
@@ -78,25 +50,30 @@ const ScheduleCalendar = () => {
           tileContent={({ date, view }) => {
             // 날짜 타일에 컨텐츠 추가하기 (html 태그)
             // 추가할 html 태그를 변수 초기화
-
             let html = [];
-            // 현재 날짜가 post 작성한 날짜 배열(list)에 있다면, dot div 추가
-            if (
-              list.find((x) => x.startDate == dayjs(date).format("YYYY-MM-DD"))
-            ) {
+            const events = list.filter(
+              (x) => x.startDate === dayjs(date).format("YYYY-MM-DD")
+            );
+            if (events.length !== 0) {
               html.push(
-                <>
-                  <div
-                    className="dot"
-                    date={dayjs(date).format("YYYY-MM-DD")}
-                  ></div>
-                  <div
-                    className="event"
-                    date={dayjs(date).format("YYYY-MM-DD")}
-                  ></div>
-                </>
+                events.map((x) => {
+                  return (
+                    <div className="division">
+                      <div
+                        className="dot"
+                        date={dayjs(date).format("YYYY-MM-DD")}
+                        style={{ backgroundColor: x.color }}
+                      ></div>
+                      <div
+                        className="event"
+                        date={dayjs(date).format("YYYY-MM-DD")}
+                      >
+                        {x.event}
+                      </div>
+                    </div>
+                  );
+                })
               );
-              reCheck();
             }
             // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
             return (
@@ -126,27 +103,30 @@ const Container = styled.div`
     max-width: 100%;
     background-color: #fff;
     color: #222;
-    padding: 20% 3% 3%;
     border: none;
-    border-radius: 20px;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15),
-      0px 0px 24px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    @media only screen and (max-width: 839px) {
+      padding: 0px;
+    }
   }
 
   .react-calendar__navigation {
     position: absolute;
     display: flex;
-    height: 30px;
-    top: 216px;
-    left: 336px;
-    font-family: "Pretendard";
-    font-style: normal;
+    top: 80px;
+    left: 0;
     font-weight: 600;
     font-size: 24px;
-    line-height: 30px;
+    @media only screen and (max-width: 1199px) {
+      top: 40px;
+      left: unset;
+      right: 0;
+      height: 44px;
+      width: 207px;
+    }
     @media only screen and (max-width: 839px) {
-      top: 216px;
-      left: 24px;
+      top: 20px;
+      right: 0;
     }
   }
 
@@ -180,6 +160,9 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     color: black;
+    @media only screen and (max-width: 839px) {
+      margin: 0px;
+    }
   }
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
@@ -196,20 +179,30 @@ const Container = styled.div`
   }
   .react-calendar__tile--now:enabled:hover,
   .react-calendar__tile--now:enabled:focus {
-    background: #6f48eb33;
-    border-radius: 6px;
-    font-weight: bold;
-    color: #6f48eb;
   }
   .mdot {
-    display: block;
+    display: flex;
+    flex-direction: column;
     justify-content: start;
     align-items: flex-start;
+    overflow: auto;
+  }
+  .division {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    margin: 2px 0;
   }
   .dot {
     height: 14px;
     width: 4px;
-    position: absolute;
+    margin-right: 2px;
+  }
+  .event {
+    width: 100%;
+    height: 14px;
+    overflow: auto;
   }
 `;
 

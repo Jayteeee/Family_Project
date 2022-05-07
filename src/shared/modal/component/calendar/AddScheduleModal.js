@@ -38,9 +38,7 @@ const AddScheduleModal = ({ onClose }, props) => {
   };
 
   const reset = () => {
-    let input = document.getElementById("changeName");
-    console.log(input);
-    input.value = null;
+    setEvent("");
   };
 
   return (
@@ -56,6 +54,7 @@ const AddScheduleModal = ({ onClose }, props) => {
           // 부모 태그에 onClose() 가 걸려있어서 모달 내부를 클릭했을때 창이 닫히지 않기위해 선언합니다
           onClick={(e) => {
             e.stopPropagation();
+            setShowBorder(false);
           }}
         >
           <ContentBox>
@@ -72,7 +71,7 @@ const AddScheduleModal = ({ onClose }, props) => {
             <InnerBox>
               <TitleBox>
                 <SelectBox onClick={() => setShowOptions((prev) => !prev)}>
-                  <Label className="res-label">
+                  <Label>
                     <Preview value={myPic}></Preview>
                     <TiArrowSortedDown />
                   </Label>
@@ -157,12 +156,14 @@ const AddScheduleModal = ({ onClose }, props) => {
                   </div>
                 </SelectOptions>
 
-                <InputBox show={showBorder}>
-                  <InsertBox
-                    onFocus={() => {
-                      setShowBorder((prev) => !prev);
-                    }}
-                  >
+                <InputBox
+                  show={showBorder}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowBorder(true);
+                  }}
+                >
+                  <InsertBox>
                     <Text B2>제목</Text>
                     <Input
                       id="changeName"
@@ -176,7 +177,8 @@ const AddScheduleModal = ({ onClose }, props) => {
                   </InsertBox>
                   <ResetBox
                     show={showBorder}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       reset();
                     }}
                   >
@@ -454,6 +456,9 @@ const XButton = styled.div`
 
 const InnerBox = styled.div`
   padding: 0 40px;
+  @media only screen and (max-width: 839px) {
+    padding: 0;
+  }
 `;
 
 const CommonBox = styled.div`

@@ -12,11 +12,14 @@ import {
 
 // 리덕스
 import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { scheduleActions } from "../redux/modules/calendar";
 
 // 엘리먼트
 import { RactangleImage } from "../elements/index";
 
 const SidebarMenu = (familyId) => {
+  const dispatch = useDispatch();
   const { NowFamilyId } = familyId;
   console.log("사이드바에 적용할 Id값: ", NowFamilyId);
 
@@ -45,6 +48,8 @@ const SidebarMenu = (familyId) => {
           className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/calendar/`);
+            dispatch(scheduleActions.getScheduleDB());
+            history.go(0);
           }}
         >
           <MdEvent style={{ fontSize: "24px" }} />

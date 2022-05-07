@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
+import { MdAdd } from "react-icons/md";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
@@ -33,7 +34,7 @@ const CalendarPage = (props) => {
   )[0]?.childNodes[0].data;
 
   const scheduleList = list.map((x) =>
-    dayjs(x.startDate).format("YYYY년 M월") == thisMonth ? x : null
+    dayjs(x.startDate).format("YYYY년 M월") === thisMonth ? x : null
   );
 
   // 토글
@@ -49,48 +50,43 @@ const CalendarPage = (props) => {
     <Container>
       <Title>
         <Text H1>캘린더</Text>
-        <Button
-          M
-          onClick={handleModal}
-          bg="#8C98F8"
-          borderColor="transparent"
-          color="white"
-          borderRadius="8px"
-          padding="16px 32px"
-          width="159px"
-          height="56px"
-        >
-          + 일정추가
-        </Button>
+        <AddButton onClick={handleModal}>
+          <PButton>
+            <MdAdd />
+          </PButton>
+          <Text BL>일정 추가</Text>
+        </AddButton>
       </Title>
       <div>
-        <Wrap>
-          <Select>
-            <Option1
-              value={status}
-              onClick={() => {
-                setStatus("schedule");
-              }}
-            >
-              <div>
-                <Text BM>일정 보기</Text>
-              </div>
-            </Option1>
-            <Option2
-              value={status}
-              onClick={() => {
-                setStatus("memory");
-              }}
-            >
-              <div>
-                <Text BM>추억 보기</Text>
-              </div>
-            </Option2>
-          </Select>
-        </Wrap>
         <FlexBox center>
           <SBox>
-            {status === "schedule" ? <ScheduleCalendar /> : <PhotoCalendar />}
+            <Wrap>
+              <Select>
+                <Option1
+                  value={status}
+                  onClick={() => {
+                    setStatus("schedule");
+                  }}
+                >
+                  <div>
+                    <Text BM>일정 보기</Text>
+                  </div>
+                </Option1>
+                <Option2
+                  value={status}
+                  onClick={() => {
+                    setStatus("memory");
+                  }}
+                >
+                  <div>
+                    <Text BM>추억 보기</Text>
+                  </div>
+                </Option2>
+              </Select>
+            </Wrap>
+            <CalendarArea>
+              {status === "schedule" ? <ScheduleCalendar /> : <PhotoCalendar />}
+            </CalendarArea>
           </SBox>
           <ScheduleArea>
             <Text S1>이번 달 일정</Text>
@@ -111,7 +107,7 @@ const CalendarPage = (props) => {
             ))}
           </ScheduleArea>
         </FlexBox>
-        {/* <CreateButton onClick={handleModal}>+</CreateButton> */}
+        <CreateButton onClick={handleModal}>+</CreateButton>
         <ModalPortal>
           {modalOn && (
             <AddScheduleModal onClose={handleModal}></AddScheduleModal>
@@ -123,7 +119,12 @@ const CalendarPage = (props) => {
 };
 
 const Container = styled.div`
+  position: relative;
   margin: 40px;
+  display: flex;
+  height: calc(100vh - 70px);
+  flex-direction: column;
+  overflow-y: scroll;
   @media only screen and (max-width: 1199px) {
     margin: 60px 40px;
   }
@@ -138,13 +139,30 @@ const Title = styled.div`
   justify-content: space-between;
 `;
 
-const Wrap = styled.div`
-  position: absolute;
-  /* top: 100px;
-  left: 30px; */
-  margin: 134px 276px;
-  width: 208px;
-  height: 42px;
+const AddButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #8c98f8;
+  border-color: transparent;
+  color: white;
+  border-radius: 8px;
+  padding: 16px 32px;
+  width: 159px;
+  height: 56px;
+  @media only screen and (max-width: 1199px) {
+    display: none;
+  }
+`;
+
+const PButton = styled.div`
+  width: 14px;
+  height: 14px;
+  margin-right: 9px;
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const Select = styled.div`
@@ -239,7 +257,26 @@ const SBox = styled.div`
   height: 890px;
   margin-top: 110px;
   margin-right: 12px;
+  background-color: #fff;
+  color: #222;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  @media only screen and (max-width: 1199px) {
+    margin: 50px 0 0 0;
+  }
+  @media only screen and (max-width: 839px) {
+    margin: 20px 0 0 0;
+  }
 `;
+
+const Wrap = styled.div`
+  margin: 28px auto;
+  width: 208px;
+  height: 42px;
+`;
+
+const CalendarArea = styled.div``;
 
 const ScheduleArea = styled.div`
   width: 100%;
@@ -251,22 +288,31 @@ const ScheduleArea = styled.div`
   padding: 24px;
   background-color: #fff;
   text-align: start;
+  @media only screen and (max-width: 1199px) {
+    margin: 24px 0 0 0;
+  }
+  @media only screen and (max-width: 839px) {
+    margin: 16px 0 0 0;
+  }
 `;
 
 const CreateButton = styled.div`
-  width: 52px;
-  height: 52px;
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  bottom: 80px;
-  right: 30px;
-  border-radius: 100%;
-  background-color: black;
-  font-size: 24px;
-  color: white;
-  cursor: pointer;
+  display: none;
+  @media only screen and (max-width: 1199px) {
+    width: 52px;
+    height: 52px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 80px;
+    right: 20px;
+    border-radius: 100%;
+    background-color: #8c98f8;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
 `;
 
 const DateColor = styled.div`

@@ -426,7 +426,7 @@ const eventCalendarList = [
     event: "아들 본가 내려가기",
     startDate: "2022-05-05",
     endDate: "2022-05-05",
-    color: "yellow",
+    color: "#6524F5",
   },
   {
     eventId: "asdfasdf434",
@@ -440,7 +440,7 @@ const eventCalendarList = [
     event: "부모님께 연락하기",
     startDate: "2022-05-15",
     endDate: "2022-05-15",
-    color: "red",
+    color: "#5FCE89",
   },
 ];
 

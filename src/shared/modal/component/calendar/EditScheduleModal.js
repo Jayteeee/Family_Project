@@ -49,13 +49,16 @@ const EditScheduleModal = ({ onClose, day }) => {
   };
 
   const reset = () => {
-    let input = document.getElementById("changeName");
-    console.log(input);
-    input.value = null;
+    setEvent("");
   };
 
   return (
-    <ContentBox>
+    <ContentBox
+      onClick={(e) => {
+        e.stopPropagation();
+        setShowBorder(false);
+      }}
+    >
       <XButton>
         <div
           onClick={(e) => {
@@ -69,7 +72,7 @@ const EditScheduleModal = ({ onClose, day }) => {
       <InnerBox>
         <TitleBox>
           <SelectBox onClick={() => setShowOptions((prev) => !prev)}>
-            <Label className="res-label">
+            <Label>
               <Preview value={myPic}></Preview>
               <TiArrowSortedDown />
             </Label>
@@ -155,16 +158,16 @@ const EditScheduleModal = ({ onClose, day }) => {
           </SelectOptions>
 
           <InputBox show={showBorder}>
-            <InsertBox
-              onFocus={() => {
-                setShowBorder((prev) => !prev);
-              }}
-            >
+            <InsertBox>
               <Text B2>제목</Text>
               <Input
                 id="changeName"
                 size="18px"
                 onChange={handleAddSchedule}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowBorder(true);
+                }}
                 value={event}
                 style={{
                   border: "none",
@@ -431,6 +434,9 @@ const XButton = styled.div`
 
 const InnerBox = styled.div`
   padding: 0 40px;
+  @media only screen and (max-width: 839px) {
+    padding: 0;
+  }
 `;
 
 const CommonBox = styled.div`

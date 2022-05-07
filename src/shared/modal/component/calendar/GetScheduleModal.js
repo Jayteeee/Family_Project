@@ -144,6 +144,14 @@ const Background = styled.div`
   background-color: ${(props) => (props.none ? `rgba(0, 0, 0, 0.5)` : null)};
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 40px rgba(0, 0, 0, 0.25);
   border-radius: ${(props) => (props.none ? null : "20%")};
+  @media only screen and (max-width: 839px) {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0;
+  }
 `;
 
 const Content = styled.div`
