@@ -1,3 +1,4 @@
 import AddPhotoAlbumModal from "./AddPhotoAlbumModal";
+import DeletePhotoAlbumModal from "./DeletePhotoAlbumModal";
 
-export { AddPhotoAlbumModal };
+export { AddPhotoAlbumModal, DeletePhotoAlbumModal };

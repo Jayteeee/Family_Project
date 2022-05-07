@@ -73,7 +73,9 @@ const DefaultInput = styled.input`
   margin: ${({ margin }) => (margin ? `${margin};` : "0;")};
   text-align: ${({ text_align }) => (text_align ? `${text_align};` : "")};
   background-color: ${({ bg }) => (bg ? `${bg};` : "")};
+  font-weight: ${({ fontWeight }) => (fontWeight ? `${fontWeight};` : "")};
   ${({ size }) => (size ? `font-size: ${size};` : "")}
+  ${({ border }) => (border ? `border: ${border};` : "border: none")};
   ${({ borderColor }) =>
     borderColor
       ? `border: 2px solid ${borderColor};`

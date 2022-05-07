@@ -11,9 +11,15 @@ import { Text, Button } from "../../elements/index";
 import { ModalPortal } from "../../shared/modal/portals";
 import { AddPhotoAlbumModal } from "../../shared/modal/component/Gallery";
 
-const GalleryHeader = ({ NowFamilyId }) => {
+const GalleryHeader = ({
+  NowFamilyId,
+  PracticeEdit,
+  isEdit,
+  EditPhotoAlbum,
+}) => {
   console.log("현재 가족Id:", NowFamilyId);
-  // 미션 추가하기 모달
+
+  // 앨범 추가하기 모달
   const [modalOn, setModalOn] = useState(false);
 
   const handleModal = () => {
@@ -31,29 +37,55 @@ const GalleryHeader = ({ NowFamilyId }) => {
         >
           갤러리
         </Text>
-        <BtnWrap>
-          <PhotoAlbumBtn
-            style={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-            onClick={handleModal}
-          >
-            <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>+</span>
-            앨범 추가
-          </PhotoAlbumBtn>
-          <PhotoAlbumBtn
-            style={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>+</span>
-            앨범 편집
-          </PhotoAlbumBtn>
-        </BtnWrap>
+        {!isEdit ? (
+          <BtnWrap>
+            <PhotoAlbumBtn
+              style={{
+                alignItems: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+              onClick={handleModal}
+            >
+              <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>
+                +
+              </span>
+              앨범 추가
+            </PhotoAlbumBtn>
+            <PhotoAlbumBtn
+              onClick={PracticeEdit}
+              style={{
+                alignItems: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>
+                +
+              </span>
+              앨범 편집
+            </PhotoAlbumBtn>
+          </BtnWrap>
+        ) : (
+          <BtnWrap>
+            <EditCompletedBtn
+              onClick={() => {
+                EditPhotoAlbum();
+                PracticeEdit();
+              }}
+              style={{
+                alignItems: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>
+                +
+              </span>
+              편집 완료
+            </EditCompletedBtn>
+          </BtnWrap>
+        )}
       </GalleryHeaderBox>
       {/* 앨범추가 모달 */}
       <ModalPortal>
@@ -92,8 +124,28 @@ const PhotoAlbumBtn = styled.div`
   padding: 12px 24px;
   margin-left: 24px;
   border: 1px solid black;
+  font-weight: 600;
+  cursor: pointer;
   &:hover {
     background: #8c98f8;
+    color: #fff;
+    border: none;
+  }
+`;
+
+const EditCompletedBtn = styled.div`
+  width: 143px;
+  height: 48px;
+  border-radius: 4px;
+  padding: 12px 24px;
+  margin-left: 24px;
+  border: none;
+  background: #8c98f8;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    background: black;
     color: #fff;
     border: none;
   }

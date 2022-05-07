@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
-import { MissionContext } from "../../../../pages/MissionPage";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -7,18 +6,13 @@ import { MdCancel, MdClose } from "react-icons/md";
 
 // 모달
 import { ModalPortal } from "../../portals";
-import { MissionMemberModal } from "./index";
 
 // 리덕스
-import { useDispatch, useSelector } from "react-redux";
-import { missionActions } from "../../../../redux/modules/mission";
-import { history } from "../../../../redux/configureStore";
+import { useDispatch } from "react-redux";
 
 // 엘리먼트
-import { Button, CircleImage, Text, Input } from "../../../../elements";
-
-// 이미지
-import profileImg from "../../../images/profileImg.png";
+import { Button, Text, Input } from "../../../../elements";
+import { galleryActions } from "../../../../redux/modules/gallery";
 
 const AddPhotoAlbumModal = ({ onClose, familyId }) => {
   const dispatch = useDispatch();
@@ -27,28 +21,26 @@ const AddPhotoAlbumModal = ({ onClose, familyId }) => {
   console.log("현재 familyId:", familyId);
 
   //  앨범 제목 input
-  const [albumName, setAlbumName] = useState("");
+  const [photoAlbumName, setPhotoAlbumName] = useState("");
   const [showBorder, setShowBorder] = useState(false);
 
   const handleAlbumTitle = (e) => {
     const { value } = e.target;
-    setAlbumName(value);
+    setPhotoAlbumName(value);
   };
 
-  console.log("앨범 이름:", albumName);
+  console.log("앨범 이름:", photoAlbumName);
 
   const resetAlbunName = () => {
-    let input = document.getElementById("albumName");
-    console.log(input);
-    input.value = null;
+    setPhotoAlbumName("");
   };
 
   const addPhotoAlbum = () => {
-    if (albumName) {
-      dispatch(missionActions.addMissionDB(familyId, albumName));
+    if (photoAlbumName) {
+      dispatch(galleryActions.addPhotoAlbumDB(familyId, photoAlbumName));
       onClose();
     } else {
-      alert("미션 제목을 입력하지 않았습니다.");
+      alert("앨범 제목을 입력하지 않았습니다.");
     }
   };
 
@@ -95,13 +87,13 @@ const AddPhotoAlbumModal = ({ onClose, familyId }) => {
                       id="albumName"
                       size="24px"
                       onChange={handleAlbumTitle}
-                      value={albumName}
+                      value={photoAlbumName}
                       style={{
                         border: "none",
                       }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        setShowBorder((prev) => !prev);
+                        setShowBorder(true);
                       }}
                     />
                   </InsertBox>
@@ -246,7 +238,7 @@ const InputBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 75px;
+  height: 76px;
   padding: 0 16px;
   border: ${({ show }) => (show ? `2px solid #8c98f8` : `2px solid #E5E5E5`)};
   border-radius: 8px;

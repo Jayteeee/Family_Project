@@ -199,49 +199,5 @@ const PhotoAlbumTitleBox = styled.div`
   width: 100%;
   margin-top: 3px;
 `;
-const FamilyMemberTitle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: #fff;
-  font-size: 18px;
-  margin-top: 20px;
-`;
-const FamilyMemberBox = styled.div`
-  background-color: #fff;
-  width: 100%;
-  padding: 5px 20px;
-  height: 36%;
-  border: 2px solid #dbdbdb;
-  border-radius: 20px;
-`;
 
-const MissionMemberBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-right: 20px;
-`;
-
-const AddFamilyMemberBtnBox = styled.div`
-  display: flex;
-  margin-top: 15px;
-`;
-
-const AddCicleBtn = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 46px;
-  background-color: #f6f6f6;
-  /* margin-left: 10px; */
-  cursor: pointer;
-  &:hover {
-    background-color: #d6d6d6;
-  }
-`;
 export default AddPhotoModal;

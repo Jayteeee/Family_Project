@@ -30,16 +30,16 @@ const getPhotoAlbum = createAction(GET_PHOTO_ALBUM, (photoAlbumList) => ({
 const getPhoto = createAction(GET_PHOTO, (photoList) => ({
   photoList,
 }));
-const addPhotoAlbum = createAction(ADD_PHOTO_ALBUM, (photoAlbum) => ({
-  photoAlbum,
+const addPhotoAlbum = createAction(ADD_PHOTO_ALBUM, (newPhotoAlbum) => ({
+  newPhotoAlbum,
 }));
 const addPhoto = createAction(ADD_PHOTO, (photo) => ({
   photo,
 }));
 const editPhotoAlbum = createAction(
   EDIT_PHOTO_ALBUM,
-  (familyId, photoAlbumName) => ({
-    familyId,
+  (photoAlbumId, photoAlbumName) => ({
+    photoAlbumId,
     photoAlbumName,
   })
 );
@@ -98,13 +98,14 @@ const getPhotoDB = () => {
   };
 };
 
-const addPhotoAlbumDB = (familyTitle) => {
+const addPhotoAlbumDB = (familyId, photoAlbumName) => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
-    //   .post(`${BASE_URL}/family`, {familyTitle}, { headers: config })
+    //   .post(`${BASE_URL}/${familyId}`, {familyTitle}, { headers: config })
     //   .then((res) => {
     //     console.log(res);
+    //     const {photoAlbumId} = res
     //     console.log(res.msg);
     //   })
     //   .catch((err) => {
@@ -112,21 +113,12 @@ const addPhotoAlbumDB = (familyTitle) => {
     //     console.log(err.response);
     //   });
 
-    const newFamily = {
-      familyId: `${familyTitle}`,
-      familyTitle: `${familyTitle}`, // 가족 이름
-      // familyImg: "url",
-      // familyHost: "홍길동",
-      // createdAt: "2022-05-18 00:51",
-      // userId: "user3@gamil.com",
-      // userNickname: "홍길동",
-      // profileImg: "url",
-      // todayMood: "이모지", // 이모지 사용
-      // missionStatus: "끈끈해요(75%)",
-      // randomMsg: "오늘은 부모님께 안부전화 한 통 어떨까요?",
+    const newPhotoAlbum = {
+      photoAlbumId: `${familyId}`,
+      photoAlbumName: `${photoAlbumName}`,
     };
 
-    dispatch(addPhotoAlbum(newFamily));
+    dispatch(addPhotoAlbum(newPhotoAlbum));
   };
 };
 
@@ -162,12 +154,12 @@ const addPhotoDB = (familyTitle) => {
   };
 };
 
-const editPhotoAlbumDB = (familyId, familyTitle) => {
+const editPhotoAlbumDB = (familyId, photoAlbumId, photoAlbumName) => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
     //   .put(
-    //     `${BASE_URL}/family/${familyId}`,
+    //     `${BASE_URL}/photoAlbum/${photoAlbumId}`,
     //     { familyTitle },
     //     {
     //       headers: config,
@@ -181,7 +173,7 @@ const editPhotoAlbumDB = (familyId, familyTitle) => {
     //     console.log(err);
     //     console.log(err.response);
     //   });
-    dispatch(editPhotoAlbum(familyId, familyTitle));
+    dispatch(editPhotoAlbum(photoAlbumId, photoAlbumName));
   };
 };
 
@@ -265,7 +257,7 @@ export default handleActions(
       }),
     [ADD_PHOTO_ALBUM]: (state, action) =>
       produce(state, (draft) => {
-        draft.photoAlbumList.push(action.payload.newFamily);
+        draft.photoAlbumList.push(action.payload.newPhotoAlbum);
       }),
     [ADD_PHOTO]: (state, action) =>
       produce(state, (draft) => {
@@ -273,19 +265,19 @@ export default handleActions(
       }),
     [EDIT_PHOTO_ALBUM]: (state, action) =>
       produce(state, (draft) => {
-        const { familyId, familyTitle } = action.payload;
+        const { photoAlbumId, photoAlbumName } = action.payload;
         // 현재 가족
-        let nowFamily = draft.photoAlbumList.find(
-          (l) => l.familyId === familyId
+        let nowPhotoAlbum = draft.photoAlbumList.find(
+          (l) => l.photoAlbumId === photoAlbumId
         );
         // 변경해야할 배열 인덱스
         let index = draft.photoAlbumList.findIndex(
-          (l) => l.familyId === familyId
+          (l) => l.photoAlbumId === photoAlbumId
         );
 
-        nowFamily = { ...nowFamily, familyTitle: familyTitle };
+        nowPhotoAlbum = { ...nowPhotoAlbum, photoAlbumName: photoAlbumName };
 
-        draft.photoAlbumList[index] = nowFamily;
+        draft.photoAlbumList[index] = nowPhotoAlbum;
       }),
     [EDIT_PHOTO]: (state, action) =>
       produce(state, (draft) => {
