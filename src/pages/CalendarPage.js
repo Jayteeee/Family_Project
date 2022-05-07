@@ -1,31 +1,40 @@
 import React from "react";
+
+// 라이브러리, 패키지
 import styled from "styled-components";
 import dayjs from "dayjs";
-import { useSelector } from "react-redux";
-import { DummyData } from "../shared/DummyData";
+import "dayjs/locale/ko";
+
+// 리덕스
+import { useSelector, useDispatch } from "react-redux";
+import { scheduleActions } from "../redux/modules/calendar";
+
+// 컴포넌트
 import ScheduleCalendar from "../components/Calendar/ScheduleCalendar";
 import PhotoCalendar from "../components/Calendar/PhotoCalendar";
+
+//엘리먼트
+import { Text, Button } from "../elements";
 
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
 import AddScheduleModal from "../shared/modal/component/calendar/AddScheduleModal";
 
 const CalendarPage = (props) => {
-  const [mark, setMark] = React.useState([
-    {
-      color: "yellow",
-      endDate: "Wed May 18 2022 23:59:59 GMT+0900 (한국 표준시)",
-      event: "제목 추가",
-      startDate: "Wed May 11 2022 00:00:00 GMT+0900 (한국 표준시)",
-    },
-  ]);
-  const [status, setStatus] = React.useState(true);
+  const dispatch = useDispatch();
 
-  // const events = DummyData.eventCalendarList; //더미데이터
+  const [status, setStatus] = React.useState("schedule");
+  const [modalOn, setModalOn] = React.useState(false);
 
   const list = useSelector((state) => state.calendar.scheduleList);
 
-  const [modalOn, setModalOn] = React.useState(false);
+  const thisMonth = document.getElementsByClassName(
+    "react-calendar__navigation__label__labelText"
+  )[0]?.childNodes[0].data;
+
+  const scheduleList = list.map((x) =>
+    dayjs(x.startDate).format("YYYY년 M월") == thisMonth ? x : null
+  );
 
   // 토글
   const handleModal = () => {
@@ -33,97 +42,214 @@ const CalendarPage = (props) => {
   };
 
   React.useEffect(() => {
-    setMark(list);
+    dispatch(scheduleActions.getScheduleDB());
   }, []);
 
   return (
     <Container>
-      <Box>
-        <Select>
-          <Option
-            value={status}
-            onClick={() => {
-              setStatus(true);
-            }}
-          >
-            <p>일정 보기</p>
-          </Option>
-          <Option
-            value={!status}
-            onClick={() => {
-              setStatus(false);
-            }}
-          >
-            <p>추억 보기</p>
-          </Option>
-        </Select>
-      </Box>
-      <FlexBox>
-        {status === true ? <ScheduleCalendar /> : <PhotoCalendar />}
-        <ScheduleArea>
-          {dayjs(new Date()).format("MM") ===
-          list.find((x) => dayjs(x.startDate).format("MM")) ? (
-            <div className="text-gray-500 mt-4">
-              {list.map((x) => dayjs(x.startDate)).format("MM월 DD일 ")}
-              {list.map((x) => dayjs(x.event))}
-            </div>
-          ) : null}
-        </ScheduleArea>
-      </FlexBox>
-      <CreateButton onClick={handleModal}>+</CreateButton>
-      <ModalPortal>
-        {modalOn && <AddScheduleModal onClose={handleModal}></AddScheduleModal>}
-      </ModalPortal>
+      <Title>
+        <Text H1>캘린더</Text>
+        <Button
+          M
+          onClick={handleModal}
+          bg="#8C98F8"
+          borderColor="transparent"
+          color="white"
+          borderRadius="8px"
+          padding="16px 32px"
+          width="159px"
+          height="56px"
+        >
+          + 일정추가
+        </Button>
+      </Title>
+      <div>
+        <Wrap>
+          <Select>
+            <Option1
+              value={status}
+              onClick={() => {
+                setStatus("schedule");
+              }}
+            >
+              <div>
+                <Text BM>일정 보기</Text>
+              </div>
+            </Option1>
+            <Option2
+              value={status}
+              onClick={() => {
+                setStatus("memory");
+              }}
+            >
+              <div>
+                <Text BM>추억 보기</Text>
+              </div>
+            </Option2>
+          </Select>
+        </Wrap>
+        <FlexBox center>
+          <SBox>
+            {status === "schedule" ? <ScheduleCalendar /> : <PhotoCalendar />}
+          </SBox>
+          <ScheduleArea>
+            <Text S1>이번 달 일정</Text>
+            {scheduleList.map((x) => (
+              <FlexBox1>
+                <TextBox>
+                  <Text BM key={x?.fakeId}>
+                    {`${dayjs(x?.startDate)
+                      .locale("ko")
+                      .format("MM월 DD일, dd")}`}
+                  </Text>
+                </TextBox>
+                <FlexBox2>
+                  <DateColor color={x?.color}></DateColor>
+                  <Text S3> {x?.event}</Text>
+                </FlexBox2>
+              </FlexBox1>
+            ))}
+          </ScheduleArea>
+        </FlexBox>
+        {/* <CreateButton onClick={handleModal}>+</CreateButton> */}
+        <ModalPortal>
+          {modalOn && (
+            <AddScheduleModal onClose={handleModal}></AddScheduleModal>
+          )}
+        </ModalPortal>
+      </div>
     </Container>
   );
 };
 
 const Container = styled.div`
-  margin-top: 50px;
+  margin: 40px;
+  @media only screen and (max-width: 1199px) {
+    margin: 60px 40px;
+  }
+  @media only screen and (max-width: 839px) {
+    margin: 60px 24px;
+  }
 `;
 
-const Box = styled.div`
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Wrap = styled.div`
   position: absolute;
-  left: 36.5%;
-  top: 18%;
+  /* top: 100px;
+  left: 30px; */
+  margin: 134px 276px;
+  width: 208px;
+  height: 42px;
 `;
 
 const Select = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-  width: 10em;
-  padding: 1px;
-  margin: auto;
+  align-items: center;
+  padding: 4px;
+  width: 100%;
   background-color: #f5f5f5;
-  border-radius: 12px;
+  border-radius: 20px;
 `;
 
-const Option = styled.div`
-  width: 50%;
-  border-radius: 8px;
-  padding: 5px;
-  margin: 2px;
-  font-size: 12px;
-  cursor: pointer;
+const Option1 = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 24px;
+  width: 100%;
+  height: 34px;
+  left: 4px;
+  top: 4px;
+  border-radius: 21px;
   ${({ value }) =>
-    value ? "background-color: white;" : "background-color: transparent;"};
+    value === "schedule"
+      ? "background-color: #8C98F8;"
+      : "background-color: transparent;"};
+  ${({ value }) =>
+    value === "schedule" ? "color: white;" : "color: #757575;"};
+  & > div {
+    position: static;
+    width: 52px;
+    height: 18px;
+  }
+`;
+const Option2 = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 24px;
+  width: 100%;
+  height: 34px;
+  left: 4px;
+  top: 4px;
+  border-radius: 21px;
+  ${({ value }) =>
+    value === "memory"
+      ? "background-color: #F4CC4D;"
+      : "background-color: transparent;"};
+  ${({ value }) => (value === "memory" ? "color: white;" : "color: #757575;")};
+  & > div {
+    position: static;
+    width: 52px;
+    height: 18px;
+  }
 `;
 
 const FlexBox = styled.div`
   display: flex;
   align-items: flex-start;
+  justify-content: ${(props) => (props.center ? `center` : `flex-start`)};
+  @media only screen and (max-width: 1199px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+`;
+
+const FlexBox1 = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin: 24px;
+`;
+
+const FlexBox2 = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const TextBox = styled.div`
+  height: 18px;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  margin: 8px 24px 0 0;
+  color: #757575;
+`;
+
+const SBox = styled.div`
+  width: 100%;
+  height: 890px;
+  margin-top: 110px;
+  margin-right: 12px;
 `;
 
 const ScheduleArea = styled.div`
-  width: 30vw;
-  max-width: 90%;
-  height: 30vh;
-  border-radius: 8px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  margin: 3rem 0;
+  width: 100%;
+  height: 912px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  margin-top: 110px;
+  margin-right: 12px;
+  padding: 24px;
+  background-color: #fff;
   text-align: start;
 `;
 
@@ -141,6 +267,14 @@ const CreateButton = styled.div`
   font-size: 24px;
   color: white;
   cursor: pointer;
+`;
+
+const DateColor = styled.div`
+  width: 8px;
+  height: 24px;
+  border-radius: 2px;
+  background-color: ${(props) => props.color};
+  margin-right: 8px;
 `;
 
 export default CalendarPage;

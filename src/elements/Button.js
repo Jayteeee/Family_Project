@@ -117,6 +117,7 @@ const MediumButton = styled.button`
     borderColor
       ? `border: 1px solid ${borderColor};`
       : "border: 1px solid black;"};
+  text-align: center;
   ${({ alignItems }) =>
     alignItems ? `align-items: ${alignItems};` : "align-items: center;"};
 `;

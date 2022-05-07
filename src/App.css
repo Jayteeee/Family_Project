@@ -1,4 +1,4 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
 * {
   font-family: "Noto Sans KR", sans-serif;
@@ -35,14 +35,14 @@ input[id="missionChk"]::before {
   content: "\2713";
   font-size: 20px;
   position: absolute;
-  top:60%;
+  top: 60%;
   left: 50%;
   overflow: hidden;
   transform: scale(0) translate(-50%, -50%);
   line-height: 1;
 }
 input[id="missionChk"]:hover {
-  border-color: #A8A8A8; 
+  border-color: #a8a8a8;
 }
 input[id="missionChk"]:checked {
   background-color: black;
@@ -51,7 +51,7 @@ input[id="missionChk"]:checked {
 }
 input[id="missionChk"]:checked::before {
   border-radius: 5px;
-  transform: scale(1) translate(-50%, -50%)
+  transform: scale(1) translate(-50%, -50%);
 }
 
 .res-loginbar {
@@ -59,7 +59,6 @@ input[id="missionChk"]:checked::before {
 }
 /* 반응형CSS 웹뷰(Midium) */
 @media only screen and (max-width: 1199px) {
-
 }
 /* 반응형CSS 태블릿 뷰 */
 @media only screen and (max-width: 839px) {
@@ -134,7 +133,7 @@ input[id="missionChk"]:checked::before {
     padding: 5px 0 0 0 !important;
   }
   .res-missionMonth {
-    margin:0px 0 15px 0px !important;
+    margin: 0px 0 15px 0px !important;
     display: flex !important;
     text-align: right !important;
     justify-content: center !important;
@@ -171,14 +170,14 @@ input[id="missionChk"]:checked::before {
     margin: 0 35px !important;
   }
   /* // 지난미션 용 */
-  .res-missionTitle { 
+  .res-missionTitle {
     margin-left: 25px !important;
   }
   .res-missionMemberBox {
     padding: 0 0 20px 5px !important;
   }
   .res-missionCompletedAt {
-    margin-right: 9%!important;
+    margin-right: 9% !important;
   }
   /* 미션 삭제하기 모달 */
 
@@ -188,7 +187,7 @@ input[id="missionChk"]:checked::before {
     max-width: 800px !important;
   }
   .res-badgeHeaderBox {
-    height: 22% !important; 
+    height: 22% !important;
     padding: 10px 0 40px !important;
     margin-top: 20px !important;
   }
@@ -244,16 +243,16 @@ input[id="missionChk"]:checked::before {
     height: 9rem !important;
   }
   .res-stausMiddleBox {
-  padding: 15px !important;
+    padding: 15px !important;
   }
   .res-selectBox.div.div {
     padding: 10px !important;
   }
   .res-missionStatusTitle {
-  font-size: 15px !important;
+    font-size: 15px !important;
   }
   .res-missionStatus {
-  font-size: 24px !important;
+    font-size: 24px !important;
   }
   .res-missionListWrap {
     margin: 15px 6px !important;
@@ -269,7 +268,7 @@ input[id="missionChk"]:checked::before {
     margin: 0 40px !important;
   }
   .res-missionCompletedAt {
-    margin-right: 9%!important;
+    margin-right: 9% !important;
   }
   .res-pastMissionMember {
     margin: 0 25px !important;
@@ -288,12 +287,12 @@ input[id="missionChk"]:checked::before {
   .res-badgeListBox {
     display: "" !important;
     flex-direction: column !important;
-    height: 100% !important; 
+    height: 100% !important;
   }
   .res-badgeRowBox {
     display: flex;
     flex-direction: column !important;
-    height: 100% !important; 
+    height: 100% !important;
   }
   .res-badgeTestBox {
     padding-left: 24px !important;
