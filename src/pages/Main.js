@@ -18,6 +18,7 @@ import {
   MissionPage,
   CalendarPage,
   GalleryPage,
+  PhotoListPage,
   VoiceMsgPage,
 } from "./index";
 
@@ -67,14 +68,17 @@ const Main = (props) => {
 
   return (
     <>
-      <MainContext.Provider value={NowFamily}>
+      {/* <MainContext.Provider value={NowFamily}>
         <Header bg={bg} />
-      </MainContext.Provider>
+      </MainContext.Provider> */}
       <MainWrap className="res-mainWrap">
+        <MainContext.Provider value={NowFamily}>
+          <Header bg={bg} />
+        </MainContext.Provider>
         <div
           style={{
-            display: "inline-flex",
-            flexDirection: "column",
+            display: "flex",
+            flexDirection: "row",
           }}
         >
           <SidbarWrap className="res-selectWrap">
@@ -118,47 +122,63 @@ const Main = (props) => {
               <SidebarMenu NowFamilyId={NowFamilyId} />
             </Sidebar>
           </SidbarWrap>
+
+          <PageWrap>
+            <Switch>
+              <Route path="/family/:familyId/" exact component={FamilyPage} />
+              <Route
+                path="/family/:familyId/mission"
+                exact
+                component={MissionPage}
+              />
+              <Route
+                path="/family/:familyId/calendar"
+                exact
+                component={CalendarPage}
+              />
+              <Route
+                path="/family/:familyId/gallery"
+                exact
+                component={GalleryPage}
+              />
+              <Route
+                path="/family/:familyId/gallery/:photoAlbumId"
+                exact
+                component={PhotoListPage}
+              />
+              <Route
+                path="/family/:familyId/voiceMsg"
+                exact
+                component={VoiceMsgPage}
+              />
+            </Switch>
+          </PageWrap>
         </div>
-        <PageWrap>
-          <Switch>
-            <Route path="/family/:familyId/" exact component={FamilyPage} />
-            <Route
-              path="/family/:familyId/mission"
-              exact
-              component={MissionPage}
-            />
-            <Route
-              path="/family/:familyId/calendar"
-              exact
-              component={CalendarPage}
-            />
-            <Route
-              path="/family/:familyId/gallery"
-              exact
-              component={GalleryPage}
-            />
-            <Route
-              path="/family/:familyId/voiceMsg"
-              exact
-              component={VoiceMsgPage}
-            />
-          </Switch>
-        </PageWrap>
       </MainWrap>
     </>
   );
 };
 
 const MainWrap = styled.div`
+  /* display: flex; */
+  /* height: calc(100vh - 44px); */
+  /* color: #282828;
+  background: #f9f9ff; */
+  max-width: 100%;
+  /* padding: 20px; */
   display: flex;
-  height: calc(100vh - 44px);
-  color: #282828;
-  background: #f9f9ff;
+  /* flex-wrap: nowrap; */
+  /* gap: 1em; */
+  flex-direction: column !important;
 `;
 
 const SidbarWrap = styled.div`
-  border: none;
-  overflow-y: hidden;
+  /* border: none;
+  overflow-y: hidden; */
+  /* flex-basis: 160px; */
+  flex-grow: 0;
+  flex-shrink: 0;
+  /* background-color: #f0f0ff; */
 `;
 
 const Sidebar = styled.nav`
@@ -220,8 +240,13 @@ const Option = styled.li`
 `;
 
 const PageWrap = styled.div`
-  flex: 1;
-  height: calc(100vh - 44px);
+  /* flex: 1;
+  height: calc(100vh - 44px); */
+
+  /* flex-basis: 680px; */
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: #f0f0ff;
 `;
 
 export default Main;

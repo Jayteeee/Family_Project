@@ -55,7 +55,7 @@ const MissionHeader = (props) => {
             >
               <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>
                 +
-              </span>{" "}
+              </span>
               미션 추가
             </div>
           </Button>

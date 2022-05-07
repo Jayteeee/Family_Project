@@ -46,7 +46,7 @@ const MissionPage = (props) => {
 
   return (
     <>
-      <MissionPageWrap className="res-missionPageWrap">
+      <MissionPageWrap className="res-pageWrap">
         <MissionContext.Provider value={familyId}>
           <MissionHeader />
         </MissionContext.Provider>
@@ -63,7 +63,7 @@ const MissionPage = (props) => {
 
 const MissionPageWrap = styled.div`
   width: 100%;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   overflow-y: scroll;

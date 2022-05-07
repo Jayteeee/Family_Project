@@ -64,7 +64,7 @@ const Input = (props) => {
 const DefaultInput = styled.input`
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 0px grey, 0 0 0 3px #d6d6d6;
+    box-shadow: 0 0 0 0px #8c98f8, 0 0 0 2px #8c98f8;
   }
 
   width: ${({ width }) => (width ? `${width};` : "100%;")};
