@@ -78,7 +78,7 @@ const getSearchMemberDB = (familyId, email) => {
     console.log("가족 아이디:", familyId, "입력한 email :", email);
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
-    //   .get(`${BASE_URL}/family/search/keyword?keyword=${email}`, {
+    //   .get(`${BASE_URL}/family/search?search=${email}`, {
     //     headers: config,
     //   })
     //   .then((res) => {

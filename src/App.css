@@ -121,6 +121,7 @@ input[id="missionChk"]:checked::before {
   }
   /* 미션페이지 */
   .res-pageWrap {
+    /*페이지 공용*/
     padding-top: 50px !important;
     height: calc(100vh - 150px) !important;
   }

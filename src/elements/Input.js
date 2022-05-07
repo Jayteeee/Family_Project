@@ -64,7 +64,7 @@ const Input = (props) => {
 const DefaultInput = styled.input`
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 0px grey, 0 0 0 3px #d6d6d6;
+    box-shadow: 0 0 0 0px #8c98f8, 0 0 0 2px #8c98f8;
   }
 
   width: ${({ width }) => (width ? `${width};` : "100%;")};
@@ -73,7 +73,9 @@ const DefaultInput = styled.input`
   margin: ${({ margin }) => (margin ? `${margin};` : "0;")};
   text-align: ${({ text_align }) => (text_align ? `${text_align};` : "")};
   background-color: ${({ bg }) => (bg ? `${bg};` : "")};
+  font-weight: ${({ fontWeight }) => (fontWeight ? `${fontWeight};` : "")};
   ${({ size }) => (size ? `font-size: ${size};` : "")}
+  ${({ border }) => (border ? `border: ${border};` : "border: none")};
   ${({ borderColor }) =>
     borderColor
       ? `border: 2px solid ${borderColor};`

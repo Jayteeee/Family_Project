@@ -54,10 +54,13 @@ const Background = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  height: 100%;
-  width: 100%;
+  height: 30px;
+  width: 30px;
   text-align: center;
   background-color: transparent;
+  position: absolute;
+  ${({ X }) => ` top: ${X}px`};
+  ${({ Y }) => `left: ${Y}px`};
 `;
 
 const Content = styled.div`
@@ -65,8 +68,6 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  /* ${({ X }) => ` top: ${X}px`};
-  ${({ Y }) => `left: ${Y}px`}; */
 
   z-index: 205;
   width: 108px;

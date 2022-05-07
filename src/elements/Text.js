@@ -92,6 +92,7 @@ const Headline1 = styled.h1`
   font-weight: 600;
   font-size: 40px;
   line-height: 48px;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const Headline2 = styled.h2`
   font-family: "Pretendard";
@@ -99,6 +100,7 @@ const Headline2 = styled.h2`
   font-weight: 600;
   font-size: 28px;
   line-height: 34px;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const Subtitle1 = styled.p`
   font-family: "Pretendard";
@@ -106,6 +108,7 @@ const Subtitle1 = styled.p`
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const Subtitle15 = styled.p`
   font-family: "Pretendard";
@@ -113,6 +116,7 @@ const Subtitle15 = styled.p`
   font-weight: 400;
   font-size: 24px;
   line-height: 30px;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const Subtitle2 = styled.p`
   font-family: "Pretendard";
@@ -120,6 +124,7 @@ const Subtitle2 = styled.p`
   font-weight: 600;
   font-size: 20px;
   line-height: 30px;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const Subtitle3 = styled.p`
   font-family: "Pretendard";
@@ -134,6 +139,7 @@ const Body1 = styled.p`
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const Body2 = styled.p`
   font-family: "Pretendard";
@@ -141,6 +147,7 @@ const Body2 = styled.p`
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const Body3 = styled.p`
   font-family: "Pretendard";
@@ -148,6 +155,7 @@ const Body3 = styled.p`
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const ButtonL = styled.p`
   font-family: "Pretendard";
@@ -164,6 +172,7 @@ const ButtonM = styled.p`
   font-size: 14px;
   line-height: 18px;
   cursor: pointer;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const ButtonS = styled.p`
   font-family: "Pretendard";
@@ -172,6 +181,7 @@ const ButtonS = styled.p`
   font-size: 10px;
   line-height: 16px;
   cursor: pointer;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 const Caption = styled.p`
   font-family: "Pretendard";
@@ -179,6 +189,7 @@ const Caption = styled.p`
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
+  ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 
 export default Text;

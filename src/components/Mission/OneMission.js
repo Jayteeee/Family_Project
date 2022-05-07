@@ -38,6 +38,7 @@ const OneMission = (props) => {
 
   console.log(props);
 
+  // 배포할 때 모바일 환경에서 에러발생 / 화면이 안뜸.
   // const myFamilyMemberId = useSelector(
   //   (state) => state.user.user.familyMemberId
   // );
@@ -176,7 +177,7 @@ const OneMission = (props) => {
 
         <MissionMemberBox className="res-missionMemberBox">
           <div
-            style={{ display: "flex", margin: "0 30px" }}
+            style={{ display: "flex", margin: "0 35px" }}
             className="res-missionMember"
           >
             {missionMemberList ? (
