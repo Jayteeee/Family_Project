@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { userActions } from "./redux/modules/user";
 
 // 페이지
-import { Main, LandingPage, Auth } from "./pages/index";
+import { Main, LandingPage, Auth, FirstPage } from "./pages/index";
 
 // 토큰
 import { getToken } from "./shared/Token";
@@ -29,6 +29,7 @@ function App() {
     <div className="App">
       <ConnectedRouter history={history}>
         <Switch>
+          <Route path="/family" exact component={FirstPage} />
           <Route path="/family/:familyId" component={Main} />
           <Route path="/" exact component={LandingPage} />
           <Route path="/kakao/code" exact component={Auth} />

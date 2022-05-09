@@ -1,25 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { VoiceAlbum, VoiceHeader } from "../components/voice";
+import { VoiceAlbum } from "../components/voice";
 import { useDispatch } from "react-redux";
 
 // 리덕스
-import { useParams } from "react-router-dom";
 import { voiceActions } from "../redux/modules/voice";
 
-const VoiceMsgPage = () => {
-  const params = useParams();
+const VoiceMsgPage = (props) => {
   const dispatch = useDispatch();
-  const familyId = params.familyId;
+
+  const { familyId } = props.match?.params;
+  const [isEdit, setIsEdit] = useState(false);
+
+  const PracticeEdit = () => {
+    setIsEdit(!isEdit);
+  };
 
   useEffect(() => {
     dispatch(voiceActions.getVoicePage());
   }, []);
+
   return (
     <>
       <VoicePageWrap>
-        <VoiceHeader></VoiceHeader>
-        <VoiceAlbum familyId={familyId}></VoiceAlbum>
+        <VoiceAlbum
+          PracticeEdit={PracticeEdit}
+          isEdit={isEdit}
+          familyId={familyId}
+        ></VoiceAlbum>
       </VoicePageWrap>
     </>
   );

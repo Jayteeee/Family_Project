@@ -654,6 +654,12 @@ const voiceAlbumList = [
   {
     voiceAlbumId: "asdfdf",
     voiceAlbumName: "일상",
+    voiceAlbumCover: "albumCover1",
+  },
+  {
+    voiceAlbumId: "asdfdfsef",
+    voiceAlbumName: "샘플",
+    voiceAlbumCover: "albumCover2",
   },
 ];
 // 음성 파일 페이지

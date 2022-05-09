@@ -29,6 +29,7 @@ const ADD_MISSION_MEMBER = "ADD_MISSION_MEMBER";
 const CHECK_MISSION = "CHECK_MISSION";
 const CHECK_MISSION_MEMBER = "CHECK_MISSION_MEMBER";
 const MISSION_STATUS_UPDATE = "MISSION_UPDATE";
+const EDIT_VOICE_ALBUM = "EDIT_VOICE_ALBUM";
 const DELETE_MISSION = "DELETE_MISSION";
 
 // 액션 생성함수
@@ -72,6 +73,13 @@ const missionStatusUpdate = createAction(
     missionStatus,
   })
 );
+const editVoiceAlbum = createAction(
+  EDIT_VOICE_ALBUM,
+  (voiceAlbumId, voiceAlbumName) => ({
+    voiceAlbumId,
+    voiceAlbumName,
+  })
+);
 const deleteMission = createAction(DELETE_MISSION, (missionId) => ({
   missionId,
 }));
@@ -97,8 +105,10 @@ const getVoicePage = (familyId) => {
 
     // console.log("현재 미션 데이터:", nowMissionData);
     // dispatch(getMission(nowMissionData));
+
     const nowVoiceData = DummyData.voiceAlbumList;
-    console.log("이번달 미션 데이터:", nowVoiceData);
+
+    console.log("음성 데이터:", nowVoiceData);
 
     dispatch(getVoice(nowVoiceData));
   };
@@ -160,7 +170,7 @@ const getMissionMemberDB = (familyId) => {
   };
 };
 
-const getVoiceListDB = (familyId) => {
+const getVoiceListDB = (voiceAlbumId) => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
@@ -176,6 +186,7 @@ const getVoiceListDB = (familyId) => {
     //     console.log(error.response);
     //   });};
     const voiceList = DummyData.voiceFilePage;
+
     console.log(voiceList);
     dispatch(getVoiceList(voiceList));
   };
@@ -263,6 +274,29 @@ const checkMissionDB = (
   };
 };
 
+const editVoiceAlbumDB = (familyId, voiceAlbumId, voiceAlbumName) => {
+  return async function (dispatch, getState, { history }) {
+    // const config = { Authorization: `Bearer ${getToken()}` };
+    // await axios
+    //   .put(
+    //     `${BASE_URL}/photoAlbum/${photoAlbumId}`,
+    //     { familyTitle },
+    //     {
+    //       headers: config,
+    //     }
+    //   )
+    //   .then((res) => {
+    //     console.log(res);
+    //     dispatch(editFamilyName(familyId, familyTitle));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     console.log(err.response);
+    //   });
+    dispatch(editVoiceAlbum(voiceAlbumId, voiceAlbumName));
+  };
+};
+
 const deleteMissionDB = (familyId, missionId) => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
@@ -320,83 +354,22 @@ export default handleActions(
         draft.selectedMemberList = action.payload.selectedMemberList;
         draft.selectedMemberIdList = action.payload.selectedMemberIdList;
       }),
-    // [CHECK_MISSION]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     const { checkedMissionId, familyMissionChk } =
-    //       action.payload.missionChkData;
+    [EDIT_VOICE_ALBUM]: (state, action) =>
+      produce(state, (draft) => {
+        const { voiceAlbumId, voiceAlbumName } = action.payload;
+        // 현재 가족
+        let nowVoiceAlbum = draft.voiceAlbumList.find(
+          (l) => l.voiceAlbumId === voiceAlbumId
+        );
+        // 변경해야할 배열 인덱스
+        let index = draft.voiceAlbumList.findIndex(
+          (l) => l.voiceAlbumId === voiceAlbumId
+        );
 
-    //     console.log(checkedMissionId, familyMissionChk);
+        nowVoiceAlbum = { ...nowVoiceAlbum, voiceAlbumName: voiceAlbumName };
 
-    //     let thisMonthMissionList =
-    //       draft.nowMissionData.thisMonthMissionList.filter(
-    //         (m) => m.missionId === checkedMissionId
-    //       )[0];
-
-    //     let missionIdx = draft.nowMissionData.thisMonthMissionList.findIndex(
-    //       (m) => m.missionId === checkedMissionId
-    //     );
-
-    //     console.log(missionIdx);
-    //     console.log("선택한 미션:", thisMonthMissionList);
-
-    //     thisMonthMissionList = {
-    //       ...thisMonthMissionList,
-    //       familyMissionChk: familyMissionChk,
-    //     };
-
-    //     console.log(thisMonthMissionList);
-    //     // 선택한 미션 주입
-    //     draft.nowMissionData.thisMonthMissionList[missionIdx] =
-    //       thisMonthMissionList;
-    //   }),
-    // [CHECK_MISSION_MEMBER]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     const {
-    //       checkedMissionId,
-    //       myMissionChk,
-    //       familyMissionChk,
-    //       familyMemberId,
-    //     } = action.payload.missionChkData;
-
-    //     console.log(
-    //       checkedMissionId,
-    //       myMissionChk,
-    //       familyMissionChk,
-    //       familyMemberId
-    //     );
-
-    //     let thisMonthMissionList =
-    //       draft.nowMissionData.thisMonthMissionList.filter(
-    //         (m) => m.missionId === checkedMissionId
-    //       )[0];
-
-    //     let missionIdx = draft.nowMissionData.thisMonthMissionList.findIndex(
-    //       (m) => m.missionId === checkedMissionId
-    //     );
-    //     let checkedMissionMember = thisMonthMissionList.missionMemberList.find(
-    //       (f) => f.familyMemberId === familyMemberId
-    //     );
-    //     let memberIdx = thisMonthMissionList.missionMemberList.findIndex(
-    //       (f) => f.familyMemberId === familyMemberId
-    //     );
-
-    //     console.log(missionIdx, memberIdx);
-    //     console.log(
-    //       "선택한 미션:",
-    //       thisMonthMissionList,
-    //       "선택한 미션멤버:",
-    //       checkedMissionMember
-    //     );
-
-    //     checkedMissionMember = {
-    //       ...checkedMissionMember,
-    //       myMissionChk: myMissionChk,
-    //     };
-    //     // 선택한 미션 멤버 주입
-    //     draft.nowMissionData.thisMonthMissionList[missionIdx].missionMemberList[
-    //       memberIdx
-    //     ] = checkedMissionMember;
-    //   }),
+        draft.voiceAlbumList[index] = nowVoiceAlbum;
+      }),
     [MISSION_STATUS_UPDATE]: (state, action) =>
       produce(state, (draft) => {
         const { missionStatus } = action.payload;
@@ -425,5 +398,6 @@ export const voiceActions = {
   addVoiceDB,
   addMissionMember,
   checkMissionDB,
+  editVoiceAlbumDB,
   deleteMissionDB,
 };
