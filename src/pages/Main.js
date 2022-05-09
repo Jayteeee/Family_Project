@@ -185,6 +185,9 @@ const SidbarWrap = styled.div`
   flex-grow: 0;
   flex-shrink: 0;
   /* background-color: #f0f0ff; */
+  @media only screen and (max-width: 839px) {
+    display: none;
+  }
 `;
 
 const Sidebar = styled.nav`

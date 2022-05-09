@@ -68,56 +68,57 @@ input[id="missionChk"]:checked::before {
   .res-mainWrap {
     flex-direction: column !important;
     font-size: 15px !important;
+
   }
   .res-sidbar {
-    width: 100% !important;
+    /* width: 100% !important;
     height: 80px !important;
     bottom: 0px !important;
     border-radius: 0px !important;
     position: absolute !important;
-    display: flex !important;
+    display: flex !important; */
   }
   .res-selectWrap {
-    padding: 0 !important;
+    /* padding: 0 !important;
     border-radius: 0 !important;
-    margin: 0 !important;
+    margin: 0 !important; */
   }
   .res-selectBox {
-    position: absolute !important;
+    /* position: absolute !important;
     cursor: pointer !important;
-    width: 100% !important;
+    width: 100% !important; */
     /* padding: 10px 20px !important; */
-    border-bottom: 1px solid rgba(29, 28, 29, 0.13) !important;
+    /* border-bottom: 1px solid rgba(29, 28, 29, 0.13) !important;
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;
-    border-radius: 0px !important;
+    border-radius: 0px !important; */
   }
   .res-label {
-    font-size: 20px !important;
-    padding: 10px !important;
+    /* font-size: 20px !important;
+    padding: 10px !important; */
   }
   .res-selectOptions {
-    top: 48px !important;
+    /* top: 48px !important; */
   }
   .res-menuWrap {
-    display: flex !important;
+    /* display: flex !important;
     margin-top: 0px !important;
     font-size: 15px !important;
     text-align: center !important;
     border-radius: 0px !important;
-    width: 100% !important;
+    width: 100% !important; */
   }
   .res-menuBox {
-    justify-content: center !important;
+    /* justify-content: center !important;
     flex-direction: column !important;
     border-radius: 0px !important;
     font-size: 15px !important;
     width: 100% !important;
-    padding: 0 !important;
+    padding: 0 !important; */
   }
   .res-menus {
-    margin: 2px 0 !important;
+    /* margin: 2px 0 !important; */
   }
   /* 미션페이지 */
   .res-pageWrap {
