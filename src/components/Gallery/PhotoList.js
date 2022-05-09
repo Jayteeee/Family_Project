@@ -24,7 +24,7 @@ const PhotoList = ({ photoAlbumId, NowFamilyId, isEdit, PracticeEdit }) => {
 
   const { photoList } = useSelector((state) => state.gallery);
 
-  console.log("선택한 앨번 사진리스트:", photoList);
+  console.log("선택한 앨범 사진리스트:", photoList);
 
   // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
@@ -35,7 +35,7 @@ const PhotoList = ({ photoAlbumId, NowFamilyId, isEdit, PracticeEdit }) => {
 
   useEffect(() => {
     dispatch(galleryActions.getPhotoDB(photoAlbumId));
-  }, []);
+  }, [photoList.length]);
 
   const params = useParams;
 
@@ -43,6 +43,7 @@ const PhotoList = ({ photoAlbumId, NowFamilyId, isEdit, PracticeEdit }) => {
     <>
       <PhotoHeader
         NowFamilyId={NowFamilyId}
+        photoAlbumId={photoAlbumId}
         PracticeEdit={PracticeEdit}
         isEdit={isEdit}
       />

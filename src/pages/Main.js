@@ -123,7 +123,6 @@ const Main = (props) => {
               <SidebarMenu NowFamilyId={NowFamilyId} />
             </Sidebar>
           </SidbarWrap>
-
           <PageWrap>
             <Switch>
               <Route path="/family/:familyId/" exact component={FamilyPage} />

@@ -33,8 +33,8 @@ const getPhoto = createAction(GET_PHOTO, (photoList) => ({
 const addPhotoAlbum = createAction(ADD_PHOTO_ALBUM, (newPhotoAlbum) => ({
   newPhotoAlbum,
 }));
-const addPhoto = createAction(ADD_PHOTO, (photo) => ({
-  photo,
+const addPhoto = createAction(ADD_PHOTO, (newPhoto) => ({
+  newPhoto,
 }));
 const editPhotoAlbum = createAction(
   EDIT_PHOTO_ALBUM,
@@ -106,6 +106,7 @@ const addPhotoAlbumDB = (familyId, photoAlbumName) => {
     //   .then((res) => {
     //     console.log(res);
     //     const {photoAlbumId} = res
+    //     const {photoAlbumName} = res
     //     console.log(res.msg);
     //   })
     //   .catch((err) => {
@@ -122,23 +123,33 @@ const addPhotoAlbumDB = (familyId, photoAlbumName) => {
   };
 };
 
-const addPhotoDB = (familyTitle) => {
+const addPhotoDB = (familyId, photoAlbumId, formData) => {
   return async function (dispatch, getState, { history }) {
+    console.log(
+      "familyId:",
+      familyId,
+      "photoAlbumId:",
+      photoAlbumId,
+      "formData:",
+      formData
+    );
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
-    //   .post(`${BASE_URL}/family`, {familyTitle}, { headers: config })
+    //   .post(`${BASE_URL}/photo/${familyId}/${photoAlbumId}`, formData, { headers: config })
     //   .then((res) => {
-    //     console.log(res);
+    //     console.log(res.photoFile);
     //     console.log(res.msg);
+    //     const newPhoto = res.photoFile
+    //    dispatch(addPhoto(newPhoto))
     //   })
     //   .catch((err) => {
     //     console.log(err);
     //     console.log(err.response);
     //   });
 
-    const newFamily = {
-      familyId: `${familyTitle}`,
-      familyTitle: `${familyTitle}`, // 가족 이름
+    const newPhoto = {
+      // familyId: `${familyTitle}`,
+      // familyTitle: `${familyTitle}`, // 가족 이름
       // familyImg: "url",
       // familyHost: "홍길동",
       // createdAt: "2022-05-18 00:51",
@@ -150,7 +161,7 @@ const addPhotoDB = (familyTitle) => {
       // randomMsg: "오늘은 부모님께 안부전화 한 통 어떨까요?",
     };
 
-    dispatch(addPhoto(newFamily));
+    // dispatch(addPhoto(newFamily));
   };
 };
 
@@ -200,8 +211,9 @@ const editPhotoDB = (familyId, familyTitle) => {
   };
 };
 
-const deletePhotoAlbumDB = (familyId) => {
+const deletePhotoAlbumDB = (photoAlbumId) => {
   return async function (dispatch, getState, { history }) {
+    console.log("photoAlbumId:", photoAlbumId);
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
     //   .delete(`${BASE_URL}/family/${familyId}`, {
@@ -211,8 +223,8 @@ const deletePhotoAlbumDB = (familyId) => {
     //     console.log(res);
     //     // window.alert(res.msg)
     //     alert("삭제!");
-    dispatch(deletePhotoAlbum(familyId));
-    history.go(0);
+    dispatch(deletePhotoAlbum(photoAlbumId));
+    // history.go(0);
     //   })
     //   .catch((err) => {
     //     console.log(err);
@@ -289,14 +301,14 @@ export default handleActions(
 
         draft.photoList[index] = nowFamily;
       }),
-    [DELETE_PHOTO]: (state, action) =>
+    [DELETE_PHOTO_ALBUM]: (state, action) =>
       produce(state, (draft) => {
-        const { familyId } = action.payload;
+        const { photoAlbumId } = action.payload;
         let newArr = draft.photoAlbumList.filter(
-          (l) => l.familyId !== familyId
+          (l) => l.photoAlbumId !== photoAlbumId
         );
         console.log(
-          state.photoAlbumList.filter((l) => l.familyId !== familyId)
+          state.photoAlbumList.filter((l) => l.photoAlbumId !== photoAlbumId)
         );
         draft.photoAlbumList = newArr;
       }),
@@ -318,4 +330,5 @@ export const galleryActions = {
   addPhotoDB,
   editPhotoAlbumDB,
   deletePhotoAlbumDB,
+  deletePhotoDB,
 };

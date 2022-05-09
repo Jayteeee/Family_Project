@@ -14,7 +14,7 @@ import { Text, Button } from "../../elements/index";
 import { ModalPortal } from "../../shared/modal/portals";
 import { galleryActions } from "../../redux/modules/gallery";
 
-const PhotoHeader = ({ NowFamilyId, PracticeEdit, isEdit }) => {
+const PhotoHeader = ({ NowFamilyId, PracticeEdit, isEdit, photoAlbumId }) => {
   const dispatch = useDispatch();
 
   const photoImgInput = useRef();
@@ -27,28 +27,15 @@ const PhotoHeader = ({ NowFamilyId, PracticeEdit, isEdit }) => {
   };
 
   const onImgInputBtnClick = () => {
-    const reader = new FileReader(); //사진이 인풋에 들어갔을 때 가져올 것이라서 selectFile안에 써준다.
-    const file = photoImgInput.current.files[0];
-
-    reader.readAsDataURL(file);
-  };
-
-  const handleSubmit = () => {
-    // 프론트 유효성검사 더 강화해야함
-
     const file = photoImgInput.current.files[0];
     const formData = new FormData();
-
     if (file) {
-      formData.append("image", file);
+      formData.append("photoFile", file);
     }
-
+    console.log("이미지파일", file);
     console.log("formData:", formData);
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
 
-    dispatch(galleryActions.addPhotoDB(formData));
+    dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };
 
   return (

@@ -3,10 +3,9 @@ import { produce } from "immer";
 import axios from "axios";
 import { DummyData } from "../../shared/DummyData";
 import dayjs from "dayjs";
+import { getToken } from "../../shared/Token";
 
-// import { getToken } from "../../shared/Token";
-
-const BASE_URL = "";
+const BASE_URL = "13.209.8.192";
 
 const initialState = {
   familyList: [],
@@ -43,10 +42,10 @@ const getFamilyDB = () => {
     // await axios
     //   .get(`${BASE_URL}/familylist/`, { headers: config })
     //   .then((res) => {
-    //     console.log(res)
-    //     const {familyList} = res.data
+    //     console.log(res);
+    //     const { familyList } = res.data;
     //     console.log(familyList);
-    //     dispatch(getFamily(familyList));
+    //     // dispatch(getFamily(familyList));
     //   })
     //   .catch((error) => {
     //     console.log("패밀리 데이터 안옴", error);

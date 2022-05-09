@@ -22,7 +22,10 @@ const DeleteMissionModal = ({
     dispatch(missionActions.deleteMissionDB(familyId, missionId));
   };
 
+  console.log(missionId);
+
   console.log(modalPosition[0]);
+  console.log(modalPosition[1]);
 
   return (
     <ModalPortal>
@@ -68,7 +71,8 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-
+  ${({ X }) => ` top: ${X}px`};
+  ${({ Y }) => `left: ${Y}px`};
   z-index: 205;
   width: 108px;
   height: 49px;

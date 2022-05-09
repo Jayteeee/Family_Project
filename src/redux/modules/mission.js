@@ -289,6 +289,7 @@ const checkMissionDB = (
 
 const deleteMissionDB = (familyId, missionId) => {
   return async function (dispatch, getState, { history }) {
+    console.log(missionId);
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
     //   .delete(`${BASE_URL}/${familyId}/${missionId}`, {
