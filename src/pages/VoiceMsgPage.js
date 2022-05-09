@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import {
-  VoiceAlbum,
-  VoiceHeader,
-  GradientCircleProgressbar,
-} from "../components/voice";
+import { VoiceAlbum, VoiceHeader } from "../components/voice";
 import { useDispatch } from "react-redux";
 
 // 리덕스
@@ -22,28 +18,20 @@ const VoiceMsgPage = () => {
   return (
     <>
       <VoicePageWrap>
-        <GradientCircleProgressbar
-          percentage="40"
-          primaryColor={["#8C98F8", "#8C98F8"]}
-        />
-        {/* <VoiceHeader></VoiceHeader>
-        <VoiceAlbum familyId={familyId}></VoiceAlbum> */}
+        <VoiceHeader></VoiceHeader>
+        <VoiceAlbum familyId={familyId}></VoiceAlbum>
       </VoicePageWrap>
     </>
   );
 };
 
 const VoicePageWrap = styled.div`
-  /* position: relative; */
   width: 100%;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 80px);
+  padding-bottom: 40px;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-
-  // ------- 테스트 //
-  justify-content: center;
-  align-items: center;
 `;
 
 export default VoiceMsgPage;

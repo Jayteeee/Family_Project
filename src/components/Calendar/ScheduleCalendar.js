@@ -82,17 +82,17 @@ const ScheduleCalendar = () => {
               </>
             );
           }}
-        />
+        ></Calendar>
+        <ModalPortal>
+          {modalOn && (
+            <GetScheduleModal
+              onClose={handleModal}
+              day={day}
+              event={event}
+            ></GetScheduleModal>
+          )}
+        </ModalPortal>
       </Container>
-      <ModalPortal>
-        {modalOn && (
-          <GetScheduleModal
-            onClose={handleModal}
-            day={day}
-            event={event}
-          ></GetScheduleModal>
-        )}
-      </ModalPortal>
     </div>
   );
 };

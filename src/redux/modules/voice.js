@@ -11,7 +11,7 @@ import { DummyData } from "../../shared/DummyData";
 const BASE_URL = "";
 
 const initialState = {
-  nowMissionData: [],
+  nowVoiceData: [],
   missionMemberList: [],
   pastMissionList: [],
   selectedMemberList: [],
@@ -181,7 +181,7 @@ const getVoiceListDB = (familyId) => {
   };
 };
 
-const addVoiceDB = (familyId, voiceTitle, voiceFile, voicePlayTime) => {
+const addVoiceDB = (familyId, voiceTitle, audioUrl, sound, count) => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
@@ -202,8 +202,9 @@ const addVoiceDB = (familyId, voiceTitle, voiceFile, voicePlayTime) => {
       familyId: `${familyId}`,
       voiceAlbumId: `asd33dsddf${voiceTitle}`,
       voiceTitle: `${voiceTitle}`, //name -> title 수정
-      voiceFile: `${voiceFile}`,
-      voicePlayTime: `${voicePlayTime}`,
+      voiceFile: `${audioUrl}`,
+      voiceFile2: `${sound}`,
+      voicePlayTime: `${count}`,
     };
 
     console.log("새로운 음성메시지:", newVoice);
