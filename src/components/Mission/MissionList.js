@@ -350,7 +350,7 @@ export default MissionList;
 //         <MissionTitle>
 //           {/* {missionId === myMission.missionId ? ( */}
 //           <MissionChkBox>
-//             <label htmlFor="missionChk" className="checks">
+//             <label className="missionChk" className="checks">
 //               <input
 //                 type="checkbox"
 //                 value={m.missionId}

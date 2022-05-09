@@ -66,8 +66,8 @@ const getPhotoAlbumDB = () => {
     //   .then((res) => {
     //     console.log(res)
     //     const {photoAlbumList} = res.data
-    //     console.log(familyList);
-    //     dispatch(getFamily(familyList));
+    //     console.log(photoAlbumList);
+    //     dispatch(getFamily(photoAlbumList));
     //   })
     //   .catch((error) => {
     //     console.log("갤러리 앨범 데이터 안옴", error);
@@ -78,23 +78,23 @@ const getPhotoAlbumDB = () => {
   };
 };
 
-const getPhotoDB = () => {
+const getPhotoDB = (photoAlbumId) => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
-    //   .get(`${BASE_URL}/photoAlbum/${familyId}`, { headers: config })
+    //   .get(`${BASE_URL}/${photoAlbumId}`, { headers: config })
     //   .then((res) => {
     //     console.log(res)
-    //     const {photoAlbumList} = res.data
-    //     console.log(familyList);
-    //     dispatch(getFamily(familyList));
+    //     const {photoList} = res.data
+    //     console.log(photoList);
+    //     dispatch(getFamily(photoList));
     //   })
     //   .catch((error) => {
-    //     console.log("갤러리 앨범 데이터 안옴", error);
+    //     console.log("사진 데이터 안옴", error);
     //     console.log(error.response);
     //   });
 
-    dispatch(getPhoto(DummyData.photoAlbumList));
+    dispatch(getPhoto(DummyData.photoList));
   };
 };
 
@@ -248,12 +248,10 @@ export default handleActions(
     [GET_PHOTO_ALBUM]: (state, action) =>
       produce(state, (draft) => {
         draft.photoAlbumList = action.payload.photoAlbumList;
-        // console.log(state.familyList);
       }),
     [GET_PHOTO]: (state, action) =>
       produce(state, (draft) => {
-        draft.photoList = action.payload.familyList;
-        // console.log(state.familyList);
+        draft.photoList = action.payload.photoList;
       }),
     [ADD_PHOTO_ALBUM]: (state, action) =>
       produce(state, (draft) => {
@@ -315,7 +313,9 @@ export default handleActions(
 
 export const galleryActions = {
   getPhotoAlbumDB,
+  getPhotoDB,
   addPhotoAlbumDB,
+  addPhotoDB,
   editPhotoAlbumDB,
   deletePhotoAlbumDB,
 };

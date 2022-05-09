@@ -320,83 +320,83 @@ export default handleActions(
         draft.selectedMemberList = action.payload.selectedMemberList;
         draft.selectedMemberIdList = action.payload.selectedMemberIdList;
       }),
-    [CHECK_MISSION]: (state, action) =>
-      produce(state, (draft) => {
-        const { checkedMissionId, familyMissionChk } =
-          action.payload.missionChkData;
+    // [CHECK_MISSION]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     const { checkedMissionId, familyMissionChk } =
+    //       action.payload.missionChkData;
 
-        console.log(checkedMissionId, familyMissionChk);
+    //     console.log(checkedMissionId, familyMissionChk);
 
-        let thisMonthMissionList =
-          draft.nowMissionData.thisMonthMissionList.filter(
-            (m) => m.missionId === checkedMissionId
-          )[0];
+    //     let thisMonthMissionList =
+    //       draft.nowMissionData.thisMonthMissionList.filter(
+    //         (m) => m.missionId === checkedMissionId
+    //       )[0];
 
-        let missionIdx = draft.nowMissionData.thisMonthMissionList.findIndex(
-          (m) => m.missionId === checkedMissionId
-        );
+    //     let missionIdx = draft.nowMissionData.thisMonthMissionList.findIndex(
+    //       (m) => m.missionId === checkedMissionId
+    //     );
 
-        console.log(missionIdx);
-        console.log("선택한 미션:", thisMonthMissionList);
+    //     console.log(missionIdx);
+    //     console.log("선택한 미션:", thisMonthMissionList);
 
-        thisMonthMissionList = {
-          ...thisMonthMissionList,
-          familyMissionChk: familyMissionChk,
-        };
+    //     thisMonthMissionList = {
+    //       ...thisMonthMissionList,
+    //       familyMissionChk: familyMissionChk,
+    //     };
 
-        console.log(thisMonthMissionList);
-        // 선택한 미션 주입
-        draft.nowMissionData.thisMonthMissionList[missionIdx] =
-          thisMonthMissionList;
-      }),
-    [CHECK_MISSION_MEMBER]: (state, action) =>
-      produce(state, (draft) => {
-        const {
-          checkedMissionId,
-          myMissionChk,
-          familyMissionChk,
-          familyMemberId,
-        } = action.payload.missionChkData;
+    //     console.log(thisMonthMissionList);
+    //     // 선택한 미션 주입
+    //     draft.nowMissionData.thisMonthMissionList[missionIdx] =
+    //       thisMonthMissionList;
+    //   }),
+    // [CHECK_MISSION_MEMBER]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     const {
+    //       checkedMissionId,
+    //       myMissionChk,
+    //       familyMissionChk,
+    //       familyMemberId,
+    //     } = action.payload.missionChkData;
 
-        console.log(
-          checkedMissionId,
-          myMissionChk,
-          familyMissionChk,
-          familyMemberId
-        );
+    //     console.log(
+    //       checkedMissionId,
+    //       myMissionChk,
+    //       familyMissionChk,
+    //       familyMemberId
+    //     );
 
-        let thisMonthMissionList =
-          draft.nowMissionData.thisMonthMissionList.filter(
-            (m) => m.missionId === checkedMissionId
-          )[0];
+    //     let thisMonthMissionList =
+    //       draft.nowMissionData.thisMonthMissionList.filter(
+    //         (m) => m.missionId === checkedMissionId
+    //       )[0];
 
-        let missionIdx = draft.nowMissionData.thisMonthMissionList.findIndex(
-          (m) => m.missionId === checkedMissionId
-        );
-        let checkedMissionMember = thisMonthMissionList.missionMemberList.find(
-          (f) => f.familyMemberId === familyMemberId
-        );
-        let memberIdx = thisMonthMissionList.missionMemberList.findIndex(
-          (f) => f.familyMemberId === familyMemberId
-        );
+    //     let missionIdx = draft.nowMissionData.thisMonthMissionList.findIndex(
+    //       (m) => m.missionId === checkedMissionId
+    //     );
+    //     let checkedMissionMember = thisMonthMissionList.missionMemberList.find(
+    //       (f) => f.familyMemberId === familyMemberId
+    //     );
+    //     let memberIdx = thisMonthMissionList.missionMemberList.findIndex(
+    //       (f) => f.familyMemberId === familyMemberId
+    //     );
 
-        console.log(missionIdx, memberIdx);
-        console.log(
-          "선택한 미션:",
-          thisMonthMissionList,
-          "선택한 미션멤버:",
-          checkedMissionMember
-        );
+    //     console.log(missionIdx, memberIdx);
+    //     console.log(
+    //       "선택한 미션:",
+    //       thisMonthMissionList,
+    //       "선택한 미션멤버:",
+    //       checkedMissionMember
+    //     );
 
-        checkedMissionMember = {
-          ...checkedMissionMember,
-          myMissionChk: myMissionChk,
-        };
-        // 선택한 미션 멤버 주입
-        draft.nowMissionData.thisMonthMissionList[missionIdx].missionMemberList[
-          memberIdx
-        ] = checkedMissionMember;
-      }),
+    //     checkedMissionMember = {
+    //       ...checkedMissionMember,
+    //       myMissionChk: myMissionChk,
+    //     };
+    //     // 선택한 미션 멤버 주입
+    //     draft.nowMissionData.thisMonthMissionList[missionIdx].missionMemberList[
+    //       memberIdx
+    //     ] = checkedMissionMember;
+    //   }),
     [MISSION_STATUS_UPDATE]: (state, action) =>
       produce(state, (draft) => {
         const { missionStatus } = action.payload;

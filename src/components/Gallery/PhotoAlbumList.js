@@ -72,6 +72,11 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
     setModalOn(!modalOn);
   };
 
+  // GET pohtoList
+  const getPhotoList = () => {
+    dispatch(galleryActions.getPhotoDB(photoAlbumId));
+  };
+
   useEffect(() => {
     dispatch(galleryActions.getPhotoAlbumDB(NowFamilyId));
   }, []);
@@ -84,79 +89,69 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
         isEdit={isEdit}
         EditPhotoAlbum={EditPhotoAlbum}
       />
-      <MissionStatusWrap>
-        <Content>
-          {!isEdit ? (
-            <Flexbox>
-              {photoAlbumList ? (
-                photoAlbumList.map((l, i) => {
-                  return (
-                    <AlbumImageWrap
-                      key={l.photoAlbumId}
+      {!isEdit ? (
+        <Container>
+          {photoAlbumList &&
+            photoAlbumList.map((p) => {
+              return (
+                <Figure
+                  key={p.photoAlbumId}
+                  onClick={() => {
+                    history.push(
+                      `/family/${NowFamilyId}/gallery/${p.photoAlbumId}`
+                    );
+                    getPhotoList();
+                  }}
+                >
+                  <div>
+                    <ImageBox
+                      // alt="#"
+                      src={p.photoFile ? p.photoFile : noImage}
                       onClick={() => {
-                        history.push(
-                          `/family/${NowFamilyId}/gallery/${l.photoAlbumId}`
-                        );
+                        // history.push(`/detail/${p._id}`);
                       }}
-                    >
-                      <Items noImage={noImage}>
-                        <AlbumImageBox />
-                      </Items>
-                      <Text size="24px" fontWeight="600">
-                        {l.photoAlbumName}
-                      </Text>
-                    </AlbumImageWrap>
-                  );
-                })
-              ) : (
+                    />
+                    <Text size="24px" fontWeight="600">
+                      {p.photoAlbumName}
+                    </Text>
+                  </div>
+                </Figure>
+              );
+            })}
+        </Container>
+      ) : (
+        <Container>
+          {photoAlbumList &&
+            photoAlbumList.map((p) => {
+              return (
                 <div>
-                  <AlbumImageWrap>
-                    <Items noImage={noImage}>
-                      <AlbumImageBox />
-                    </Items>
-                    <div>앨범</div>
-                  </AlbumImageWrap>
+                  <EditFigure>
+                    <EditImageBox
+                      // alt="#"
+                      src={p.photoFile ? p.photoFile : noImage}
+                      onClick={() => {
+                        // history.push(`/detail/${p._id}`);
+                      }}
+                    />
+                    <DeleteIcon onClick={handleModal}>
+                      <MdRemoveCircle />
+                    </DeleteIcon>
+                  </EditFigure>
+                  <Input
+                    text_align="center"
+                    size="24px"
+                    placeholder={p.photoAlbumName}
+                    fontWeight="600"
+                    borderColor="transparnt"
+                    margin="10px 0"
+                    onChange={handleAlbumName}
+                    id={p.photoAlbumId}
+                  />
                 </div>
-              )}
-            </Flexbox>
-          ) : (
-            <Flexbox>
-              {photoAlbumList ? (
-                photoAlbumList.map((l, i) => {
-                  return (
-                    <AlbumImageWrap key={l.photoAlbumId}>
-                      <Items noImage={noImage}>
-                        <EditAlbumImageBox></EditAlbumImageBox>
-                        <DeleteIcon onClick={handleModal}>
-                          <MdRemoveCircle />
-                        </DeleteIcon>
-                      </Items>
-                      <Input
-                        text_align="center"
-                        size="24px"
-                        placeholder={l.photoAlbumName}
-                        fontWeight="600"
-                        borderColor="transparnt"
-                        onChange={handleAlbumName}
-                        id={l.photoAlbumId}
-                      />
-                    </AlbumImageWrap>
-                  );
-                })
-              ) : (
-                <div>
-                  <AlbumImageWrap>
-                    <Items noImage={noImage}>
-                      <EditAlbumImageBox />
-                    </Items>
-                    <div>앨범</div>
-                  </AlbumImageWrap>
-                </div>
-              )}
-            </Flexbox>
-          )}
-        </Content>
-      </MissionStatusWrap>
+              );
+            })}
+        </Container>
+      )}
       <ModalPortal>
         {modalOn && (
           <DeletePhotoAlbumModal
@@ -169,85 +164,80 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
   );
 };
 
-const MissionStatusWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  border-radius: 20px;
-  border: none;
-  background: transparent;
-  margin: 0px 40px;
-`;
-
-const Content = styled.div`
-  max-width: 100%;
-  margin: 0 auto;
-`;
-
-const Flexbox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  align-items: center;
-`;
-
-const AlbumImageWrap = styled.div`
-  /* display: flex; */
-
-  @media screen and (max-width: 839px) {
-    flex-basis: auto;
-    flex-shrink: 0;
-    flex-grow: 1;
-  }
-`;
-const Items = styled.div`
-  flex-basis: auto;
-  flex-shrink: 0;
-  flex-grow: 1;
-  margin: 20px 0px 20px 0px;
-  border-radius: 24px;
-  border: none;
-  box-shadow: 0px 0px 3px 0px #d6d6d6;
-  position: relative;
-  background-color: transparent;
-  ${({ noImage }) => `  background-image: url(${noImage})`};
-  background-size: cover;
-  &:hover {
-    opacity: 0.5;
-  }
+const Container = styled.div`
+  /* display: grid; */
+  display: grid;
+  /* grid-template-rows: repeat(2, 150px); */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px 10px;
+  column-count: 4;
+  column-gap: 1%;
+  padding: 40px;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2%;
+    padding: 24px;
+    /* width: 74%; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2%;
+    padding: 16px;
   }
 `;
 
-const AlbumImageBox = styled.div`
-  display: block;
-  width: 370px;
-  padding-bottom: 100%;
-  padding-right: 100%;
-  border-radius: 24px;
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
+const Figure = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 2fr);
+  grid-template-rows: 1fr auto;
+  /* margin-bottom: 2%; */
+  break-inside: avoid;
+  &:hover {
+    border-radius: 13px;
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: all 300ms ease-in;
+    filter: brightness(70%);
   }
 `;
 
-const EditAlbumImageBox = styled.div`
-  display: block;
-  width: 370px;
-  padding-bottom: 100%;
-  padding-right: 100%;
-  border-radius: 24px;
-  position: relative;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
+const ImageBox = styled.img`
+  grid-row: 1 / -1;
+  grid-column: 1;
+  width: 100%;
+  margin-top: 2%;
+  border-radius: 13px;
+`;
+
+const EditFigure = styled.div`
+  display: grid;
+  grid-template-rows: 1fr auto;
+  /* margin-bottom: 2%; */
+  break-inside: avoid;
+  filter: brightness(70%);
+
+  &:hover {
+    border-radius: 13px;
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: all 300ms ease-in;
+    filter: brightness(70%);
   }
+`;
+
+const EditImageBox = styled.img`
+  grid-row: 1 / -1;
+  grid-column: 1;
+  width: 100%;
+  margin-top: 2%;
+  border-radius: 13px;
 `;
 
 const DeleteIcon = styled.div`
@@ -257,7 +247,7 @@ const DeleteIcon = styled.div`
   svg {
     width: 33.3px;
     height: 33.3px;
-    margin: 10px;
+    margin: 14px 10px;
     color: white;
     position: absolute;
     &:hover {

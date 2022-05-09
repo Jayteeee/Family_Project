@@ -47,9 +47,7 @@ const GalleryHeader = ({
               }}
               onClick={handleModal}
             >
-              <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>
-                +
-              </span>
+              <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
               앨범 추가
             </PhotoAlbumBtn>
             <PhotoAlbumBtn
@@ -60,9 +58,7 @@ const GalleryHeader = ({
                 justifyContent: "center",
               }}
             >
-              <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>
-                +
-              </span>
+              <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
               앨범 편집
             </PhotoAlbumBtn>
           </BtnWrap>
@@ -79,9 +75,7 @@ const GalleryHeader = ({
                 justifyContent: "center",
               }}
             >
-              <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>
-                +
-              </span>
+              <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
               편집 완료
             </EditCompletedBtn>
           </BtnWrap>
@@ -99,7 +93,7 @@ const GalleryHeader = ({
     </>
   );
 };
-
+// 반응형 시 헤더가 문제
 const GalleryHeaderBox = styled.div`
   display: flex;
   align-items: center;
@@ -109,6 +103,24 @@ const GalleryHeaderBox = styled.div`
   margin: 20px 20px 10px 20px;
   padding: 16px 20px;
   width: 100%;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    /* grid-template-columns: repeat(3, 1fr);
+    column-gap: 2%; */
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    /* grid-template-columns: repeat(3, 1fr);
+    column-gap: 2%;
+    padding: 24px;
+    width: 74%; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    /* grid-template-columns: repeat(2, 1fr);
+    column-gap: 2%;
+    padding: 16px; */
+  }
 `;
 
 const BtnWrap = styled.div`
