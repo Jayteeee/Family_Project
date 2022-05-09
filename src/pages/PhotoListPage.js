@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
 
 // 컴포넌트
-import GalleryHeader from "../components/Gallery/GalleryHeader";
-import PhotoAlbumList from "../components/Gallery/PhotoAlbumList";
+import PhotoHeader from "../components/Gallery/PhotoHeader";
 import PhotoList from "../components/Gallery/PhotoList";
 
-const PhotoListPage = () => {
+const PhotoListPage = (props) => {
+  const { photoAlbumId } = props.match.params;
+  console.log("선택한 앨범Id:", photoAlbumId);
+
+  const { familyId } = props.match?.params;
+  console.log("현재 사진페이지 패밀리 아이디:", familyId);
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  console.log("사진편집모드:", isEdit);
+
+  const PracticeEdit = () => {
+    setIsEdit(!isEdit);
+  };
   return (
     <>
       <PhotoListPageWrap className="res-pageWrap">
-        <GalleryHeader />
-        <PhotoList />
+        <PhotoList
+          photoAlbumId={photoAlbumId}
+          NowFamilyId={familyId}
+          PracticeEdit={PracticeEdit}
+          isEdit={isEdit}
+        />
       </PhotoListPageWrap>
     </>
   );
