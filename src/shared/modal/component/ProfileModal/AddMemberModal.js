@@ -30,12 +30,15 @@ const AddMemberModal = ({ onClose }) => {
     (state) => state.familymember.searchMemberList
   );
 
+  console.log("검색한 이메일:", searchEmail);
+
   console.log("검색한 맴버 리스트:", searchMemberList);
   console.log("선택한 맴버:", selectEmail);
 
   // 검색한 userId 주입
   const handleSearchEmail = (e) => {
     setsearchEmail(e.target.value);
+    dispatch(familyMemberActions.getSearchMemberDB(e.target.value));
   };
   // 선택한 userId input value에 주입
   const handleSelectEmail = (e) => {
@@ -68,10 +71,7 @@ const AddMemberModal = ({ onClose }) => {
 
   useEffect(
     () => {
-      dispatch(familyMemberActions.getFamilyMemberDB());
-      dispatch(
-        familyMemberActions.getSearchMemberDB(familyMemberNickname, searchEmail)
-      );
+      dispatch(familyMemberActions.getFamilyMemberDB(familyId));
     },
     [
       // searchEmail, familyMemberList.length
@@ -111,10 +111,10 @@ const AddMemberModal = ({ onClose }) => {
                     return (
                       <SearchUserIdBox
                         key={f.userId}
-                        value={f.userId}
+                        value={f.email}
                         onClick={handleSelectEmail}
                       >
-                        {f.userId}
+                        {f.email}
                       </SearchUserIdBox>
                     );
                   })}

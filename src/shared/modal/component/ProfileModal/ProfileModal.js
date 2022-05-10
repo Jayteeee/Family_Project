@@ -23,7 +23,7 @@ import { CircleImage, Text } from "../../../../elements";
 import profileImg from "../../../images/profileImg.png";
 
 const ProfileModal = ({ onClose }) => {
-  const userInfo = useSelector((state) => state.user.user);
+  const userInfo = useSelector((state) => state.user.user.user);
   console.log("유저정보: ", userInfo);
 
   const familyTitle = useSelector((state) => state.family);
@@ -115,7 +115,7 @@ const ProfileModal = ({ onClose }) => {
                     아이디:
                     {userInfo?.email}
                   </Text>
-                  <Text size="15px">닉네임: {userInfo?.nickname}</Text>
+                  <Text size="15px">닉네임: {userInfo.nickname}</Text>
                 </div>
               </UserInfo>
               <MenuBox onClick={handleAddFamilyModal}>

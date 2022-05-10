@@ -192,6 +192,33 @@ const missionPage = {
         },
       ],
     },
+    {
+      familyId: "123456787",
+      missionId: "3sdfeassdsddf",
+      missionTitle: "우리가족 여행 가기", //name -> title 수
+      familyMissionChk: false,
+      completedAt: "YYYY-MM-DD",
+      missionMemberList: [
+        {
+          familyMemberId: "1234213",
+          familyMemberNicname: "아빠",
+          myMissionChk: false,
+          profileImg: false,
+        },
+        {
+          familyMemberId: "2342fag4",
+          familyMemberNicname: "엄마",
+          myMissionChk: false,
+          profileImg: false,
+        },
+        {
+          familyMemberId: "68defs231a",
+          familyMemberNicname: "자녀",
+          myMissionChk: false,
+          profileImg: false,
+        },
+      ],
+    },
     // {
     //   familyId: "123456787",
     //   missionId: "4435dfassds3ddf",
@@ -500,10 +527,11 @@ const detailPhotoPage = {
     photoId: "23dfgsdf4d",
     photoName: "사진1",
     createdAt: "2022-04-15 00:51",
-    photoFile: "url",
+    photoFile:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo2x09km7b35RzvH8yg_tXzVkSi_jXJnmOWA&usqp=CAU",
     totalLike: 2,
     likeChk: "false",
-    profileImg: "url",
+    profileImg: null,
     familyMemberNickname: "아빠", // 특정해서 보내줄 수 있는지
     content: "가족 사진입니다.",
   },

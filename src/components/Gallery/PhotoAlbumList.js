@@ -67,9 +67,14 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
 
   // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
-
-  const handleModal = () => {
+  const DeleteAlbum = (photoAlbumId) => {
     setModalOn(!modalOn);
+    setPhotoAlbumId(photoAlbumId);
+    console.log(photoAlbumId);
+  };
+  const handleModal = (e) => {
+    setModalOn(!modalOn);
+    const deleteBtm = document.getElementById("deleteBtn");
   };
 
   // GET pohtoList
@@ -98,7 +103,7 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                   key={p.photoAlbumId}
                   onClick={() => {
                     history.push(
-                      `/family/${NowFamilyId}/gallery/${p.photoAlbumId}`
+                      `/family/${NowFamilyId}/gallery/${p.photoAlbumName}/${p.photoAlbumId}`
                     );
                     getPhotoList();
                   }}
@@ -124,7 +129,8 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
           {photoAlbumList &&
             photoAlbumList.map((p) => {
               return (
-                <div>
+                <div key={p.photoAlbumId}>
+                  {/* <OnePhotoAlbum {...p} /> */}
                   <EditFigure>
                     <EditImageBox
                       // alt="#"
@@ -133,7 +139,9 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                         // history.push(`/detail/${p._id}`);
                       }}
                     />
-                    <DeleteIcon onClick={handleModal}>
+                    <DeleteIcon
+                      onClick={DeleteAlbum.bind(this, p.photoAlbumId)}
+                    >
                       <MdRemoveCircle />
                     </DeleteIcon>
                   </EditFigure>

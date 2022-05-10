@@ -36,6 +36,8 @@ const OneMission = (props) => {
     // monthMissionList,
   } = props;
 
+  console.log(missionId);
+
   console.log(props);
 
   // 배포할 때 모바일 환경에서 에러발생 / 화면이 안뜸.
@@ -84,15 +86,21 @@ const OneMission = (props) => {
   const [deleteModalOn, setDeleteModalOn] = useState(false);
   const [modalPosition, setModalPosition] = useState();
 
-  const handleDeleteModal = () => {
+  const handleDeleteModal = (e) => {
+    console.log(e);
     setDeleteModalOn(!deleteModalOn);
   };
   // 삭제 버튼 위차찾는 함수
-  const handleModalPosition = () => {
+  const handleModalPosition = (e) => {
+    console.log(e);
     // 배열의 각 div를 특정해주기 위해 각각 존재하는 missionId값을 넣어줍니다.
     const element = document.getElementById(missionId);
-    let x = element.offsetTop + element.offsetHeight;
-    let y = element.offsetLeft + element.offsetWidth;
+    // let x = element.offsetTop + element.offsetHeight;
+    // let y = element.offsetLeft + element.offsetWidth;
+    // let x = e.clientX;
+    // let y = e.clientY;
+    let x = e.screenX;
+    let y = e.screenY;
     // element.style.display = "none";
     console.log("좌표:", x, y);
     setModalPosition([x, y]);
@@ -162,8 +170,8 @@ const OneMission = (props) => {
               alignItems: "center",
             }}
             onClick={(e) => {
-              handleModalPosition();
-              handleDeleteModal();
+              handleModalPosition(e);
+              handleDeleteModal(e);
             }}
             id={missionId}
           >
@@ -224,6 +232,7 @@ const OneMission = (props) => {
             }}
             onClose={handleDeleteModal}
             modalPosition={modalPosition}
+            handleModalPosition={handleModalPosition}
             familyId={familyId}
             missionId={missionId}
           ></DeleteMissionModal>

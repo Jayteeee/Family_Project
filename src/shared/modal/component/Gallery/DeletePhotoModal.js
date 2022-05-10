@@ -14,11 +14,11 @@ import { useDispatch } from "react-redux";
 import { Button, Text } from "../../../../elements";
 import { galleryActions } from "../../../../redux/modules/gallery";
 
-const DeletePhotoAlbumModal = ({ onClose, photoAlbumId }) => {
+const DeletePhotoModal = ({ onClose, photoAlbumId }) => {
   const dispatch = useDispatch();
-  console.log("선택한 포토앨범ID:", photoAlbumId);
+
   const deletePhotoAlbum = () => {
-    dispatch(galleryActions.deletePhotoAlbumDB(photoAlbumId));
+    dispatch(galleryActions.deletePhotoDB(photoAlbumId));
     onClose();
   };
 
@@ -160,4 +160,4 @@ const ButtonWrap = styled.div`
   display: flex;
   justify-content: end;
 `;
-export default DeletePhotoAlbumModal;
+export default DeletePhotoModal;

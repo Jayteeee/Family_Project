@@ -315,17 +315,17 @@ export default handleActions(
         const { missionStatus } = action.payload;
         draft.nowMissionData.missionBox = missionStatus;
       }),
-    [DELETE_MISSION]: (state, action) =>
-      produce(state, (draft) => {
-        const { missionId } = action.payload;
+    // [DELETE_MISSION]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     const { missionId } = action.payload;
 
-        let thisMonthMissionList =
-          draft.nowMissionData.thisMonthMissionList.filter(
-            (m) => m.missionId !== missionId
-          );
+    //     let thisMonthMissionList =
+    //       draft.nowMissionData.thisMonthMissionList.filter(
+    //         (m) => m.missionId !== missionId
+    //       );
 
-        draft.nowMissionData.thisMonthMissionList = thisMonthMissionList;
-      }),
+    //     draft.nowMissionData.thisMonthMissionList = thisMonthMissionList;
+    //   }),
   },
   initialState
 );

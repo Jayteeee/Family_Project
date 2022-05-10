@@ -3,7 +3,6 @@ import { produce } from "immer";
 import axios from "axios";
 import { DummyData } from "../../shared/DummyData";
 import dayjs from "dayjs";
-
 import { getToken } from "../../shared/Token";
 
 const BASE_URL = "https://doremilan.shop";
@@ -41,7 +40,7 @@ const getFamilyDB = () => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
-      .get(`${BASE_URL}/family/familylist/`, { headers: config })
+      .get(`${BASE_URL}/family/familylist`, { headers: config })
       .then((res) => {
         console.log(res);
         const { familyList } = res.data;
@@ -58,77 +57,65 @@ const getFamilyDB = () => {
 
 const addFamilyDB = (familyTitle) => {
   return async function (dispatch, getState, { history }) {
+    console.log(familyTitle);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .post(`${BASE_URL}/family`, { familyTitle }, { headers: config })
       .then((res) => {
         console.log(res);
         console.log(res.msg);
-        // dispatch(addFamily(newFamily));
-        // history.push(`/family/${newFamily.familyId}`);
+        const { familyId } = res.data;
+        history.push(`/family/${familyId}`);
       })
       .catch((err) => {
         console.log(err);
         console.log(err.response);
       });
-
-    // const newFamily = {
-    //   familyId: `${familyTitle}`,
-    //   familyTitle: `${familyTitle}`,
-    // // 가족 이름
-    // familyImg: "url",
-    // familyHost: "홍길동",
-    // createdAt: "2022-05-18 00:51",
-    // userId: "user3@gamil.com",
-    // userNickname: "홍길동",
-    // profileImg: "url",
-    // todayMood: "이모지", // 이모지 사용
-    // missionStatus: "끈끈해요(75%)",
-    // randomMsg: "오늘은 부모님께 안부전화 한 통 어떨까요?",
-    // };
   };
 };
 
 const editFamilyNameDB = (familyId, familyTitle) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .put(
-    //     `${BASE_URL}/family/${familyId}`,
-    //     { familyTitle },
-    //     {
-    //       headers: config,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     dispatch(editFamilyName(familyId, familyTitle));
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-    dispatch(editFamilyName(familyId, familyTitle));
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .put(
+        `${BASE_URL}/family/${familyId}`,
+        { familyTitle },
+        {
+          headers: config,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        const { familyTitle } = res.data;
+        dispatch(editFamilyName(familyId, familyTitle));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+    // dispatch(editFamilyName(familyId, familyTitle));
   };
 };
 const deleteFamilyDB = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .delete(`${BASE_URL}/family/${familyId}`, {
-    //     headers: config,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     // window.alert(res.msg)
-    //     alert("삭제!");
-    dispatch(deleteFamily(familyId));
-    history.go(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .delete(`${BASE_URL}/family/${familyId}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        // window.alert(res.msg)
+        dispatch(deleteFamily(familyId));
+        alert("삭제!");
+
+        history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 
