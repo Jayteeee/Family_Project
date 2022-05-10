@@ -73,7 +73,7 @@ const loginDB = (inputs) => {
   };
 };
 
-// /user/getuser
+// /user/me
 const getUserInfo = (token) => {
   return async function (dispatch, getState, { history }) {
     const dUser = jwt(token);
@@ -82,7 +82,7 @@ const getUserInfo = (token) => {
     await axios
       .get(`${BASE_URL}/user/me`, { headers: config })
       .then((res) => {
-        const user = res.data.user;
+        const user = res.data;
         dispatch(getUser(user));
         localStorage.setItem("isLogin", token);
       })

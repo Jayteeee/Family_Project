@@ -7,7 +7,7 @@ import CalendarPage from "./CalendarPage";
 import GalleryPage from "./GalleryPage";
 import PhotoListPage from "./PhotoListPage";
 import VoiceMsgPage from "./VoiceMsgPage";
-import VoiceFilePage from "./VoiceFilePage";
+import VoiceListPage from "./VoiceListPage";
 import Auth from "./Auth";
 
 export {
@@ -20,6 +20,6 @@ export {
   GalleryPage,
   PhotoListPage,
   VoiceMsgPage,
-  VoiceFilePage,
+  VoiceListPage,
   Auth,
 };

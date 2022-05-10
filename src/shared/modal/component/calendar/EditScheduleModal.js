@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { Input, Button, Text } from "../../../../elements";
 import { scheduleActions } from "../../../../redux/modules/calendar";
 
-const EditScheduleModal = ({ onClose, day }) => {
+const EditScheduleModal = ({ onClose, day, eventId }) => {
   const dispatch = useDispatch();
 
   const [event, setEvent] = React.useState(day?.event);
@@ -37,15 +37,13 @@ const EditScheduleModal = ({ onClose, day }) => {
   const [showOptions, setShowOptions] = React.useState(false);
   const [showBorder, setShowBorder] = React.useState(false);
 
-  const fakeId = day?.fakeId;
-
   const handleAddSchedule = (e) => {
     const { value } = e.target;
     setEvent(value);
   };
 
   const editSchedule = () => {
-    dispatch(scheduleActions.editScheduleDB(event, myPic, date, fakeId));
+    dispatch(scheduleActions.editScheduleDB(event, myPic, date, eventId));
   };
 
   const reset = () => {

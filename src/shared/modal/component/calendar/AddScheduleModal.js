@@ -19,7 +19,7 @@ import { ModalPortal } from "../../portals";
 import { Input, Button, Text } from "../../../../elements";
 import { scheduleActions } from "../../../../redux/modules/calendar";
 
-const AddScheduleModal = ({ onClose }, props) => {
+const AddScheduleModal = ({ onClose, familyId }) => {
   const dispatch = useDispatch();
   const [event, setEvent] = React.useState("");
   const [selec, setSelec] = React.useState(false);
@@ -34,7 +34,7 @@ const AddScheduleModal = ({ onClose }, props) => {
   };
 
   const addSchedule = () => {
-    dispatch(scheduleActions.addScheduleDB(event, myPic, date));
+    dispatch(scheduleActions.addScheduleDB(familyId, event, myPic, date));
   };
 
   const reset = () => {

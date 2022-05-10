@@ -20,7 +20,7 @@ import {
   GalleryPage,
   PhotoListPage,
   VoiceMsgPage,
-  VoiceFilePage,
+  VoiceListPage,
 } from "./index";
 
 // 컴포넌트
@@ -155,7 +155,7 @@ const Main = (props) => {
               <Route
                 path="/family/:familyId/voiceMsg/:voiceAlbumId"
                 exact
-                component={VoiceFilePage}
+                component={VoiceListPage}
               />
             </Switch>
           </PageWrap>

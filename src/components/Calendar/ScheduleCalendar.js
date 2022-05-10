@@ -9,7 +9,7 @@ import { scheduleActions } from "../../redux/modules/calendar";
 import { ModalPortal } from "../../shared/modal/portals";
 import GetScheduleModal from "../../shared/modal/component/calendar/GetScheduleModal";
 
-const ScheduleCalendar = () => {
+const ScheduleCalendar = ({ familyId }) => {
   const dispatch = useDispatch();
   const list = useSelector((state) => state.calendar.scheduleList);
   const [value, setValue] = React.useState(new Date());
@@ -87,8 +87,10 @@ const ScheduleCalendar = () => {
           {modalOn && (
             <GetScheduleModal
               onClose={handleModal}
-              day={day}
+              date={day}
               event={event}
+              familyId={familyId}
+              eventId={list.eventId}
             ></GetScheduleModal>
           )}
         </ModalPortal>

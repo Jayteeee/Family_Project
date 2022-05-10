@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 const Auth = () => {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API;
-  const REDIRECT_URI = "http://localhost:5000/kakao/code";
+  const REDIRECT_URI = "https://doremilan.shop/auth/kakao/callback";
   const CLIENT_SECRET = process.env.REACT_APP_KAKAO_CLIENT_SECRET;
 
   // calllback으로 받은 인가코드

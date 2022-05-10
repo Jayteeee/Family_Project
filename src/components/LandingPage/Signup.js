@@ -17,8 +17,51 @@ const Signup = () => {
 
   const handleSubmit = () => {
     // 프론트 유효성검사 더 강화해야함
+    const idCheck = (email) => {
+      let _reg =
+        /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+      return _reg.test(email);
+    };
+
+    const nickCheck = (nickname) => {
+      let _reg = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣+]*$/;
+
+      return _reg.test(nickname);
+    };
+
+    const pwdCheck = (password) => {
+      let _reg = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,20}$/;
+
+      return _reg.test(password);
+    };
+
     if (!inputs.email || !inputs.password || !inputs.nickname) {
       alert("빈값이 있네요~");
+      return;
+    }
+
+    if (inputs.password !== inputs.passwordCheck) {
+      alert("비밀번호와 비밀번호확인 값이 다릅니다.");
+      return;
+    }
+
+    if (!idCheck(inputs.email)) {
+      alert("아이디는 이메일 양식으로 작성해주세요!");
+      return;
+    }
+
+    if (!nickCheck(inputs.nickname)) {
+      alert(
+        "닉네임은 3-15자,숫자,영어,한글만 가능하며 특수문자 및 띄어쓰기는 불가능합니다."
+      );
+      return;
+    }
+
+    if (!pwdCheck(inputs.password)) {
+      alert(
+        "비밀번호는 8~20 영문 대소문자, 최소 1개의 숫자 혹은 특수 문자를 포함해야합니다."
+      );
       return;
     }
 
@@ -35,7 +78,7 @@ const Signup = () => {
           <Input
             M
             id="email"
-            placeholder="name@work-userId.com"
+            placeholder="name@naver.com"
             onChange={handleChange}
             value={inputs.email || ""}
             margin="10px auto"
@@ -44,7 +87,7 @@ const Signup = () => {
           <Input
             M
             id="nickname"
-            placeholder="Nickname"
+            placeholder="닉네임을 입력해주세요."
             onChange={handleChange}
             value={inputs.nickname || ""}
             margin="10px auto"
@@ -53,7 +96,7 @@ const Signup = () => {
             M
             id="password"
             type="password"
-            placeholder="Please enter your password"
+            placeholder="비밀번호를 입력해주세요."
             onChange={handleChange}
             value={inputs.password || ""}
             margin="10px auto"
@@ -62,7 +105,7 @@ const Signup = () => {
             M
             id="passwordCheck"
             type="password"
-            placeholder="Please enter your password"
+            placeholder="비밀번호를 다시 한 번 입력해주세요."
             onChange={handleChange}
             value={inputs.passwordCheck || ""}
             margin="10px auto"

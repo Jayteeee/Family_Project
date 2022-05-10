@@ -2,27 +2,50 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import dayjs from "dayjs";
 import { history } from "../configureStore";
-// import axios from "axios";
+import axios from "axios";
+import { getToken } from "../../shared/Token";
 // import { familyActions } from "./family";
-// import { getToken } from "../../shared/token";
 
 import { DummyData } from "../../shared/DummyData";
 
-const BASE_URL = "";
+const BASE_URL = "https://doremilan.shop";
 
 const initialState = {
-  nowVoiceData: [],
+  nowVoiceData: [
+    {
+      voiceAlbumList: [
+        {
+          voiceAlbumId: "123456787",
+          voiceAlbumName: "일상",
+          voiceAlbumCover: "albumcover1",
+        },
+      ],
+    },
+  ],
+  voiceList: [
+    { voiceAlbumName: "일상" },
+    {
+      voiceFileList: [
+        {
+          voiceFileId: "asdfadsf",
+          voiceFileTitle: "잔소리1",
+          voiceFile: "url",
+          voicePlayTime: "mm:ss",
+          createdAt: "2022-04-15 00:51",
+          familyMemberNickname: "자녀",
+          profileImg: "url",
+        },
+      ],
+    },
+  ],
   missionMemberList: [],
   pastMissionList: [],
   selectedMemberList: [],
   selectedMemberIdList: [],
-  badgeList: [],
 };
 
 // 액션
 const GET_VOICE = "GET_VOICE";
-const GET_PAST_MISSION = "GET_PAST_MISSION";
-const GET_MISSION_MEMBER = "GET_MISSION_MEMBER";
 const GET_VOICE_LIST = "GET_VOICE_LIST";
 const ADD_VOICE = "ADD_VOICE";
 const ADD_MISSION_MEMBER = "ADD_MISSION_MEMBER";
@@ -36,15 +59,6 @@ const DELETE_MISSION = "DELETE_MISSION";
 const getVoice = createAction(GET_VOICE, (nowVoiceData) => ({
   nowVoiceData,
 }));
-const getPastMission = createAction(GET_PAST_MISSION, (pastMissionList) => ({
-  pastMissionList,
-}));
-const getMissionMember = createAction(
-  GET_MISSION_MEMBER,
-  (familyMemberList) => ({
-    familyMemberList,
-  })
-);
 const getVoiceList = createAction(GET_VOICE_LIST, (voiceList) => ({
   voiceList,
 }));
@@ -86,107 +100,41 @@ const deleteMission = createAction(DELETE_MISSION, (missionId) => ({
 
 const getVoicePage = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    // const pastMissionList = getState().mission.pastMissionList;
     // const config = { Authorization: `Bearer ${getToken()}` };
     // await axios
-    //   .get(`${BASE_URL}/mission/${familyId}`, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {familyList} = res.data
-    //     console.log(familyList);
-    //     dispatch(getFamily(familyList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
-
-    // const nowMissionData = DummyData.missionPage;
-
-    // console.log("현재 미션 데이터:", nowMissionData);
-    // dispatch(getMission(nowMissionData));
-
-    const nowVoiceData = DummyData.voiceAlbumList;
-
-    console.log("음성 데이터:", nowVoiceData);
-
-    dispatch(getVoice(nowVoiceData));
-  };
-};
-
-const getPastMissionDB = (familyId) => {
-  return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/mission/${familyId}/pastmission`, { headers: config })
+    //   .get(`${BASE_URL}/voiceAlbum/${familyId}`, { headers: config })
     //   .then((res) => {
     //     console.log(res);
-    //     const { familyList } = res.data;
-    //     console.log(familyList);
-    //     // dispatch(getFamily(familyList));
+    //     const nowVoiceData = res.data;
+    //     dispatch(getVoice(nowVoiceData));
     //   })
     //   .catch((error) => {
-    //     console.log("패밀리 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
-    //     // await axios
-    //     //   .get(`${BASE_URL}/mission/${familyId}/pastmission`, { headers: config })
-    //     //   .then((res) => {
-    //     //     console.log(res);
-    //     //     const { familyList } = res.data;
-    //     //     console.log(familyList);
-    //     //     // dispatch(getFamily(familyList));
-    //     //   })
-    //     //   .catch((error) => {
-    //     //     console.log("패밀리 데이터 안옴", error);
-    //     //     console.log(error.response);
-    //     //   });
-    const pastMissionList = DummyData.pastMissionList;
-    console.log("지난 미션 데이터:", pastMissionList);
-    dispatch(getPastMission(pastMissionList));
-  };
-};
-
-const getMissionMemberDB = (familyId) => {
-  return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/${familyId}`/familymember, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {familyList} = res.data
-    //     console.log(familyList);
-    //     dispatch(getFamily(familyList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 멤버 데이터 안옴", error);
+    //     console.log("음성 데이터 안옴", error);
     //     console.log(error.response);
     //   });
 
-    const missionMemberData = DummyData.familyMemberList;
-
-    console.log("현재 미션 멤버 데이터:", missionMemberData);
-    dispatch(getMissionMember(missionMemberData));
+    const nowVoiceData = DummyData.voiceAlbumList;
+    dispatch(getVoice(nowVoiceData));
   };
 };
 
 const getVoiceListDB = (voiceAlbumId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/badge/:${familyId}`/, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {familyList} = res.data
-    //     console.log(familyList);
-    //     dispatch(getFamily(familyList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 멤버 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });};
-    const voiceList = DummyData.voiceFilePage;
+    //   const config = { Authorization: `Bearer ${getToken()}` };
+    //   await axios
+    //     .get(`${BASE_URL}/voiceFile/${voiceAlbumId}`, { headers: config })
+    //     .then((res) => {
+    //       console.log(res);
+    //       const voiceList = res.data;
+    //       console.log(voiceList);
+    //       dispatch(getVoiceList(voiceList));
+    //     })
+    //     .catch((error) => {
+    //       console.log("음성 파일 데이터 안옴", error);
+    //       console.log(error.response);
+    //     });
 
+    const voiceList = DummyData.voiceFilePage;
     console.log(voiceList);
     dispatch(getVoiceList(voiceList));
   };
@@ -332,14 +280,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.nowVoiceData = action.payload.nowVoiceData;
       }),
-    [GET_PAST_MISSION]: (state, action) =>
-      produce(state, (draft) => {
-        draft.pastMissionList = action.payload.pastMissionList;
-      }),
-    [GET_MISSION_MEMBER]: (state, action) =>
-      produce(state, (draft) => {
-        draft.missionMemberList = action.payload.familyMemberList;
-      }),
     [GET_VOICE_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.voiceList = action.payload.voiceList;
@@ -392,8 +332,6 @@ export default handleActions(
 
 export const voiceActions = {
   getVoicePage,
-  getPastMissionDB,
-  getMissionMemberDB,
   getVoiceListDB,
   addVoiceDB,
   addMissionMember,

@@ -43,7 +43,17 @@ const Login = () => {
         placeholder="비밀번호"
         margin="10px auto"
       ></Input>
-      <Button L onClick={login} margin="1em auto">
+      <Button
+        L
+        onClick={() => {
+          if (!inputs.email || !inputs.password) {
+            alert("아이디, 비밀번호를 입력해주세요!");
+            return;
+          }
+          login();
+        }}
+        margin="1em auto"
+      >
         로그인 하기
       </Button>
       <a href={KakaoPath}>

@@ -22,6 +22,8 @@ import { ModalPortal } from "../shared/modal/portals";
 import AddScheduleModal from "../shared/modal/component/calendar/AddScheduleModal";
 
 const CalendarPage = (props) => {
+  const familyId = props.match.params.familyId;
+
   const dispatch = useDispatch();
 
   const [status, setStatus] = React.useState("schedule");
@@ -31,11 +33,17 @@ const CalendarPage = (props) => {
 
   const thisMonth = document.getElementsByClassName(
     "react-calendar__navigation__label__labelText"
-  )[0]?.childNodes[0].data;
+  )[0]?.childNodes[0]?.data;
+
+  const arr = { thisMonth };
 
   const scheduleList = list.map((x) =>
     dayjs(x.startDate).format("YYYY년 M월") === thisMonth ? x : null
   );
+
+  const YYYY = Object.values(arr)[0]?.split(" ")[0]?.split("년")[0];
+  const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
+  const date = `${YYYY}-${MM}`;
 
   // 토글
   const handleModal = () => {
@@ -43,7 +51,7 @@ const CalendarPage = (props) => {
   };
 
   React.useEffect(() => {
-    dispatch(scheduleActions.getScheduleDB());
+    dispatch(scheduleActions.getScheduleDB(familyId, date));
   }, []);
 
   return (
@@ -85,7 +93,11 @@ const CalendarPage = (props) => {
               </Select>
             </Wrap>
             <CalendarArea>
-              {status === "schedule" ? <ScheduleCalendar /> : <PhotoCalendar />}
+              {status === "schedule" ? (
+                <ScheduleCalendar familyId={familyId} />
+              ) : (
+                <PhotoCalendar familyId={familyId} />
+              )}
             </CalendarArea>
           </SBox>
           <ScheduleArea>
@@ -110,7 +122,10 @@ const CalendarPage = (props) => {
         <CreateButton onClick={handleModal}>+</CreateButton>
         <ModalPortal>
           {modalOn && (
-            <AddScheduleModal onClose={handleModal}></AddScheduleModal>
+            <AddScheduleModal
+              onClose={handleModal}
+              familyId={familyId}
+            ></AddScheduleModal>
           )}
         </ModalPortal>
       </div>

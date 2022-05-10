@@ -75,10 +75,6 @@ const VoiceAlbum = ({ familyId, isEdit, PracticeEdit }) => {
     dispatch(voiceActions.getVoiceListDB(voiceAlbumId));
   };
 
-  useEffect(() => {
-    dispatch(voiceActions.getVoicePage(familyId));
-  }, []);
-
   return (
     <>
       <VoiceHeader
@@ -95,7 +91,9 @@ const VoiceAlbum = ({ familyId, isEdit, PracticeEdit }) => {
                 <Figure
                   key={v.voiceAlbumId}
                   onClick={() => {
-                    history.push(`/family/${familyId}/voice/${v.voiceAlbumId}`);
+                    history.push(
+                      `/family/${familyId}/voiceMsg/${v.voiceAlbumId}`
+                    );
                     getVoiceList();
                   }}
                 >
@@ -113,9 +111,6 @@ const VoiceAlbum = ({ familyId, isEdit, PracticeEdit }) => {
                             // ? albumCover4
                             noImage
                       }
-                      onClick={() => {
-                        // history.push(`/detail/${p._id}`);
-                      }}
                     />
                     <Text size="24px" fontWeight="600">
                       {v.voiceAlbumName}

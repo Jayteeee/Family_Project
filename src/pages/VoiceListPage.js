@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { VoiceAlbum } from "../components/voice";
+import { VoiceList } from "../components/voice";
 import { useDispatch } from "react-redux";
 
 // 리덕스
@@ -8,8 +8,8 @@ import { voiceActions } from "../redux/modules/voice";
 
 const VoiceMsgPage = (props) => {
   const dispatch = useDispatch();
-
-  const familyId = props.match?.params;
+  const voiceAlbumId = props.match.params.voiceAlbumId;
+  const familyId = props.match.params.familyId;
   const [isEdit, setIsEdit] = useState(false);
 
   const PracticeEdit = () => {
@@ -23,11 +23,12 @@ const VoiceMsgPage = (props) => {
   return (
     <>
       <VoicePageWrap>
-        <VoiceAlbum
+        <VoiceList
+          voiceAlbumId={voiceAlbumId}
           PracticeEdit={PracticeEdit}
           isEdit={isEdit}
           familyId={familyId}
-        ></VoiceAlbum>
+        ></VoiceList>
       </VoicePageWrap>
     </>
   );

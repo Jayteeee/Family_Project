@@ -4,12 +4,13 @@ import axios from "axios";
 import { DummyData } from "../../shared/DummyData";
 import dayjs from "dayjs";
 
-// import { getToken } from "../../shared/Token";
+import { getToken } from "../../shared/Token";
 
-const BASE_URL = "";
+const BASE_URL = "https://doremilan.shop";
 
 const initialState = {
   scheduleList: [],
+  scheduleOneList: [],
 };
 
 // 액션
@@ -23,8 +24,8 @@ const DELETE_SCHEDULE = "DELETE_SCHEDULE";
 const getSchedule = createAction(GET_SCHEDULE, (scheduleList) => ({
   scheduleList,
 }));
-const getOneSchedule = createAction(GET_ONE_SCHEDULE, (scheduleList) => ({
-  scheduleList,
+const getOneSchedule = createAction(GET_ONE_SCHEDULE, (scheduleOneList) => ({
+  scheduleOneList,
 }));
 const addSchedule = createAction(ADD_SCHEDULE, (newSchedule) => ({
   newSchedule,
@@ -32,131 +33,132 @@ const addSchedule = createAction(ADD_SCHEDULE, (newSchedule) => ({
 const editSchedule = createAction(EDIT_SCHEDULE, (newSchedule) => ({
   newSchedule,
 }));
-const deleteSchedule = createAction(DELETE_SCHEDULE, (fakeId) => ({
-  fakeId,
+const deleteSchedule = createAction(DELETE_SCHEDULE, (eventId) => ({
+  eventId,
 }));
 
 // api 응답 받는 미들웨어
-const getScheduleDB = () => {
+const getScheduleDB = (familyId, date) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/schedulelist/, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {scheduleList} = res.data
-    //     console.log(scheduleList);
-    //     dispatch(getSchedule(scheduleList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
-    dispatch(getSchedule(DummyData.eventCalendarList));
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/${familyId}/eventcalendar/${date}`, { headers: config })
+      .then((res) => {
+        console.log(res);
+        const { scheduleList } = res.data;
+        console.log(scheduleList);
+        dispatch(getSchedule(scheduleList));
+      })
+      .catch((error) => {
+        console.log("패밀리 데이터 안옴", error);
+        console.log(error.response);
+      });
   };
 };
-const getOneScheduleDB = (day) => {
+const getOneScheduleDB = (familyId, date) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/schedulelist/, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {scheduleList} = res.data
-    //     console.log(scheduleList);
-    //     dispatch(getSchedule(scheduleList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
-    let scheduleList = [];
-    DummyData.eventModalList.map((x) => {
-      if (x.startDate == day) {
-        scheduleList.push(x);
-      }
-    });
-
-    dispatch(getOneSchedule(scheduleList));
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/${familyId}/eventcalendar/detail/${date}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        const scheduleOneList = res.data;
+        console.log(scheduleOneList);
+        dispatch(getOneSchedule(scheduleOneList));
+      })
+      .catch((error) => {
+        console.log("패밀리 데이터 안옴", error);
+        console.log(error.response);
+      });
   };
 };
 
-const addScheduleDB = (event, myPic, date) => {
+const addScheduleDB = (familyId, event, myPic, date) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .post(`${BASE_URL}/schedule`, {scheduleTitle}, { headers: config })
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(res.msg);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-
-    const newSchedule = {
-      event: `${event}`, // 일정명
-      startDate: `${date[0]}`, // 시작 날짜
-      endDate: `${date[1]}`, // 종료 날짜
-      color: `${myPic}`, // 색깔
-      fakeId: `${`${new Date().getMinutes()}-${new Date().getSeconds()}`}`,
-    };
-
-    dispatch(addSchedule(newSchedule));
-    console.log(newSchedule);
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .post(`${BASE_URL}/calendar/${familyId}`, {
+        data: {
+          event: event,
+          startDate: date[0],
+          endDate: date[1],
+          color: myPic,
+        },
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        const newSchedule = {
+          event: event, // 일정명
+          startDate: date[0], // 시작 날짜
+          endDate: date[1], // 종료 날짜
+          color: myPic, // 색깔,
+        };
+        dispatch(addSchedule(newSchedule));
+        console.log(newSchedule);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 
-const editScheduleDB = (event, myPic, date, fakeId) => {
+const editScheduleDB = (event, myPic, date, eventId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .put(
-    //     `${BASE_URL}/schedule/${scheduleId}`,
-    //     { scheduleTitle },
-    //     {
-    //       headers: config,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     dispatch(editScheduleName(scheduleId, scheduleTitle));
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-
-    const newSchedule = {
-      event: `${event}`, // 일정명
-      startDate: `${date[0]}`, // 시작 날짜
-      endDate: `${date[1]}`, // 종료 날짜
-      color: `${myPic}`, // 색깔
-      fakeId: `${fakeId}`, // 고유값
-    };
-    dispatch(editSchedule(newSchedule));
-    console.log(newSchedule);
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .put(
+        `${BASE_URL}/calendar/${eventId}`,
+        {
+          data: {
+            event: event, // 일정명
+            startDate: date[0], // 시작 날짜
+            endDate: date[1], // 종료 날짜
+            color: myPic, // 색깔
+          },
+        },
+        {
+          headers: config,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        const newSchedule = {
+          event: res.data.event, // 일정명
+          startDate: res.data.startDate, // 시작 날짜
+          endDate: res.data.endDate, // 종료 날짜
+          color: res.data.color, // 색깔
+          eventId: eventId, // 고유값
+        };
+        dispatch(editSchedule(newSchedule));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
-const deleteScheduleDB = (fakeId) => {
+const deleteScheduleDB = (eventId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .delete(`${BASE_URL}/schedule/${scheduleId}`, {
-    //     headers: config,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     // window.alert(res.msg)
-    //     alert("삭제!");
-    dispatch(deleteSchedule(fakeId));
-    history.go(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .delete(`${BASE_URL}/calendar/${eventId}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        // window.alert(res.msg)
+        alert("삭제!");
+        dispatch(deleteSchedule(eventId));
+        history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 
@@ -170,7 +172,7 @@ export default handleActions(
       }),
     [GET_ONE_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
-        draft.scheduleOneList = action.payload.scheduleList;
+        draft.scheduleOneList = action.payload.scheduleOneList;
         console.log(state.scheduleList);
       }),
     [ADD_SCHEDULE]: (state, action) =>
@@ -179,17 +181,17 @@ export default handleActions(
       }),
     [EDIT_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
-        const fakeId = action.payload.newSchedule.fakeId;
+        const eventId = action.payload.newSchedule.eventId;
         // 변경해야할 배열 인덱스
-        let index = draft.scheduleList.findIndex((l) => l.fakeId == fakeId);
+        let index = draft.scheduleList.findIndex((l) => l.eventId === eventId);
 
         draft.scheduleList[index] = action.payload.newSchedule;
       }),
     [DELETE_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
-        const { fakeId } = action.payload;
-        let newArr = draft.scheduleList.filter((l) => l.fakeId !== fakeId);
-        console.log(state.scheduleList.filter((l) => l.fakeId !== fakeId));
+        const { eventId } = action.payload;
+        let newArr = draft.scheduleList.filter((l) => l.eventId !== eventId);
+        console.log(state.scheduleList.filter((l) => l.eventId !== eventId));
         draft.scheduleList = newArr;
       }),
   },

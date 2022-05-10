@@ -21,7 +21,7 @@ import EditScheduleModal from "./EditScheduleModal";
 // 엘리먼트
 import { Text, Button, CircleImage } from "../../../../elements";
 
-const GetScheduleModal = ({ onClose, day, event }) => {
+const GetScheduleModal = ({ onClose, day, event, familyId }) => {
   const dispatch = useDispatch();
   const [normal, setNormal] = React.useState(false);
 
@@ -31,16 +31,19 @@ const GetScheduleModal = ({ onClose, day, event }) => {
     (x) => x.startDate == dayjs(day).format("YYYY-MM-DD")
   );
 
-  const fakeId = day?.fakeId;
-
   const deleteSchedule = () => {
-    dispatch(scheduleActions.deleteScheduleDB(fakeId));
+    dispatch(scheduleActions.deleteScheduleDB(list.eventId));
   };
 
   console.log(theDay);
 
   React.useEffect(() => {
-    dispatch(scheduleActions.getOneScheduleDB(dayjs(day).format("YYYY-MM-DD")));
+    dispatch(
+      scheduleActions.getOneScheduleDB(
+        dayjs(day).format("YYYY-MM-DD"),
+        familyId
+      )
+    );
   }, []);
 
   return (
@@ -113,7 +116,11 @@ const GetScheduleModal = ({ onClose, day, event }) => {
             </SBox>
           </CheckBox>
           <CheckBox none={!normal}>
-            <EditScheduleModal onClose={onClose} day={theDay} />
+            <EditScheduleModal
+              onClose={onClose}
+              day={theDay}
+              eventId={list.eventId}
+            />
           </CheckBox>
         </Content>
       </Background>
