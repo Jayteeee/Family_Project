@@ -4,9 +4,9 @@ import axios from "axios";
 import { DummyData } from "../../shared/DummyData";
 import dayjs from "dayjs";
 
-// import { getToken } from "../../shared/Token";
+import { getToken } from "../../shared/Token";
 
-const BASE_URL = "";
+const BASE_URL = "https://doremilan.shop";
 
 const initialState = {
   photoAlbumList: [],
@@ -52,74 +52,84 @@ const editPhoto = createAction(EDIT_PHOTO, (familyId, photoAlbumId, photo) => ({
 const deletePhotoAlbum = createAction(DELETE_PHOTO_ALBUM, (photoAlbumId) => ({
   photoAlbumId,
 }));
-const deletePhoto = createAction(DELETE_PHOTO, (photoAlbumId, photoId) => ({
-  photoAlbumId,
+const deletePhoto = createAction(DELETE_PHOTO, (photoId) => ({
   photoId,
 }));
 
 // api 응답 받는 미들웨어
-const getPhotoAlbumDB = () => {
+const getPhotoAlbumDB = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/photoAlbum/${familyId}`, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {photoAlbumList} = res.data
-    //     console.log(photoAlbumList);
-    //     dispatch(getFamily(photoAlbumList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("갤러리 앨범 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
+    console.log("갤러리 앨범용 패밀리ID:", familyId);
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/photoAlbum/${familyId}`, { headers: config })
+      .then((res) => {
+        console.log(res);
+        const { photoAlbumList } = res.data;
+        console.log(photoAlbumList);
+        dispatch(getPhotoAlbum(photoAlbumList));
+      })
+      .catch((error) => {
+        console.log("갤러리 앨범 데이터 안옴", error);
+        console.log(error.response);
+      });
 
-    dispatch(getPhotoAlbum(DummyData.photoAlbumList));
+    // dispatch(getPhotoAlbum(DummyData.photoAlbumList));
   };
 };
 
 const getPhotoDB = (photoAlbumId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/${photoAlbumId}`, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {photoList} = res.data
-    //     console.log(photoList);
-    //     dispatch(getFamily(photoList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("사진 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/photo/${photoAlbumId}`, { headers: config })
+      .then((res) => {
+        console.log(res);
+        const { photoList } = res.data;
+        console.log(photoList);
+        dispatch(getPhoto(photoList));
+      })
+      .catch((error) => {
+        console.log("사진 데이터 안옴", error);
+        console.log(error.response);
+      });
 
-    dispatch(getPhoto(DummyData.photoList));
+    // dispatch(getPhoto(DummyData.photoList));
   };
 };
 
 const addPhotoAlbumDB = (familyId, photoAlbumName) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .post(`${BASE_URL}/${familyId}`, {familyTitle}, { headers: config })
-    //   .then((res) => {
-    //     console.log(res);
-    //     const {photoAlbumId} = res
-    //     const {photoAlbumName} = res
-    //     console.log(res.msg);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
+    console.log(photoAlbumName);
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .post(
+        `${BASE_URL}/photoAlbum/${familyId}`,
+        { photoAlbumName },
+        { headers: config }
+      )
+      .then((res) => {
+        console.log(res);
+        const { photoAlbumId } = res.data;
+        console.log(res.msg);
+        const newPhotoAlbum = {
+          photoAlbumId: `${photoAlbumId}`,
+          photoAlbumName: `${photoAlbumName}`,
+        };
 
-    const newPhotoAlbum = {
-      photoAlbumId: `${familyId}`,
-      photoAlbumName: `${photoAlbumName}`,
-    };
+        dispatch(addPhotoAlbum(newPhotoAlbum));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
 
-    dispatch(addPhotoAlbum(newPhotoAlbum));
+    // const newPhotoAlbum = {
+    //   photoAlbumId: `${familyId}`,
+    //   photoAlbumName: `${photoAlbumName}`,
+    // };
+
+    // dispatch(addPhotoAlbum(newPhotoAlbum));
   };
 };
 
@@ -133,19 +143,21 @@ const addPhotoDB = (familyId, photoAlbumId, formData) => {
       "formData:",
       formData
     );
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .post(`${BASE_URL}/photo/${familyId}/${photoAlbumId}`, formData, { headers: config })
-    //   .then((res) => {
-    //     console.log(res.photoFile);
-    //     console.log(res.msg);
-    //     const newPhoto = res.photoFile
-    //    dispatch(addPhoto(newPhoto))
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .post(`${BASE_URL}/photo/${familyId}/${photoAlbumId}`, formData, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.msg);
+        const newPhoto = res.photoFile;
+        dispatch(addPhoto(newPhoto));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
 
     const newPhoto = {
       // familyId: `${familyTitle}`,
@@ -165,26 +177,32 @@ const addPhotoDB = (familyId, photoAlbumId, formData) => {
   };
 };
 
-const editPhotoAlbumDB = (familyId, photoAlbumId, photoAlbumName) => {
+const editPhotoAlbumDB = (
+  familyId,
+  photoAlbumId,
+  photoAlbumName,
+  PracticeEdit
+) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .put(
-    //     `${BASE_URL}/photoAlbum/${photoAlbumId}`,
-    //     { familyTitle },
-    //     {
-    //       headers: config,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     dispatch(editFamilyName(familyId, familyTitle));
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-    dispatch(editPhotoAlbum(photoAlbumId, photoAlbumName));
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .put(
+        `${BASE_URL}/photoAlbum/${photoAlbumId}`,
+        { photoAlbumName },
+        {
+          headers: config,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        dispatch(editPhotoAlbum(photoAlbumId, photoAlbumName));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+        PracticeEdit(false);
+      });
+    // dispatch(editPhotoAlbum(photoAlbumId, photoAlbumName));
   };
 };
 
@@ -214,43 +232,44 @@ const editPhotoDB = (familyId, familyTitle) => {
 const deletePhotoAlbumDB = (photoAlbumId) => {
   return async function (dispatch, getState, { history }) {
     console.log("photoAlbumId:", photoAlbumId);
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .delete(`${BASE_URL}/family/${familyId}`, {
-    //     headers: config,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     // window.alert(res.msg)
-    //     alert("삭제!");
-    dispatch(deletePhotoAlbum(photoAlbumId));
-    // history.go(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .delete(`${BASE_URL}/photoALbum/${photoAlbumId}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        dispatch(deletePhotoAlbum(photoAlbumId));
+        window.alert(res.data.msg);
+        // alert("삭제!");
+
+        // history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 
-const deletePhotoDB = (familyId) => {
+const deletePhotoDB = (photoId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .delete(`${BASE_URL}/family/${familyId}`, {
-    //     headers: config,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     // window.alert(res.msg)
-    //     alert("삭제!");
-    dispatch(deletePhotoAlbum(familyId));
-    history.go(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .delete(`${BASE_URL}/photo/${photoId}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        // window.alert(res.msg)
+        alert("삭제!");
+        dispatch(deletePhoto(photoId));
+        // history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 
@@ -285,7 +304,7 @@ export default handleActions(
           (l) => l.photoAlbumId === photoAlbumId
         );
 
-        nowPhotoAlbum = { ...nowPhotoAlbum, photoAlbumName: photoAlbumName };
+        nowPhotoAlbum = [{ ...nowPhotoAlbum, photoAlbumName: photoAlbumName }];
 
         draft.photoAlbumList[index] = nowPhotoAlbum;
       }),
@@ -314,9 +333,9 @@ export default handleActions(
       }),
     [DELETE_PHOTO]: (state, action) =>
       produce(state, (draft) => {
-        const { familyId } = action.payload;
-        let newArr = draft.photoList.filter((l) => l.familyId !== familyId);
-        console.log(state.photoList.filter((l) => l.familyId !== familyId));
+        const { photoId } = action.payload;
+        let newArr = draft.photoList.filter((l) => l.photoId !== photoId);
+        console.log(state.photoList.filter((l) => l.photoId !== photoId));
         draft.photoList = newArr;
       }),
   },

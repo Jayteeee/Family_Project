@@ -9,7 +9,7 @@ import { getToken, insertToken, removeToken } from "../../shared/Token";
 const BASE_URL = "https://doremilan.shop";
 
 const initialState = {
-  user: null,
+  user: {},
   isLogin: false,
 };
 

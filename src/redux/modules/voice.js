@@ -171,56 +171,56 @@ const addVoiceDB = (familyId, voiceTitle, audioUrl, sound, count) => {
   };
 };
 
-const checkMissionDB = (
-  checkedMissionId,
-  myMissionChk,
-  familyMissionChk,
-  completedAt,
-  familyId
-) => {
-  return async function (dispatch, getState, { history }) {
-    let missionChkData = {
-      checkedMissionId,
-      myMissionChk,
-      familyMissionChk,
-      completedAt,
-    };
+// const checkMissionDB = (
+//   checkedMissionId,
+//   myMissionChk,
+//   familyMissionChk,
+//   completedAt,
+//   familyId
+// ) => {
+//   return async function (dispatch, getState, { history }) {
+//     let missionChkData = {
+//       checkedMissionId,
+//       myMissionChk,
+//       familyMissionChk,
+//       completedAt,
+//     };
 
-    console.log(missionChkData);
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .post(
-    //     `${BASE_URL}/missionChk/${missionId}`,
-    //     missionChkData,
-    //     { headers: config }
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(res.msg);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-    const { familyMemberId } = getState().user.user;
-    console.log("가족구성원Id:", familyMemberId);
+//     console.log(missionChkData);
+//     // const config = { Authorization: `Bearer ${getToken()}` };
+//     // await axios
+//     //   .post(
+//     //     `${BASE_URL}/missionChk/${missionId}`,
+//     //     missionChkData,
+//     //     { headers: config }
+//     //   )
+//     //   .then((res) => {
+//     //     console.log(res);
+//     //     console.log(res.msg);
+//     //   })
+//     //   .catch((err) => {
+//     //     console.log(err);
+//     //     console.log(err.response);
+//     //   });
+//     const { familyMemberId } = getState().user.user;
+//     console.log("가족구성원Id:", familyMemberId);
 
-    const checkedMission = {
-      checkedMissionId,
-      familyMissionChk: familyMissionChk,
-    };
-    const checkedMissionMember = {
-      checkedMissionId,
-      myMissionChk: myMissionChk,
-      familyMissionChk: familyMissionChk,
-      familyMemberId,
-    };
-    console.log(checkedMission);
+//     const checkedMission = {
+//       checkedMissionId,
+//       familyMissionChk: familyMissionChk,
+//     };
+//     const checkedMissionMember = {
+//       checkedMissionId,
+//       myMissionChk: myMissionChk,
+//       familyMissionChk: familyMissionChk,
+//       familyMemberId,
+//     };
+//     console.log(checkedMission);
 
-    dispatch(checkMission(checkedMission));
-    dispatch(checkMissionMember(checkedMissionMember));
-  };
-};
+//     dispatch(checkMission(checkedMission));
+//     dispatch(checkMissionMember(checkedMissionMember));
+//   };
+// };
 
 const editVoiceAlbumDB = (familyId, voiceAlbumId, voiceAlbumName) => {
   return async function (dispatch, getState, { history }) {
@@ -256,14 +256,14 @@ const deleteMissionDB = (familyId, missionId) => {
     //     console.log(res);
     //     // window.alert(res.msg)
     //     alert("삭제!");
-    let missionStatus = {
-      totalMission: 10,
-      completedMission: 3,
-      completePercentage: "30",
-      totalBadge: 5,
-    };
-    dispatch(deleteMission(missionId));
-    dispatch(missionStatusUpdate(missionStatus));
+    // let missionStatus = {
+    //   totalMission: 10,
+    //   completedMission: 3,
+    //   completePercentage: "30",
+    //   totalBadge: 5,
+    // };
+    // dispatch(deleteMission(missionId));
+    // dispatch(missionStatusUpdate(missionStatus));
     // history.go(0);
     //   })
     //   .catch((err) => {
@@ -289,11 +289,11 @@ export default handleActions(
         draft.nowVoiceData.push(action.payload.newVoice);
       }),
 
-    [ADD_MISSION_MEMBER]: (state, action) =>
-      produce(state, (draft) => {
-        draft.selectedMemberList = action.payload.selectedMemberList;
-        draft.selectedMemberIdList = action.payload.selectedMemberIdList;
-      }),
+    // [ADD_MISSION_MEMBER]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     draft.selectedMemberList = action.payload.selectedMemberList;
+    //     draft.selectedMemberIdList = action.payload.selectedMemberIdList;
+    //   }),
     [EDIT_VOICE_ALBUM]: (state, action) =>
       produce(state, (draft) => {
         const { voiceAlbumId, voiceAlbumName } = action.payload;
@@ -310,11 +310,11 @@ export default handleActions(
 
         draft.voiceAlbumList[index] = nowVoiceAlbum;
       }),
-    [MISSION_STATUS_UPDATE]: (state, action) =>
-      produce(state, (draft) => {
-        const { missionStatus } = action.payload;
-        draft.nowMissionData.missionBox = missionStatus;
-      }),
+    // [MISSION_STATUS_UPDATE]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     const { missionStatus } = action.payload;
+    //     draft.nowMissionData.missionBox = missionStatus;
+    //   }),
     // [DELETE_MISSION]: (state, action) =>
     //   produce(state, (draft) => {
     //     const { missionId } = action.payload;
@@ -334,8 +334,8 @@ export const voiceActions = {
   getVoicePage,
   getVoiceListDB,
   addVoiceDB,
-  addMissionMember,
-  checkMissionDB,
+  // addMissionMember,
+  // checkMissionDB,
   editVoiceAlbumDB,
-  deleteMissionDB,
+  // deleteMissionDB,
 };

@@ -14,13 +14,15 @@ import { useDispatch } from "react-redux";
 import { Button, Text } from "../../../../elements";
 import { galleryActions } from "../../../../redux/modules/gallery";
 
-const DeletePhotoModal = ({ onClose, photoAlbumId }) => {
+const DeletePhotoModal = ({ onClose, photoId }) => {
   const dispatch = useDispatch();
 
   const deletePhotoAlbum = () => {
-    dispatch(galleryActions.deletePhotoDB(photoAlbumId));
+    dispatch(galleryActions.deletePhotoDB(photoId));
     onClose();
   };
+
+  console.log("사진ID", photoId);
 
   return (
     <>
