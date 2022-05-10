@@ -7,8 +7,12 @@ import { DummyData } from "../../shared/DummyData";
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
 import GetPhotoModal from "../../shared/modal/component/calendar/GetPhotoModal";
+import { useDispatch, useSelector } from "react-redux";
+import { scheduleActions } from "../../redux/modules/calendar";
 
-const PhotoCalendar = () => {
+const PhotoCalendar = (props) => {
+  const familyId = props.familyId;
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState(new Date());
   const [mark, setMark] = React.useState([
     { key: value },
@@ -18,8 +22,21 @@ const PhotoCalendar = () => {
   const [modalOn, setModalOn] = React.useState(false);
   const [day, setDay] = React.useState("");
   const list = DummyData.photoCalendarPage.photoCalendarList;
+  const llist = useSelector((state) => state);
+
+  console.log(llist);
 
   const docs = document.getElementsByClassName("highlight");
+
+  const thisMonth = document.getElementsByClassName(
+    "react-calendar__navigation__label__labelText"
+  )[0]?.childNodes[0]?.data;
+
+  const arr = { thisMonth };
+
+  const YYYY = Object.values(arr)[0]?.split(" ")[0]?.split("년")[0];
+  const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
+  const date = `${MM < 10 ? `${YYYY}-0${MM}` : `${YYYY}-${MM}`}`;
 
   // 토글
   const handleModal = () => {
@@ -33,7 +50,7 @@ const PhotoCalendar = () => {
   }
 
   React.useEffect(() => {
-    setMark(list);
+    dispatch(scheduleActions.getPhotoCalendarDB(familyId, date));
   }, []);
 
   return (
@@ -69,7 +86,12 @@ const PhotoCalendar = () => {
       </Container>
       <ModalPortal>
         {modalOn && (
-          <GetPhotoModal onClose={handleModal} day={day}></GetPhotoModal>
+          <GetPhotoModal
+            onClose={handleModal}
+            date={day}
+            familyId={familyId}
+            eventId={list.eventId}
+          ></GetPhotoModal>
         )}
       </ModalPortal>
     </div>

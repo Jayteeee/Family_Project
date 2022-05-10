@@ -27,7 +27,7 @@ const getUser = createAction(GET_USER, (user) => ({ user }));
 const userLogout = () => {
   return async function (dispatch, getState, { history }) {
     dispatch(logOut());
-    window.location.reload();
+    history.replace("/");
   };
 };
 

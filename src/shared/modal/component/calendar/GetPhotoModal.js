@@ -7,6 +7,7 @@ import "dayjs/locale/ko";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
+import { scheduleActions } from "../../../../redux/modules/calendar";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -15,13 +16,19 @@ import { ModalPortal } from "../../portals";
 import { Input, Button } from "../../../../elements";
 import PhotoSlider from "../../../../components/Calendar/PhotoSlider";
 
-const GetPhotoModal = ({ onClose, day }) => {
+const GetPhotoModal = ({ onClose, day, familyId }) => {
   const dispatch = useDispatch();
   const [normal, setNormal] = React.useState(false);
 
   const list = useSelector((state) => state.calendar.scheduleList);
 
   const theDay = list.find((x) => x.startDate == day);
+
+  React.useEffect(() => {
+    dispatch(
+      scheduleActions.getOnePhotoDB(dayjs(day).format("YYYY-MM-DD"), familyId)
+    );
+  }, []);
 
   return (
     <ModalPortal>

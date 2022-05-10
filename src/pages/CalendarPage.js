@@ -29,6 +29,7 @@ const CalendarPage = (props) => {
   const [status, setStatus] = React.useState("schedule");
   const [modalOn, setModalOn] = React.useState(false);
 
+  // let list = [];
   const list = useSelector((state) => state.calendar.scheduleList);
 
   const thisMonth = document.getElementsByClassName(
@@ -37,13 +38,13 @@ const CalendarPage = (props) => {
 
   const arr = { thisMonth };
 
-  const scheduleList = list.map((x) =>
-    dayjs(x.startDate).format("YYYY년 M월") === thisMonth ? x : null
+  let scheduleList = list.map((x) =>
+    dayjs(x?.startDate).format("YYYY년 M월") === thisMonth ? x : null
   );
 
   const YYYY = Object.values(arr)[0]?.split(" ")[0]?.split("년")[0];
   const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
-  const date = `${YYYY}-${MM}`;
+  const date = `${MM < 10 ? `${YYYY}-0${MM}` : `${YYYY}-${MM}`}`;
 
   // 토글
   const handleModal = () => {
@@ -102,21 +103,23 @@ const CalendarPage = (props) => {
           </SBox>
           <ScheduleArea>
             <Text S1>이번 달 일정</Text>
-            {scheduleList.map((x) => (
-              <FlexBox1>
-                <TextBox>
-                  <Text BM key={x?.fakeId}>
-                    {`${dayjs(x?.startDate)
-                      .locale("ko")
-                      .format("MM월 DD일, dd")}`}
-                  </Text>
-                </TextBox>
-                <FlexBox2>
-                  <DateColor color={x?.color}></DateColor>
-                  <Text S3> {x?.event}</Text>
-                </FlexBox2>
-              </FlexBox1>
-            ))}
+            {scheduleList
+              ? scheduleList.map((x) => (
+                  <FlexBox1>
+                    <TextBox>
+                      <Text BM key={x?.familyId}>
+                        {`${dayjs(x?.startDate)
+                          .locale("ko")
+                          .format("MM월 DD일, dd")}`}
+                      </Text>
+                    </TextBox>
+                    <FlexBox2>
+                      <DateColor color={x?.color}></DateColor>
+                      <Text S3> {x?.event}</Text>
+                    </FlexBox2>
+                  </FlexBox1>
+                ))
+              : null}
           </ScheduleArea>
         </FlexBox>
         <CreateButton onClick={handleModal}>+</CreateButton>

@@ -48,8 +48,6 @@ const SidebarMenu = (familyId) => {
           className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/calendar/`);
-            dispatch(scheduleActions.getScheduleDB());
-            history.go(0);
           }}
         >
           <MdEvent style={{ fontSize: "24px" }} />

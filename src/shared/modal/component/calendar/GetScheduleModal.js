@@ -26,16 +26,10 @@ const GetScheduleModal = ({ onClose, day, event, familyId }) => {
   const [normal, setNormal] = React.useState(false);
 
   const list = useSelector((state) => state.calendar.scheduleOneList);
-  console.log(event.clientX);
-  const theDay = list?.find(
-    (x) => x.startDate == dayjs(day).format("YYYY-MM-DD")
-  );
 
   const deleteSchedule = () => {
     dispatch(scheduleActions.deleteScheduleDB(list.eventId));
   };
-
-  console.log(theDay);
 
   React.useEffect(() => {
     dispatch(
@@ -92,33 +86,33 @@ const GetScheduleModal = ({ onClose, day, event, familyId }) => {
             </ButtonBox>
             <SBox>
               <Stitle>
-                <ColorBox color={theDay?.color}></ColorBox>
+                <ColorBox color={list.color}></ColorBox>
                 <Text S1 style={{ marginLeft: "1rem" }}>
-                  {theDay?.event}
+                  {list.event}
                 </Text>
               </Stitle>
               <Sday>
-                <Text B1>{`${dayjs(theDay?.startDate)
+                <Text B1>{`${dayjs(list.startDate)
                   .locale("ko")
-                  .format(`MM월 DD일, dddd`)} - ${dayjs(theDay?.endDate)
+                  .format(`MM월 DD일, dddd`)} - ${dayjs(list.endDate)
                   .locale("ko")
                   .format(`MM월 DD일, dddd`)}`}</Text>
               </Sday>
               <SUser>
                 <CircleImage
                   XS
-                  src={theDay?.profileImg}
+                  src={list.profileImg}
                   margin="0px 8px 0px 0px"
                   alt="profileImage"
                 ></CircleImage>
-                <Text B3>{`${theDay?.familyMemberNickname}`}</Text>
+                <Text B3>{`${list.familyMemberNickname}`}</Text>
               </SUser>
             </SBox>
           </CheckBox>
           <CheckBox none={!normal}>
             <EditScheduleModal
               onClose={onClose}
-              day={theDay}
+              day={list.startDate}
               eventId={list.eventId}
             />
           </CheckBox>

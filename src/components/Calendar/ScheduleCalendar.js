@@ -11,19 +11,32 @@ import GetScheduleModal from "../../shared/modal/component/calendar/GetScheduleM
 
 const ScheduleCalendar = ({ familyId }) => {
   const dispatch = useDispatch();
+  // let list = [];
+  // list.push(useSelector((state) => state.calendar.scheduleList));
   const list = useSelector((state) => state.calendar.scheduleList);
+  console.log(list);
   const [value, setValue] = React.useState(new Date());
   const [event, setEvent] = React.useState([]);
   const [modalOn, setModalOn] = React.useState(false);
   const [day, setDay] = React.useState("");
+
+  const thisMonth = document.getElementsByClassName(
+    "react-calendar__navigation__label__labelText"
+  )[0]?.childNodes[0]?.data;
+
+  const arr = { thisMonth };
+  const YYYY = Object.values(arr)[0]?.split(" ")[0]?.split("년")[0];
+  const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
+  const date = `${MM < 10 ? `${YYYY}-0${MM}` : `${YYYY}-${MM}`}`;
 
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
   };
 
-  React.useEffect(() => {}, []);
-
+  React.useEffect(() => {
+    dispatch(scheduleActions.getScheduleDB(familyId, date));
+  }, []);
   return (
     <div>
       <Container>
@@ -51,9 +64,12 @@ const ScheduleCalendar = ({ familyId }) => {
             // 날짜 타일에 컨텐츠 추가하기 (html 태그)
             // 추가할 html 태그를 변수 초기화
             let html = [];
-            const events = list.filter(
-              (x) => x.startDate === dayjs(date).format("YYYY-MM-DD")
-            );
+            let events = "";
+            if (list) {
+              events = list.filter(
+                (x) => x.startDate === dayjs(date).format("YYYY-MM-DD")
+              );
+            }
             if (events.length !== 0) {
               html.push(
                 events.map((x) => {
