@@ -52,8 +52,7 @@ const editPhoto = createAction(EDIT_PHOTO, (familyId, photoAlbumId, photo) => ({
 const deletePhotoAlbum = createAction(DELETE_PHOTO_ALBUM, (photoAlbumId) => ({
   photoAlbumId,
 }));
-const deletePhoto = createAction(DELETE_PHOTO, (photoAlbumId, photoId) => ({
-  photoAlbumId,
+const deletePhoto = createAction(DELETE_PHOTO, (photoId) => ({
   photoId,
 }));
 
@@ -113,12 +112,11 @@ const addPhotoAlbumDB = (familyId, photoAlbumName) => {
         console.log(res);
         const { photoAlbumId } = res.data;
         console.log(res.msg);
-        const newPhotoAlbum = [
-          {
-            photoAlbumId: `${photoAlbumId}`,
-            photoAlbumName: `${photoAlbumName}`,
-          },
-        ];
+        const newPhotoAlbum = {
+          photoAlbumId: `${photoAlbumId}`,
+          photoAlbumName: `${photoAlbumName}`,
+        };
+
         dispatch(addPhotoAlbum(newPhotoAlbum));
       })
       .catch((err) => {
@@ -254,24 +252,24 @@ const deletePhotoAlbumDB = (photoAlbumId) => {
   };
 };
 
-const deletePhotoDB = (familyId) => {
+const deletePhotoDB = (photoId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .delete(`${BASE_URL}/family/${familyId}`, {
-    //     headers: config,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     // window.alert(res.msg)
-    //     alert("삭제!");
-    dispatch(deletePhotoAlbum(familyId));
-    history.go(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .delete(`${BASE_URL}/photo/${photoId}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        // window.alert(res.msg)
+        alert("삭제!");
+        dispatch(deletePhoto(photoId));
+        // history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 
@@ -335,9 +333,9 @@ export default handleActions(
       }),
     [DELETE_PHOTO]: (state, action) =>
       produce(state, (draft) => {
-        const { familyId } = action.payload;
-        let newArr = draft.photoList.filter((l) => l.familyId !== familyId);
-        console.log(state.photoList.filter((l) => l.familyId !== familyId));
+        const { photoId } = action.payload;
+        let newArr = draft.photoList.filter((l) => l.photoId !== photoId);
+        console.log(state.photoList.filter((l) => l.photoId !== photoId));
         draft.photoList = newArr;
       }),
   },

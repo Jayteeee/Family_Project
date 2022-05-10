@@ -44,11 +44,14 @@ const PhotoList = ({
   // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
 
+  const [photoId, setPhotoId] = useState("");
   const DeletePhoto = (photoId) => {
     setModalOn(!modalOn);
-    // setPhotoAlbumId(photoAlbumId);
+    setPhotoId(photoId);
     console.log(photoAlbumId);
   };
+
+  console.log("사진ID:", photoId);
 
   const handleModal = () => {
     setModalOn(!modalOn);
@@ -92,7 +95,7 @@ const PhotoList = ({
         <Container>
           {photoList.map((p) => {
             return (
-              <EditFigure>
+              <EditFigure key={p?.photoId}>
                 <div>
                   <EditImageBox
                     alt="#"
@@ -114,7 +117,7 @@ const PhotoList = ({
         {modalOn && (
           <DeletePhotoModal
             onClose={handleModal}
-            photoAlbumId={photoAlbumId}
+            photoId={photoId}
           ></DeletePhotoModal>
         )}
       </ModalPortal>

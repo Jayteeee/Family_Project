@@ -52,17 +52,13 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
   );
 
   const EditPhotoAlbum = () => {
-    if (photoAlbumName) {
-      dispatch(
-        galleryActions.editPhotoAlbumDB(
-          NowFamilyId,
-          photoAlbumId,
-          photoAlbumName
-        )
-      );
-    } else {
-      alert("앨범 제목을 입력하지 않았습니다.");
-    }
+    // if (photoAlbumName) {
+    dispatch(
+      galleryActions.editPhotoAlbumDB(NowFamilyId, photoAlbumId, photoAlbumName)
+    );
+    // } else {
+    //   alert("앨범 제목을 입력하지 않았습니다.");
+    // }
   };
 
   // 앨범 삭제하기 모달
