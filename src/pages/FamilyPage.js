@@ -17,7 +17,9 @@ const FamilyPage = () => {
     <>
       {/* <Button onClick={handleAddFamilyModal}>가족 생성하기</Button>
       <ModalPortal>
-        {addFamilyModal && <AddFamilyModal onClose={handleAddFamilyModal} />}
+        {addFamilyModal && (
+          <AddFamilyModal onClose={handleAddFamilyModal} />
+        )}
       </ModalPortal> */}
     </>
   );

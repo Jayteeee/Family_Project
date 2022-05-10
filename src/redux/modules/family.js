@@ -84,6 +84,7 @@ const addFamilyDB = (familyTitle) => {
     };
 
     dispatch(addFamily(newFamily));
+    history.push(`/family/${newFamily.familyId}`);
   };
 };
 

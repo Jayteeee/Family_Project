@@ -1,5 +1,6 @@
 import ProfileModal from "./ProfileModal";
 import AddFamilyModal from "./AddFamilyModal";
+import FirstFamilyModal from "./FirstFamilyModal";
 import AddMemberModal from "./AddMemberModal";
 import EditFamilyModal from "./EditFamilyModal";
 import EditFamilyTitleModal from "./EditFamilyTitleModal";
@@ -10,6 +11,7 @@ import LogoutModal from "./LogoutModal";
 
 export {
   ProfileModal,
+  FirstFamilyModal,
   AddFamilyModal,
   AddMemberModal,
   EditFamilyModal,

@@ -6,8 +6,7 @@ import jwt from "jwt-decode";
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/Token";
 
-// const BASE_URL = "http://52.78.246.163";
-// const BASE_URL = "http://3.34.129.39";
+const BASE_URL = "https://doremilan.shop";
 
 const initialState = {
   user: null,
@@ -20,7 +19,7 @@ const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 
 // 액션 생성함수
-const login = createAction(LOG_IN, (token, user) => ({ token, user }));
+const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT);
 const getUser = createAction(GET_USER, (user) => ({ user }));
 
@@ -33,32 +32,23 @@ const userLogout = () => {
 };
 
 // 여기부터 api 응답 받는 미들웨어
-// /user/signup
+// /auth/signup
 const signUpDB = (inputs) => {
   return async function (dispatch, getState, { history }) {
-    const { email, password, nickname } = inputs;
-    let fakeResponse = {
-      email,
-      password,
-      nickname,
-    };
-    console.log("회원가입 됐다치고", fakeResponse);
-    window.location.reload();
+    const { email, password, passwordCheck, nickname } = inputs;
 
-    // console.log("미들웨어:", inputs);
-
-    // await axios
-    //   .post(`${BASE_URL}/user/signup`, inputs)
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (res.data.result === "sucess") alert("회원가입 성공!");
-    //     history.push("/");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //     alert(err.response.data.errorMessage);
-    //   });
+    await axios
+      .post(`${BASE_URL}/auth/signup`, inputs)
+      .then((res) => {
+        console.log(res);
+        if (res.data.result === "sucess") alert("회원가입 성공!");
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+        // alert(err.response.data.errorMessage);
+      });
   };
 };
 
@@ -66,52 +56,39 @@ const signUpDB = (inputs) => {
 const loginDB = (inputs) => {
   return async function (dispatch, getState, { history }) {
     // axios
-    // await axios
-    //   .post(`${BASE_URL}/user/login`, inputs)
-    //   .then((res) => {
-    //     console.log(res);
-    //     const token = res.data.token;
-    //     insertToken(token);
-    //     history.push('/')
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     alert(err.response.data.errorMessage);
-    //   });
-
-    // 서버 열리면 이 아래로 다 지워버리면 됩니다!
-    console.log("로그인 성공했다 치고");
-    const { userId, password } = inputs;
-
-    // /user/getuser axios 요청 또 해야되나?
-    let fakeResponseData = { userId, nickname: "닉네임", profileImg: "" };
-    let fakeResponseToken = "토큰입니다";
-
-    insertToken(fakeResponseToken);
-    console.log("로컬 스토리지에 토큰을 넣었습니다");
-    dispatch(login(fakeResponseToken, fakeResponseData));
-    history.push("/family/:familyId");
+    await axios
+      .post(`${BASE_URL}/auth/login`, inputs)
+      .then((res) => {
+        console.log(res);
+        const token = res.data.logIntoken;
+        const user = res.data.user;
+        insertToken(token);
+        dispatch(login(user));
+        history.push("/family");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.response.data.errorMessage);
+      });
   };
 };
 
 // /user/getuser
 const getUserInfo = (token) => {
   return async function (dispatch, getState, { history }) {
-    let fakeResposeUser = {
-      email: "asdf@gmail.com",
-      nickname: "닉네임~",
-      profileImg:
-        "https://boyohaeng-image.s3.ap-northeast-2.amazonaws.com/profile_img.png",
-      familyMemberId: "68defs231a",
-    };
-
-    console.log(fakeResposeUser);
-    dispatch(getUser(fakeResposeUser));
-
-    // const user = jwt(token)
-    // console.log(user)
-    // dispatch(getUser(token, user));
-    // localStorage.setItem('isLogin',token)
+    const dUser = jwt(token);
+    console.log(dUser);
+    const config = { Authorization: `Bearer ${token}` };
+    await axios
+      .get(`${BASE_URL}/user/me`, { headers: config })
+      .then((res) => {
+        const user = res.data.user;
+        dispatch(getUser(user));
+        localStorage.setItem("isLogin", token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 

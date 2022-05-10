@@ -10,8 +10,9 @@ import { Text, Button } from "../../elements/index";
 import { ModalPortal } from "../../shared/modal/portals";
 import { AddVoiceModal } from "../../shared/modal/component/voiceModal";
 
-const VoiceHeader = () => {
+const VoiceHeader = (props) => {
   const params = useParams();
+  console.log("보이스헤어 파람:", props.match);
   const voiceAlbumId = params.voiceAlbumId;
   const voiceAlbumTitle = useSelector(
     (state) => state.voice?.voiceList?.voiceAlbumName

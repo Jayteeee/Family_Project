@@ -26,10 +26,10 @@ const Login = () => {
       {/* <label>아이디</label> */}
       <Input
         M
-        id="userId"
+        id="email"
         type="text"
         onChange={handleChange}
-        value={inputs.userId}
+        value={inputs.email}
         placeholder="아이디"
         margin="10px auto"
       ></Input>
