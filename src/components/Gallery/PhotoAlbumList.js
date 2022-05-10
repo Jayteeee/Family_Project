@@ -103,7 +103,7 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                   key={p.photoAlbumId}
                   onClick={() => {
                     history.push(
-                      `/family/${NowFamilyId}/gallery/${p.photoAlbumId}`
+                      `/family/${NowFamilyId}/gallery/${p.photoAlbumName}/${p.photoAlbumId}`
                     );
                     getPhotoList();
                   }}

@@ -17,8 +17,18 @@ import noImage from "../../shared/images/noImage.png";
 import { useParams } from "react-router-dom";
 import PhotoHeader from "./PhotoHeader";
 
-const PhotoList = ({ photoAlbumId, NowFamilyId, isEdit, PracticeEdit }) => {
+const PhotoList = ({
+  photoAlbumId,
+  photoAlbumName,
+  NowFamilyId,
+  PracticeEdit,
+  isEdit,
+}) => {
   const dispatch = useDispatch();
+
+  const userId = useSelector((state) => state.user);
+
+  console.log("접속한Id", userId);
 
   console.log("선택한 앨범Id:", photoAlbumId);
 
@@ -45,6 +55,7 @@ const PhotoList = ({ photoAlbumId, NowFamilyId, isEdit, PracticeEdit }) => {
         NowFamilyId={NowFamilyId}
         photoAlbumId={photoAlbumId}
         PracticeEdit={PracticeEdit}
+        photoAlbumName={photoAlbumName}
         isEdit={isEdit}
       />
       {!isEdit ? (
@@ -57,7 +68,10 @@ const PhotoList = ({ photoAlbumId, NowFamilyId, isEdit, PracticeEdit }) => {
                     alt="#"
                     src={p.photoFile ? p.photoFile : noImage}
                     onClick={() => {
-                      // history.push(`/detail/${p._id}`);
+                      history.push(
+                        `/family/${NowFamilyId}/gallery/${p.photoAlbumName}/${photoAlbumId}/${p.photoId}/`
+                      );
+                      // getPhotoList();
                     }}
                   />
                 </div>

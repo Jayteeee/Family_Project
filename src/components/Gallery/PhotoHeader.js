@@ -14,11 +14,17 @@ import { Text, Button } from "../../elements/index";
 import { ModalPortal } from "../../shared/modal/portals";
 import { galleryActions } from "../../redux/modules/gallery";
 
-const PhotoHeader = ({ NowFamilyId, PracticeEdit, isEdit, photoAlbumId }) => {
+const PhotoHeader = ({
+  NowFamilyId,
+  PracticeEdit,
+  isEdit,
+  photoAlbumId,
+  photoAlbumName,
+}) => {
   const dispatch = useDispatch();
 
   const photoImgInput = useRef();
-
+  console.log(photoAlbumName);
   // 미션 추가하기 모달
   const [modalOn, setModalOn] = useState(false);
 
@@ -47,7 +53,7 @@ const PhotoHeader = ({ NowFamilyId, PracticeEdit, isEdit, photoAlbumId }) => {
           margin="10px 0 0 0"
           className="res-galleryHeaderBox"
         >
-          갤러리
+          {photoAlbumName}
         </Text>
         {!isEdit ? (
           <BtnWrap>

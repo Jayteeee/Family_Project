@@ -82,7 +82,7 @@ const getUserInfo = (token) => {
     await axios
       .get(`${BASE_URL}/user/me`, { headers: config })
       .then((res) => {
-        const user = res.data.user;
+        const user = res.data;
         dispatch(getUser(user));
         localStorage.setItem("isLogin", token);
       })

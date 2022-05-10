@@ -21,6 +21,7 @@ import {
   PhotoListPage,
   VoiceMsgPage,
   VoiceFilePage,
+  DetailPhotoPage,
 } from "./index";
 
 // 컴포넌트
@@ -142,9 +143,14 @@ const Main = (props) => {
                 component={GalleryPage}
               />
               <Route
-                path="/family/:familyId/gallery/:photoAlbumId"
+                path="/family/:familyId/gallery/:photoAlbumName/:photoAlbumId"
                 exact
                 component={PhotoListPage}
+              />
+              <Route
+                path="/family/:familyId/gallery/:photoAlbumName/:photoAlbumId/:photoId"
+                exact
+                component={DetailPhotoPage}
               />
               <Route
                 path="/family/:familyId/voiceMsg"

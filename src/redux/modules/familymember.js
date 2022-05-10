@@ -3,9 +3,9 @@ import { produce } from "immer";
 import axios from "axios";
 import { DummyData } from "../../shared/DummyData";
 import dayjs from "dayjs";
-// import { getToken } from "../../shared/Token";
+import { getToken } from "../../shared/Token";
 
-const BASE_URL = "";
+const BASE_URL = "https://doremilan.shop";
 
 const initialState = {
   familyMemberList: [],
@@ -49,56 +49,55 @@ const deleteFamilyMember = createAction(
 );
 
 // api 응답 받는 미들웨어
-const getFamilyMemberDB = () => {
+const getFamilyMemberDB = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/family/search/keyword?keyword=${userId}`, {
-    //     headers: config,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     const { familyMemberList } = res.data;
-    //     console.log(familyMemberList);
-    //     dispatch(getSearchMember(familyMemberList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
-
-    const { nowFamilyMemberList } = DummyData;
-    console.log("현재 멤버 리스트:", nowFamilyMemberList);
-    dispatch(getFamilyMember(nowFamilyMemberList));
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/family/${familyId}/familyMember`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        const { familyMemberList } = res.data;
+        console.log(familyMemberList);
+        // dispatch(getSearchMember(familyMemberList));
+      })
+      .catch((error) => {
+        console.log("패밀리 데이터 안옴", error);
+        console.log(error.response);
+      });
+    // const { nowFamilyMemberList } = DummyData;
+    // console.log("현재 멤버 리스트:", nowFamilyMemberList);
+    // dispatch(getFamilyMember(nowFamilyMemberList));
   };
 };
 
-const getSearchMemberDB = (familyId, email) => {
-  return async function (dispatch, getState, { history }) {
-    console.log("가족 아이디:", familyId, "입력한 email :", email);
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/family/search?search=${email}`, {
-    //     headers: config,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     const { familyMemberList } = res.data;
-    //     console.log(familyMemberList);
-    //     dispatch(getSearchMember(familyMemberList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
+const getSearchMemberDB = (email) => {
+  return function (dispatch, getState, { history }) {
+    console.log("입력한 email :", email);
+    const config = { Authorization: `Bearer ${getToken()}` };
+    axios
+      .get(`${BASE_URL}/family/search?search=${email}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        const { searchKeyword } = res.data;
+        console.log(searchKeyword);
+        dispatch(getSearchMember(searchKeyword));
+      })
+      .catch((error) => {
+        console.log("패밀리 데이터 안옴", error);
+        console.log(error.response);
+      });
 
-    let familyMemberList = [
-      { userId: "abe@gmail.com", userNickname: "홍길동" },
-      { userId: "abedfgq@gmail.com", userNickname: "홍길동2" },
-      { userId: "abedfgqdfsaf@gmail.com", userNickname: "홍길동3" },
-    ];
+    // let familyMemberList = [
+    //   { userId: "abe@gmail.com", userNickname: "홍길동" },
+    //   { userId: "abedfgq@gmail.com", userNickname: "홍길동2" },
+    //   { userId: "abedfgqdfsaf@gmail.com", userNickname: "홍길동3" },
+    // ];
 
-    dispatch(getSearchMember(familyMemberList));
+    // dispatch(getSearchMember(familyMemberList));
   };
 };
 
@@ -109,18 +108,20 @@ const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
       familyMemberNickname: `${familyMemberNickname}`,
       familyMemberId: `${selectuserId}`,
     };
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .post(`${BASE_URL}/family/:${familyId}`, newFamilyMember, { headers: config })
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(res.msg);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-    dispatch(addFamilyMember(newFamilyMember));
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .post(`${BASE_URL}/family/${familyId}`, newFamilyMember, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.msg);
+        dispatch(addFamilyMember(newFamilyMember));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 

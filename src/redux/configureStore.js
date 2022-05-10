@@ -9,6 +9,7 @@ import Family from "./modules/family";
 import Mission from "./modules/mission";
 import Calendar from "./modules/calendar";
 import Gallery from "./modules/gallery";
+import Detailphoto from "./modules/detailphoto";
 import FamilyMember from "./modules/familymember";
 import Voice from "./modules/voice";
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   mission: Mission,
   calendar: Calendar,
   gallery: Gallery,
+  detailPhoto: Detailphoto,
   familymember: FamilyMember,
   voice: Voice,
 

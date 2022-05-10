@@ -2,12 +2,16 @@ import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import DetailPhoto from "../components/Gallery/DetailPhoto";
 
 // 컴포넌트
 import PhotoHeader from "../components/Gallery/PhotoHeader";
 import PhotoList from "../components/Gallery/PhotoList";
 
-const PhotoListPage = (props) => {
+const PhotoDetalilPage = (props) => {
+  const { photoId } = props.match.params;
+  console.log("선택한 사진Id:", photoId);
+
   const { photoAlbumId } = props.match.params;
   console.log("선택한 앨범Id:", photoAlbumId);
 
@@ -26,20 +30,21 @@ const PhotoListPage = (props) => {
   };
   return (
     <>
-      <PhotoListPageWrap className="res-pageWrap">
-        <PhotoList
+      <PhotoDetailPageWrap className="res-pageWrap">
+        <DetailPhoto
           photoAlbumId={photoAlbumId}
-          photoAlbumName={photoAlbumName}
           NowFamilyId={familyId}
           PracticeEdit={PracticeEdit}
           isEdit={isEdit}
+          photoAlbumName={photoAlbumName}
+          photoId={photoId}
         />
-      </PhotoListPageWrap>
+      </PhotoDetailPageWrap>
     </>
   );
 };
 
-const PhotoListPageWrap = styled.div`
+const PhotoDetailPageWrap = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
   display: flex;
@@ -47,4 +52,4 @@ const PhotoListPageWrap = styled.div`
   overflow-y: scroll;
 `;
 
-export default PhotoListPage;
+export default PhotoDetalilPage;
