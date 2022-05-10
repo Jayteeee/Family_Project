@@ -296,7 +296,7 @@ const Wrap = styled.div`
 const CalendarArea = styled.div``;
 
 const ScheduleArea = styled.div`
-  position: relative;
+  /* position: relative; */
   width: 100%;
   height: 912px;
   border-radius: 20px;

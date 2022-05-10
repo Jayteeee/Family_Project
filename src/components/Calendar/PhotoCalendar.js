@@ -14,17 +14,16 @@ const PhotoCalendar = (props) => {
   const familyId = props.familyId;
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(new Date());
-  const [mark, setMark] = React.useState([
-    { key: value },
-    { createdAt: "2022-11-11" },
-  ]);
+  // const [mark, setMark] = React.useState([
+  //   { key: value },
+  //   { createdAt: "2022-11-11" },
+  // ]);
   const [style, setStyle] = React.useState("");
   const [modalOn, setModalOn] = React.useState(false);
   const [day, setDay] = React.useState("");
-  const list = DummyData.photoCalendarPage.photoCalendarList;
-  const llist = useSelector((state) => state);
-
-  console.log(llist);
+  // const list = DummyData.photoCalendarPage.photoCalendarList;
+  const list = useSelector((state) => state.calendar.photoCalendar);
+  console.log(list);
 
   const docs = document.getElementsByClassName("highlight");
 
@@ -67,16 +66,28 @@ const PhotoCalendar = (props) => {
           formatDay={(locale, date) => dayjs(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
           showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
           onClickDay={(value, event) => {
-            if (
-              mark.find((x) => x.createdAt == dayjs(value).format("YYYY-MM-DD"))
-            ) {
-              handleModal();
-              setDay(value);
-            }
+            // const PList = ""
+            // list?
+            // {PList = list.filter((x) => dayjs(x.createdAt).format("YYYY-MM-DD") ===
+            // dayjs(value).format("YYYY-MM-DD"))}: null
+            // if (
+            //   list.find(
+            //     (x) =>
+            //       dayjs(x.createdAt).format("YYYY-MM-DD") ===
+            //       dayjs(value).format("YYYY-MM-DD")
+            //   )
+            // ) {
+            //   handleModal();
+            //   setDay(value);
+            // }
           }}
           tileClassName={({ date, view }) => {
             if (
-              mark.find((x) => x.createdAt === dayjs(date).format("YYYY-MM-DD"))
+              list.find(
+                (x) =>
+                  dayjs(x.createdAt).format("YYYY-MM-DD") ===
+                  dayjs(date).format("YYYY-MM-DD")
+              )
             ) {
               setStyle(true);
               return "highlight";

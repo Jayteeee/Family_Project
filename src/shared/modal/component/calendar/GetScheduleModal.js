@@ -21,7 +21,7 @@ import EditScheduleModal from "./EditScheduleModal";
 // 엘리먼트
 import { Text, Button, CircleImage } from "../../../../elements";
 
-const GetScheduleModal = ({ onClose, day, event, familyId }) => {
+const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
   const dispatch = useDispatch();
   const [normal, setNormal] = React.useState(false);
 
@@ -34,8 +34,9 @@ const GetScheduleModal = ({ onClose, day, event, familyId }) => {
   React.useEffect(() => {
     dispatch(
       scheduleActions.getOneScheduleDB(
-        dayjs(day).format("YYYY-MM-DD"),
-        familyId
+        dayjs(date).format("YYYY-MM-DD"),
+        familyId,
+        eventId
       )
     );
   }, []);

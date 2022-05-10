@@ -20,9 +20,7 @@ const GetPhotoModal = ({ onClose, day, familyId }) => {
   const dispatch = useDispatch();
   const [normal, setNormal] = React.useState(false);
 
-  const list = useSelector((state) => state.calendar.scheduleList);
-
-  const theDay = list.find((x) => x.startDate == day);
+  const list = useSelector((state) => state.calendar.photoOneList);
 
   React.useEffect(() => {
     dispatch(
@@ -45,7 +43,7 @@ const GetPhotoModal = ({ onClose, day, familyId }) => {
             e.stopPropagation();
           }}
         >
-          <PhotoSlider day={theDay} onClose={onClose} />
+          <PhotoSlider day={list[0].createAt} onClose={onClose} />
         </Content>
       </Background>
     </ModalPortal>

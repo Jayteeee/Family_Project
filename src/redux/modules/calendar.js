@@ -129,7 +129,7 @@ const getPhotoCalendarDB = (familyId, date) => {
       })
       .then((res) => {
         console.log(res);
-        const { photoCalendar } = res.data;
+        const photoCalendar = res.data.photoCalendarList;
         console.log(photoCalendar);
         dispatch(getPhotoCalendar(photoCalendar));
       })
@@ -140,14 +140,17 @@ const getPhotoCalendarDB = (familyId, date) => {
   };
 };
 
-const getOneScheduleDB = (date, familyId) => {
+const getOneScheduleDB = (date, familyId, eventId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     console.log(date);
     await axios
-      .get(`${BASE_URL}/calendar/${familyId}/eventcalendar/detail/${date}`, {
-        headers: config,
-      })
+      .get(
+        `${BASE_URL}/calendar/${familyId}/eventcalendar/detail/${date}/${eventId}`,
+        {
+          headers: config,
+        }
+      )
       .then((res) => {
         console.log(res);
         const scheduleOneList = res.data.eventModalList;
@@ -160,7 +163,7 @@ const getOneScheduleDB = (date, familyId) => {
       });
   };
 };
-const getOnePhotoDB = (familyId, date) => {
+const getOnePhotoDB = (date, familyId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -169,7 +172,7 @@ const getOnePhotoDB = (familyId, date) => {
       })
       .then((res) => {
         console.log(res);
-        const photoOneList = res.data;
+        const photoOneList = res.data.photoModalList;
         console.log(photoOneList);
         dispatch(getOnePhoto(photoOneList));
       })

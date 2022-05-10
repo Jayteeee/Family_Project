@@ -41,13 +41,12 @@ const signUpDB = (inputs) => {
       .post(`${BASE_URL}/auth/signup`, inputs)
       .then((res) => {
         console.log(res);
-        if (res.data.result === "sucess") alert("회원가입 성공!");
-        history.push("/");
+        alert(res.data.msg);
+        history.go(0);
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response);
-        // alert(err.response.data.errorMessage);
+        // alert(err.data.msg);
       });
   };
 };
@@ -61,14 +60,17 @@ const loginDB = (inputs) => {
       .then((res) => {
         console.log(res);
         const token = res.data.logIntoken;
-        const user = res.data.user;
+        const user = jwt(token);
+        const familyId = res.data.familyList[0]?.familyId;
         insertToken(token);
         dispatch(login(user));
-        history.push("/family");
+        res.data.familyList.length !== 0
+          ? history.push(`/family/${familyId}`)
+          : history.go(0);
       })
       .catch((err) => {
         console.log(err);
-        alert(err.response.data.errorMessage);
+        alert("로그인 정보를 확인해주세요.");
       });
   };
 };

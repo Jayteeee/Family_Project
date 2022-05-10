@@ -4,6 +4,7 @@ import { MissionContext } from "../../../../pages/MissionPage";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import { RiArrowLeftSLine } from "react-icons/ri";
+import { MdRemoveCircle, MdPlayArrow, MdOutlinePause } from "react-icons/md";
 // import ReactMic from "../../../../components/voice/ReactMic";
 import { ReactMic } from "react-mic";
 
@@ -209,29 +210,32 @@ const AddVoiceModal = ({ onClose }) => {
                 {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
               </h1>
               <ButtonBox>
-                <GradientCircleProgressbar
-                  width="80"
-                  percentage={onRec ? 100 : (`${parseInt(count)}` / 180) * 100}
-                  primaryColor={["#F4CC4D", "#8C98F8"]}
-                  secondaryColor="#F5F5F5"
-                  hidePercentageText
-                  style={{ position: "relative", transition: "all ease 2s 0s" }}
-                ></GradientCircleProgressbar>
-                {onRec ? (
-                  <Playbtn onClick={onRecAudio} />
-                ) : (
-                  <Stopbtn onClick={offRecAudio} />
-                )}
+                <Buttons>
+                  <MdPlayArrow />
+                </Buttons>
+                <div>
+                  <GradientCircleProgressbar
+                    width="80"
+                    percentage={
+                      onRec ? 100 : (`${parseInt(count)}` / 180) * 100
+                    }
+                    primaryColor={["#F4CC4D", "#8C98F8"]}
+                    secondaryColor="#F5F5F5"
+                    hidePercentageText
+                    style={{
+                      transition: "all ease 2s 0s",
+                    }}
+                  ></GradientCircleProgressbar>
+                  {onRec ? (
+                    <Playbtn onClick={onRecAudio} />
+                  ) : (
+                    <Stopbtn onClick={offRecAudio} />
+                  )}
+                </div>
+                <Buttons>
+                  <MdOutlinePause />
+                </Buttons>
               </ButtonBox>
-
-              <AudioBox>
-                <audio
-                  src={audioUrl ? URL.createObjectURL(audioUrl) : null}
-                  controls
-                >
-                  녹음된 소리를 재생할 audio 엘리먼트
-                </audio>
-              </AudioBox>
               <MissionTitleBox>
                 <Input
                   placeholder="제목을 입력하세요"
@@ -350,6 +354,7 @@ const AudioBox = styled.div`
 `;
 
 const ButtonBox = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -360,10 +365,21 @@ const ButtonBox = styled.div`
   /* border: 6px solid black; */
 `;
 
+const Buttons = styled.div`
+  margin: 0 60px;
+  height: 14px;
+  width: 100%;
+  /* & > svg {
+    & > 
+  } */
+`;
+
 const Playbtn = styled.div`
   position: absolute;
-  width: 5%;
-  height: 5%;
+  width: 50%;
+  height: 50%;
+  top: 23%;
+  left: 25%;
   border-radius: 50%;
   background-color: red;
   cursor: pointer;
@@ -371,8 +387,10 @@ const Playbtn = styled.div`
 
 const Stopbtn = styled.button`
   position: absolute;
-  width: 5%;
-  height: 5%;
+  width: 50%;
+  height: 50%;
+  top: 23%;
+  left: 25%;
   border: none;
   border-radius: 10%;
   background-color: #c4c4c4;

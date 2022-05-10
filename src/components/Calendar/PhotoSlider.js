@@ -6,9 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { DummyData } from "../../shared/DummyData";
 import { MdChevronLeft, MdChevronRight, MdClose } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const PhotoSlider = ({ onClose }) => {
-  const list = DummyData.photoModalList;
+  // const list = DummyData.photoModalList;
+  const list = useSelector((state) => state.calendar.photoOneList);
 
   const settings = {
     arrows: true, //화살표 o
