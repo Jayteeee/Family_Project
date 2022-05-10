@@ -26,9 +26,14 @@ const AddFamilyModal = ({ onClose }) => {
   // 가족 이름 input
   const [familyTitle, setfamilyTitle] = useState("");
 
-  const handleAddFamily = (e) => {
-    const { value } = e.target;
-    setfamilyTitle(value);
+  const handleAddFamily = (e, max) => {
+    if (e.value.length > max) {
+      e.value = e.value.substr(0, max);
+      const { value } = e.target;
+      setfamilyTitle(value);
+    }
+    // const { value } = e.target;
+    // setfamilyTitle(value);
   };
 
   console.log(familyTitle);
@@ -58,12 +63,15 @@ const AddFamilyModal = ({ onClose }) => {
             <div style={{ margin: "8px 0 20px" }}>
               <div>
                 <Input
+                  type="text"
                   id="changeName"
                   placeholder="가족 이름을 입력해주세요"
                   size="18px"
                   padding="0 36px 0 36px"
                   margin="0 0 20px"
                   onChange={handleAddFamily}
+                  maxlength="8"
+                  oninput="handleAddFamily(this, 8)"
                   value={familyTitle}
                 />
               </div>

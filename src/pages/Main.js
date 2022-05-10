@@ -24,6 +24,8 @@ import {
   DetailPhotoPage,
 } from "./index";
 
+// import FirstPage from "./FirstPage";
+
 // 컴포넌트
 import SidebarMenu from "../components/SidebarMenu";
 import Header from "../components/Header";
@@ -51,6 +53,8 @@ const Main = (props) => {
   const NowFamilyTitle = NowFamily[0]?.familyTitle;
   console.log("현재 familyTitle: ", NowFamilyTitle);
 
+  const { user } = useSelector((state) => state?.user?.user);
+
   // familyId 변경될때마다 리랜더링
   useEffect(() => {
     dispatch(familyActions.getFamilyDB());
@@ -61,6 +65,7 @@ const Main = (props) => {
   const [showOptions, setShowOptions] = useState(false);
 
   const handleOnChangeSelectValue = (e) => {
+    setShowOptions(showOptions);
     // 선택한 value값
     setCurrentValue(e.target.getAttribute("value"));
     // 선택한 id값
@@ -68,14 +73,24 @@ const Main = (props) => {
     history.push(`/family/${familyId}`);
   };
 
+  const onClose = () => {
+    setShowOptions(false);
+  };
+
   return (
     <>
       {/* <MainContext.Provider value={NowFamily}>
         <Header bg={bg} />
       </MainContext.Provider> */}
-      <MainWrap className="res-mainWrap">
+      <MainWrap
+        className="res-mainWrap"
+        onClick={(e) => {
+          onClose();
+          e.stopPropagation();
+        }}
+      >
         <MainContext.Provider value={NowFamily}>
-          <Header bg={bg} />
+          <Header bg={bg} user={user} />
         </MainContext.Provider>
         <div
           style={{
@@ -85,12 +100,19 @@ const Main = (props) => {
         >
           <SidbarWrap className="res-selectWrap">
             <SelectBox
-              onClick={() => setShowOptions((prev) => !prev)}
+              onClick={(e) => {
+                setShowOptions((prev) => !prev);
+                e.stopPropagation();
+              }}
               className="res-selectBox"
             >
               {/* 가족 타이틀 수정시 label에 바로 적용 안되는 문제 있음 */}
               <Label className="res-label">
-                {currentValue ? currentValue : "Family title"}
+                {currentValue
+                  ? currentValue
+                  : NowFamilyTitle
+                  ? NowFamilyTitle
+                  : "Family Title"}
                 <TiArrowSortedDown
                   style={{
                     margin: "0 15px",
@@ -126,6 +148,7 @@ const Main = (props) => {
           </SidbarWrap>
           <PageWrap>
             <Switch>
+              {/* <Route path="/family" exact component={FirstPage} /> */}
               <Route path="/family/:familyId/" exact component={FamilyPage} />
               <Route
                 path="/family/:familyId/mission"
@@ -241,6 +264,8 @@ const SelectOptions = styled.ul`
   padding: 0;
   background-color: #222222;
   color: #fefefe;
+  overflow-y: scroll;
+  height: 120%;
 `;
 
 const Option = styled.li`

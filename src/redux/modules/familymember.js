@@ -84,7 +84,7 @@ const getSearchMemberDB = (email) => {
         console.log(res);
         const { searchKeyword } = res.data;
         console.log(searchKeyword);
-        dispatch(getSearchMember(searchKeyword));
+        // dispatch(getSearchMember(searchKeyword));
       })
       .catch((error) => {
         console.log("패밀리 데이터 안옴", error);

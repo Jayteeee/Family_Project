@@ -11,6 +11,8 @@ const Input = (props) => {
     S,
     M,
     L,
+    maxlength,
+    oninput,
     ...styles
   } = props;
 
@@ -21,6 +23,8 @@ const Input = (props) => {
         placeholder={placeholder}
         id={id}
         onChange={onChange}
+        maxlength={maxlength}
+        oninput={oninput}
         {...styles}
       />
     );
@@ -33,6 +37,8 @@ const Input = (props) => {
         placeholder={placeholder}
         id={id}
         onChange={onChange}
+        maxlength={maxlength}
+        oninput={oninput}
         {...styles}
       />
     );
@@ -45,6 +51,8 @@ const Input = (props) => {
         placeholder={placeholder}
         id={id}
         onChange={onChange}
+        maxlength={maxlength}
+        oninput={oninput}
         {...styles}
       />
     );
@@ -56,6 +64,8 @@ const Input = (props) => {
       placeholder={placeholder}
       id={id}
       onChange={onChange}
+      maxlength={maxlength}
+      oninput={oninput}
       {...styles}
     />
   );

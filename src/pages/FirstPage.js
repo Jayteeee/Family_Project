@@ -5,7 +5,7 @@ import { ModalPortal } from "../shared/modal/portals";
 import { FirstFamilyModal } from "../shared/modal/component/ProfileModal";
 import { Button } from "../elements";
 
-const FamilyPage = () => {
+const FirstPage = () => {
   // 가족 생성하기 모달
   const [firstFamilyModal, setFirstFamilyModal] = useState(false);
 
@@ -24,4 +24,4 @@ const FamilyPage = () => {
     </>
   );
 };
-export default FamilyPage;
+export default FirstPage;

@@ -14,8 +14,13 @@ import { history } from "../../redux/configureStore";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
-import { useParams } from "react-router-dom";
+
+// 컴포넌트
 import PhotoHeader from "./PhotoHeader";
+
+// 모달
+import { ModalPortal } from "../../shared/modal/portals";
+import { DeletePhotoModal } from "../../shared/modal/component/Gallery";
 
 const PhotoList = ({
   photoAlbumId,
@@ -39,6 +44,12 @@ const PhotoList = ({
   // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
 
+  const DeletePhoto = (photoId) => {
+    setModalOn(!modalOn);
+    // setPhotoAlbumId(photoAlbumId);
+    console.log(photoAlbumId);
+  };
+
   const handleModal = () => {
     setModalOn(!modalOn);
   };
@@ -46,8 +57,6 @@ const PhotoList = ({
   useEffect(() => {
     dispatch(galleryActions.getPhotoDB(photoAlbumId));
   }, [photoList.length]);
-
-  const params = useParams;
 
   return (
     <>
@@ -62,11 +71,11 @@ const PhotoList = ({
         <Container>
           {photoList.map((p) => {
             return (
-              <Figure key={p.photoId}>
+              <Figure key={p?.photoId}>
                 <div>
                   <ImageBox
                     alt="#"
-                    src={p.photoFile ? p.photoFile : noImage}
+                    src={p?.photoFile ? p?.photoFile : noImage}
                     onClick={() => {
                       history.push(
                         `/family/${NowFamilyId}/gallery/${p.photoAlbumName}/${photoAlbumId}/${p.photoId}/`
@@ -92,7 +101,7 @@ const PhotoList = ({
                       // history.push(`/detail/${p._id}`);
                     }}
                   />
-                  <DeleteIcon onClick={handleModal}>
+                  <DeleteIcon onClick={DeletePhoto.bind(this, p?.photoId)}>
                     <MdRemoveCircle />
                   </DeleteIcon>
                 </div>
@@ -101,6 +110,14 @@ const PhotoList = ({
           })}
         </Container>
       )}
+      <ModalPortal>
+        {modalOn && (
+          <DeletePhotoModal
+            onClose={handleModal}
+            photoAlbumId={photoAlbumId}
+          ></DeletePhotoModal>
+        )}
+      </ModalPortal>
     </>
   );
 };

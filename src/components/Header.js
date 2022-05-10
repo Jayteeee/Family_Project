@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { IoMdNotifications } from "react-icons/io";
 
 // 리덕스
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // 엘리먼트
 import { CircleImage } from "../elements";
@@ -14,10 +14,15 @@ import { CircleImage } from "../elements";
 import { ModalPortal } from "../shared/modal/portals";
 import { ProfileModal } from "../shared/modal/component/ProfileModal";
 
+// 이미지
+import profileImg from "../shared/images/profileImg.png";
+
 const Header = (props) => {
-  const { bg } = props;
+  const { bg, user } = props;
 
   console.log(bg);
+
+  // const { user } = useSelector((state) => state?.user.user);
 
   // 프로필 수정 모달
   const [modalOn, setModalOn] = useState(false);
@@ -40,8 +45,11 @@ const Header = (props) => {
               }}
             />
             <ProfileBox onClick={handleModal}>
-              <CircleImage XS />
-              <span style={{ marginLeft: "10px" }}>닉네임</span>
+              <CircleImage
+                XS
+                src={user?.profileImg ? user?.profileImg : profileImg}
+              />
+              <span style={{ marginLeft: "10px" }}>{user?.nickname}</span>
             </ProfileBox>
           </HeaderRightBox>
         </HeaderWarp>
