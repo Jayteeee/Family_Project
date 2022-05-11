@@ -19,7 +19,7 @@ const AddFamilyModal = ({ onClose }) => {
 
   console.log(onClose);
 
-  const NowFamilyTitle = useContext(MainContext)[0].familyTitle;
+  const NowFamilyTitle = useContext(MainContext)[0]?.familyTitle;
 
   console.log("현재 가족 이름: ", NowFamilyTitle);
 
@@ -27,13 +27,13 @@ const AddFamilyModal = ({ onClose }) => {
   const [familyTitle, setfamilyTitle] = useState("");
 
   const handleAddFamily = (e, max) => {
-    if (e.value.length > max) {
-      e.value = e.value.substr(0, max);
-      const { value } = e.target;
-      setfamilyTitle(value);
-    }
-    // const { value } = e.target;
-    // setfamilyTitle(value);
+    // if (e.value.length > max) {
+    //   e.value = e.value.substr(0, max);
+    //   const { value } = e.target;
+    //   setfamilyTitle(value);
+    // }
+    const { value } = e.target;
+    setfamilyTitle(value);
   };
 
   console.log(familyTitle);

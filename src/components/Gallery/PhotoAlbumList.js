@@ -104,10 +104,13 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                     getPhotoList();
                   }}
                 >
-                  <div>
+                  <div style={{}}>
                     <ImageBox
+                      // style={{
+                      //   backgroundImage: `url(${p.randomPhoto}? ${p.randomPhoto} : ${noImage})`,
+                      // }}
                       // alt="#"
-                      src={p.photoFile ? p.photoFile : noImage}
+                      src={p.randomPhoto ? p.randomPhoto : noImage}
                       onClick={() => {
                         // history.push(`/detail/${p._id}`);
                       }}
@@ -130,7 +133,7 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                   <EditFigure>
                     <EditImageBox
                       // alt="#"
-                      src={p.photoFile ? p.photoFile : noImage}
+                      src={p.randomPhoto ? p.randomPhoto : noImage}
                       onClick={() => {
                         // history.push(`/detail/${p._id}`);
                       }}
@@ -203,6 +206,9 @@ const Figure = styled.div`
   grid-template-rows: 1fr auto;
   /* margin-bottom: 2%; */
   break-inside: avoid;
+  /* width: 300px;
+  min-height: 300px; */
+
   &:hover {
     border-radius: 13px;
     cursor: pointer;
@@ -216,8 +222,11 @@ const ImageBox = styled.img`
   grid-row: 1 / -1;
   grid-column: 1;
   width: 100%;
+  /* min-width: 500px; */
+  height: 90%;
   margin-top: 2%;
   border-radius: 13px;
+  /* background-size: cover; */
 `;
 
 const EditFigure = styled.div`

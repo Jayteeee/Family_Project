@@ -50,6 +50,7 @@ const deleteFamilyMember = createAction(
 
 // api 응답 받는 미들웨어
 const getFamilyMemberDB = (familyId) => {
+  console.log("가족구성원GET용 fmailyId:", familyId);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -57,13 +58,13 @@ const getFamilyMemberDB = (familyId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
+        console.log("가족 구성원 GET:", res);
         const { familyMemberList } = res.data;
         console.log(familyMemberList);
-        // dispatch(getSearchMember(familyMemberList));
+        dispatch(getFamilyMember(familyMemberList));
       })
       .catch((error) => {
-        console.log("패밀리 데이터 안옴", error);
+        console.log("구성원 데이터 안옴", error);
         console.log(error.response);
       });
     // const { nowFamilyMemberList } = DummyData;
@@ -81,13 +82,13 @@ const getSearchMemberDB = (email) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
-        const { searchKeyword } = res.data;
-        console.log(searchKeyword);
-        // dispatch(getSearchMember(searchKeyword));
+        console.log("가족 구성원 검색 GET:", res);
+        const { searchKeywordList } = res.data;
+        console.log(searchKeywordList);
+        dispatch(getSearchMember(searchKeywordList));
       })
       .catch((error) => {
-        console.log("패밀리 데이터 안옴", error);
+        console.log("구성원 검색 데이터 안옴", error);
         console.log(error.response);
       });
 
@@ -105,8 +106,8 @@ const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
   console.log("가족멤버닉네임:", familyMemberNickname, "이메일:", selectuserId);
   return async function (dispatch, getState, { history }) {
     const newFamilyMember = {
+      email: `${selectuserId}`,
       familyMemberNickname: `${familyMemberNickname}`,
-      familyMemberId: `${selectuserId}`,
     };
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -139,26 +140,28 @@ const editFamilyMemberNicknameDB = (
     familyMemberNickname
   );
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .put(
-    //     `${BASE_URL}/family/${familyId}/${familyMemberId}`,
-    //     { familyTitle },
-    //     {
-    //       headers: config,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     dispatch(editFamilyName(familyId, familyTitle));
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-    dispatch(
-      editFamilyMembeNickname(familyId, familyMemberId, familyMemberNickname)
-    );
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .put(
+        `${BASE_URL}/family/familyMember/${familyMemberId}`,
+        { familyMemberNickname },
+        {
+          headers: config,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        // dispatch(
+        //   editFamilyMembeNickname(familyId, familyMemberId, familyMemberNickname)
+        // );
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+    // dispatch(
+    //   editFamilyMembeNickname(familyId, familyMemberId, familyMemberNickname)
+    // );
   };
 };
 

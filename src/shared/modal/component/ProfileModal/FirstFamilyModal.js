@@ -49,7 +49,7 @@ const FirstFamilyModal = ({ onClose }) => {
           }}
         >
           <div style={{ textAlign: "start" }}>
-            <label htmlFor="changeName">가족 생성하기</label>
+            <label>가족 생성하기</label>
             <div style={{ margin: "8px 0 20px" }}>
               <div>
                 <Input

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -15,11 +16,17 @@ const PhotoDetalilPage = (props) => {
   const { photoAlbumId } = props.match.params;
   console.log("선택한 앨범Id:", photoAlbumId);
 
-  const { photoAlbumName } = props.match.params;
-  console.log("선택한 앨범이름:", photoAlbumName);
-
   const { familyId } = props.match?.params;
   console.log("현재 사진페이지 패밀리 아이디:", familyId);
+
+  const { photoAlbumList } = useSelector((state) => state.gallery);
+
+  console.log(photoAlbumList);
+
+  const photoAlbumName = photoAlbumList.filter(
+    (p) => p.photoAlbumId === photoAlbumId
+  );
+  console.log("선택한 앨범이름:", photoAlbumName);
 
   const [isEdit, setIsEdit] = useState(false);
 

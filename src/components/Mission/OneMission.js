@@ -114,7 +114,7 @@ const OneMission = (props) => {
         <MissionTitle>
           {/* {missionId === myMission.missionId ? ( */}
           <MissionChkBox>
-            <label htmlFor="missionChk" className="checks">
+            <label className="checks">
               <input
                 type="checkbox"
                 value={missionId}

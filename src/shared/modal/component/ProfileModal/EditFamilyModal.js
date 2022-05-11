@@ -92,7 +92,7 @@ const EditFamilyModal = ({ onClose }) => {
 
   useEffect(
     () => {
-      dispatch(familyMemberActions.getFamilyMemberDB());
+      dispatch(familyMemberActions.getFamilyMemberDB(familyId));
     },
     [
       // familyMemberList.length
@@ -117,7 +117,7 @@ const EditFamilyModal = ({ onClose }) => {
           >
             <SettingWrap>
               <SettingBox>
-                <Text htmlFor="changeTitle">가족이름 수정하기</Text>
+                <Text>가족이름 수정하기</Text>
                 <div style={{ display: "flex" }}>
                   <Input
                     id="changeTitle"
@@ -130,7 +130,7 @@ const EditFamilyModal = ({ onClose }) => {
                 </div>
               </SettingBox>
               <MemberBox>
-                <Text htmlFor="addFamilyMember">현재 가족 구성원</Text>
+                <Text>현재 가족 구성원</Text>
                 {familyMemberList.map((f, i) => {
                   return (
                     <div style={{ display: "flex" }} key={f.familyMemberId}>

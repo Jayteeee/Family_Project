@@ -64,7 +64,7 @@ const getPhotoAlbumDB = (familyId) => {
     await axios
       .get(`${BASE_URL}/photoAlbum/${familyId}`, { headers: config })
       .then((res) => {
-        console.log(res);
+        console.log("갤러리 앨범 데이터 GET:", res);
         const { photoAlbumList } = res.data;
         console.log(photoAlbumList);
         dispatch(getPhotoAlbum(photoAlbumList));
@@ -84,7 +84,7 @@ const getPhotoDB = (photoAlbumId) => {
     await axios
       .get(`${BASE_URL}/photo/${photoAlbumId}`, { headers: config })
       .then((res) => {
-        console.log(res);
+        console.log("갤러리 사진 데이터 GET", res);
         const { photoList } = res.data;
         console.log(photoList);
         dispatch(getPhoto(photoList));
@@ -242,8 +242,6 @@ const deletePhotoAlbumDB = (photoAlbumId) => {
         dispatch(deletePhotoAlbum(photoAlbumId));
         window.alert(res.data.msg);
         // alert("삭제!");
-
-        // history.go(0);
       })
       .catch((err) => {
         console.log(err);
@@ -252,7 +250,7 @@ const deletePhotoAlbumDB = (photoAlbumId) => {
   };
 };
 
-const deletePhotoDB = (photoId) => {
+const deletePhotoDB = (photoId, NowFamilyId, PhotoAlbumName, photoAlbumId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -264,6 +262,9 @@ const deletePhotoDB = (photoId) => {
         // window.alert(res.msg)
         alert("삭제!");
         dispatch(deletePhoto(photoId));
+        history.push(
+          `/family/${NowFamilyId}/gallery/${PhotoAlbumName}/${photoAlbumId}`
+        );
         // history.go(0);
       })
       .catch((err) => {
