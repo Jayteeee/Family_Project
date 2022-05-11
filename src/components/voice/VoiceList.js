@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
 import { MdRemoveCircle, MdPlayArrow, MdOutlinePause } from "react-icons/md";
 import { useParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 // 엘리먼트
 import { Text } from "../../elements";
@@ -16,7 +17,10 @@ import { history } from "../../redux/configureStore";
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 import VoiceHeader from "../../components/voice/VoiceHeader";
-import sound from "../../shared/voice/sound.mp3";
+
+// 모달
+import { ModalPortal } from "../../shared/modal/portals";
+import { DeleteVoiceModal } from "../../shared/modal/component/voiceModal";
 
 const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
   const dispatch = useDispatch();
@@ -27,56 +31,99 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
   );
 
   const voiceList = useSelector((state) => state.voice.voiceList.voiceFileList);
-  const audioUrl = voiceList.voiceFile;
 
   console.log("선택한 앨범 사진리스트:", voiceList);
-  console.log(isEdit);
 
-  // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
   const [run, setRun] = useState(false);
   const [count, setCount] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
-  const intervalRef = React.useRef(null);
+  const [disabled, setDisabled] = useState(false);
+  const [voiceFileId, setVoiceFileId] = useState("");
+  const [sound, setSound] = useState();
 
-  const start = () => {
-    intervalRef.current = setInterval(async () => {
-      setCount((c) => c + 1);
-    }, 1000);
+  // const intervalRef = React.useRef(null);
+
+  const handleFileId = (e) => {
+    const { id } = e.target;
+    setVoiceFileId(id);
   };
 
-  const end = () => {
-    clearInterval(intervalRef.current);
-  };
+  // const start = () => {
+  //   intervalRef.current = setInterval(async () => {
+  //     setCount((c) => c + 1);
+  //   }, 3000);
+  // };
+
+  // const end = () => {
+  //   clearInterval(intervalRef.current);
+  //   setCount(0);
+  // };
+  const myRef = useRef();
 
   const timer = () => {
-    const checkMinutes = Math.floor(count / 60);
-    const minutes = checkMinutes & 60;
-    const seconds = count % 60;
+    // const checkMinutes = Math.floor(count / 60);
+    // const minutes = [checkMinutes & 60];
+    // const seconds = [count % 60];
+    const minutes = [Math.floor(myRef.current?.currentTime / 60)];
+    const seconds = [Math.floor(myRef.current?.currentTime)];
 
+    setCount(seconds);
     setCurrentMinutes(minutes);
     setCurrentSeconds(seconds);
   };
 
-  // const audio = new Audio(URL.createObjectURL(audioUrl));
-  const audio = new Audio(sound);
-  console.log(audio.onpause);
-  const play = () => {
-    audio.loop = false;
-    audio.volume = 1;
-    audio.play();
-    start();
+  const handlePlay = () => {
+    // myRef.current.play();
+    const audio = new Audio(sound);
+    console.log(audio.currentTime);
+    let isPlaying = audio?.currentTime > 0 && !audio?.paused && !audio?.ended;
+    if (audio.paused) {
+      // start();e
+      timer();
+      audio.play();
+    } else {
+      setCount(0);
+      console.log("중지");
+      audio.pause();
+      audio.currentTime = 0;
+    }
+    setDisabled(true);
   };
+  // const play = (v) => {
+  //   myRef.current.play();
+  //   let isPlaying =
+  //     myRef.current?.currentTime > 0 &&
+  //     !myRef.current?.paused &&
+  //     !myRef.current?.ended;
+  //   // let isPlaying = audio?.currentTime > 0 && !audio?.paused && !audio?.ended;
+  //   // console.log(audio.currentTime);
+  //   if (!isPlaying) {
+  //     // start();e
+  //     timer();
+  //     setSound(v);
+  //     // audio.play();
+  //     myRef.current.play();
+  //   }
+  //   setDisabled(true);
+  // };
 
-  console.log(audio.duration);
-  console.log(audio.currentTime);
-
-  const pause = () => {
-    audio.pause();
-    end();
-  };
-
+  // const pause = () => {
+  //   let isPlaying =
+  //     myRef.current?.currentTime > 0 &&
+  //     !myRef.current?.paused &&
+  //     !myRef.current?.ended;
+  //   // let isPlaying = audio?.currentTime > 0 && !audio?.paused && !audio?.ended;
+  //   // console.log(audio.currentTime);
+  //   if (isPlaying) {
+  //     // end();
+  //     setCount(0);
+  //     myRef.current.pause();
+  //     // audio.pause();
+  //   }
+  //   setDisabled(false);
+  // };
   const handleModal = () => {
     setModalOn(!modalOn);
   };
@@ -84,11 +131,12 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
   useEffect(() => {
     dispatch(voiceActions.getVoiceListDB(voiceAlbumId));
     timer();
-  }, [count]);
+  }, [myRef.current?.currentTime]);
 
   return (
     <>
       <VoiceHeader
+        voiceAlbumId={voiceAlbumId}
         familyId={familyId}
         PracticeEdit={PracticeEdit}
         isEdit={isEdit}
@@ -109,29 +157,43 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
                       <p>{v.familyMemberNickname}</p>
                     </ProfileBox>
                     <TitleBox>
-                      <Text S2>{v.voiceFileTitle}</Text>
+                      <Text S2>{v.voiceTitle}</Text>
                       <Text B1 style={{ color: "#757575" }}>
-                        {v.createdAt}
+                        {dayjs(v.createdAt).format("YYYY-MM-DD")}
                       </Text>
                     </TitleBox>
                   </NonePlayer>
                   <PlayBox>
                     <ProgressBar>
                       <PercentBar
-                        width={(count / v.voicePlayTime) * 100 + "%"}
+                        width={
+                          sound === v.voiceFile
+                            ? (count / v.voicePlayTime) * 100 + "%"
+                            : 0
+                        }
                       ></PercentBar>
                       <Dot></Dot>
                     </ProgressBar>
+                    {/* <audio ref={myRef} src={sound} /> */}
                     <RunTime>
                       <Text S3>
-                        {currentMinutes < 10
-                          ? `0${currentMinutes}`
-                          : currentMinutes}{" "}
+                        {sound === v.voiceFile && currentMinutes[0] < 10
+                          ? `0${currentMinutes[0]}`
+                          : sound === v.voiceFile && currentMinutes[0] >= 10
+                          ? currentMinutes[0]
+                          : "00"}{" "}
                         :{" "}
-                        {currentSeconds < 10
-                          ? `0${currentSeconds}`
-                          : currentSeconds}
-                        /{v.voicePlayTime}
+                        {sound === v.voiceFile && currentSeconds[0] < 10
+                          ? `0${currentSeconds[0]}`
+                          : sound === v.voiceFile && currentSeconds[0] >= 10
+                          ? currentSeconds[0]
+                          : "00"}{" "}
+                        /{" "}
+                        {`0${Math.floor(v.voicePlayTime / 60)} :  ${
+                          v.voicePlayTime % 60 < 10
+                            ? `0${v.voicePlayTime % 60}`
+                            : v.voicePlayTime % 60
+                        }`}
                       </Text>
                     </RunTime>
                   </PlayBox>
@@ -139,18 +201,22 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
                     onClick={(e) => {
                       e.stopPropagation();
                       setRun(!run);
+                      // play.bind(this, v?.voiceFile)();
                     }}
                   >
-                    {!run ? (
-                      <MdPlayArrow
+                    {!run && sound === v.voiceFile ? (
+                      <MdOutlinePause
                         onClick={() => {
-                          play();
+                          // pause();
+                          handlePlay();
                         }}
                       />
                     ) : (
-                      <MdOutlinePause
+                      <MdPlayArrow
                         onClick={() => {
-                          pause();
+                          setSound(v.voiceFile);
+                          // play.bind(this, v?.voiceFile)();
+                          handlePlay();
                         }}
                       />
                     )}
@@ -164,24 +230,105 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
         <Container>
           {voiceList?.map((v) => {
             return (
-              <EditFigure>
-                <div>
-                  <EditImageBox
-                    alt="#"
-                    src={v.profileImg ? v.profileImg : noImage}
-                    onClick={() => {
-                      // history.push(`/detail/${p._id}`);
+              <EditFigure key={v.voiceFileId}>
+                <VoiceBox
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFileId(e);
+                  }}
+                  id={v.voiceFileId}
+                >
+                  <DeleteIcon
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleModal();
                     }}
-                  />
-                  <DeleteIcon onClick={handleModal}>
+                  >
                     <MdRemoveCircle />
                   </DeleteIcon>
-                </div>
+                  <NonePlayer>
+                    <ProfileBox>
+                      <img
+                        alt="#"
+                        src={v.profileImg ? v.profileImg : noImage}
+                      />
+                      <p>{v.familyMemberNickname}</p>
+                    </ProfileBox>
+                    <TitleBox>
+                      <Text S2>{v.voiceTitle}</Text>
+                      <Text B1 style={{ color: "#757575" }}>
+                        {dayjs(v.createdAt).format("YYYY-MM-DD")}
+                      </Text>
+                    </TitleBox>
+                  </NonePlayer>
+                  <PlayBox>
+                    <ProgressBar>
+                      <PercentBar
+                        width={
+                          sound === v.voiceFile
+                            ? (count / v.voicePlayTime) * 100 + "%"
+                            : 0
+                        }
+                      ></PercentBar>
+                      <Dot></Dot>
+                    </ProgressBar>
+                    <audio ref={myRef} srcObject={v.voiceFile} />
+                    <RunTime>
+                      <Text S3>
+                        {sound === v.voiceFile && currentMinutes[0] < 10
+                          ? `0${currentMinutes[0]}`
+                          : sound === v.voiceFile && currentMinutes[0] >= 10
+                          ? currentMinutes[0]
+                          : "00"}{" "}
+                        :{" "}
+                        {sound === v.voiceFile && currentSeconds[0] < 10
+                          ? `0${currentSeconds[0]}`
+                          : sound === v.voiceFile && currentSeconds[0] >= 10
+                          ? currentSeconds[0]
+                          : "00"}{" "}
+                        /{" "}
+                        {`0${Math.floor(v.voicePlayTime / 60)} :  ${
+                          v.voicePlayTime % 60 < 10
+                            ? `0${v.voicePlayTime % 60}`
+                            : v.voicePlayTime % 60
+                        }`}
+                      </Text>
+                    </RunTime>
+                  </PlayBox>
+                  <PlayBtn
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setRun(!run);
+                    }}
+                  >
+                    {!run ? (
+                      <MdPlayArrow
+                        onClick={() => {
+                          // play();
+                        }}
+                      />
+                    ) : (
+                      <MdOutlinePause
+                        onClick={() => {
+                          // pause();
+                        }}
+                      />
+                    )}
+                  </PlayBtn>
+                </VoiceBox>
               </EditFigure>
             );
           })}
         </Container>
       )}
+      <ModalPortal>
+        {modalOn && (
+          <DeleteVoiceModal
+            onClose={handleModal}
+            voiceFileId={voiceFileId}
+          ></DeleteVoiceModal>
+        )}
+      </ModalPortal>
     </>
   );
 };
@@ -221,6 +368,8 @@ const VoiceBox = styled.div`
   width: 100%;
   background-color: #fff;
   padding: 40px;
+  margin: 16px 0;
+  border-radius: 20px;
 `;
 
 const NonePlayer = styled.div`
@@ -313,23 +462,16 @@ const EditFigure = styled.div`
   }
 `;
 
-const EditImageBox = styled.img`
-  width: 100%;
-  margin-top: 2%;
-  border-radius: 13px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-`;
-
 const DeleteIcon = styled.div`
   position: absolute;
   top: 0;
+  left: 0;
   cursor: pointer;
   svg {
     width: 33.3px;
     height: 33.3px;
     margin: 14px 10px;
-    color: white;
-    position: absolute;
+    color: #f0f0ff;
     &:hover {
       color: rgba(29, 28, 29, 1);
     }

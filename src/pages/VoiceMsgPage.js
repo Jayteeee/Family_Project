@@ -9,7 +9,7 @@ import { voiceActions } from "../redux/modules/voice";
 const VoiceMsgPage = (props) => {
   const dispatch = useDispatch();
 
-  const familyId = props.match?.params;
+  const familyId = props.match.params.familyId;
   const [isEdit, setIsEdit] = useState(false);
 
   const PracticeEdit = () => {

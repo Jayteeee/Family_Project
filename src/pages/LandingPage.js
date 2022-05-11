@@ -23,8 +23,6 @@ const LandingPage = (props) => {
     setfamilyTitle(value);
   };
 
-  console.log(familyTitle);
-
   // 가족 생성 함수
   const addFamily = () => {
     dispatch(familyActions.addFamilyDB(familyTitle));
@@ -83,7 +81,6 @@ const LandingPage = (props) => {
                   </div>
                   <Button
                     style={{ minWidth: "80px" }}
-                    // width="80px"
                     height="36px"
                     fontSize="15px"
                     bg="black"

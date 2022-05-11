@@ -149,7 +149,6 @@ const Main = (props) => {
           </SidbarWrap>
           <PageWrap>
             <Switch>
-              {/* <Route path="/family" exact component={FirstPage} /> */}
               <Route path="/family/:familyId/" exact component={FamilyPage} />
               <Route
                 path="/family/:familyId/mission"

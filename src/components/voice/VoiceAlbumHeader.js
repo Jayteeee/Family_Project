@@ -1,28 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
 import dayjs from "dayjs";
-
-// 리덕스
-import { useDispatch } from "react-redux";
-import { voiceActions } from "../../redux/modules/voice";
 
 // 엘리먼트
 import { Text, Button } from "../../elements/index";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
-import AddVoiceModal from "../../shared/modal/component/voiceModal/AddVoiceModal";
+import { AddVoiceAlbumModal } from "../../shared/modal/component/voiceModal";
 
-const VoiceHeader = ({
-  voiceAlbumId,
+const VoiceAlbumHeader = ({
   familyId,
   PracticeEdit,
   isEdit,
-  voiceAlbumName,
+  EditVoiceAlbum,
 }) => {
-  // 미션 추가하기 모달
+  console.log("현재 가족Id:", familyId);
+  console.log(familyId);
+
+  // 앨범 추가하기 모달
   const [modalOn, setModalOn] = useState(false);
 
   const handleModal = () => {
@@ -31,39 +29,29 @@ const VoiceHeader = ({
 
   return (
     <>
-      <VoiceHeaderBox>
-        {voiceAlbumId ? (
-          <Text
-            size="40px"
-            fontWeight="700"
-            margin="10px 0 0 0"
-            className="res-galleryHeaderBox"
-          >
-            {voiceAlbumName}
-          </Text>
-        ) : (
-          <Text
-            size="40px"
-            fontWeight="700"
-            margin="10px 0 0 0"
-            className="res-galleryHeaderBox"
-          >
-            음성 메시지
-          </Text>
-        )}
+      <AlbumHeaderBox>
+        <Text
+          size="40px"
+          fontWeight="700"
+          margin="10px 0 0 0"
+          className="res-galleryHeaderBox"
+        >
+          음성메시지
+        </Text>
         {!isEdit ? (
           <BtnWrap>
-            <AddPhotoBtn
-              className="input-file-button"
-              htmlFor="input-file"
-              onClick={() => {
-                setModalOn(true);
+            <VoiceAlbumBtn
+              style={{
+                alignItems: "center",
+                display: "flex",
+                justifyContent: "center",
               }}
+              onClick={handleModal}
             >
               <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
               추가
-            </AddPhotoBtn>
-            <PhotoAlbumBtn
+            </VoiceAlbumBtn>
+            <VoiceAlbumBtn
               onClick={PracticeEdit}
               style={{
                 alignItems: "center",
@@ -73,13 +61,13 @@ const VoiceHeader = ({
             >
               <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
               편집
-            </PhotoAlbumBtn>
+            </VoiceAlbumBtn>
           </BtnWrap>
         ) : (
           <BtnWrap>
             <EditCompletedBtn
               onClick={() => {
-                // EditPhotoAlbum();
+                EditVoiceAlbum();
                 PracticeEdit();
               }}
               style={{
@@ -93,22 +81,21 @@ const VoiceHeader = ({
             </EditCompletedBtn>
           </BtnWrap>
         )}
-      </VoiceHeaderBox>
+      </AlbumHeaderBox>
       {/* 앨범추가 모달 */}
       <ModalPortal>
         {modalOn && (
-          <AddVoiceModal
+          <AddVoiceAlbumModal
             onClose={handleModal}
             familyId={familyId}
-            voiceAlbumId={voiceAlbumId}
-          ></AddVoiceModal>
+          ></AddVoiceAlbumModal>
         )}
       </ModalPortal>
     </>
   );
 };
-
-const VoiceHeaderBox = styled.div`
+// 반응형 시 헤더가 문제
+const AlbumHeaderBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -117,6 +104,24 @@ const VoiceHeaderBox = styled.div`
   margin: 20px 20px 10px 20px;
   padding: 16px 20px;
   width: 100%;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    /* grid-template-columns: repeat(3, 1fr);
+    column-gap: 2%; */
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    /* grid-template-columns: repeat(3, 1fr);
+    column-gap: 2%;
+    padding: 24px;
+    width: 74%; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    /* grid-template-columns: repeat(2, 1fr);
+    column-gap: 2%;
+    padding: 16px; */
+  }
 `;
 
 const BtnWrap = styled.div`
@@ -125,26 +130,7 @@ const BtnWrap = styled.div`
   margin-right: 40px;
 `;
 
-const AddPhotoBtn = styled.label`
-  width: 143px;
-  height: 48px;
-  border-radius: 4px;
-  /* padding: 12px 24px; */
-  /* margin-left: 24px; */
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  cursor: pointer;
-  &:hover {
-    background: #8c98f8;
-    color: #fff;
-    border: none;
-  }
-`;
-
-const PhotoAlbumBtn = styled.div`
+const VoiceAlbumBtn = styled.div`
   width: 143px;
   height: 48px;
   border-radius: 4px;
@@ -152,9 +138,6 @@ const PhotoAlbumBtn = styled.div`
   margin-left: 24px;
   border: 1px solid black;
   font-weight: 600;
-  align-items: center;
-  display: flex;
-  justify-content: center;
   cursor: pointer;
   &:hover {
     background: #8c98f8;
@@ -181,4 +164,4 @@ const EditCompletedBtn = styled.div`
   }
 `;
 
-export default VoiceHeader;
+export default VoiceAlbumHeader;

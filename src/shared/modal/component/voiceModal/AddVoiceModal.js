@@ -1,11 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
-import { MissionContext } from "../../../../pages/MissionPage";
+import React, { useState, useEffect, useRef } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import { MdRemoveCircle, MdPlayArrow, MdOutlinePause } from "react-icons/md";
-// import ReactMic from "../../../../components/voice/ReactMic";
+import { MdCancel, MdPlayArrow, MdOutlinePause } from "react-icons/md";
 import { ReactMic } from "react-mic";
 
 // 모달
@@ -20,9 +18,24 @@ import { history } from "../../../../redux/configureStore";
 import { Button, Text, Input } from "../../../../elements";
 import { GradientCircleProgressbar } from "../../../../components/voice";
 
-const AddVoiceModal = ({ onClose }) => {
+const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
   const dispatch = useDispatch();
 
+  // border
+  const [showBorder, setShowBorder] = useState(false);
+
+  //  음성메시지 제목 관련
+  const [voiceTitle, setVoiceTitle] = useState("");
+
+  const handleVoiceTitle = (e) => {
+    const { value } = e.target;
+    setVoiceTitle(value);
+  };
+  const resetVoiceTitle = () => {
+    setVoiceTitle("");
+  };
+
+  //--------------------오디오부분--------------//
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
   const [onRec, setOnRec] = useState(true);
@@ -30,33 +43,32 @@ const AddVoiceModal = ({ onClose }) => {
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
   const [sound, setSound] = useState();
+  const [disabled, setDisabled] = useState(false);
 
-  // 현재 familyId
-  const familyId = useContext(MissionContext);
-
-  //  미션 제목 input
-  const [voiceTitle, setVoiceTitle] = useState("");
-
-  const handleVoiceTitle = (e) => {
-    const { value } = e.target;
-    setVoiceTitle(value);
-  };
-
+  // ----------음성 전송 ------------//
   const AddVoice = () => {
     if (voiceTitle) {
       dispatch(
-        voiceActions.addVoiceDB(familyId, voiceTitle, audioUrl, sound, count)
+        voiceActions.addVoiceDB(
+          familyId,
+          voiceAlbumId,
+          voiceTitle,
+          audioUrl,
+          count
+          // formData
+        )
       );
       onClose();
       setCount(0);
     } else {
-      alert("미션 제목을 입력하지 않았습니다.");
+      alert("음성메시지 제목을 입력하지 않았습니다.");
     }
   };
 
   const onRecAudio = () => {
     setCount(0); // 재녹음 시 타이머 초기화
     start(); // 타이머 시작
+    setDisabled(true);
 
     // 음원정보를 담은 노드를 생성하거나 음원을 실행또는 디코딩 시키는 일을 한다
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -103,12 +115,14 @@ const AddVoiceModal = ({ onClose }) => {
 
   // 사용자가 음성 녹음을 중지 했을 때
   const offRecAudio = () => {
+    console.log("녹음 중지");
     end();
 
     // dataavailable 이벤트로 Blob 데이터에 대한 응답을 받을 수 있음
     media.ondataavailable = function (e) {
       setAudioUrl(e.data);
       setOnRec(true);
+      setSound(URL.createObjectURL(e.data)); // File 정보 출력
     };
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
@@ -123,20 +137,23 @@ const AddVoiceModal = ({ onClose }) => {
     analyser.disconnect();
     source.disconnect();
 
-    if (audioUrl) {
-      URL.createObjectURL(audioUrl); // 출력된 링크에서 녹음된 오디오 확인 가능
-    }
-
-    // File 생성자를 사용해 파일로 변환
-    const sound = new File([audioUrl], "soundBlob", {
-      lastModified: new Date().getTime(),
-      type: "audio",
-    });
-
-    setSound(sound); // File 정보 출력
+    setDisabled(false);
   };
 
-  // ------------------------------------------------
+  const myRef = useRef();
+
+  const play = () => {
+    myRef.current.play();
+    console.log(myRef.current);
+    setDisabled(true);
+  };
+
+  const pause = async () => {
+    await myRef.current.pause();
+    setDisabled(false);
+  };
+
+  // -------------------타이머 부분-----------------------------
 
   const [count, setCount] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
@@ -180,6 +197,7 @@ const AddVoiceModal = ({ onClose }) => {
             // 부모 태그에 onClose() 가 걸려있어서 모달 내부를 클릭했을때 창이 닫히지 않기위해 선언합니다
             onClick={(e) => {
               e.stopPropagation();
+              setShowBorder(false);
             }}
           >
             <AddMissionWrap>
@@ -199,8 +217,6 @@ const AddVoiceModal = ({ onClose }) => {
               <ReactMic
                 record={!onRec}
                 className="sinewave"
-                onStop={onRec}
-                onData={!onRec}
                 strokeColor="#000"
                 backgroundColor="#FFF"
                 visualSetting="sinewave"
@@ -211,11 +227,16 @@ const AddVoiceModal = ({ onClose }) => {
               </h1>
               <ButtonBox>
                 <Buttons>
-                  <MdPlayArrow />
+                  <MdPlayArrow
+                    onClick={() => {
+                      play();
+                    }}
+                    disabled={disabled}
+                  />
                 </Buttons>
                 <div>
                   <GradientCircleProgressbar
-                    width="80"
+                    width={Number(80)}
                     percentage={
                       onRec ? 100 : (`${parseInt(count)}` / 180) * 100
                     }
@@ -227,42 +248,90 @@ const AddVoiceModal = ({ onClose }) => {
                     }}
                   ></GradientCircleProgressbar>
                   {onRec ? (
-                    <Playbtn onClick={onRecAudio} />
+                    <Playbtn
+                      onClick={() => {
+                        onRecAudio();
+                      }}
+                    />
                   ) : (
-                    <Stopbtn onClick={offRecAudio} />
+                    <Stopbtn
+                      onClick={() => {
+                        offRecAudio();
+                      }}
+                    />
                   )}
                 </div>
                 <Buttons>
-                  <MdOutlinePause />
+                  <MdOutlinePause
+                    onClick={() => {
+                      pause();
+                    }}
+                    disabled={disabled}
+                  />
                 </Buttons>
               </ButtonBox>
-              <MissionTitleBox>
-                <Input
-                  placeholder="제목을 입력하세요"
-                  padding="15px"
-                  margin="16px 0 0 0"
-                  onChange={handleVoiceTitle}
-                  borderColor="#DBDBDB"
-                />
-              </MissionTitleBox>
-              <div>
+              <audio ref={myRef} src={sound} />
+              <InputBox show={showBorder}>
+                <InsertBox>
+                  <Text B2 color="#757575">
+                    제목
+                  </Text>
+                  <Input
+                    id="albumName"
+                    size="24px"
+                    onChange={handleVoiceTitle}
+                    value={voiceTitle}
+                    style={{
+                      border: "none",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowBorder(true);
+                    }}
+                  />
+                </InsertBox>
+                <ResetBox
+                  show={showBorder}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    resetVoiceTitle();
+                  }}
+                >
+                  <MdCancel />
+                </ResetBox>
+              </InputBox>
+              <ButtonWrap>
                 <Button
                   M
-                  onClick={() => {
-                    AddVoice();
-                  }}
+                  onClick={onClose}
+                  borderColor="transparent"
+                  bg="#DBDBDB"
+                  color="#757575"
+                  width="96px"
+                  height="56px"
+                  margin="30px 0 0 0"
+                  fontSize="18px"
+                  fontWeight="600"
+                  borderRadius="8px"
+                >
+                  취소
+                </Button>
+                <Button
+                  M
+                  onClick={AddVoice}
                   borderColor="transparent"
                   bg="#8C98F8"
                   color="white"
-                  width="110px"
-                  height="53px"
-                  margin="14px 0 0 0"
-                  fontSize="16px"
-                  borderRadius="4px"
+                  width="96px"
+                  height="56px"
+                  margin="30px 0 0 10px"
+                  fontSize="18px"
+                  fontWeight="600"
+                  borderRadius="8px"
                 >
-                  저장하기
+                  저장
                 </Button>
-              </div>
+              </ButtonWrap>
             </AddMissionWrap>
           </Content>
         </Background>
@@ -337,20 +406,46 @@ const AddMissionHeader = styled.div`
   padding-bottom: 40px;
 `;
 
-const MissionTitleBox = styled.div`
+const InputBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 76px;
+  padding: 0 16px;
+  border: ${({ show }) => (show ? `2px solid #8c98f8` : `2px solid #E5E5E5`)};
+  border-radius: 8px;
+  margin-top: 24px;
+`;
+
+const InsertBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #fff;
-  font-size: 18px;
+  justify-content: center;
   width: 100%;
+  margin-top: 10px;
+  & > input:focus {
+    box-shadow: none;
+  }
+  & > input:focus-visible {
+    outline: none;
+  }
 `;
 
-const AudioBox = styled.div`
-  display: flex;
-  justify-content: center;
+const ResetBox = styled.div`
+  width: 26px;
+  height: 26px;
   align-items: center;
-  margin-bottom: 14px;
+  justify-content: center;
+  cursor: pointer;
+  svg {
+    display: ${({ show }) => (show ? null : "none")};
+    width: 100%;
+    height: 100%;
+    color: #757575;
+  }
 `;
 
 const ButtonBox = styled.div`
@@ -365,13 +460,18 @@ const ButtonBox = styled.div`
   /* border: 6px solid black; */
 `;
 
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
 const Buttons = styled.div`
   margin: 0 60px;
   height: 14px;
   width: 100%;
-  /* & > svg {
-    & > 
-  } */
+  cursor: pointer;
+  & > svg {
+  }
 `;
 
 const Playbtn = styled.div`

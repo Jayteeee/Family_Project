@@ -57,7 +57,7 @@ const PhotoHeader = ({
         </Text>
         {!isEdit ? (
           <BtnWrap>
-            <AddPhotoBtn className="input-file-button" for="input-file">
+            <AddPhotoBtn className="input-file-button" htmlFor="input-file">
               <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
               사진 추가
             </AddPhotoBtn>

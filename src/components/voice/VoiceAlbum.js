@@ -14,17 +14,19 @@ import { voiceActions } from "../../redux/modules/voice";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
-import { DeletePhotoAlbumModal } from "../../shared/modal/component/Gallery";
+import { DeleteVoiceAlbumModal } from "../../shared/modal/component/voiceModal";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
-import albumCover1 from "../../shared/images/dailyNote.png";
-import albumCover2 from "../../shared/images/sample.jpg";
+import albumCover1 from "../../shared/images/albumCover1.png";
+import albumCover2 from "../../shared/images/albumCover2.jpg";
+import albumCover3 from "../../shared/images/albumCover3.webp";
+import albumCover4 from "../../shared/images/albumCover4.png";
 
 // 컴포넌트
-import VoiceHeader from "./VoiceHeader";
+import VoiceAlbumHeader from "./VoiceAlbumHeader";
 
-const VoiceAlbum = ({ familyId, isEdit, PracticeEdit }) => {
+const VoiceAlbum = ({ PracticeEdit, isEdit, familyId }) => {
   const dispatch = useDispatch();
   console.log("현재 가족Id:", familyId);
 
@@ -70,14 +72,9 @@ const VoiceAlbum = ({ familyId, isEdit, PracticeEdit }) => {
     setModalOn(!modalOn);
   };
 
-  // GET voiceList
-  const getVoiceList = () => {
-    dispatch(voiceActions.getVoiceListDB(voiceAlbumId));
-  };
-
   return (
     <>
-      <VoiceHeader
+      <VoiceAlbumHeader
         familyId={familyId}
         PracticeEdit={PracticeEdit}
         isEdit={isEdit}
@@ -91,11 +88,15 @@ const VoiceAlbum = ({ familyId, isEdit, PracticeEdit }) => {
                 <Figure
                   key={v.voiceAlbumId}
                   onClick={() => {
+                    console.log(familyId);
                     history.push(
                       `/family/${familyId}/voiceMsg/${v.voiceAlbumId}`
                     );
-                    getVoiceList();
                   }}
+                  voiceAlbumId={voiceAlbumId}
+                  familyId={familyId}
+                  isEdit={isEdit}
+                  PracticeEdit={PracticeEdit}
                 >
                   <div>
                     <ImageBox
@@ -105,11 +106,11 @@ const VoiceAlbum = ({ familyId, isEdit, PracticeEdit }) => {
                           ? albumCover1
                           : v.voiceAlbumCover == "albumCover2"
                           ? albumCover2
-                          : // : v.voiceAlbumCover == "albumCover3"
-                            // ? albumCover3
-                            // : v.voiceAlbumCover == "albumCover4"
-                            // ? albumCover4
-                            noImage
+                          : v.voiceAlbumCover == "albumCover3"
+                          ? albumCover3
+                          : v.voiceAlbumCover == "albumCover4"
+                          ? albumCover4
+                          : noImage
                       }
                     />
                     <Text size="24px" fontWeight="600">
@@ -129,12 +130,28 @@ const VoiceAlbum = ({ familyId, isEdit, PracticeEdit }) => {
                   <EditFigure>
                     <EditImageBox
                       // alt="#"
-                      src={v.voiceAlbumCover ? v.voiceAlbumCover : noImage}
-                      onClick={() => {
-                        // history.push(`/detail/${p._id}`);
+                      src={
+                        v.voiceAlbumCover == "albumCover1"
+                          ? albumCover1
+                          : v.voiceAlbumCover == "albumCover2"
+                          ? albumCover2
+                          : v.voiceAlbumCover == "albumCover3"
+                          ? albumCover3
+                          : v.voiceAlbumCover == "albumCover4"
+                          ? albumCover4
+                          : noImage
+                      }
+                      onClick={(e) => {
+                        handleAlbumName(e);
                       }}
+                      id={v.voiceAlbumId}
                     />
-                    <DeleteIcon onClick={handleModal}>
+                    <DeleteIcon
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleModal();
+                      }}
+                    >
                       <MdRemoveCircle />
                     </DeleteIcon>
                   </EditFigure>
@@ -155,10 +172,10 @@ const VoiceAlbum = ({ familyId, isEdit, PracticeEdit }) => {
       )}
       <ModalPortal>
         {modalOn && (
-          <DeletePhotoAlbumModal
+          <DeleteVoiceAlbumModal
             onClose={handleModal}
             voiceAlbumId={voiceAlbumId}
-          ></DeletePhotoAlbumModal>
+          ></DeleteVoiceAlbumModal>
         )}
       </ModalPortal>
     </>
