@@ -20,9 +20,9 @@ const HomeSchedule = ({ familyId, thisMonthEventList }) => {
       <Text S2>이번 달 일정</Text>
       {thisMonthEventList
         ? thisMonthEventList.map((x) => (
-            <FlexBox1>
+            <FlexBox1 key={x?.familyId}>
               <TextBox>
-                <Text BM key={x?.familyId}>
+                <Text BM>
                   {`${dayjs(x?.startDate)
                     .locale("ko")
                     .format("MM월 DD일, dd")}`}

@@ -84,6 +84,7 @@ const getUserInfo = (token) => {
     await axios
       .get(`${BASE_URL}/user/me`, { headers: config })
       .then((res) => {
+        console.log("유저정보:", res.data);
         const user = res.data;
         dispatch(getUser(user));
         localStorage.setItem("isLogin", token);

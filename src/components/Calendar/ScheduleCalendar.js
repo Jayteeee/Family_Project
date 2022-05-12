@@ -3,40 +3,27 @@ import styled from "styled-components";
 import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
 import dayjs from "dayjs";
-import { useSelector, useDispatch } from "react-redux";
-import { scheduleActions } from "../../redux/modules/calendar";
+
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
-import GetScheduleModal from "../../shared/modal/component/calendar/GetScheduleModal";
+import { GetScheduleListModal } from "../../shared/modal/component/calendar";
 
-const ScheduleCalendar = ({ familyId }) => {
-  const dispatch = useDispatch();
-  // let list = [];
-  // list.push(useSelector((state) => state.calendar.scheduleList));
-  const list = useSelector((state) => state.calendar.scheduleList);
-  console.log(list);
+const ScheduleCalendar = ({ familyId, list }) => {
   const [value, setValue] = React.useState(new Date());
   const [event, setEvent] = React.useState([]);
+  const [schedule, setSchedule] = React.useState();
   const [modalOn, setModalOn] = React.useState(false);
   const [day, setDay] = React.useState("");
 
-  const thisMonth = document.getElementsByClassName(
-    "react-calendar__navigation__label__labelText"
-  )[0]?.childNodes[0]?.data;
-
-  const arr = { thisMonth };
-  const YYYY = Object.values(arr)[0]?.split(" ")[0]?.split("년")[0];
-  const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
-  const date = `${MM < 10 ? `${YYYY}-0${MM}` : `${YYYY}-${MM}`}`;
+  console.log("list:", list);
+  console.log("일정:", schedule);
 
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
+    console.log("모달 온오프:", modalOn);
   };
 
-  React.useEffect(() => {
-    dispatch(scheduleActions.getScheduleDB(familyId, date));
-  }, []);
   return (
     <div>
       <Container>
@@ -50,15 +37,24 @@ const ScheduleCalendar = ({ familyId }) => {
           showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
           next2Label={null}
           prev2Label={null}
-          tileClassName={(date, view) => {}}
           onClickDay={(value, event) => {
-            if (
-              list.find((x) => x.startDate == dayjs(value).format("YYYY-MM-DD"))
-            ) {
+            let schedule = list.filter(
+              (x) => x.startDate === dayjs(value).format("YYYY-MM-DD")
+            );
+            if (schedule.length !== 0) {
               handleModal();
               setDay(value);
               setEvent(event);
+              setSchedule(schedule);
             }
+
+            // if (
+            //   list.find((x) => x.startDate == dayjs(value).format("YYYY-MM-DD"))
+            // ) {
+            //   handleModal();
+            //   setDay(value);
+            //   setEvent(event);
+            // }
           }}
           tileContent={({ date, view }) => {
             // 날짜 타일에 컨텐츠 추가하기 (html 태그)
@@ -101,13 +97,13 @@ const ScheduleCalendar = ({ familyId }) => {
         ></Calendar>
         <ModalPortal>
           {modalOn && (
-            <GetScheduleModal
+            <GetScheduleListModal
               onClose={handleModal}
               date={day}
               event={event}
               familyId={familyId}
-              eventId={list.eventId}
-            ></GetScheduleModal>
+              schedule={schedule}
+            ></GetScheduleListModal>
           )}
         </ModalPortal>
       </Container>

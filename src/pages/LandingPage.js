@@ -7,13 +7,20 @@ import {
   Signup,
   CreateFamily,
 } from "../components/LandingPage";
+import { useHistory } from "react-router-dom";
 
 const LandingPage = () => {
+  const history = useHistory();
   const [isClient, setIsClient] = React.useState(false);
   const checkClient = () => {
     setIsClient(!isClient);
   };
   const isLogin = useSelector((state) => state.user.isLogin);
+  const isMember = useSelector((state) => state.user?.user?.familyList);
+
+  if (isLogin && isMember?.length !== 0) {
+    history.goBack();
+  }
 
   return (
     <Container>
