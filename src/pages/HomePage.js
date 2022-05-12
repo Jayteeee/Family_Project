@@ -6,6 +6,9 @@ import styled from "styled-components";
 // 엘리먼트
 import { Button, RactangleImage, Text } from "../elements";
 
+// 컴포넌트
+import { HomeCalendar, HomeSchedule, HomeVoice } from "../components/Home";
+
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 import { homeActions } from "../redux/modules/home";
@@ -100,7 +103,15 @@ const HomePage = (props) => {
             </MiddleLeftBox>
             <MiddleRightBox>
               <MiddleRightCalendar>
-                <Text fontWeight="600">가족 일정</Text>
+                <Text fontWeight="600">이번 달 가족 일정</Text>
+                <TotalCalendar>
+                  <CalendarArea>
+                    <HomeCalendar thisMonthEventList={thisMonthEventList} />
+                  </CalendarArea>
+                  <ScheduleArea>
+                    <HomeSchedule thisMonthEventList={thisMonthEventList} />
+                  </ScheduleArea>
+                </TotalCalendar>
               </MiddleRightCalendar>
             </MiddleRightBox>
           </MiddleBox>
@@ -111,7 +122,12 @@ const HomePage = (props) => {
             </BottomLeftBox>
             <BottomRightBox>
               <BottomRightPhoto></BottomRightPhoto>
-              <BottomRightVoice></BottomRightVoice>
+              <BottomRightVoice>
+                <Text fontWeight="600">최근 등록된 음성메시지</Text>
+                <VoiceArea>
+                  <HomeVoice recentVoiceFile={recentVoiceFile} />
+                </VoiceArea>
+              </BottomRightVoice>
             </BottomRightBox>
           </BottomBox>
         </ContentsWrap>
@@ -228,6 +244,16 @@ const MiddleRightCalendar = styled.div`
   text-align: left;
   background-color: blanchedalmond;
 `;
+const TotalCalendar = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const CalendarArea = styled.div`
+  width: 60%;
+`;
+const ScheduleArea = styled.div`
+  width: 40%;
+`;
 const BottomBox = styled.div`
   width: 100%;
   height: 35%;
@@ -279,5 +305,9 @@ const BottomRightVoice = styled.div`
   margin-left: 10px;
   border-radius: 20px;
   background-color: coral;
+`;
+const VoiceArea = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 export default HomePage;
