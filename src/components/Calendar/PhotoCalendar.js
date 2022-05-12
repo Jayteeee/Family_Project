@@ -70,16 +70,16 @@ const PhotoCalendar = (props) => {
             // list?
             // {PList = list.filter((x) => dayjs(x.createdAt).format("YYYY-MM-DD") ===
             // dayjs(value).format("YYYY-MM-DD"))}: null
-            // if (
-            //   list.find(
-            //     (x) =>
-            //       dayjs(x.createdAt).format("YYYY-MM-DD") ===
-            //       dayjs(value).format("YYYY-MM-DD")
-            //   )
-            // ) {
-            //   handleModal();
-            //   setDay(value);
-            // }
+            if (
+              list.find(
+                (x) =>
+                  dayjs(x.createdAt).format("YYYY-MM-DD") ===
+                  dayjs(value).format("YYYY-MM-DD")
+              )
+            ) {
+              handleModal();
+              setDay(value);
+            }
           }}
           tileClassName={({ date, view }) => {
             if (
