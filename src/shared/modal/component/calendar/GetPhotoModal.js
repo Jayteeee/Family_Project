@@ -20,7 +20,7 @@ const GetPhotoModal = ({ onClose, day, familyId }) => {
   const dispatch = useDispatch();
   const [normal, setNormal] = React.useState(false);
 
-  const list = useSelector((state) => state.calendar.photoOneList);
+  const list = useSelector((state) => state.calendar.photoList);
 
   React.useEffect(() => {
     dispatch(

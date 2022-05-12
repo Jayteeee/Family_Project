@@ -22,7 +22,7 @@ const LandingPage = () => {
   // );
 
   if (isLogin && isMember?.length !== 0) {
-    history.replace(`/family/${isMember[0].familyId}`);
+    history.push(`/family/${isMember[0].familyId}`);
   }
 
   return (

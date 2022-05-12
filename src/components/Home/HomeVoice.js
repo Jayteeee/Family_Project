@@ -50,15 +50,14 @@ const HomeVoice = ({ recentVoiceFile }) => {
           <VoiceBox>
             <audio ref={myRef} src={v?.voiceFile} />
             <LeftBox>
-              <Text S2>{v?.voiceTitle}</Text>
               <ProfileBox>
                 <img alt="#" src={v?.profileImg ? v?.profileImg : noImage} />
                 <p>{v?.familyMemberNickname}</p>
               </ProfileBox>
-              <Text B1 style={{ color: "#757575" }}>
-                {dayjs(v?.createdAt).format("YYYY-MM-DD")}
-              </Text>
             </LeftBox>
+            <MiddleBox>
+              <Text>{v?.voiceTitle}</Text>
+            </MiddleBox>
             <RightBox>
               <PlayBtn
                 onClick={(e) => {
@@ -89,21 +88,21 @@ const HomeVoice = ({ recentVoiceFile }) => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 70%;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    column-count: 1;
+    /* column-count: 1; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    column-count: 1;
-    padding: 24px;
+    /* column-count: 1;
+    padding: 24px; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    column-count: 1;
-    padding: 8px;
+    /* column-count: 1;
+    padding: 8px; */
   }
 `;
 
@@ -125,6 +124,7 @@ const VoiceBox = styled.div`
   width: 100%;
   background-color: #fff;
   border-radius: 20px;
+  border: 1px solid #c4c4c4;
 `;
 
 const LeftBox = styled.div`
@@ -135,6 +135,12 @@ const LeftBox = styled.div`
   & > p {
     margin: 8px 0;
   }
+`;
+const MiddleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 `;
 const RightBox = styled.div`
   display: flex;

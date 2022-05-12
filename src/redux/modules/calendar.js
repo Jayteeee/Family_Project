@@ -146,7 +146,7 @@ const getOneScheduleDB = (date, familyId, eventId) => {
     console.log("보내는 날짜:", date);
     await axios
       .get(
-        `${BASE_URL}/calendar/${familyId}/eventcalendar/detail/${date}/${eventId}`,
+        `${BASE_URL}/calendar/${familyId}/eventcalendar/detail/${eventId}/${date}`,
         {
           headers: config,
         }
