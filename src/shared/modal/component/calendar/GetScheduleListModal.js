@@ -87,26 +87,27 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
 const Background = styled.div`
   z-index: 206;
   position: absolute;
-  left: ${(props) =>
+  /* left: ${(props) =>
     props.none
       ? 0
       : `${
           props.positionSet.target.offsetLeft +
           props.positionSet.target.offsetWidth
-        }px`};
-  top: ${(props) =>
+        }px`}; */
+  /* top: ${(props) =>
     props.none
       ? 0
       : `${
           props.positionSet.target.offsetTop +
           props.positionSet.target.offsetHeight
-        }px`};
-  width: ${(props) => (props.none ? `100%` : null)};
-  height: ${(props) => (props.none ? `100%` : null)};
+        }px`}; */
+  /* width: ${(props) => (props.none ? `100%` : null)};
+  height: ${(props) => (props.none ? `100%` : null)}; */
   text-align: center;
-  background-color: ${(props) => (props.none ? `rgba(0, 0, 0, 0.5)` : null)};
+  /* background-color: ${(props) =>
+    props.none ? `rgba(0, 0, 0, 0.5)` : null}; */
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 40px rgba(0, 0, 0, 0.25);
-  border-radius: ${(props) => (props.none ? null : "20%")};
+  /* border-radius: ${(props) => (props.none ? null : "20%")}; */
   @media only screen and (max-width: 839px) {
     left: 0;
     top: 0;
