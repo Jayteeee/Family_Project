@@ -23,8 +23,6 @@ import { history } from "../../redux/configureStore";
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 import profileImg from "../../shared/images/profileImg.png";
-import { useParams } from "react-router-dom";
-import PhotoHeader from "./PhotoHeader";
 
 const OneComment = ({
   _id,
