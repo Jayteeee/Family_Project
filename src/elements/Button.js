@@ -124,7 +124,6 @@ const MediumButton = styled.button`
 
 const LargeButton = styled.button`
   cursor: pointer;
-
   ${({ width }) => (width ? `width: ${width};` : "width: 100%;")};
   ${({ height }) => (height ? `  height: ${height};` : "height: 6vh")};
   ${({ padding }) => (padding ? `padding:  ${padding};` : "padding: 0;")};

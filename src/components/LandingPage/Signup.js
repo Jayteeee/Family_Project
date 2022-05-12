@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Button, Input } from "../../elements";
+import { Button, Input, Text } from "../../elements";
 import { userActions } from "../../redux/modules/user";
 
 //회원가입
-const Signup = () => {
+const Signup = ({ checkClient }) => {
   const dispatch = useDispatch();
   const [inputs, setInputs] = React.useState({});
 
@@ -74,45 +74,83 @@ const Signup = () => {
     <>
       <div>
         <SignUpWrap>
-          <strong>회원가입</strong>
-          <Input
-            M
-            id="email"
-            placeholder="name@naver.com"
-            onChange={handleChange}
-            value={inputs.email || ""}
-            margin="10px auto"
-          />
-
-          <Input
-            M
-            id="nickname"
-            placeholder="닉네임을 입력해주세요."
-            onChange={handleChange}
-            value={inputs.nickname || ""}
-            margin="10px auto"
-          />
-          <Input
-            M
-            id="password"
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-            onChange={handleChange}
-            value={inputs.password || ""}
-            margin="10px auto"
-          />
-          <Input
-            M
-            id="passwordCheck"
-            type="password"
-            placeholder="비밀번호를 다시 한 번 입력해주세요."
-            onChange={handleChange}
-            value={inputs.passwordCheck || ""}
-            margin="10px auto"
-          />
-          <Button L onClick={handleSubmit} margin="10px auto 0">
-            회원가입
-          </Button>
+          <Text S3>회원가입</Text>
+          <Box>
+            <InputBox>
+              <Input
+                M
+                id="email"
+                className="myInput"
+                placeholder="name@naver.com"
+                onChange={handleChange}
+                value={inputs.email || ""}
+                margin="0 0 8px 0"
+                padding="16px"
+                height="56px"
+                style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
+              />
+            </InputBox>
+            <InputBox>
+              <Input
+                M
+                id="nickname"
+                className="myInput"
+                placeholder="닉네임을 입력해주세요."
+                onChange={handleChange}
+                value={inputs.nickname || ""}
+                margin="0 0 8px 0"
+                padding="16px"
+                height="56px"
+                style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
+              />
+            </InputBox>
+            <InputBox>
+              <Input
+                M
+                id="password"
+                className="myInput"
+                type="password"
+                placeholder="비밀번호를 입력해주세요."
+                onChange={handleChange}
+                value={inputs.password || ""}
+                margin="0 0 8px 0"
+                padding="16px"
+                height="56px"
+                style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
+              />
+            </InputBox>
+            <InputBox>
+              <Input
+                M
+                id="passwordCheck"
+                className="myInput"
+                type="password"
+                placeholder="비밀번호를 다시 한 번 입력해주세요."
+                onChange={handleChange}
+                value={inputs.passwordCheck || ""}
+                margin="0 0 8px 0"
+                padding="16px"
+                height="56px"
+                style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
+              />
+            </InputBox>
+          </Box>
+          <Box>
+            <Button
+              L
+              id="myBtn"
+              onClick={handleSubmit}
+              color="#fff"
+              borderColor="#fff"
+              borderRadius="12px"
+              style={{ backgroundColor: "#6F5FCE", opacity: "0.4" }}
+            >
+              회원가입
+            </Button>
+            <MsgBox>
+              <span onClick={() => checkClient(true)}>로그인으로 돌아가기</span>
+            </MsgBox>
+          </Box>
         </SignUpWrap>
       </div>
     </>
@@ -122,9 +160,36 @@ const Signup = () => {
 const SignUpWrap = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20rem;
-  padding: 10px 2em;
+  width: 100%;
   margin: auto;
+  #myBtn {
+    :hover {
+      opacity: 1 !important;
+    }
+  }
+  .myInput {
+    :focus {
+      box-shadow: none;
+      border-color: #6f5fce !important;
+    }
+  }
+`;
+const Box = styled.div`
+  margin: 24px 0 0;
+`;
+const InputBox = styled.div`
+  margin-top: 11px;
+`;
+
+const MsgBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 16px;
+  & > span {
+    cursor: pointer;
+  }
 `;
 
 export default Signup;

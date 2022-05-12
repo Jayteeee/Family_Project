@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../redux/modules/user";
-import { Button, Input } from "../../elements";
-import kakaoImg from "../../shared/images/kakao_login_large_narrow.png";
+import { Button, Input, Text } from "../../elements";
+import kakaoImg from "../../shared/images/kakao_login_large_wide.png";
 import { KakaoPath } from "../../shared/KakaoPath";
 
-const Login = () => {
+const Login = ({ checkClient }) => {
   const dispatch = useDispatch();
   const [inputs, setInputs] = React.useState({});
 
@@ -22,56 +22,137 @@ const Login = () => {
 
   return (
     <LoginWrap>
-      <strong>로그인</strong>
-      {/* <label>아이디</label> */}
-      <Input
-        M
-        id="email"
-        type="text"
-        onChange={handleChange}
-        value={inputs.email}
-        placeholder="아이디"
-        margin="10px auto"
-      ></Input>
-      {/* <label>비밀번호</label> */}
-      <Input
-        M
-        id="password"
-        type="password"
-        onChange={handleChange}
-        value={inputs.password}
-        placeholder="비밀번호"
-        margin="10px auto"
-      ></Input>
-      <Button
-        L
-        onClick={() => {
-          if (!inputs.email || !inputs.password) {
-            alert("아이디, 비밀번호를 입력해주세요!");
-            return;
-          }
-          login();
-        }}
-        margin="1em auto"
-      >
-        로그인 하기
-      </Button>
-      <a href={KakaoPath}>
-        <img alt="카카오로그인" src={kakaoImg} />
-      </a>
+      <Text S3>로그인</Text>
+      <Box>
+        <InputBox>
+          <Input
+            M
+            id="email"
+            className="myInput"
+            type="text"
+            onChange={handleChange}
+            value={inputs.email}
+            placeholder="아이디"
+            margin="0 0 8px 0"
+            padding="16px"
+            height="56px"
+            style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
+          ></Input>
+        </InputBox>
+        <InputBox>
+          <Input
+            M
+            id="password"
+            className="myInput"
+            type="password"
+            onChange={handleChange}
+            value={inputs.password}
+            placeholder="비밀번호"
+            margin="0 0 8px 0"
+            padding="16px"
+            height="56px"
+            style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
+          ></Input>
+        </InputBox>
+      </Box>
+      <Box>
+        <Button
+          id="myBtn"
+          L
+          onClick={() => {
+            if (!inputs.email || !inputs.password) {
+              alert("아이디, 비밀번호를 입력해주세요!");
+              return;
+            }
+            login();
+          }}
+          color="#fff"
+          borderColor="#fff"
+          borderRadius="12px"
+          style={{ backgroundColor: "#6F5FCE", opacity: "0.4" }}
+        >
+          로그인
+        </Button>
+        <MsgBox>
+          <span onClick={() => checkClient(false)}>회원가입</span>
+        </MsgBox>
+      </Box>
+      <Box>
+        <div className="line">또는</div>
+      </Box>
+      <Box>
+        <a href={KakaoPath}>
+          <img alt="카카오로그인" src={kakaoImg} style={{ height: "56px" }} />
+        </a>
+      </Box>
     </LoginWrap>
   );
 };
 const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20rem;
-  padding: 2em 2em 0;
+  width: 100%;
   margin: auto;
   & > a {
     & > img {
       width: 16em;
     }
+  }
+  #myBtn {
+    :hover {
+      opacity: 1 !important;
+    }
+  }
+  .myInput {
+    :focus {
+      box-shadow: none;
+      border-color: #6f5fce !important;
+    }
+  }
+`;
+
+const Box = styled.div`
+  margin: 24px 0 0;
+  .line {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.35);
+    font-size: 14px;
+    margin: 8px 0px;
+  }
+  .line::before {
+    content: "";
+    flex-grow: 1;
+    margin: 0px 16px 0 0;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+  }
+  .line::after {
+    content: "";
+    flex-grow: 1;
+    margin: 0px 0 0 16px;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+  }
+`;
+
+const InputBox = styled.div`
+  margin-top: 11px;
+`;
+
+const MsgBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 16px;
+  & > span {
+    cursor: pointer;
   }
 `;
 

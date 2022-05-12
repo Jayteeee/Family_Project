@@ -18,24 +18,24 @@ const Auth = () => {
       grant_type: "authorization_code",
       client_id: REST_API_KEY,
       redirect_uri: REDIRECT_URI,
-      code: code,
-      client_secret: CLIENT_SECRET,
+      // code: code,
+      // client_secret: CLIENT_SECRET,
     });
-
+    console.log("여기까지 오나?");
     try {
       // access token 가져오기
-      const res = await axios.post(
-        "https://kauth.kakao.com/oauth/token",
+      const res = await axios.get(
+        `https://doremilan.shop/auth/kakao/callback?code=${code}`,
         payload
       );
-
       // Kakao Javascript SDK 초기화
       window.Kakao.init(REST_API_KEY);
       // access token 설정
       window.Kakao.Auth.setAccessToken(res.data.access_token);
+      console.log(res);
       history.replace("/");
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
     }
   };
 

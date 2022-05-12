@@ -44,7 +44,7 @@ const PhotoCalendar = (props) => {
 
   for (let i = 0; i < docs.length; i++) {
     if (style !== "") {
-      docs[i].style.backgroundImage = `url(${list[i].photoFile})`;
+      docs[i].style.backgroundImage = `url(${list[i]?.photoFile})`;
     }
   }
 

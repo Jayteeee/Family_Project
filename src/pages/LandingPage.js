@@ -1,103 +1,48 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   Description,
   Login,
   Signup,
   LoginBarMenu,
+  CreateFamily,
 } from "../components/LandingPage";
-import { Input, Button } from "../elements";
-import { familyActions } from "../redux/modules/family";
 
-const LandingPage = (props) => {
-  const dispatch = useDispatch();
+const LandingPage = () => {
   const [isClient, setIsClient] = React.useState(false);
+  const checkClient = () => {
+    setIsClient(!isClient);
+  };
   const isLogin = useSelector((state) => state.user.isLogin);
-
-  // 가족 이름 input
-  const [familyTitle, setfamilyTitle] = useState("");
-
-  const handleAddFamily = (e) => {
-    const { value } = e.target;
-    setfamilyTitle(value);
-  };
-
-  // 가족 생성 함수
-  const addFamily = () => {
-    dispatch(familyActions.addFamilyDB(familyTitle));
-  };
 
   return (
     <Container>
       <Box>
-        <div>
+        <DesBox>
           <Description />
-        </div>
+        </DesBox>
         {!isLogin ? (
           <Question className="res-login">
-            <div>
+            <Content>
               {!isClient ? (
                 <div>
-                  <Login />
-                  <MsgBox>
-                    <p>아직 회원이 아니신가요?</p>
-                    <span onClick={() => setIsClient(true)}>회원가입</span>
-                  </MsgBox>
+                  <Login checkClient={checkClient} />
                 </div>
               ) : (
                 <div>
-                  <Signup />
-                  <MsgBox>
-                    <p>회원이신가요?</p>
-                    <span onClick={() => setIsClient(false)}>로그인</span>
-                  </MsgBox>
+                  <Signup checkClient={checkClient} />
                 </div>
               )}
-            </div>
+            </Content>
           </Question>
         ) : (
           <Question className="res-login">
-            <div>
-              <Content
-                // 부모 태그에 onClose() 가 걸려있어서 모달 내부를 클릭했을때 창이 닫히지 않기위해 선언합니다
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <div style={{ textAlign: "start" }}>
-                  <label htmlFor="changeName">가족 생성하기</label>
-                  <div style={{ margin: "8px 0 20px" }}>
-                    <Input
-                      type="text"
-                      id="changeName"
-                      placeholder="가족 이름을 입력해주세요"
-                      size="18px"
-                      padding="0 36px 0 36px"
-                      margin="0 0 20px"
-                      onChange={handleAddFamily}
-                      value={familyTitle}
-                    />
-                  </div>
-                  <Button
-                    style={{ minWidth: "80px" }}
-                    height="36px"
-                    fontSize="15px"
-                    bg="black"
-                    color="white"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      addFamily();
-                    }}
-                  >
-                    가족 생성
-                  </Button>
-                </div>
-              </Content>
-            </div>
+            <Content>
+              <CreateFamily />
+            </Content>
           </Question>
         )}
-
         <LoginBar className="res-loginbar">
           <LoginBarMenu />
         </LoginBar>
@@ -107,6 +52,9 @@ const LandingPage = (props) => {
 };
 
 const Container = styled.div`
+  position: absolute;
+  background-color: #6f5fce;
+  /* opacity: 0.1; */
   height: 100%;
   width: 100%;
 `;
@@ -117,30 +65,29 @@ const Box = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+`;
+
+const DesBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 71.25%;
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20rem;
-  padding: 2em;
-  margin: auto;
-`;
-
-const MsgBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-bottom: 20px;
-  & > span {
-    cursor: pointer;
-  }
+  margin: 160px 80px 24px;
+  height: 100%;
 `;
 
 const Question = styled.div`
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  height: 100%;
+  width: 28.75%;
+  background-color: #fff;
 `;
 
 const LoginBar = styled.nav`

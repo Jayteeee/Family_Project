@@ -23,7 +23,6 @@ const Container = styled.div`
   height: 100%;
   padding: 2rem;
   margin: 5rem;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
 `;
 

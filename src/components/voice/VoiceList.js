@@ -74,56 +74,56 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
     setCurrentSeconds(seconds);
   };
 
-  const handlePlay = () => {
-    // myRef.current.play();
-    const audio = new Audio(sound);
-    console.log(audio.currentTime);
-    let isPlaying = audio?.currentTime > 0 && !audio?.paused && !audio?.ended;
-    if (audio.paused) {
-      // start();e
-      timer();
-      audio.play();
-    } else {
-      setCount(0);
-      console.log("중지");
-      audio.pause();
-      audio.currentTime = 0;
-    }
-    setDisabled(true);
-  };
-  // const play = (v) => {
-  //   myRef.current.play();
-  //   let isPlaying =
-  //     myRef.current?.currentTime > 0 &&
-  //     !myRef.current?.paused &&
-  //     !myRef.current?.ended;
-  //   // let isPlaying = audio?.currentTime > 0 && !audio?.paused && !audio?.ended;
-  //   // console.log(audio.currentTime);
-  //   if (!isPlaying) {
+  // const handlePlay = () => {
+  //   // myRef.current.play();
+  //   const audio = new Audio(sound);
+  //   console.log(audio.currentTime);
+  //   let isPlaying = audio?.currentTime > 0 && !audio?.paused && !audio?.ended;
+  //   if (audio.paused) {
   //     // start();e
   //     timer();
-  //     setSound(v);
-  //     // audio.play();
-  //     myRef.current.play();
+  //     audio.play();
+  //   } else {
+  //     setCount(0);
+  //     console.log("중지");
+  //     audio.pause();
+  //     audio.currentTime = 0;
   //   }
   //   setDisabled(true);
   // };
+  const play = () => {
+    // myRef.current.play();
+    let isPlaying =
+      myRef.current?.currentTime > 0 &&
+      !myRef.current?.paused &&
+      !myRef.current?.ended;
+    // let isPlaying = audio?.currentTime > 0 && !audio?.paused && !audio?.ended;
+    // console.log(audio.currentTime);
+    if (!isPlaying) {
+      // start();
+      timer();
+      // setSound();
+      // audio.play();
+      myRef.current.play();
+    }
+    setDisabled(true);
+  };
 
-  // const pause = () => {
-  //   let isPlaying =
-  //     myRef.current?.currentTime > 0 &&
-  //     !myRef.current?.paused &&
-  //     !myRef.current?.ended;
-  //   // let isPlaying = audio?.currentTime > 0 && !audio?.paused && !audio?.ended;
-  //   // console.log(audio.currentTime);
-  //   if (isPlaying) {
-  //     // end();
-  //     setCount(0);
-  //     myRef.current.pause();
-  //     // audio.pause();
-  //   }
-  //   setDisabled(false);
-  // };
+  const pause = () => {
+    let isPlaying =
+      myRef.current?.currentTime > 0 &&
+      !myRef.current?.paused &&
+      !myRef.current?.ended;
+    // let isPlaying = audio?.currentTime > 0 && !audio?.paused && !audio?.ended;
+    // console.log(audio.currentTime);
+    if (isPlaying) {
+      // end();
+      setCount(0);
+      myRef.current.pause();
+      // audio.pause();
+    }
+    setDisabled(false);
+  };
   const handleModal = () => {
     setModalOn(!modalOn);
   };
@@ -174,7 +174,7 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
                       ></PercentBar>
                       <Dot></Dot>
                     </ProgressBar>
-                    {/* <audio ref={myRef} src={sound} /> */}
+                    <audio ref={myRef} src={sound} />
                     <RunTime>
                       <Text S3>
                         {sound === v.voiceFile && currentMinutes[0] < 10
@@ -207,16 +207,17 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
                     {!run && sound === v.voiceFile ? (
                       <MdOutlinePause
                         onClick={() => {
-                          // pause();
-                          handlePlay();
+                          pause();
+                          // handlePlay();
                         }}
                       />
                     ) : (
                       <MdPlayArrow
                         onClick={() => {
                           setSound(v.voiceFile);
+                          play();
                           // play.bind(this, v?.voiceFile)();
-                          handlePlay();
+                          // handlePlay();
                         }}
                       />
                     )}

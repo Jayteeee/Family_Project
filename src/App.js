@@ -31,7 +31,7 @@ function App() {
         <Switch>
           <Route path="/family/:familyId" component={Main} />
           <Route path="/" exact component={LandingPage} />
-          <Route path="/kakao/code" exact component={Auth} />
+          <Route path="/auth/kakao/callback" exact component={Auth} />
         </Switch>
       </ConnectedRouter>
     </div>
