@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { MdPlayArrow, MdOutlinePause } from "react-icons/md";
 import dayjs from "dayjs";
 
+// 리덕스
+import { history } from "../../redux/configureStore";
+
 // 엘리먼트
 import { Text } from "../../elements";
 
@@ -14,12 +17,16 @@ import noImage from "../../shared/images/noImage.png";
 const HomeBadge = ({ randomBadge }) => {
   return (
     <>
-      <Container>
+      <Container
+        onClick={() => {
+          history.push();
+        }}
+      >
         <Figure>
           <ContantBox>
             <div
               style={{
-                width: "18%",
+                width: "15%",
                 display: "flex",
                 justifyContent: "center",
                 marginBottom: "5px",

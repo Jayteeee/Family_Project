@@ -17,7 +17,7 @@ const HomeMission = ({ recentMission }) => {
       <Container>
         <Figure>
           <ContantBox>
-            <Text>{recentMission.missionTitle}</Text>
+            <Text>{recentMission?.missionTitle}</Text>
           </ContantBox>
         </Figure>
       </Container>
