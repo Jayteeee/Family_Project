@@ -19,6 +19,7 @@ import { Button, CircleImage, Text, Input } from "../../../../elements";
 
 // 이미지
 import profileImg from "../../../images/profileImg.png";
+import { familyMemberActions } from "../../../../redux/modules/familymember";
 
 const AddMissionModal = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const AddMissionModal = ({ onClose }) => {
     setMissionTitle(value);
   };
 
-  console.log("미션 제목:", missionTitle);
+  // console.log("미션 제목:", missionTitle);
 
   // 참여 구성원 추가하기 모달
   const [AddMissionMemberModal, setAddMissionMemberModal] = useState(false);
@@ -45,7 +46,7 @@ const AddMissionModal = ({ onClose }) => {
   };
   // 가족 구성원 리스트
   const familyMemberList = useSelector(
-    (state) => state?.mission?.missionMemberList
+    (state) => state?.familymember?.familyMemberList
   );
   // 선택한 미션 구성원 리스트
   const selectedMemberList = useSelector(
@@ -76,7 +77,8 @@ const AddMissionModal = ({ onClose }) => {
   };
 
   useEffect(() => {
-    dispatch(missionActions.getMissionMemberDB());
+    // dispatch(missionActions.getMissionMemberDB());
+    dispatch(familyMemberActions.getFamilyMemberDB(familyId));
   }, []);
 
   return (

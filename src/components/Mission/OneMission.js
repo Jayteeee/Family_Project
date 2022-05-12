@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdCheckBox } from "react-icons/md";
+import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import { CgMoreVerticalAlt } from "react-icons/cg";
 import dayjs from "dayjs";
 
@@ -28,50 +28,56 @@ const OneMission = (props) => {
   const {
     missionId,
     missionTitle,
-    missionChk,
     completedAt,
     familyMissionChk,
     missionMemberList,
     familyId,
-    // monthMissionList,
+    myFamilyMemberId,
+    monthMissionList,
   } = props;
+
+  const missionChk = useSelector((state) => state.mission.myMissionChk);
+  console.log("받아온 나의미션체크:", missionChk);
+
+  // const userId = useSelector((state) => state.user.user.user);
+  console.log("나의 패밀리멤버ID:", myFamilyMemberId);
 
   console.log(missionId);
 
   console.log(props);
 
-  // 배포할 때 모바일 환경에서 에러발생 / 화면이 안뜸.
-  // const myFamilyMemberId = useSelector(
-  //   (state) => state.user.user.familyMemberId
-  // );
+  console.log("미션 달성여부:", familyMissionChk);
 
-  // console.log("나의 가족구성원Id:", myFamilyMemberId);
+  console.log(monthMissionList);
 
-  // // user가 속해 있는 mission
-  // const myMission = monthMissionList.find((m) =>
-  //   m.missionMemberList.filter((f) => f.familyMemberId === myFamilyMemberId)
-  // );
+  const myMissionData = missionMemberList.filter(
+    (m) => m.familyMemberId === myFamilyMemberId
+  );
 
-  // console.log("내가 속해있는 미션:", myMission);
+  console.log("나의 미션 데이터:", myMissionData);
 
-  // 미션 체크관련 함수
-  const [isChecked, setIsChecked] = useState(false);
-  console.log("미션개인체크유무:", isChecked);
-  const checkHandler = ({ target }) => {
-    setIsChecked(!isChecked);
-    checkedItemHandler(target.value, target.checked);
-    console.log(target.checked);
-  };
+  const myMissionId = myMissionData[0]?.missionId;
+  console.log("나의 미션ID:", myMissionId);
 
-  const checkedItemHandler = (missionId, isCheck) => {
+  const myMissionChk = myMissionData[0]?.myMissionChk;
+  console.log("나의미션체크:", myMissionChk);
+
+  console.log(myFamilyMemberId);
+  // 미션 체크
+  const [check, setCheck] = useState(false);
+
+  const checkedItemHandler = (missionId) => {
+    // setChack(!check);
     let completedAt = dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss");
+    // let misiionId = target.value;
     dispatch(
       missionActions.checkMissionDB(
         missionId,
-        isCheck,
-        isCheck,
+        myMissionChk,
+        familyMissionChk,
         completedAt,
-        familyId
+        familyId,
+        myFamilyMemberId
       )
     );
   };
@@ -84,50 +90,58 @@ const OneMission = (props) => {
 
   // 미션 제거하기 모달
   const [deleteModalOn, setDeleteModalOn] = useState(false);
-  const [modalPosition, setModalPosition] = useState();
+  // const [modalPosition, setModalPosition] = useState();
 
-  const handleDeleteModal = (e) => {
-    console.log(e);
+  const handleDeleteModal = () => {
     setDeleteModalOn(!deleteModalOn);
   };
   // 삭제 버튼 위차찾는 함수
-  const handleModalPosition = (e) => {
-    console.log(e);
-    // 배열의 각 div를 특정해주기 위해 각각 존재하는 missionId값을 넣어줍니다.
-    const element = document.getElementById(missionId);
-    // let x = element.offsetTop + element.offsetHeight;
-    // let y = element.offsetLeft + element.offsetWidth;
-    // let x = e.clientX;
-    // let y = e.clientY;
-    let x = e.screenX;
-    let y = e.screenY;
-    // element.style.display = "none";
-    console.log("좌표:", x, y);
-    setModalPosition([x, y]);
-    console.log(element.offsetTop);
-  };
+  // const handleModalPosition = (e) => {
+  //   console.log(e);
+  //   // 배열의 각 div를 특정해주기 위해 각각 존재하는 missionId값을 넣어줍니다.
+  //   const element = document.getElementById(missionId);
+  //   // let x = element.offsetTop + element.offsetHeight;
+  //   // let y = element.offsetLeft + element.offsetWidth;
+  //   // let x = e.clientX;
+  //   // let y = e.clientY;
+  //   let x = e.screenX;
+  //   let y = e.screenY;
+  //   // element.style.display = "none";
+  //   console.log("좌표:", x, y);
+  //   setModalPosition([x, y]);
+  //   console.log(element.offsetTop);
+  // };
 
-  console.log(modalPosition);
+  // console.log(modalPosition);
+
   return (
     <>
       <MissionBox key={missionId}>
         <MissionTitle>
-          {/* {missionId === myMission.missionId ? ( */}
-          <MissionChkBox>
-            <label className="checks">
-              <input
-                type="checkbox"
-                value={missionId}
-                id="missionChk"
-                className="missionChk"
-                name={missionId}
-                onChange={(e) => checkHandler(e)}
+          {!familyMissionChk ? (
+            myMissionChk || check ? (
+              <MdCheckBox
+                style={{ fontSize: "35px" }}
+                onClick={() => {
+                  setCheck(false);
+                  checkedItemHandler.bind(this, missionId)();
+                }}
               />
-            </label>
-          </MissionChkBox>
-          {/* ) : (
-            <MissionTitle></MissionTitle>
-          )} */}
+            ) : (
+              <MdCheckBoxOutlineBlank
+                style={{ fontSize: "35px" }}
+                onClick={() => {
+                  setCheck(true);
+                  checkedItemHandler.bind(this, missionId)();
+                }}
+              />
+            )
+          ) : (
+            <MissionChkBox>
+              <div style={{ marginRight: "28px" }} />
+            </MissionChkBox>
+          )}
+
           <div
             style={{
               width: "67%",
@@ -146,7 +160,7 @@ const OneMission = (props) => {
               {missionTitle}
             </Text>
           </div>
-          <div>{missionChk}</div>
+          {/* <div>{familyMissionChk}</div> */}
           <div
             style={{
               display: "flex",
@@ -161,26 +175,55 @@ const OneMission = (props) => {
               <UncompletedMission>미완료</UncompletedMission>
             )}
           </div>
-          <div
-            style={{
-              width: "3vw",
-              display: "flex",
-              float: "right",
-              justifyContent: "right ",
-              alignItems: "center",
-            }}
-            onClick={(e) => {
-              handleModalPosition(e);
-              handleDeleteModal(e);
-            }}
-            id={missionId}
-          >
-            <MissionDeleteBtn>
-              {!familyMissionChk && (
+          {!familyMissionChk ? (
+            <div
+              style={{
+                width: "3vw",
+                display: "flex",
+                float: "right",
+                justifyContent: "right ",
+                alignItems: "center",
+              }}
+              onClick={
+                // handleModalPosition(e);
+                handleDeleteModal
+              }
+              id={missionId}
+            >
+              <MissionDeleteBtn>
                 <CgMoreVerticalAlt style={{ fontSize: "30px" }} />
-              )}
-            </MissionDeleteBtn>
-          </div>
+              </MissionDeleteBtn>
+            </div>
+          ) : (
+            <div
+              style={{
+                width: "3vw",
+                display: "flex",
+                float: "right",
+                justifyContent: "right ",
+                alignItems: "center",
+              }}
+              onClick={
+                // handleModalPosition(e);
+                handleDeleteModal
+              }
+              id={missionId}
+            >
+              <UnMissionDeleteBtn></UnMissionDeleteBtn>
+            </div>
+          )}
+          {/* ) : (
+            <div
+              style={{
+                width: "3vw",
+                display: "flex",
+                float: "right",
+                justifyContent: "right ",
+                alignItems: "center",
+              }}
+              id={missionId}
+            ></div>
+          )} */}
         </MissionTitle>
 
         <MissionMemberBox className="res-missionMemberBox">
@@ -206,17 +249,19 @@ const OneMission = (props) => {
               <div>미션 진행자 없습니다</div>
             )}
           </div>
-          <div
-            style={{
-              textAlign: "right",
-              flexGrow: "1",
-              fontSize: "16px",
-              color: "#A8A8A8",
-              marginRight: "45px",
-            }}
-          >
-            {completedAt} 달성
-          </div>
+          {completedAt && (
+            <div
+              style={{
+                textAlign: "right",
+                flexGrow: "1",
+                fontSize: "16px",
+                color: "#A8A8A8",
+                marginRight: "45px",
+              }}
+            >
+              {completedAt} 달성
+            </div>
+          )}
         </MissionMemberBox>
       </MissionBox>
       {/* 미션 제거하기 모달 */}
@@ -231,8 +276,6 @@ const OneMission = (props) => {
               position: "absolute",
             }}
             onClose={handleDeleteModal}
-            modalPosition={modalPosition}
-            handleModalPosition={handleModalPosition}
             familyId={familyId}
             missionId={missionId}
           ></DeleteMissionModal>
@@ -329,6 +372,16 @@ const MissionDeleteBtn = styled.div`
     background: #f5f5f5;
     color: black;
   }
+`;
+
+const UnMissionDeleteBtn = styled.div`
+  display: flex;
+  width: 30px;
+  height: 40px;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  color: #757575;
 `;
 
 export default OneMission;

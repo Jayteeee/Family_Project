@@ -80,7 +80,7 @@ const MissionStatusBox = ({ missionStatus, familyId }) => {
                 size="24px"
                 fontWeight="700"
               >
-                이번 주 달성률
+                이번 달 달성률
               </Text>
               <div className="res-stausMiddleBox" style={{ padding: "30px" }} />
               <Text

@@ -2,13 +2,13 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import dayjs from "dayjs";
 import { history } from "../configureStore";
-// import axios from "axios";
+import axios from "axios";
 // import { familyActions } from "./family";
-// import { getToken } from "../../shared/token";
+import { getToken } from "../../shared/Token";
 
 import { DummyData } from "../../shared/DummyData";
 
-const BASE_URL = "";
+const BASE_URL = "https://doremilan.shop";
 
 const initialState = {
   nowMissionData: [],
@@ -17,6 +17,7 @@ const initialState = {
   selectedMemberList: [],
   selectedMemberIdList: [],
   badgeList: [],
+  myMissionChk: {},
 };
 
 // 액션
@@ -24,6 +25,7 @@ const GET_MISSION = "GET_MISSION";
 const GET_PAST_MISSION = "GET_PAST_MISSION";
 const GET_MISSION_MEMBER = "GET_MISSION_MEMBER";
 const GET_BADGE_LIST = "GET_BADGE_LIST";
+const GET_MY_MISSION_CHK = "GET_MY_MISSION_CHK";
 const ADD_MISSION = "ADD_MISSION";
 const ADD_MISSION_MEMBER = "ADD_MISSION_MEMBER";
 const CHECK_MISSION = "CHECK_MISSION";
@@ -44,6 +46,9 @@ const getMissionMember = createAction(
     familyMemberList,
   })
 );
+const getMyMissionChk = createAction(GET_MY_MISSION_CHK, (myMissionChk) => ({
+  myMissionChk,
+}));
 const getBadgeList = createAction(GET_BADGE_LIST, (badgeList) => ({
   badgeList,
 }));
@@ -62,8 +67,8 @@ const checkMission = createAction(CHECK_MISSION, (missionChkData) => ({
 }));
 const checkMissionMember = createAction(
   CHECK_MISSION_MEMBER,
-  (missionChkData) => ({
-    missionChkData,
+  (checkedMissionMember) => ({
+    checkedMissionMember,
   })
 );
 const missionStatusUpdate = createAction(
@@ -78,47 +83,48 @@ const deleteMission = createAction(DELETE_MISSION, (missionId) => ({
 
 const getMissionPage = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    // const pastMissionList = getState().mission.pastMissionList;
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/mission/${familyId}`, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {familyList} = res.data
-    //     console.log(familyList);
-    //     dispatch(getFamily(familyList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
+    const pastMissionList = getState().mission.pastMissionList;
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/mission/${familyId}`, { headers: config })
+      .then((res) => {
+        console.log("미션 데이터 GET:", res);
+        const nowMissionData = res.data;
+        console.log(nowMissionData);
 
-    // const nowMissionData = DummyData.missionPage;
+        dispatch(getMission(nowMissionData));
+      })
+      .catch((err) => {
+        console.log("미션 데이터 안옴", err);
+        // window.alert(err.response.data.msg);
+      });
+
+    const nowMissionData = DummyData.missionPage;
 
     // console.log("현재 미션 데이터:", nowMissionData);
-    // dispatch(getMission(nowMissionData));
-    const nowMissionData = DummyData.missionPage;
-    console.log("이번달 미션 데이터:", nowMissionData);
 
-    dispatch(getMission(nowMissionData));
+    // const nowMissionData = DummyData.missionPage;
+    // console.log("이번달 미션 데이터:", nowMissionData);
+
+    // dispatch(getMission(nowMissionData));
   };
 };
 
 const getPastMissionDB = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/mission/${familyId}/pastmission`, { headers: config })
-    //   .then((res) => {
-    //     console.log(res);
-    //     const { familyList } = res.data;
-    //     console.log(familyList);
-    //     // dispatch(getFamily(familyList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/mission/${familyId}/pastmission`, { headers: config })
+      .then((res) => {
+        console.log("지난 미션 데이터 GET:", res);
+        const { familyList } = res.data;
+        console.log(familyList);
+        // dispatch(getFamily(familyList));
+      })
+      .catch((err) => {
+        console.log("지난 미션 데이터 안옴", err);
+        // window.alert(err.response.data.msg);
+      });
     //     // await axios
     //     //   .get(`${BASE_URL}/mission/${familyId}/pastmission`, { headers: config })
     //     //   .then((res) => {
@@ -131,188 +137,166 @@ const getPastMissionDB = (familyId) => {
     //     //     console.log("패밀리 데이터 안옴", error);
     //     //     console.log(error.response);
     //     //   });
-    const pastMissionList = DummyData.pastMissionList;
-    console.log("지난 미션 데이터:", pastMissionList);
-    dispatch(getPastMission(pastMissionList));
+    // const pastMissionList = DummyData.pastMissionList;
+    // console.log("지난 미션 데이터:", pastMissionList);
+    // dispatch(getPastMission(pastMissionList));
   };
 };
 
 const getMissionMemberDB = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/${familyId}`/familymember, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {familyList} = res.data
-    //     console.log(familyList);
-    //     dispatch(getFamily(familyList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 멤버 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/mission/${familyId}/familymember`, { headers: config })
+      .then((res) => {
+        console.log("미션 멤버 GET:", res);
+        // const {familyList} = res.data
+        // console.log(familyList);
+        // dispatch(getMissionMember(familyList));
+      })
+      .catch((err) => {
+        console.log("미션 멤버 데이터 안옴", err);
+        // window.alert(err.response.data.msg);
+      });
 
-    const missionMemberData = DummyData.familyMemberList;
+    // const missionMemberData = DummyData.familyMemberList;
 
-    console.log("현재 미션 멤버 데이터:", missionMemberData);
-    dispatch(getMissionMember(missionMemberData));
+    // console.log("현재 미션 멤버 데이터:", missionMemberData);
+    // dispatch(getMissionMember(missionMemberData));
   };
 };
 
 const getBadgeListDB = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .get(`${BASE_URL}/badge/:${familyId}`/, { headers: config })
-    //   .then((res) => {
-    //     console.log(res)
-    //     const {familyList} = res.data
-    //     console.log(familyList);
-    //     dispatch(getFamily(familyList));
-    //   })
-    //   .catch((error) => {
-    //     console.log("패밀리 멤버 데이터 안옴", error);
-    //     console.log(error.response);
-    //   });};
-    const badgeList = DummyData.badgePage.badge;
-    dispatch(getBadgeList(badgeList));
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/badge/${familyId}`, { headers: config })
+      .then((res) => {
+        console.log("배지 데이터 GET:", res);
+        const { badge } = res.data.badgeList;
+        // console.log(familyList);
+        dispatch(getBadgeList(badge));
+      })
+      .catch((err) => {
+        console.log("배지 데이터 안옴", err);
+        // window.alert(err.response.data.msg);
+      });
+    // const badgeList = DummyData.badgePage.badge;
+    // dispatch(getBadgeList(badgeList));
   };
 };
 
 const addMissionDB = (
   familyId,
   missionTitle,
-  familyIdList,
+  familyMemberId,
   selectedMemberList
 ) => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .post(
-    //     `${BASE_URL}/mission /${familyId}`,
-    //     { missionTitle, familyIdList },
-    //     { headers: config }
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(res.msg);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-    const newMission = {
-      familyId: `${familyId}`,
-      missionId: `asd33dsddf${missionTitle}`,
-      missionTitle: `${missionTitle}`, //name -> title 수
-      missionChk: false,
-      completedAt: "YYYY-MM-DD",
-      selectedMemberList: { ...selectedMemberList },
-      missionMemberList: [
-        {
-          familyMemberId: "1234213",
-          familyMemberNicname: "아빠",
-          memberMissionChk: false,
-          profileImg: false,
-        },
-        {
-          familyMemberId: "2342fag4",
-          familyMemberNicname: "엄마",
-          memberMissionChk: false,
-          profileImg: false,
-        },
-        {
-          familyMemberId: "68defs231a",
-          familyMemberNicname: "자녀",
-          memberMissionChk: false,
-          profileImg: false,
-        },
-      ],
-    };
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .post(
+        `${BASE_URL}/mission/${familyId}`,
+        { missionTitle, familyMemberId },
+        { headers: config }
+      )
+      .then((res) => {
+        console.log("ADD 미션 데이터 ", res);
+        const { createdMember } = res.data;
+        console.log(createdMember);
+        const { missionId } = res.data;
 
-    console.log("새로운 미션:", newMission);
-    dispatch(addMission(newMission));
+        const newMission = {
+          familyId: `${familyId}`,
+          missionId: missionId,
+          missionTitle: `${missionTitle}`, //name -> title 수
+          familyMissionChk: false,
+          missionMemberList: createdMember,
+        };
+        dispatch(addMission(newMission));
+      })
+      .catch((err) => {
+        console.log(err);
+        window.alert(err.response.data.msg);
+      });
   };
 };
 
 const checkMissionDB = (
-  checkedMissionId,
+  missionId,
   myMissionChk,
   familyMissionChk,
   completedAt,
-  familyId
+  familyId,
+  myFamilyMemberId
 ) => {
   return async function (dispatch, getState, { history }) {
     let missionChkData = {
-      checkedMissionId,
       myMissionChk,
       familyMissionChk,
       completedAt,
     };
-
+    console.log(familyId);
+    console.log(missionId);
     console.log(missionChkData);
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .post(
-    //     `${BASE_URL}/missionChk/${missionId}`,
-    //     missionChkData,
-    //     { headers: config }
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(res.msg);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-    const { familyMemberId } = getState().user.user;
-    console.log("가족구성원Id:", familyMemberId);
-
-    const checkedMission = {
-      checkedMissionId,
-      familyMissionChk: familyMissionChk,
-    };
-    const checkedMissionMember = {
-      checkedMissionId,
-      myMissionChk: myMissionChk,
-      familyMissionChk: familyMissionChk,
-      familyMemberId,
-    };
-    console.log(checkedMission);
-
-    dispatch(checkMission(checkedMission));
-    dispatch(checkMissionMember(checkedMissionMember));
+    console.log(myFamilyMemberId);
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .post(`${BASE_URL}/mission/${familyId}/${missionId}`, missionChkData, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        const { data } = res;
+        let { myMissionChk } = data;
+        const checkedMission = {
+          missionId: missionId,
+          familyMissionChk: data.familyMissionChk,
+        };
+        const checkedMissionMember = {
+          missionId: missionId,
+          myMissionChk: myMissionChk,
+          familyMissionChk: familyMissionChk,
+          familyMemberId: myFamilyMemberId,
+        };
+        dispatch(checkMissionMember(checkedMissionMember));
+        dispatch(checkMission(checkedMission));
+        history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+        window.alert(err.response.data.msg);
+      });
   };
 };
 
 const deleteMissionDB = (familyId, missionId) => {
   return async function (dispatch, getState, { history }) {
     console.log(missionId);
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .delete(`${BASE_URL}/${familyId}/${missionId}`, {
-    //     headers: config,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     // window.alert(res.msg)
-    //     alert("삭제!");
-    let missionStatus = {
-      totalMission: 10,
-      completedMission: 3,
-      completePercentage: "30",
-      totalBadge: 5,
-    };
-    dispatch(deleteMission(missionId));
-    dispatch(missionStatusUpdate(missionStatus));
-    // history.go(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .delete(`${BASE_URL}/mission/${familyId}/${missionId}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        // window.alert(res.msg)
+        //     alert("삭제!");
+        // let missionStatus = {
+        //   totalMission: 10,
+        //   completedMission: 3,
+        //   completePercentage: "30",
+        //   totalBadge: 5,
+        // };
+        dispatch(deleteMission(missionId));
+        // dispatch(missionStatusUpdate(missionStatus));
+        history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 
@@ -335,13 +319,16 @@ export default handleActions(
       produce(state, (draft) => {
         draft.badgeList = action.payload.badgeList;
       }),
+    [GET_MY_MISSION_CHK]: (state, action) =>
+      produce(state, (draft) => {
+        draft.myMissionChk = action.payload.myMissionChk;
+      }),
     [ADD_MISSION]: (state, action) =>
       produce(state, (draft) => {
-        draft.nowMissionData.thisMonthMissionList.push(
+        draft.nowMissionData.thisMonthMissionList.unshift(
           action.payload.newMission
         );
       }),
-
     [ADD_MISSION_MEMBER]: (state, action) =>
       produce(state, (draft) => {
         draft.selectedMemberList = action.payload.selectedMemberList;
@@ -349,18 +336,17 @@ export default handleActions(
       }),
     [CHECK_MISSION]: (state, action) =>
       produce(state, (draft) => {
-        const { checkedMissionId, familyMissionChk } =
-          action.payload.missionChkData;
+        const { missionId, familyMissionChk } = action.payload.missionChkData;
 
-        console.log(checkedMissionId, familyMissionChk);
+        console.log(missionId, familyMissionChk);
 
         let thisMonthMissionList =
           draft.nowMissionData.thisMonthMissionList.filter(
-            (m) => m.missionId === checkedMissionId
+            (m) => m.missionId === missionId
           )[0];
 
         let missionIdx = draft.nowMissionData.thisMonthMissionList.findIndex(
-          (m) => m.missionId === checkedMissionId
+          (m) => m.missionId === missionId
         );
 
         console.log(missionIdx);
@@ -378,31 +364,23 @@ export default handleActions(
       }),
     [CHECK_MISSION_MEMBER]: (state, action) =>
       produce(state, (draft) => {
-        const {
-          checkedMissionId,
-          myMissionChk,
-          familyMissionChk,
-          familyMemberId,
-        } = action.payload.missionChkData;
+        const { missionId, myMissionChk, familyMissionChk, familyMemberId } =
+          action.payload.checkedMissionMember;
 
-        console.log(
-          checkedMissionId,
-          myMissionChk,
-          familyMissionChk,
-          familyMemberId
-        );
+        console.log(missionId, myMissionChk, familyMissionChk, familyMemberId);
 
         let thisMonthMissionList =
-          draft.nowMissionData.thisMonthMissionList.filter(
-            (m) => m.missionId === checkedMissionId
+          state.nowMissionData.thisMonthMissionList.filter(
+            (m) => m.missionId === missionId
           )[0];
 
-        let missionIdx = draft.nowMissionData.thisMonthMissionList.findIndex(
-          (m) => m.missionId === checkedMissionId
+        let missionIdx = state.nowMissionData.thisMonthMissionList.findIndex(
+          (m) => m.missionId === missionId
         );
-        let checkedMissionMember = thisMonthMissionList.missionMemberList.find(
-          (f) => f.familyMemberId === familyMemberId
-        );
+        let checkedMissionMember =
+          thisMonthMissionList.missionMemberList.filter(
+            (f) => f.familyMemberId === familyMemberId
+          );
         let memberIdx = thisMonthMissionList.missionMemberList.findIndex(
           (f) => f.familyMemberId === familyMemberId
         );
