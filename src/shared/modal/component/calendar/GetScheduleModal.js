@@ -21,7 +21,7 @@ import EditScheduleModal from "./EditScheduleModal";
 // 엘리먼트
 import { Text, Button, CircleImage } from "../../../../elements";
 
-const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
+const GetScheduleModal = ({ onClose, date, event, familyId, schedule }) => {
   const dispatch = useDispatch();
   const [normal, setNormal] = React.useState(false);
 
@@ -31,15 +31,17 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
     dispatch(scheduleActions.deleteScheduleDB(list.eventId));
   };
 
-  React.useEffect(() => {
-    dispatch(
-      scheduleActions.getOneScheduleDB(
-        dayjs(date).format("YYYY-MM-DD"),
-        familyId,
-        eventId
-      )
-    );
-  }, []);
+  console.log("props로 받는 값:", date, event, familyId, schedule);
+
+  // React.useEffect(() => {
+  //   dispatch(
+  //     scheduleActions.getOneScheduleDB(
+  //       dayjs(date).format("YYYY-MM-DD"),
+  //       familyId
+  //       // eventId
+  //     )
+  //   );
+  // }, []);
 
   return (
     <ModalPortal>

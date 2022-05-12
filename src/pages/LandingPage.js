@@ -5,25 +5,34 @@ import {
   Description,
   Login,
   Signup,
-  LoginBarMenu,
   CreateFamily,
 } from "../components/LandingPage";
+import { useHistory } from "react-router-dom";
 
 const LandingPage = () => {
+  const history = useHistory();
   const [isClient, setIsClient] = React.useState(false);
   const checkClient = () => {
     setIsClient(!isClient);
   };
   const isLogin = useSelector((state) => state.user.isLogin);
+  const isMember = useSelector((state) => state.user?.user?.familyList);
+
+  if (isLogin && isMember?.length !== 0) {
+    history.goBack();
+  }
 
   return (
     <Container>
       <Box>
         <DesBox>
+          <LogoBox>
+            <Logo>로고</Logo>
+          </LogoBox>
           <Description />
         </DesBox>
         {!isLogin ? (
-          <Question className="res-login">
+          <Question>
             <Content>
               {!isClient ? (
                 <div>
@@ -37,44 +46,61 @@ const LandingPage = () => {
             </Content>
           </Question>
         ) : (
-          <Question className="res-login">
+          <Question>
             <Content>
               <CreateFamily />
             </Content>
           </Question>
         )}
-        <LoginBar className="res-loginbar">
-          <LoginBarMenu />
-        </LoginBar>
       </Box>
     </Container>
   );
 };
 
 const Container = styled.div`
-  position: absolute;
-  background-color: #6f5fce;
-  /* opacity: 0.1; */
+  background-color: rgba(111, 95, 206, 0.1);
   height: 100%;
   width: 100%;
+  overflow-y: hidden;
+  @media only screen and (max-width: 839px) {
+    overflow-y: auto;
+  }
 `;
 
 const Box = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   width: 100%;
   height: 100%;
 `;
 
 const DesBox = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 71.25%;
+  @media only screen and (max-width: 1199px) {
+    width: 50%;
+  }
+  @media only screen and (max-width: 839px) {
+    width: 100%;
+  }
+`;
+const LogoBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 20%;
+`;
+const Logo = styled.div`
+  width: 258px;
+  height: 80px;
 `;
 
 const Content = styled.div`
@@ -82,20 +108,22 @@ const Content = styled.div`
   flex-direction: column;
   margin: 160px 80px 24px;
   height: 100%;
+  @media only screen and (max-width: 839px) {
+    margin: 40px 24px;
+  }
 `;
 
 const Question = styled.div`
   height: 100%;
   width: 28.75%;
   background-color: #fff;
-`;
-
-const LoginBar = styled.nav`
-  display: inline-flex;
-  flex-direction: column;
-  background: #fff;
-  vertical-align: top;
-  border-right: 1px solid rgba(29, 28, 29, 0.13);
+  @media only screen and (max-width: 1199px) {
+    width: 50%;
+  }
+  @media only screen and (max-width: 839px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export default LandingPage;

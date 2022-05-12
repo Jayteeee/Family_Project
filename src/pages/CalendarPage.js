@@ -46,6 +46,8 @@ const CalendarPage = (props) => {
   const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
   const date = `${MM < 10 ? `${YYYY}-0${MM}` : `${YYYY}-${MM}`}`;
 
+  console.log("보내는 날짜:", date);
+
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
@@ -53,7 +55,7 @@ const CalendarPage = (props) => {
 
   React.useEffect(() => {
     dispatch(scheduleActions.getScheduleDB(familyId, date));
-  }, []);
+  }, [list.length]);
 
   return (
     <Container>
@@ -95,9 +97,9 @@ const CalendarPage = (props) => {
             </Wrap>
             <CalendarArea>
               {status === "schedule" ? (
-                <ScheduleCalendar familyId={familyId} />
+                <ScheduleCalendar familyId={familyId} list={list} />
               ) : (
-                <PhotoCalendar familyId={familyId} />
+                <PhotoCalendar familyId={familyId} list={list} />
               )}
             </CalendarArea>
           </SBox>

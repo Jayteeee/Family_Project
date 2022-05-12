@@ -55,6 +55,8 @@ const AddScheduleModal = ({ onClose, familyId }) => {
           onClick={(e) => {
             e.stopPropagation();
             setShowBorder(false);
+            setSelec(false);
+            setShowOptions(false);
           }}
         >
           <ContentBox>
@@ -70,7 +72,12 @@ const AddScheduleModal = ({ onClose, familyId }) => {
             </XButton>
             <InnerBox>
               <TitleBox>
-                <SelectBox onClick={() => setShowOptions((prev) => !prev)}>
+                <SelectBox
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowOptions((prev) => !prev);
+                  }}
+                >
                   <Label>
                     <Preview value={myPic}></Preview>
                     <TiArrowSortedDown />
@@ -78,77 +85,108 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                 </SelectBox>
                 <SelectOptions
                   show={showOptions}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setShowOptions((prev) => !prev);
                   }}
                 >
                   <div>
                     <Color
                       value="#CE5F5F"
-                      onClick={() => setMyPic("#CE5F5F")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#CE5F5F");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#CE5F5F" />
                     </Color>
                     <Color
                       value="#EA7B46"
-                      onClick={() => setMyPic("#EA7B46")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#EA7B46");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#EA7B46" />
                     </Color>
                     <Color
                       value="#F4CC4D"
-                      onClick={() => setMyPic("#F4CC4D")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#F4CC4D");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#F4CC4D" />
                     </Color>
                     <Color
                       value="#5FCE89"
-                      onClick={() => setMyPic("#5FCE89")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#5FCE89");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#5FCE89" />
                     </Color>
                     <Color
                       value="#5FB3CE"
-                      onClick={() => setMyPic("#5FB3CE")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#5FB3CE");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#5FB3CE" />
                     </Color>
                     <Color
                       value="#8C98F8"
-                      onClick={() => setMyPic("#8C98F8")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#8C98F8");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#8C98F8" />
                     </Color>
                     <Color
                       value="#C588F6"
-                      onClick={() => setMyPic("#C588F6")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#C588F6");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#C588F6" />
                     </Color>
                     <Color
                       value="#F688EB"
-                      onClick={() => setMyPic("#F688EB")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#F688EB");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#F688EB" />
                     </Color>
                     <Color
                       value="#C2C2C2"
-                      onClick={() => setMyPic("#C2C2C2")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#C2C2C2");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#C2C2C2" />
                     </Color>
                     <Color
                       value="#424242"
-                      onClick={() => setMyPic("#424242")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMyPic("#424242");
+                      }}
                       mypic={myPic}
                     >
                       <MdDone mypic={myPic} value="#424242" />
@@ -189,6 +227,7 @@ const AddScheduleModal = ({ onClose, familyId }) => {
               <CommonBox>
                 <Box
                   onClick={(e) => {
+                    e.stopPropagation();
                     setSelec(!selec);
                   }}
                 >
@@ -210,7 +249,11 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                 </Box>
               </CommonBox>
               {selec ? (
-                <CalendarBox>
+                <CalendarBox
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   <Calendar
                     showNeighboringMonth={false}
                     formatDay={(locale, date) => dayjs(date).format("DD")}
