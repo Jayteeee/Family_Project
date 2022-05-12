@@ -17,8 +17,10 @@ import { Text, Button, CircleImage } from "../../../../elements";
 
 const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
   const dispatch = useDispatch();
-  // const [modalOn, setModalOn] = React.useState(false);
+  const [modalOn, setModalOn] = React.useState(false);
   const [eventId, setEventId] = React.useState();
+  // const [normal, setNormal] = React.useState(false);
+  console.log(eventId);
 
   // const list = useSelector((state) => state.calendar.scheduleOneList);
 
@@ -26,7 +28,7 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
 
   // 토글
   const handleModal = () => {
-    // setModalOn(!modalOn);
+    setModalOn(!modalOn);
   };
 
   // React.useEffect(() => {
@@ -42,6 +44,7 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
   return (
     <ModalPortal>
       <Background
+        // none={normal}
         positionSet={event}
         className="flex-row"
         onClick={(e) => {
@@ -56,22 +59,26 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
           }}
         >
           {schedule.map((x) => {
-            <SBox
-              onClick={() => {
-                setEventId(x.eventId);
-              }}
-            >
-              <Stitle>
-                <ColorBox color={x.color}></ColorBox>
-                <Text S1 style={{ marginLeft: "1rem" }}>
-                  {x.event}
-                </Text>
-              </Stitle>
-            </SBox>;
+            return (
+              <SBox
+                key={`${x.eventId}++`}
+                onClick={() => {
+                  setEventId(x.eventId);
+                  handleModal();
+                }}
+              >
+                <Stitle>
+                  <ColorBox color={x.color}></ColorBox>
+                  <Text S1 style={{ marginLeft: "1rem" }}>
+                    {x.event}
+                  </Text>
+                </Stitle>
+              </SBox>
+            );
           })}
         </Content>
       </Background>
-      {/* {modalOn && (
+      {modalOn && (
         <GetScheduleModal
           onClose={handleModal}
           date={date}
@@ -79,34 +86,41 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
           familyId={familyId}
           eventId={eventId}
         ></GetScheduleModal>
-      )} */}
+      )}
     </ModalPortal>
   );
 };
 
 const Background = styled.div`
   z-index: 206;
-  position: absolute;
-  left: ${(props) =>
+  position: fixed;
+  /* left: ${(props) =>
     props.none
       ? 0
       : `${
           props.positionSet.target.offsetLeft +
           props.positionSet.target.offsetWidth
-        }px`};
-  top: ${(props) =>
+        }px`}; */
+  /* top: ${(props) =>
     props.none
       ? 0
       : `${
           props.positionSet.target.offsetTop +
           props.positionSet.target.offsetHeight
-        }px`};
-  width: ${(props) => (props.none ? `100%` : null)};
-  height: ${(props) => (props.none ? `100%` : null)};
+        }px`}; */
+  top: 0;
+  left: 0;
+  /* width: ${(props) => (props.none ? `100%` : null)}; */
+  width: 100%;
+  /* height: ${(props) => (props.none ? `100%` : null)}; */
+  height: 100%;
   text-align: center;
-  background-color: ${(props) => (props.none ? `rgba(0, 0, 0, 0.5)` : null)};
+  /* background-color: ${(props) =>
+    props.none ? `rgba(0, 0, 0, 0.5)` : null}; */
+  background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 40px rgba(0, 0, 0, 0.25);
-  border-radius: ${(props) => (props.none ? null : "20%")};
+  /* border-radius: ${(props) => (props.none ? null : "20%")}; */
+
   @media only screen and (max-width: 839px) {
     left: 0;
     top: 0;
@@ -121,26 +135,26 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  z-index: 205;
+  z-index: 207;
   max-width: 100%;
   border-radius: 8px;
   background-color: #fff;
   position: relative;
   overflow: scroll;
+  padding: 12px;
 `;
 
 const SBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 40px;
-  margin-top: 16px;
+  margin: 16px;
+  cursor: pointer;
 `;
 
 const Stitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 24px;
 `;
 
 const ColorBox = styled.div`
