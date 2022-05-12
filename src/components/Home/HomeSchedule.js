@@ -14,10 +14,10 @@ import { Text, Button } from "../../elements";
 
 const HomeSchedule = ({ familyId, thisMonthEventList }) => {
   const dispatch = useDispatch();
-
+  let nowMonth = dayjs(new Date()).format("YYYY년 M월");
   return (
     <ScheduleArea>
-      <Text S2>이번 달 일정</Text>
+      <Text fontWeight="600">{nowMonth}</Text>
       {thisMonthEventList
         ? thisMonthEventList.map((x) => (
             <FlexBox1>
@@ -30,7 +30,10 @@ const HomeSchedule = ({ familyId, thisMonthEventList }) => {
               </TextBox>
               <FlexBox2>
                 <DateColor color={x?.color}></DateColor>
-                <Text S3> {x?.event}</Text>
+                <Text fontWeight="600" size="15px">
+                  {" "}
+                  {x?.event}
+                </Text>
               </FlexBox2>
             </FlexBox1>
           ))
@@ -57,7 +60,7 @@ const ScheduleArea = styled.div`
 const FlexBox1 = styled.div`
   display: flex;
   align-items: flex-start;
-  margin: 24px;
+  margin: 20px;
 `;
 
 const FlexBox2 = styled.div`
@@ -70,13 +73,13 @@ const TextBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 8px 24px 0 0;
+  margin: 2px 20px 0 0;
   color: #757575;
 `;
 
 const DateColor = styled.div`
   width: 8px;
-  height: 24px;
+  height: 20px;
   border-radius: 2px;
   background-color: ${(props) => props.color};
   margin-right: 8px;

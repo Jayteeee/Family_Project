@@ -61,15 +61,26 @@ const HomeCalendar = ({ thisMonthEventList }) => {
 
 const Container = styled.div`
   width: 100%;
+  height: 80%;
   .react-calendar {
     width: 100%;
     max-width: 100%;
+    height: 40vh;
     background-color: #fff;
     color: #222;
     border: none;
-    padding: 24px;
+    padding: 12px 24px 12px 24px;
+    overflow-y: scroll;
+    border-radius: 16px;
+    border: 1px solid #c4c4c4;
+    &:hover {
+      border-radius: 13px;
+      transition: all 300ms ease-in;
+      filter: brightness(70%);
+    }
     @media only screen and (max-width: 839px) {
       padding: 0px;
+      height: 40vh;
     }
   }
 
@@ -96,6 +107,7 @@ const Container = styled.div`
   .react-calendar__tile {
     width: 100%;
     height: 100%;
+
     background: none;
     display: flex;
     flex-direction: column;

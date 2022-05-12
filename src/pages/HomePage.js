@@ -7,7 +7,15 @@ import styled from "styled-components";
 import { Button, RactangleImage, Text } from "../elements";
 
 // 컴포넌트
-import { HomeCalendar, HomeSchedule, HomeVoice } from "../components/Home";
+import {
+  HomeBadge,
+  HomeCalendar,
+  HomeMission,
+  HomeMissionStatus,
+  HomePhoto,
+  HomeSchedule,
+  HomeVoice,
+} from "../components/Home";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +51,12 @@ const HomePage = (props) => {
   const { thisMonthEventList } = homeData;
   console.log("현재 일정:", thisMonthEventList);
 
+  const { recentMission } = homeData;
+  console.log("최근 미션:", recentMission);
+
+  const { completePercentage } = homeData;
+  console.log("미션 달성률:", completePercentage);
+
   useEffect(() => {
     dispatch(homeActions.getHomeDB(familyId));
   }, []);
@@ -69,7 +83,7 @@ const HomePage = (props) => {
                             style={{
                               position: "relative",
                               width: "75px",
-                              marginRight: "30px",
+                              marginRight: "2vw",
                             }}
                           >
                             <RactangleImage
@@ -96,14 +110,34 @@ const HomePage = (props) => {
               </MiddleLeftTopBox>
               <MiddleLeftBottomBox>
                 <MiddleLeftMission>
-                  <Text fontWeight="600">이번 달 미션 달성률</Text>
-                  <Text></Text>
+                  <div
+                    style={{
+                      height: "10%",
+                      display: "flex",
+                      alignItems: "center",
+                      // justifyContent: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <Text fontWeight="600"> 이번 달 미션 달성률</Text>
+                  </div>
+                  <HomeMissionStatus completePercentage={completePercentage} />
                 </MiddleLeftMission>
               </MiddleLeftBottomBox>
             </MiddleLeftBox>
             <MiddleRightBox>
               <MiddleRightCalendar>
-                <Text fontWeight="600">이번 달 가족 일정</Text>
+                <div
+                  style={{
+                    height: "10%",
+                    display: "flex",
+                    alignItems: "center",
+                    // justifyContent: "center",
+                  }}
+                >
+                  <Text fontWeight="600"> 가족 일정</Text>
+                </div>
+
                 <TotalCalendar>
                   <CalendarArea>
                     <HomeCalendar thisMonthEventList={thisMonthEventList} />
@@ -117,16 +151,59 @@ const HomePage = (props) => {
           </MiddleBox>
           <BottomBox>
             <BottomLeftBox>
-              <BottomLeftMission></BottomLeftMission>
-              <BottomLeftBadge></BottomLeftBadge>
+              <BottomLeftMission>
+                <div
+                  style={{
+                    marginBottom: "5%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text fontWeight="600"> 진행중인 미션</Text>
+                </div>
+                <HomeMission recentMission={recentMission} />
+              </BottomLeftMission>
+              <BottomLeftBadge>
+                <div
+                  style={{
+                    marginBottom: "5%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text fontWeight="600"> 달성 배지</Text>
+                </div>
+                <HomeBadge randomBadge={randomBadge} />
+              </BottomLeftBadge>
             </BottomLeftBox>
             <BottomRightBox>
-              <BottomRightPhoto></BottomRightPhoto>
+              <BottomRightPhoto>
+                <div
+                  style={{
+                    marginBottom: "5%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text fontWeight="600">최근 등록된 사진</Text>
+                </div>
+                <HomePhoto recentPhoto={recentPhoto} />
+              </BottomRightPhoto>
               <BottomRightVoice>
-                <Text fontWeight="600">최근 등록된 음성메시지</Text>
-                <VoiceArea>
-                  <HomeVoice recentVoiceFile={recentVoiceFile} />
-                </VoiceArea>
+                <div
+                  style={{
+                    marginBottom: "5%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text fontWeight="600">최근 등록된 음성메시지</Text>
+                </div>
+                <HomeVoice recentVoiceFile={recentVoiceFile} />
               </BottomRightVoice>
             </BottomRightBox>
           </BottomBox>
@@ -149,7 +226,7 @@ const Header = styled.div`
   height: 17%;
   display: flex;
   align-items: center;
-  background-color: aqua;
+  /* background-color: aqua; */
 `;
 const ContentsWrap = styled.div`
   width: 100%;
@@ -157,7 +234,7 @@ const ContentsWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20px 20px 20px;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 `;
 const MiddleBox = styled.div`
   width: 100%;
@@ -165,27 +242,27 @@ const MiddleBox = styled.div`
   display: flex;
   flex-direction: row;
   padding: 0 20px 10px 20px;
-  background-color: beige;
+  /* background-color: beige; */
 `;
 const MiddleLeftBox = styled.div`
   width: 50%;
   height: 100%;
   padding: 0 10px 0 0;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
 `;
 const MiddleLeftTopBox = styled.div`
   width: 100%;
   height: 50%;
   padding-bottom: 10px;
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
 `;
 const MiddleLeftTodayMood = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  padding: 15px;
+  padding: 2.5%;
   text-align: left;
-  background-color: gray;
+  background-color: #fff;
 `;
 const ProfileWrap = styled.div`
   height: 100%;
@@ -220,29 +297,29 @@ const MiddleLeftBottomBox = styled.div`
   padding-top: 10px;
   flex-direction: column;
 
-  background-color: burlywood;
+  /* background-color: burlywood; */
 `;
 const MiddleLeftMission = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  padding: 15px;
+  padding: 2.5% 2.5% 1% 2.5%;
   text-align: left;
-  background-color: darkcyan;
+  background-color: #fff;
 `;
 const MiddleRightBox = styled.div`
   width: 50%;
   height: 100%;
   padding-left: 10px;
-  background-color: azure;
+  /* background-color: azure; */
 `;
 const MiddleRightCalendar = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  padding: 15px;
+  padding: 5px 15px 0 15px;
   text-align: left;
-  background-color: blanchedalmond;
+  background-color: #fff;
 `;
 const TotalCalendar = styled.div`
   display: flex;
@@ -260,7 +337,7 @@ const BottomBox = styled.div`
   display: flex;
   flex-direction: row;
   padding: 10px 20px 20px 20px;
-  background-color: bisque;
+  /* background-color: bisque; */
 `;
 const BottomLeftBox = styled.div`
   width: 100%;
@@ -268,21 +345,29 @@ const BottomLeftBox = styled.div`
   display: flex;
   flex-direction: row;
   padding-right: 10px;
-  background-color: blue;
+  /* background-color: blue; */
 `;
 const BottomLeftMission = styled.div`
   width: 50%;
   height: 100%;
   margin-right: 10px;
   border-radius: 20px;
-  background-color: cadetblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
 `;
 const BottomLeftBadge = styled.div`
   width: 50%;
   height: 100%;
   margin-left: 10px;
   border-radius: 20px;
-  background-color: chartreuse;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
 `;
 const BottomRightBox = styled.div`
   width: 100%;
@@ -290,24 +375,32 @@ const BottomRightBox = styled.div`
   display: flex;
   flex-direction: row;
   padding-left: 10px;
-  background-color: brown;
+  /* background-color: brown; */
 `;
 const BottomRightPhoto = styled.div`
   width: 50%;
   height: 100%;
   margin-right: 10px;
   border-radius: 20px;
-  background-color: chocolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
 `;
 const BottomRightVoice = styled.div`
   width: 50%;
   height: 100%;
   margin-left: 10px;
   border-radius: 20px;
-  background-color: coral;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
 `;
 const VoiceArea = styled.div`
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
 `;
 export default HomePage;
