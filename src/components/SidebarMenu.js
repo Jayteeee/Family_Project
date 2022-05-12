@@ -71,7 +71,7 @@ const SidebarMenu = (familyId) => {
           }}
         >
           <MdOutlineVoicemail style={{ fontSize: "24px" }} />
-          <Menus className="res-menus">음성메세지</Menus>
+          <Menus className="res-menus">음성메시지</Menus>
         </MenuBox>
       </SidebarMenuWrap>
     </>
