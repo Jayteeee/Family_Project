@@ -77,11 +77,10 @@ const PhotoList = ({
               <Figure key={p?.photoId}>
                 <div>
                   <ImageBox
-                    alt="#"
                     src={p?.photoFile ? p?.photoFile : noImage}
                     onClick={() => {
                       history.push(
-                        `/family/${NowFamilyId}/gallery/${p.photoAlbumName}/${photoAlbumId}/${p.photoId}/`
+                        `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
                       );
                       // getPhotoList();
                     }}
@@ -98,7 +97,6 @@ const PhotoList = ({
               <EditFigure key={p?.photoId}>
                 <div>
                   <EditImageBox
-                    alt="#"
                     src={p.photoFile ? p.photoFile : noImage}
                     onClick={() => {
                       // history.push(`/detail/${p._id}`);

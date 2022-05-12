@@ -54,7 +54,7 @@ const EditMemberNameModal = (props) => {
           }}
         >
           <SettingBox>
-            <Text htmlFor="changeTitle">가족이름 수정하기</Text>
+            <Text>가족이름 수정하기</Text>
             <div style={{ display: "flex" }}>
               <Input
                 id="changeTitle"

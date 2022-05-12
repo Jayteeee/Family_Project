@@ -14,8 +14,7 @@ import { history } from "../redux/configureStore";
 
 // 페이지
 import {
-  // FirstPage,
-  FamilyPage,
+  HomePage,
   MissionPage,
   CalendarPage,
   GalleryPage,
@@ -149,7 +148,8 @@ const Main = (props) => {
           </SidbarWrap>
           <PageWrap>
             <Switch>
-              <Route path="/family/:familyId/" exact component={FamilyPage} />
+              {/* <Route path="/family" exact component={FirstPage} /> */}
+              <Route path="/family/:familyId/" exact component={HomePage} />
               <Route
                 path="/family/:familyId/mission"
                 exact

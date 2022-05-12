@@ -62,11 +62,11 @@ const BadgeModal = ({ onClose, familyId }) => {
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       단란한 시작
                     </Text>
-                    {!badgeList[0].badgeChk ? (
+                    {!badgeList[0]?.badgeChk ? (
                       <BadgeBar>
-                        {badgeList[0].badgeCnt}/1
+                        {badgeList[0]?.badgeCnt}/1
                         <BadgeBarPercentage
-                          badgeCnt={(badgeList[0].badgeCnt / 1) * 100}
+                          badgeCnt={(badgeList[0]?.badgeCnt / 1) * 100}
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
@@ -74,7 +74,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <p style={{ margin: "1px 0 0 0" }}>성공</p>
                       </CompletedBadgeBar>
                     )}
-                    <BadghCnt> {badgeList[0].badgeCnt}/1</BadghCnt>
+                    <BadghCnt> {badgeList[0]?.badgeCnt}/1</BadghCnt>
                     <Text size="16px" padding="20px 0 0 0">
                       새로운 가족을 만들고{"\n"}멤버들을 초대해 보세요!
                     </Text>
@@ -86,10 +86,10 @@ const BadgeModal = ({ onClose, familyId }) => {
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       추억의 발자국
                     </Text>
-                    {!badgeList[1].badgeChk ? (
+                    {!badgeList[1]?.badgeChk ? (
                       <BadgeBar>
                         <BadgeBarPercentage
-                          badgeCnt={(badgeList[1].badgeCnt / 15) * 100}
+                          badgeCnt={(badgeList[1]?.badgeCnt / 15) * 100}
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
@@ -97,7 +97,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <p style={{ margin: "1px 0 0 0" }}>성공</p>
                       </CompletedBadgeBar>
                     )}
-                    <BadghCnt> {badgeList[1].badgeCnt}/15</BadghCnt>
+                    <BadghCnt> {badgeList[1]?.badgeCnt}/15</BadghCnt>
                     <Text size="16px">
                       갤러리에 우리 가족{"\n"}추억의 사진을 15개 이상{"\n"}
                       업로드해 보세요!
@@ -110,10 +110,10 @@ const BadgeModal = ({ onClose, familyId }) => {
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       정겨운 목소리
                     </Text>
-                    {!badgeList[2].badgeChk ? (
+                    {!badgeList[2]?.badgeChk ? (
                       <BadgeBar>
                         <BadgeBarPercentage
-                          badgeCnt={(badgeList[2].badgeCnt / 10) * 100}
+                          badgeCnt={(badgeList[2]?.badgeCnt / 10) * 100}
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
@@ -121,7 +121,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <p style={{ margin: "1px 0 0 0" }}>성공</p>
                       </CompletedBadgeBar>
                     )}
-                    <BadghCnt> {badgeList[2].badgeCnt}/10</BadghCnt>
+                    <BadghCnt> {badgeList[2]?.badgeCnt}/10</BadghCnt>
                     <Text size="16px">
                       음성 녹음을 10번 업로드{"\n"}해요. 서로의 목소리를{"\n"}
                       기록해 보세요!
@@ -136,10 +136,10 @@ const BadgeModal = ({ onClose, familyId }) => {
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       협동의 즐거움
                     </Text>
-                    {!badgeList[3].badgeChk ? (
+                    {!badgeList[3]?.badgeChk ? (
                       <BadgeBar>
                         <BadgeBarPercentage
-                          badgeCnt={(badgeList[3].badgeCnt / 20) * 100}
+                          badgeCnt={(badgeList[3]?.badgeCnt / 20) * 100}
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
@@ -147,7 +147,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <p style={{ margin: "1px 0 0 0" }}>성공</p>
                       </CompletedBadgeBar>
                     )}
-                    <BadghCnt> {badgeList[3].badgeCnt}/20</BadghCnt>
+                    <BadghCnt> {badgeList[3]?.badgeCnt}/20</BadghCnt>
                     <Text size="16px">
                       미션을 설정하고,{"\n"}가족들과 함께 20번 이상{"\n"}완료해
                       보세요!
@@ -160,10 +160,10 @@ const BadgeModal = ({ onClose, familyId }) => {
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       소통의 기쁨
                     </Text>
-                    {!badgeList[4].badgeChk ? (
+                    {!badgeList[4]?.badgeChk ? (
                       <BadgeBar>
                         <BadgeBarPercentage
-                          badgeCnt={(badgeList[4].badgeCnt / 50) * 100}
+                          badgeCnt={(badgeList[4]?.badgeCnt / 50) * 100}
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
@@ -171,7 +171,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <p style={{ margin: "1px 0 0 0" }}>성공</p>
                       </CompletedBadgeBar>
                     )}
-                    <BadghCnt> {badgeList[4].badgeCnt}/50</BadghCnt>
+                    <BadghCnt> {badgeList[4]?.badgeCnt}/50</BadghCnt>
                     <Text size="16px" padding="20px 0 0 0">
                       댓글 50번 등록 시 지급!{"\n"}함께 이야기 나누어 봐요!
                     </Text>
@@ -183,10 +183,10 @@ const BadgeModal = ({ onClose, familyId }) => {
                     <Text size="20px" fontWeight="600" padding="0 0 10px 0">
                       함께하는 나날
                     </Text>
-                    {!badgeList[5].badgeChk ? (
+                    {!badgeList[5]?.badgeChk ? (
                       <BadgeBar>
                         <BadgeBarPercentage
-                          badgeCnt={(badgeList[5].badgeCnt / 5) * 100}
+                          badgeCnt={(badgeList[5]?.badgeCnt / 5) * 100}
                         ></BadgeBarPercentage>
                       </BadgeBar>
                     ) : (
@@ -194,7 +194,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <p style={{ margin: "1px 0 0 0" }}>성공</p>
                       </CompletedBadgeBar>
                     )}
-                    <BadghCnt> {badgeList[5].badgeCnt}/50</BadghCnt>
+                    <BadghCnt> {badgeList[5]?.badgeCnt}/50</BadghCnt>
                     <Text size="16px" padding="20px 0 0 0">
                       우리 가족 일정을 5번 {"\n"}이상 등록해 보세요!
                     </Text>
@@ -353,7 +353,7 @@ const BadgeBarPercentage = styled.div`
   height: 30px;
   background-color: #8c98f8;
   border: none;
-  border-radius: 5px;
+  border-radius: 5px 0 0 5px;
   font-size: 16px;
   position: absolute;
   top: 0px;

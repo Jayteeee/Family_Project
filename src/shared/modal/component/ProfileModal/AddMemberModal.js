@@ -95,7 +95,7 @@ const AddMemberModal = ({ onClose }) => {
         >
           <SettingWrap>
             <AddMemberBox>
-              <Text htmlFor="addFamilyMember">가족 구성원 추가하기</Text>
+              <Text>가족 구성원 추가하기</Text>
               <form autoComplete="off">
                 <Input
                   id="addMember"

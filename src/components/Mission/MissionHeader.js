@@ -53,7 +53,7 @@ const MissionHeader = (props) => {
                 justifyContent: "center",
               }}
             >
-              <span style={{ fontSize: "25px", margin: "2px 5px 0px 0" }}>
+              <span style={{ fontSize: "25px", margin: "0px 5px 2px 0" }}>
                 +
               </span>
               미션 추가

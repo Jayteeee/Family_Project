@@ -24,29 +24,20 @@ import PastMissionList from "./PastMissionList";
 import { missionActions } from "../../redux/modules/mission";
 import OneMission from "./OneMission";
 
-const MissionList = ({ monthMissionList, pastMissionList, familyId }) => {
+const MissionList = ({
+  monthMissionList,
+  pastMissionList,
+  familyId,
+  myFamilyMemberId,
+}) => {
   const dispatch = useDispatch();
 
   // console.log(myFamilyMemberId);
 
-  // // user가 속해 있는 mission
-  // const myMission = monthMissionList.find((m) =>
-  //   m.missionMemberList.filter((f) => console.log(f.familyMemberId))
-  // );
-
-  // console.log(myMission);
+  console.log(monthMissionList);
 
   // 이번달 미션, 지난 미션토클
   const [status, setStatus] = useState(true);
-
-  // 미션 체크관련 함수
-  const [isChecked, setIsChecked] = useState(false);
-  console.log("미션개인체크유무:", isChecked);
-  const checkHandler = ({ target }) => {
-    setIsChecked(!isChecked);
-    checkedItemHandler(target.value, target.checked);
-    console.log(target.checked);
-  };
 
   const checkedItemHandler = (missionId, isCheck) => {
     let completedAt = dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss");
@@ -129,6 +120,7 @@ const MissionList = ({ monthMissionList, pastMissionList, familyId }) => {
                         {...m}
                         familyId={familyId}
                         monthMissionList={monthMissionList}
+                        myFamilyMemberId={myFamilyMemberId}
                       />
                     );
                   })
@@ -189,6 +181,7 @@ const MissionList = ({ monthMissionList, pastMissionList, familyId }) => {
                       {...m}
                       familyId={familyId}
                       monthMissionList={monthMissionList}
+                      myFamilyMemberId={myFamilyMemberId}
                     />
                   );
                 })

@@ -12,11 +12,29 @@ import MissionHeader from "../components/Mission/MissionHeader";
 import MissionStatusBox from "../components/Mission/MissionStatusBox";
 import MissionList from "../components/Mission/MissionList";
 import { userActions } from "../redux/modules/user";
+import { familyActions } from "../redux/modules/family";
+import { familyMemberActions } from "../redux/modules/familymember";
 
 export const MissionContext = createContext();
 
 const MissionPage = (props) => {
   const dispatch = useDispatch();
+
+  const userId = useSelector((state) => state.user.user.user?.userId);
+  console.log("나의 userId:", userId);
+
+  const familyMemberList = useSelector(
+    (state) => state.familymember?.familyMemberList
+  );
+  console.log("가족 구성원:", familyMemberList);
+
+  const myFamilyMemberData = familyMemberList.filter(
+    (f) => f.userId === userId
+  );
+  console.log("나의 가족멤버데이터:", myFamilyMemberData);
+
+  const myFamilyMemberId = myFamilyMemberData[0]?.familyMemberId;
+  console.log("나의 가족멤버ID:", myFamilyMemberId);
 
   const { familyId } = props.match?.params;
   console.log("현재 미션페이지 패밀리 아이디:", familyId);
@@ -24,7 +42,7 @@ const MissionPage = (props) => {
   const MissionData = useSelector((state) => state.mission);
   console.log("현재 미션 데이터: ", MissionData);
 
-  const missionStatus = MissionData.nowMissionData.missionBox;
+  const missionStatus = MissionData.nowMissionData;
   console.log("미션 현황:", missionStatus);
 
   const { thisMonthMissionList } = MissionData?.nowMissionData;
@@ -37,6 +55,7 @@ const MissionPage = (props) => {
     () => {
       dispatch(missionActions.getMissionPage(familyId));
       dispatch(missionActions.getPastMissionDB(familyId));
+      dispatch(familyMemberActions.getFamilyMemberDB(familyId));
       // dispatch(userActions.getUserInfo());
     },
     [
@@ -55,6 +74,7 @@ const MissionPage = (props) => {
           monthMissionList={thisMonthMissionList}
           pastMissionList={pastMissionList}
           familyId={familyId}
+          myFamilyMemberId={myFamilyMemberId}
         />
       </MissionPageWrap>
     </>

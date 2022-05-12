@@ -63,9 +63,10 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
 
   // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
-  const DeleteAlbum = (photoAlbumId) => {
+  const DeleteAlbum = (photoAlbumId, photoAlbumName) => {
     setModalOn(!modalOn);
     setPhotoAlbumId(photoAlbumId);
+    setPhotoAlbumName(photoAlbumName);
     console.log(photoAlbumId);
   };
   const handleModal = (e) => {
@@ -104,18 +105,10 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                     getPhotoList();
                   }}
                 >
-                  <div>
-                    <ImageBox
-                      // alt="#"
-                      src={p.photoFile ? p.photoFile : noImage}
-                      onClick={() => {
-                        // history.push(`/detail/${p._id}`);
-                      }}
-                    />
-                    <Text size="24px" fontWeight="600">
-                      {p.photoAlbumName}
-                    </Text>
-                  </div>
+                  <ImageBox src={p.randomPhoto ? p.randomPhoto : noImage} />
+                  <Text size="24px" fontWeight="600">
+                    {p.photoAlbumName}
+                  </Text>
                 </Figure>
               );
             })}
@@ -130,13 +123,17 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                   <EditFigure>
                     <EditImageBox
                       // alt="#"
-                      src={p.photoFile ? p.photoFile : noImage}
+                      src={p.randomPhoto ? p.randomPhoto : noImage}
                       onClick={() => {
                         // history.push(`/detail/${p._id}`);
                       }}
                     />
                     <DeleteIcon
-                      onClick={DeleteAlbum.bind(this, p.photoAlbumId)}
+                      onClick={DeleteAlbum.bind(
+                        this,
+                        p.photoAlbumId,
+                        p.photoAlbumName
+                      )}
                     >
                       <MdRemoveCircle />
                     </DeleteIcon>
@@ -161,6 +158,7 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
           <DeletePhotoAlbumModal
             onClose={handleModal}
             photoAlbumId={photoAlbumId}
+            photoAlbumName={photoAlbumName}
           ></DeletePhotoAlbumModal>
         )}
       </ModalPortal>
@@ -203,6 +201,11 @@ const Figure = styled.div`
   grid-template-rows: 1fr auto;
   /* margin-bottom: 2%; */
   break-inside: avoid;
+  width: 100%;
+  height: 100%;
+  /* width: 300px;
+  min-height: 300px; */
+
   &:hover {
     border-radius: 13px;
     cursor: pointer;
@@ -212,12 +215,18 @@ const Figure = styled.div`
   }
 `;
 
-const ImageBox = styled.img`
+const ImageBox = styled.div`
   grid-row: 1 / -1;
   grid-column: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  margin-top: 2%;
+  padding-bottom: 100%;
   border-radius: 13px;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
 `;
 
 const EditFigure = styled.div`
@@ -236,12 +245,18 @@ const EditFigure = styled.div`
   }
 `;
 
-const EditImageBox = styled.img`
+const EditImageBox = styled.div`
   grid-row: 1 / -1;
   grid-column: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  margin-top: 2%;
+  padding-bottom: 100%;
   border-radius: 13px;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
 `;
 
 const DeleteIcon = styled.div`

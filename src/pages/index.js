@@ -1,6 +1,6 @@
 import LandingPage from "./LandingPage";
 import Main from "./Main";
-import FamilyPage from "./FamilyPage";
+import HomePage from "./HomePage";
 import MissionPage from "./MissionPage";
 import CalendarPage from "./CalendarPage";
 import GalleryPage from "./GalleryPage";
@@ -13,7 +13,7 @@ import Auth from "./Auth";
 export {
   LandingPage,
   Main,
-  FamilyPage,
+  HomePage,
   MissionPage,
   CalendarPage,
   GalleryPage,

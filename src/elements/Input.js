@@ -11,6 +11,7 @@ const Input = (props) => {
     S,
     M,
     L,
+    Textarea,
     maxlength,
     oninput,
     ...styles
@@ -58,6 +59,20 @@ const Input = (props) => {
     );
   }
 
+  if (Textarea) {
+    return (
+      <Textarea
+        type={type}
+        placeholder={placeholder}
+        id={id}
+        onChange={onChange}
+        maxlength={maxlength}
+        oninput={oninput}
+        {...styles}
+      />
+    );
+  }
+
   return (
     <DefaultInput
       type={type}
@@ -72,6 +87,29 @@ const Input = (props) => {
 };
 
 const DefaultInput = styled.input`
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0px #8c98f8, 0 0 0 2px #8c98f8;
+  }
+
+  width: ${({ width }) => (width ? `${width};` : "100%;")};
+  height: ${({ height }) => (height ? `${height};` : "44px;")};
+  padding: ${({ padding }) => (padding ? `${padding};` : "0;")};
+  margin: ${({ margin }) => (margin ? `${margin};` : "0;")};
+  text-align: ${({ text_align }) => (text_align ? `${text_align};` : "")};
+  background-color: ${({ bg }) => (bg ? `${bg};` : "")};
+  font-weight: ${({ fontWeight }) => (fontWeight ? `${fontWeight};` : "")};
+  ${({ size }) => (size ? `font-size: ${size};` : "")}
+  ${({ border }) => (border ? `border: ${border};` : "border: none")};
+  ${({ borderColor }) =>
+    borderColor
+      ? `border: 2px solid ${borderColor};`
+      : "border: 2px solid gray;"};
+  ${({ borderRadius }) =>
+    borderRadius ? `border-radius: ${borderRadius};` : "border-radius: 4px;"}
+`;
+
+const Textarea = styled.textarea`
   &:focus {
     outline: none;
     box-shadow: 0 0 0 0px #8c98f8, 0 0 0 2px #8c98f8;

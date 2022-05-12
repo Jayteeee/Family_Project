@@ -42,7 +42,7 @@ const getFamilyDB = () => {
     await axios
       .get(`${BASE_URL}/family/familylist`, { headers: config })
       .then((res) => {
-        console.log(res);
+        console.log("가족 데이터 GET:", res);
         const { familyList } = res.data;
         console.log(familyList);
         dispatch(getFamily(familyList));
@@ -75,6 +75,7 @@ const addFamilyDB = (familyTitle) => {
 };
 
 const editFamilyNameDB = (familyId, familyTitle) => {
+  console.log(familyTitle);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
