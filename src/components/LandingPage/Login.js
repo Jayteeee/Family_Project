@@ -81,8 +81,8 @@ const Login = ({ checkClient }) => {
         <div className="line">또는</div>
       </Box>
       <Box>
-        <a href={KakaoPath}>
-          <img alt="카카오로그인" src={kakaoImg} style={{ height: "56px" }} />
+        <a href="https://doremilan.shop/auth/kakao">
+          <img alt="카카오로그인" src={kakaoImg} />
         </a>
       </Box>
     </LoginWrap>
@@ -93,11 +93,6 @@ const LoginWrap = styled.div`
   flex-direction: column;
   width: 100%;
   margin: auto;
-  & > a {
-    & > img {
-      width: 16em;
-    }
-  }
   #myBtn {
     :hover {
       opacity: 1 !important;
@@ -138,6 +133,11 @@ const Box = styled.div`
     height: 1px;
     font-size: 0px;
     line-height: 0px;
+  }
+  & > a {
+    & > img {
+      width: 100%;
+    }
   }
 `;
 
