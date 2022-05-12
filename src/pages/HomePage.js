@@ -62,15 +62,29 @@ const HomePage = (props) => {
                     {familyMemberList.map((f) => {
                       return (
                         <ProfileBox key={f.familyMemberId}>
-                          <RactangleImage
-                            S
-                            src={f.profileImg ? f.profileImg : profileImg}
-                            size="60px"
-                          />
-                          <Text margin="10px 0 0 0">
-                            {f.familyMemberNickname}
-                          </Text>
-                          <TodayMood>💙</TodayMood>
+                          <div
+                            style={{
+                              position: "relative",
+                              width: "75px",
+                              marginRight: "30px",
+                            }}
+                          >
+                            <RactangleImage
+                              S
+                              src={f.profileImg ? f.profileImg : profileImg}
+                              size="70px"
+                              borderRadius="16px"
+                              borderColor="gray"
+                            />
+                            <Text
+                              margin="15px 0 0 0"
+                              size="15px"
+                              fontWeight="600"
+                            >
+                              {f.familyMemberNickname}
+                            </Text>
+                            <TodayMood>💙 </TodayMood>
+                          </div>
                         </ProfileBox>
                       );
                     })}
@@ -80,6 +94,7 @@ const HomePage = (props) => {
               <MiddleLeftBottomBox>
                 <MiddleLeftMission>
                   <Text fontWeight="600">이번 달 미션 달성률</Text>
+                  <Text></Text>
                 </MiddleLeftMission>
               </MiddleLeftBottomBox>
             </MiddleLeftBox>
@@ -166,22 +181,21 @@ const ProfileBox = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding-right: 35px;
-  position: relative;
 `;
 const TodayMood = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
+  font-size: 17px;
   padding: 0 4px 0 0;
   border-radius: 30px;
   border: none;
   background-color: #fff;
   position: absolute;
-  top: 70px;
-  right: 30px;
+  top: 45px;
+  right: 0px;
 `;
 const MiddleLeftBottomBox = styled.div`
   width: 100%;
