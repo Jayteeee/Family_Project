@@ -9,7 +9,7 @@ const BASE_URL = "https://doremilan.shop";
 
 const initialState = {
   familyMemberList: [],
-  searchMemberList: [],
+  searchMember: {},
 };
 
 // 액션
@@ -26,8 +26,8 @@ const getFamilyMember = createAction(
     nowFamilyMemberList,
   })
 );
-const getSearchMember = createAction(GET_SEARCH_MEMBER, (searchMemberList) => ({
-  searchMemberList,
+const getSearchMember = createAction(GET_SEARCH_MEMBER, (userEmail) => ({
+  userEmail,
 }));
 const addFamilyMember = createAction(ADD_FAMILY_MEMBER, (newFamilyMember) => ({
   newFamilyMember,
@@ -83,13 +83,14 @@ const getSearchMemberDB = (email) => {
       })
       .then((res) => {
         console.log("가족 구성원 검색 GET:", res);
-        const { searchKeywordList } = res.data;
-        console.log(searchKeywordList);
-        dispatch(getSearchMember(searchKeywordList));
+        const { userEmail } = res.data;
+        console.log(userEmail);
+        dispatch(getSearchMember(userEmail));
       })
       .catch((error) => {
         console.log("구성원 검색 데이터 안옴", error);
-        console.log(error.response);
+        console.log(error.response.data.msg);
+        dispatch(getSearchMember(error.response.data.msg));
       });
 
     // let familyMemberList = [
@@ -198,9 +199,9 @@ export default handleActions(
     [GET_SEARCH_MEMBER]: (state, action) =>
       produce(state, (draft) => {
         // 서버에서 받아온 맴버 리스트
-        const { searchMemberList } = action.payload;
+        const { userEmail } = action.payload;
         // 멤버 리스트 주입
-        draft.searchMemberList = searchMemberList;
+        draft.searchMember = userEmail;
       }),
     [ADD_FAMILY_MEMBER]: (state, action) =>
       produce(state, (draft) => {
