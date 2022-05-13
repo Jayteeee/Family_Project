@@ -56,14 +56,10 @@ const initialState = {
     },
   ],
   photoOneList: [
+    // Response 최신순 정렬
     {
-      // Response 최신순 정렬
-      photoModalList: [
-        {
-          photoId: "454fdw",
-          photoFile: "url",
-        },
-      ],
+      photoId: "454fdw",
+      photoFile: "url",
     },
   ],
 };
@@ -143,10 +139,9 @@ const getPhotoCalendarDB = (familyId, date) => {
 const getOneScheduleDB = (date, familyId, eventId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
-    console.log("보내는 날짜:", date);
     await axios
       .get(
-        `${BASE_URL}/calendar/${familyId}/eventcalendar/detail/${date}/${eventId}`,
+        `${BASE_URL}/calendar/${familyId}/eventcalendar/detail/${eventId}/${date}`,
         {
           headers: config,
         }
@@ -164,6 +159,7 @@ const getOneScheduleDB = (date, familyId, eventId) => {
   };
 };
 const getOnePhotoDB = (date, familyId) => {
+  console.log(date);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios

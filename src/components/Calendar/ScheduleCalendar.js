@@ -17,6 +17,7 @@ const ScheduleCalendar = ({ familyId, list }) => {
 
   console.log("list:", list);
   console.log("일정:", schedule);
+  console.log("day,", day);
 
   // 토글
   const handleModal = () => {
@@ -69,7 +70,7 @@ const ScheduleCalendar = ({ familyId, list }) => {
             if (events.length !== 0) {
               html.push(
                 events.map((x, i) => {
-                  return (
+                  return x.startDate === x.endDate ? (
                     <div className="division" key={i}>
                       <div
                         className="dot"
@@ -79,6 +80,20 @@ const ScheduleCalendar = ({ familyId, list }) => {
                       <div
                         className="event"
                         date={dayjs(date).format("YYYY-MM-DD")}
+                      >
+                        {x.event}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="division">
+                      <div
+                        className="range"
+                        date={dayjs(date).format("YYYY-MM-DD")}
+                        style={{
+                          backgroundColor: x.color,
+                          width: "100%",
+                          color: "#fff",
+                        }}
                       >
                         {x.event}
                       </div>
@@ -200,14 +215,15 @@ const Container = styled.div`
   .mdot {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: flex-start;
+    width: 100%;
     overflow: auto;
   }
   .division {
     display: flex;
-    justify-content: start;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 100%;
     margin: 2px 0;
   }
@@ -217,9 +233,12 @@ const Container = styled.div`
     margin-right: 2px;
   }
   .event {
+    display: flex;
     width: 100%;
     height: 14px;
     overflow: auto;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 `;
 
