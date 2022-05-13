@@ -20,7 +20,6 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
   const [modalOn, setModalOn] = React.useState(false);
   const [eventId, setEventId] = React.useState();
   // const [normal, setNormal] = React.useState(false);
-  console.log(eventId);
 
   // const list = useSelector((state) => state.calendar.scheduleOneList);
 

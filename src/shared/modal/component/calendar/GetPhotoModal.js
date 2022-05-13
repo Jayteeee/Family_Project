@@ -13,20 +13,21 @@ import { scheduleActions } from "../../../../redux/modules/calendar";
 import { ModalPortal } from "../../portals";
 
 // 엘리먼트
-import { Input, Button } from "../../../../elements";
 import PhotoSlider from "../../../../components/Calendar/PhotoSlider";
 
-const GetPhotoModal = ({ onClose, day, familyId }) => {
+const GetPhotoModal = ({ onClose, date, familyId }) => {
   const dispatch = useDispatch();
-  const [normal, setNormal] = React.useState(false);
 
-  const list = useSelector((state) => state.calendar.photoList);
+  console.log("보내는 날짜:", date);
 
   React.useEffect(() => {
     dispatch(
-      scheduleActions.getOnePhotoDB(dayjs(day).format("YYYY-MM-DD"), familyId)
+      scheduleActions.getOnePhotoDB(dayjs(date).format("YYYY-MM-DD"), familyId)
     );
   }, []);
+
+  const list = useSelector((state) => state.calendar.photoOneList[0]);
+  console.log(list);
 
   return (
     <ModalPortal>
@@ -43,7 +44,7 @@ const GetPhotoModal = ({ onClose, day, familyId }) => {
             e.stopPropagation();
           }}
         >
-          <PhotoSlider day={list[0].createAt} onClose={onClose} />
+          <PhotoSlider day={list?.createAt} onClose={onClose} />
         </Content>
       </Background>
     </ModalPortal>

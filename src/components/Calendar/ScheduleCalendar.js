@@ -17,6 +17,7 @@ const ScheduleCalendar = ({ familyId, list }) => {
 
   console.log("list:", list);
   console.log("일정:", schedule);
+  console.log("day,", day);
 
   // 토글
   const handleModal = () => {

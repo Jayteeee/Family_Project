@@ -3,27 +3,22 @@ import styled from "styled-components";
 import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
 import dayjs from "dayjs";
-import { DummyData } from "../../shared/DummyData";
+
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
 import GetPhotoModal from "../../shared/modal/component/calendar/GetPhotoModal";
 import { useDispatch, useSelector } from "react-redux";
 import { scheduleActions } from "../../redux/modules/calendar";
+import { ViewDaySharp } from "@material-ui/icons";
 
 const PhotoCalendar = (props) => {
   const familyId = props.familyId;
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(new Date());
-  // const [mark, setMark] = React.useState([
-  //   { key: value },
-  //   { createdAt: "2022-11-11" },
-  // ]);
   const [style, setStyle] = React.useState("");
   const [modalOn, setModalOn] = React.useState(false);
   const [day, setDay] = React.useState("");
-  // const list = DummyData.photoCalendarPage.photoCalendarList;
   const list = useSelector((state) => state.calendar.photoCalendar);
-  console.log(list);
 
   const docs = document.getElementsByClassName("highlight");
 
@@ -50,7 +45,7 @@ const PhotoCalendar = (props) => {
 
   React.useEffect(() => {
     dispatch(scheduleActions.getPhotoCalendarDB(familyId, date));
-  }, []);
+  }, [thisMonth]);
 
   return (
     <div>
@@ -101,7 +96,6 @@ const PhotoCalendar = (props) => {
             onClose={handleModal}
             date={day}
             familyId={familyId}
-            eventId={list.eventId}
           ></GetPhotoModal>
         )}
       </ModalPortal>

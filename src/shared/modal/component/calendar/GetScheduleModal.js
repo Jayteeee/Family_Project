@@ -20,12 +20,13 @@ import EditScheduleModal from "./EditScheduleModal";
 
 // 엘리먼트
 import { Text, Button, CircleImage } from "../../../../elements";
+import noImg from "../../../../shared/images/profile_img.png";
 
 const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
   const dispatch = useDispatch();
   const [normal, setNormal] = React.useState(false);
 
-  const list = useSelector((state) => state.calendar.scheduleOneList);
+  const list = useSelector((state) => state.calendar.scheduleOneList[0]);
 
   const deleteSchedule = () => {
     dispatch(scheduleActions.deleteScheduleDB(list.eventId));
@@ -89,34 +90,36 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
             </ButtonBox>
             <SBox>
               <Stitle>
-                <ColorBox color={list.color}></ColorBox>
+                <ColorBox color={list?.color}></ColorBox>
                 <Text S1 style={{ marginLeft: "1rem" }}>
-                  {list.event}
+                  {list?.event}
                 </Text>
               </Stitle>
               <Sday>
-                <Text B1>{`${dayjs(list.startDate)
+                <Text B1>{`${dayjs(list?.startDate)
                   .locale("ko")
-                  .format(`MM월 DD일, dddd`)} - ${dayjs(list.endDate)
+                  .format(`MM월 DD일, dddd`)} - ${dayjs(list?.endDate)
                   .locale("ko")
                   .format(`MM월 DD일, dddd`)}`}</Text>
               </Sday>
               <SUser>
                 <CircleImage
                   XS
-                  src={list.profileImg}
+                  src={list?.profileImg ? list?.profileImg : noImg}
                   margin="0px 8px 0px 0px"
                   alt="profileImage"
                 ></CircleImage>
-                <Text B3>{`${list.familyMemberNickname}`}</Text>
+                <Text B3>{list?.familyMemberNickname}</Text>
               </SUser>
             </SBox>
           </CheckBox>
           <CheckBox none={!normal}>
             <EditScheduleModal
+              list={list}
               onClose={onClose}
-              day={list.startDate}
-              eventId={list.eventId}
+              day={date}
+              eventId={eventId}
+              familyId={familyId}
             />
           </CheckBox>
         </Content>

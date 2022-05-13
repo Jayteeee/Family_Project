@@ -55,7 +55,7 @@ const CalendarPage = (props) => {
 
   React.useEffect(() => {
     dispatch(scheduleActions.getScheduleDB(familyId, date));
-  }, [list.length]);
+  }, [list.length, thisMonth]);
 
   return (
     <Container>

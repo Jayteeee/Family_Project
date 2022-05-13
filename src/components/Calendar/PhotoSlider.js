@@ -10,7 +10,8 @@ import { useSelector } from "react-redux";
 
 const PhotoSlider = ({ onClose }) => {
   // const list = DummyData.photoModalList;
-  const list = useSelector((state) => state.calendar.photoOneList);
+  const list = useSelector((state) => state.calendar?.photoOneList);
+  console.log(list);
 
   const settings = {
     arrows: true, //화살표 o
@@ -40,18 +41,20 @@ const PhotoSlider = ({ onClose }) => {
         className="res-ss res-reset"
         ref={slider}
       >
-        {list.map((x) => {
-          return (
-            <div className="res-ss" key={x.photoId}>
-              <img
-                key={x.photoId}
-                alt="photoId"
-                src={x.photoFile}
-                className="res-ss"
-              />
-            </div>
-          );
-        })}
+        {list
+          ? list.map((x) => {
+              return (
+                <div className="res-ss" key={x.photoId}>
+                  <img
+                    key={x.photoId}
+                    alt="photoId"
+                    src={x.photoFile}
+                    className="res-ss"
+                  />
+                </div>
+              );
+            })
+          : null}
       </Styled_Slide>
       <XButton
         onClick={(e) => {
