@@ -5,16 +5,23 @@ import styled from "styled-components";
 import { MdPlayArrow, MdOutlinePause } from "react-icons/md";
 import dayjs from "dayjs";
 
+// 리덕스
+import { history } from "../../redux/configureStore";
+
 // 엘리먼트
 import { Text } from "../../elements";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 
-const HomeMissionStatus = ({ completePercentage }) => {
+const HomeMissionStatus = ({ completePercentage, familyId }) => {
   return (
     <>
-      <Container>
+      <Container
+        onClick={() => {
+          history.push(`/family/${familyId}/mission/`);
+        }}
+      >
         <Figure>
           <ContantBox>
             <Text>{completePercentage}%</Text>
@@ -48,6 +55,7 @@ const Figure = styled.div`
   break-inside: avoid;
   width: 100%;
   height: 100%;
+  cursor: pointer;
   &:hover {
     border-radius: 13px;
     transition: all 300ms ease-in;

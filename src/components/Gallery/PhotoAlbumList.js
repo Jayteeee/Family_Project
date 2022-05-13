@@ -74,11 +74,6 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
     const deleteBtm = document.getElementById("deleteBtn");
   };
 
-  // GET pohtoList
-  const getPhotoList = () => {
-    dispatch(galleryActions.getPhotoDB(photoAlbumId));
-  };
-
   useEffect(() => {
     dispatch(galleryActions.getPhotoAlbumDB(NowFamilyId));
   }, []);
@@ -102,7 +97,6 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                     history.push(
                       `/family/${NowFamilyId}/gallery/${p.photoAlbumName}/${p.photoAlbumId}`
                     );
-                    getPhotoList();
                   }}
                 >
                   <ImageBox src={p.randomPhoto ? p.randomPhoto : noImage} />

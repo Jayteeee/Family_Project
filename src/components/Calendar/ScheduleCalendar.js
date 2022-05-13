@@ -68,9 +68,9 @@ const ScheduleCalendar = ({ familyId, list }) => {
             }
             if (events.length !== 0) {
               html.push(
-                events.map((x) => {
+                events.map((x, i) => {
                   return (
-                    <div className="division">
+                    <div className="division" key={i}>
                       <div
                         className="dot"
                         date={dayjs(date).format("YYYY-MM-DD")}
@@ -119,6 +119,7 @@ const Container = styled.div`
     color: #222;
     border: none;
     padding: 24px;
+    border-radius: 20px;
     @media only screen and (max-width: 839px) {
       padding: 0px;
     }
@@ -127,16 +128,18 @@ const Container = styled.div`
   .react-calendar__navigation {
     position: absolute;
     display: flex;
-    top: 80px;
-    left: 0;
+    top: 120px;
+    left: 25px;
     font-weight: 600;
     font-size: 24px;
     @media only screen and (max-width: 1199px) {
+      padding: 35px 0;
       top: 40px;
       left: unset;
       right: 0;
       height: 44px;
       width: 207px;
+      margin-right: 20px;
     }
     @media only screen and (max-width: 839px) {
       top: 20px;

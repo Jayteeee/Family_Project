@@ -44,7 +44,7 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
           {photoAlbumName}
         </Text>
         <BtnWrap>
-          <AddPhotoBtn className="input-file-button" for="input-file">
+          <AddPhotoBtn>
             <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
             사진 추가
           </AddPhotoBtn>
@@ -95,6 +95,17 @@ const AddPhotoBtn = styled.label`
     background: #8c98f8;
     color: #fff;
     border: none;
+  }
+  // Medium (Desktop)
+  @media only screen and (max-width: 1199px) {
+    margin-top: 10px;
+    width: 160px;
+  }
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
   }
 `;
 

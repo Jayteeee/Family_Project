@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import dayjs from "dayjs";
+import { MdAdd } from "react-icons/md";
 
 // 엘리먼트
 import { Text, Button } from "../../elements/index";
@@ -44,6 +45,7 @@ const MissionHeader = (props) => {
             width="159px"
             height="56px"
             hover="#6971b2"
+            margin="10px 0 0 0"
             onClick={handleModal}
           >
             <div
@@ -51,9 +53,16 @@ const MissionHeader = (props) => {
                 alignItems: "center",
                 display: "flex",
                 justifyContent: "center",
+                fontWeight: "600",
+                marginBottom: "1px",
               }}
             >
-              <span style={{ fontSize: "25px", margin: "0px 5px 2px 0" }}>
+              <span
+                style={{
+                  fontSize: "25px",
+                  margin: "0px 5px 3px 0",
+                }}
+              >
                 +
               </span>
               미션 추가
@@ -84,8 +93,18 @@ const MissionHeaderBox = styled.div`
   align-items: center;
   border: none;
   background: transparent;
-  margin: 20px 20px 10px 20px;
+  margin: 15px 20px 10px 20px;
   padding: 16px 20px;
+  // Medium (Desktop)
+  @media only screen and (max-width: 1199px) {
+    margin: 20px 20px 10px 20px;
+  }
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const AddMissionBtn = styled.div`

@@ -117,6 +117,7 @@ const Container = styled.div`
     color: #222;
     border: none;
     padding: 24px;
+    border-radius: 20px;
     @media only screen and (max-width: 839px) {
       padding: 0px;
     }

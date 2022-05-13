@@ -62,9 +62,15 @@ const CalendarPage = (props) => {
       <Title>
         <Text H1>캘린더</Text>
         <AddButton onClick={handleModal}>
-          <PButton>
-            <MdAdd />
-          </PButton>
+          <span
+            style={{
+              fontSize: "25px",
+              margin: "0px 5px 4px 0",
+              fontWeight: "600",
+            }}
+          >
+            +
+          </span>
           <Text BL>일정 추가</Text>
         </AddButton>
       </Title>
@@ -106,10 +112,10 @@ const CalendarPage = (props) => {
           <ScheduleArea>
             <Text S1>이번 달 일정</Text>
             {scheduleList
-              ? scheduleList.map((x) => (
-                  <FlexBox1>
+              ? scheduleList.map((x, i) => (
+                  <FlexBox1 key={i}>
                     <TextBox>
-                      <Text BM key={x?.familyId}>
+                      <Text BM>
                         {`${dayjs(x?.startDate)
                           .locale("ko")
                           .format("MM월 DD일, dd")}`}
@@ -140,16 +146,22 @@ const CalendarPage = (props) => {
 
 const Container = styled.div`
   position: relative;
-  margin: 40px;
+  padding: 40px;
   display: flex;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 80px);
   flex-direction: column;
   overflow-y: scroll;
+
+  // Medium (Desktop)
   @media only screen and (max-width: 1199px) {
-    margin: 60px 40px;
+    padding: 40px;
   }
+  // Small (Tablet)
   @media only screen and (max-width: 839px) {
-    margin: 60px 24px;
+    padding: 24px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
   }
 `;
 
@@ -157,6 +169,19 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 1px;
+
+  // Medium (Desktop)
+  @media only screen and (max-width: 1199px) {
+    padding: 40px;
+  }
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+    padding: 23px 16px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const AddButton = styled.button`
@@ -273,7 +298,8 @@ const TextBox = styled.div`
 
 const SBox = styled.div`
   width: 100%;
-  height: 890px;
+  /* height: 890px; */
+  height: 800px;
   margin-top: 110px;
   margin-right: 12px;
   background-color: #fff;
@@ -300,7 +326,8 @@ const CalendarArea = styled.div``;
 const ScheduleArea = styled.div`
   /* position: relative; */
   width: 100%;
-  height: 912px;
+  max-height: 800px;
+  overflow-y: scroll;
   border-radius: 20px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   margin-top: 110px;

@@ -4,12 +4,19 @@ import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
 import dayjs from "dayjs";
 
-const HomeCalendar = ({ thisMonthEventList }) => {
+// 리덕스
+import { history } from "../../redux/configureStore";
+
+const HomeCalendar = ({ thisMonthEventList, familyId }) => {
   const [value, setValue] = React.useState(new Date());
 
   return (
     <div>
-      <Container>
+      <Container
+        onClick={() => {
+          history.push(`/family/${familyId}/calendar/`);
+        }}
+      >
         <Calendar
           onChange={setValue} // useState로 포커스 변경 시 현재 날짜 받아오기
           formatDay={(locale, date) => dayjs(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
@@ -27,9 +34,9 @@ const HomeCalendar = ({ thisMonthEventList }) => {
             }
             if (events.length !== 0) {
               html.push(
-                events.map((x) => {
+                events.map((x, i) => {
                   return (
-                    <div className="division">
+                    <div className="division" key={i}>
                       <div
                         className="dot"
                         date={dayjs(date).format("YYYY-MM-DD")}
@@ -73,6 +80,7 @@ const Container = styled.div`
     overflow-y: scroll;
     border-radius: 16px;
     border: 1px solid #c4c4c4;
+    cursor: pointer;
     &:hover {
       border-radius: 13px;
       transition: all 300ms ease-in;

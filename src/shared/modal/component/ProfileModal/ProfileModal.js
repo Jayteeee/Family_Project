@@ -176,11 +176,12 @@ const Background = styled.div`
 
 const Content = styled.div`
   z-index: 205;
-  height: 400px;
-  max-width: 350px;
+  max-height: 384px;
+  max-width: 269px;
   width: 100%;
   border-radius: 0px;
-  border: 1px solid #d6d6d6;
+  /* border: 1px solid #d6d6d6; */
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   background-color: #fff;
   position: absolute;
   top: 0;

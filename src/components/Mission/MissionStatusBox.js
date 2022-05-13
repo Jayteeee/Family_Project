@@ -3,14 +3,16 @@ import React, { useState } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 
+// 리덕스
+import { missionActions } from "../../redux/modules/mission";
+import { useDispatch } from "react-redux";
+
 // 엘리먼트
 import { Text } from "../../elements";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
 import { BadgeModal } from "../../shared/modal/component/MissionModal";
-import { missionActions } from "../../redux/modules/mission";
-import { useDispatch } from "react-redux";
 
 const MissionStatusBox = ({ missionStatus, familyId }) => {
   const dispatch = useDispatch();

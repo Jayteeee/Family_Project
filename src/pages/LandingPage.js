@@ -19,7 +19,7 @@ const LandingPage = () => {
   const isMember = useSelector((state) => state.user?.user?.familyList);
 
   if (isLogin && isMember?.length !== 0) {
-    history.goBack();
+    history.push(`/family/${isMember[0].familyId}`);
   }
 
   return (

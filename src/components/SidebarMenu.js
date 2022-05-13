@@ -78,6 +78,23 @@ const SidebarMenu = (familyId) => {
 
 const SidebarMenuWrap = styled.div`
   height: 60vh;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    display: flex !important;
+    margin-top: 0px !important;
+    font-size: 15px !important;
+    text-align: center !important;
+    border-radius: 0px !important;
+    width: 100% !important;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    font-size: 10px !important;
+  }
 `;
 
 const MenuBox = styled.div`
@@ -90,13 +107,45 @@ const MenuBox = styled.div`
   font-weight: 500;
   color: #8f8f8f;
   cursor: pointer;
+
   &:hover {
     background: #d6d6d6;
+  }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    justify-content: center !important;
+    flex-direction: column !important;
+    border-radius: 0px !important;
+    font-size: 15px !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    font-size: 10px !important;
+    svg {
+      font-size: 17px !important;
+    }
   }
 `;
 
 const Menus = styled.span`
   margin-left: 10px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    margin: 2px 0 !important;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 export default SidebarMenu;

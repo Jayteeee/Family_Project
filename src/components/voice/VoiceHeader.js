@@ -142,6 +142,18 @@ const AddPhotoBtn = styled.label`
     color: #fff;
     border: none;
   }
+
+  // Medium (Desktop)
+  @media only screen and (max-width: 1199px) {
+    margin-top: 10px;
+    width: 160px;
+  }
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const PhotoAlbumBtn = styled.div`
@@ -161,6 +173,18 @@ const PhotoAlbumBtn = styled.div`
     color: #fff;
     border: none;
   }
+
+  // Medium (Desktop)
+  @media only screen and (max-width: 1199px) {
+    margin-top: 10px;
+    width: 160px;
+  }
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const EditCompletedBtn = styled.div`
@@ -178,6 +202,18 @@ const EditCompletedBtn = styled.div`
     background: black;
     color: #fff;
     border: none;
+  }
+
+  // Medium (Desktop)
+  @media only screen and (max-width: 1199px) {
+    margin-top: 10px;
+    width: 160px;
+  }
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
   }
 `;
 

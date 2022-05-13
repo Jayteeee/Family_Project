@@ -92,12 +92,7 @@ const Main = (props) => {
         <MainContext.Provider value={NowFamily}>
           <Header bg={bg} user={user} />
         </MainContext.Provider>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
+        <ContentWrap>
           <SidbarWrap className="res-selectWrap">
             <SelectBox
               onClick={(e) => {
@@ -114,11 +109,11 @@ const Main = (props) => {
                   ? NowFamilyTitle
                   : "Family Title"}
                 <TiArrowSortedDown
-                  style={{
-                    margin: "0 15px",
-                    textAlign: "center",
-                    fontSize: "16px",
-                  }}
+                // style={{
+                //   margin: "0 15px",
+                //   textAlign: "center",
+                //   fontSize: "16px",
+                // }}
                 />
               </Label>
               <SelectOptions
@@ -142,9 +137,9 @@ const Main = (props) => {
                 </div>
               </SelectOptions>
             </SelectBox>
-            <Sidebar className="res-sidbar">
+            <SidebarLeft className="res-sidbar">
               <SidebarMenu NowFamilyId={NowFamilyId} />
-            </Sidebar>
+            </SidebarLeft>
           </SidbarWrap>
           <PageWrap>
             <Switch>
@@ -187,7 +182,10 @@ const Main = (props) => {
               />
             </Switch>
           </PageWrap>
-        </div>
+          <SidebarBottom className="res-sidbar">
+            <SidebarMenu NowFamilyId={NowFamilyId} />
+          </SidebarBottom>
+        </ContentWrap>
       </MainWrap>
     </>
   );
@@ -204,6 +202,34 @@ const MainWrap = styled.div`
   /* flex-wrap: nowrap; */
   /* gap: 1em; */
   flex-direction: column !important;
+  height: 100%;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    flex-direction: column !important;
+    font-size: 15px !important;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+`;
+
+const ContentWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    flex-direction: column !important;
+    font-size: 15px !important;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const SidbarWrap = styled.div`
@@ -213,18 +239,46 @@ const SidbarWrap = styled.div`
   flex-grow: 0;
   flex-shrink: 0;
   /* background-color: #f0f0ff; */
-  @media only screen and (max-width: 839px) {
-    display: none;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    /* display: none; */
+    /* padding: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
   }
 `;
 
-const Sidebar = styled.nav`
+const SidebarLeft = styled.nav`
   width: 296px;
   display: inline-flex;
   flex-direction: column;
   background: #fff;
   vertical-align: top;
   border: none;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    display: none;
+    /* width: 100% !important;
+    height: 80px !important;
+    bottom: 0px !important;
+    border-radius: 0px !important;
+    position: absolute !important;
+    display: flex !important; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const SelectBox = styled.div`
@@ -235,11 +289,28 @@ const SelectBox = styled.div`
   border: none;
   text-align: left;
   cursor: pointer;
+  svg {
+    margin-left: 10px;
+  }
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    cursor: pointer !important;
+    width: 100% !important;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    svg {
+      margin-left: 5px;
+    }
+  }
 `;
 
 const Label = styled.div`
   display: flex;
-  font-size: 24px;
+  /* font-size: 24px; */
   font-weight: 700;
   width: 100%;
   justify-content: center;
@@ -250,6 +321,19 @@ const Label = styled.div`
     background-color: #d6d6d6;
   }
   padding: 40px 40px 40px 10px;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    font-size: 20px !important;
+    padding: 10px !important;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    font-size: 15px !important;
+    padding: 10px !important;
+  }
 `;
 
 const SelectOptions = styled.ul`
@@ -265,7 +349,18 @@ const SelectOptions = styled.ul`
   background-color: #222222;
   color: #fefefe;
   overflow-y: scroll;
-  height: 120%;
+  z-index: 30000;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    top: 44px !important;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    top: 37px !important;
+  }
 `;
 
 const Option = styled.li`
@@ -275,6 +370,19 @@ const Option = styled.li`
   transition: background-color 0.2s ease-in;
   &:hover {
     background-color: #d6d6d6;
+  }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    text-align: center;
+    font-size: 20px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    font-size: 15px;
   }
 `;
 
@@ -286,6 +394,55 @@ const PageWrap = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
   background-color: #f0f0ff;
+  overflow-y: scroll;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: calc(94.1vh - 125px);
+    text-align: center;
+    font-size: 20px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: calc(100vh - 173px);
+    text-align: center;
+    font-size: 20px;
+    font-size: 15px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    height: calc(100vh - 162px);
+    text-align: center;
+    font-size: 20px;
+    font-size: 15px;
+  }
+`;
+
+const SidebarBottom = styled.nav`
+  width: 100%;
+  max-height: 6vh;
+  display: inline-flex;
+  flex-direction: column;
+  background: #fff;
+  border: none;
+  background-color: gray;
+  display: none;
+  /* justify-content: end;
+  align-items: flex-end; */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    display: inline-flex;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 export default Main;

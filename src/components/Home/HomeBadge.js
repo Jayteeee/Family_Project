@@ -7,6 +7,8 @@ import dayjs from "dayjs";
 
 // 리덕스
 import { history } from "../../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { missionActions } from "../../redux/modules/mission";
 
 // 엘리먼트
 import { Text } from "../../elements";
@@ -14,12 +16,28 @@ import { Text } from "../../elements";
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 
-const HomeBadge = ({ randomBadge }) => {
+// 모달
+import { ModalPortal } from "../../shared/modal/portals";
+import { BadgeModal } from "../../shared/modal/component/MissionModal";
+
+const HomeBadge = ({ randomBadge, familyId }) => {
+  const dispatch = useDispatch();
+  // 배지 목록 모달
+  const [modalOn, setModalOn] = useState(false);
+
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
+
+  const getBadgeList = () => {
+    dispatch(missionActions.getBadgeListDB(familyId));
+  };
   return (
     <>
       <Container
         onClick={() => {
-          history.push();
+          getBadgeList();
+          handleModal();
         }}
       >
         <Figure>
@@ -54,6 +72,12 @@ const HomeBadge = ({ randomBadge }) => {
           </ContantBox>
         </Figure>
       </Container>
+      {/* 배지 목록 모달 */}
+      <ModalPortal>
+        {modalOn && (
+          <BadgeModal onClose={handleModal} familyId={familyId}></BadgeModal>
+        )}
+      </ModalPortal>
     </>
   );
 };
@@ -81,6 +105,7 @@ const Figure = styled.div`
   break-inside: avoid;
   width: 100%;
   height: 100%;
+  cursor: pointer;
   &:hover {
     border-radius: 13px;
     transition: all 300ms ease-in;

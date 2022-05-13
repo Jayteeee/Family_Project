@@ -5,13 +5,16 @@ import styled from "styled-components";
 import { MdPlayArrow, MdOutlinePause } from "react-icons/md";
 import dayjs from "dayjs";
 
+// 리덕스
+import { history } from "../../redux/configureStore";
+
 // 엘리먼트
 import { Text } from "../../elements";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 
-const HomeVoice = ({ recentVoiceFile }) => {
+const HomeVoice = ({ recentVoiceFile, familyId }) => {
   const v = recentVoiceFile;
   const [run, setRun] = useState(false);
 
@@ -45,7 +48,11 @@ const HomeVoice = ({ recentVoiceFile }) => {
 
   return (
     <>
-      <Container>
+      <Container
+        onClick={() => {
+          history.push(`/family/${familyId}/voiceMsg/`);
+        }}
+      >
         <Figure key={v?.voiceFileId}>
           <VoiceBox>
             <audio ref={myRef} src={v?.voiceFile} />
@@ -110,6 +117,7 @@ const Figure = styled.div`
   break-inside: avoid;
   width: 100%;
   height: 100%;
+  cursor: pointer;
   &:hover {
     border-radius: 13px;
     transition: all 300ms ease-in;

@@ -57,6 +57,17 @@ const PhotoDetailPageWrap = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+
+  // Medium (Desktop)
+  @media only screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+    height: 100%;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 export default PhotoDetalilPage;

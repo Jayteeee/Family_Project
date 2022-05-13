@@ -83,10 +83,10 @@ const VoiceAlbum = ({ PracticeEdit, isEdit, familyId }) => {
       {!isEdit ? (
         <Container>
           {voiceAlbumList &&
-            voiceAlbumList.map((v) => {
+            voiceAlbumList.map((v, i) => {
               return (
                 <Figure
-                  key={v.voiceAlbumId}
+                  key={i}
                   onClick={() => {
                     console.log(familyId);
                     history.push(
@@ -126,7 +126,7 @@ const VoiceAlbum = ({ PracticeEdit, isEdit, familyId }) => {
           {voiceAlbumList &&
             voiceAlbumList.map((v) => {
               return (
-                <div>
+                <div key={v.voiceAlbumId}>
                   <EditFigure>
                     <EditImageBox
                       // alt="#"

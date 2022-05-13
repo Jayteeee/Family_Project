@@ -63,7 +63,7 @@ const HomePage = (props) => {
 
   return (
     <>
-      <FamilyPageWrap>
+      <HomePageWrap>
         <Header>
           <Text size="2.5rem" fontWeight="600">
             {nowRandomMsg.randomMsg}
@@ -121,7 +121,10 @@ const HomePage = (props) => {
                   >
                     <Text fontWeight="600"> 이번 달 미션 달성률</Text>
                   </div>
-                  <HomeMissionStatus completePercentage={completePercentage} />
+                  <HomeMissionStatus
+                    completePercentage={completePercentage}
+                    familyId={familyId}
+                  />
                 </MiddleLeftMission>
               </MiddleLeftBottomBox>
             </MiddleLeftBox>
@@ -140,10 +143,16 @@ const HomePage = (props) => {
 
                 <TotalCalendar>
                   <CalendarArea>
-                    <HomeCalendar thisMonthEventList={thisMonthEventList} />
+                    <HomeCalendar
+                      thisMonthEventList={thisMonthEventList}
+                      familyId={familyId}
+                    />
                   </CalendarArea>
                   <ScheduleArea>
-                    <HomeSchedule thisMonthEventList={thisMonthEventList} />
+                    <HomeSchedule
+                      thisMonthEventList={thisMonthEventList}
+                      familyId={familyId}
+                    />
                   </ScheduleArea>
                 </TotalCalendar>
               </MiddleRightCalendar>
@@ -162,7 +171,10 @@ const HomePage = (props) => {
                 >
                   <Text fontWeight="600"> 진행중인 미션</Text>
                 </div>
-                <HomeMission recentMission={recentMission} />
+                <HomeMission
+                  recentMission={recentMission}
+                  familyId={familyId}
+                />
               </BottomLeftMission>
               <BottomLeftBadge>
                 <div
@@ -175,7 +187,7 @@ const HomePage = (props) => {
                 >
                   <Text fontWeight="600"> 달성 배지</Text>
                 </div>
-                <HomeBadge randomBadge={randomBadge} />
+                <HomeBadge randomBadge={randomBadge} familyId={familyId} />
               </BottomLeftBadge>
             </BottomLeftBox>
             <BottomRightBox>
@@ -190,7 +202,7 @@ const HomePage = (props) => {
                 >
                   <Text fontWeight="600">최근 등록된 사진</Text>
                 </div>
-                <HomePhoto recentPhoto={recentPhoto} />
+                <HomePhoto recentPhoto={recentPhoto} familyId={familyId} />
               </BottomRightPhoto>
               <BottomRightVoice>
                 <div
@@ -203,22 +215,38 @@ const HomePage = (props) => {
                 >
                   <Text fontWeight="600">최근 등록된 음성메시지</Text>
                 </div>
-                <HomeVoice recentVoiceFile={recentVoiceFile} />
+                <HomeVoice
+                  recentVoiceFile={recentVoiceFile}
+                  familyId={familyId}
+                />
               </BottomRightVoice>
             </BottomRightBox>
           </BottomBox>
         </ContentsWrap>
-      </FamilyPageWrap>
+      </HomePageWrap>
     </>
   );
 };
 
-const FamilyPageWrap = styled.div`
+const HomePageWrap = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: calc(100vh - 100px);
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: calc(100vh - 130px);
+    /* column-count: 1;
+    padding: 8px; */
+  }
 `;
 
 const Header = styled.div`
@@ -226,8 +254,26 @@ const Header = styled.div`
   height: 17%;
   display: flex;
   align-items: center;
+  margin-left: 40px;
   /* background-color: aqua; */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    display: block;
+    padding: 15px;
+    margin: 24px 0;
+    & > p {
+      font-size: 2rem;
+    }
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
+
 const ContentsWrap = styled.div`
   width: 100%;
   height: 93%;
@@ -235,26 +281,79 @@ const ContentsWrap = styled.div`
   flex-direction: column;
   padding: 0 20px 20px 20px;
   /* background-color: aquamarine; */
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    /* width: 1000px; */
+    height: 100%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    padding: 4px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
+
 const MiddleBox = styled.div`
   width: 100%;
   height: 65%;
   display: flex;
   flex-direction: row;
   padding: 0 20px 10px 20px;
+
   /* background-color: beige; */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    flex-direction: column;
+    height: 100%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const MiddleLeftBox = styled.div`
   width: 50%;
   height: 100%;
   padding: 0 10px 0 0;
   /* background-color: antiquewhite; */
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    width: 100%;
+    height: 700px;
+    padding: 0;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const MiddleLeftTopBox = styled.div`
   width: 100%;
   height: 50%;
+  /* display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; */
   padding-bottom: 10px;
   /* background-color: blueviolet; */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    height: 50%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const MiddleLeftTodayMood = styled.div`
   width: 100%;
@@ -263,6 +362,7 @@ const MiddleLeftTodayMood = styled.div`
   padding: 2.5%;
   text-align: left;
   background-color: #fff;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 `;
 const ProfileWrap = styled.div`
   height: 100%;
@@ -289,6 +389,7 @@ const TodayMood = styled.div`
   position: absolute;
   top: 45px;
   right: 0px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 `;
 const MiddleLeftBottomBox = styled.div`
   width: 100%;
@@ -296,8 +397,18 @@ const MiddleLeftBottomBox = styled.div`
   display: flex;
   padding-top: 10px;
   flex-direction: column;
-
   /* background-color: burlywood; */
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    height: 50%;
+    display: block;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const MiddleLeftMission = styled.div`
   width: 100%;
@@ -306,12 +417,26 @@ const MiddleLeftMission = styled.div`
   padding: 2.5% 2.5% 1% 2.5%;
   text-align: left;
   background-color: #fff;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 `;
 const MiddleRightBox = styled.div`
   width: 50%;
   height: 100%;
   padding-left: 10px;
   /* background-color: azure; */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    width: 100%;
+    padding-left: 0;
+    margin-top: 20px;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const MiddleRightCalendar = styled.div`
   width: 100%;
@@ -320,6 +445,7 @@ const MiddleRightCalendar = styled.div`
   padding: 5px 15px 0 15px;
   text-align: left;
   background-color: #fff;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 `;
 const TotalCalendar = styled.div`
   display: flex;
@@ -327,9 +453,32 @@ const TotalCalendar = styled.div`
 `;
 const CalendarArea = styled.div`
   width: 60%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    width: 55%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const ScheduleArea = styled.div`
   width: 40%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    width: 45%;
+    margin-left: 20px;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const BottomBox = styled.div`
   width: 100%;
@@ -338,6 +487,19 @@ const BottomBox = styled.div`
   flex-direction: row;
   padding: 10px 20px 20px 20px;
   /* background-color: bisque; */
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    /* flex-direction: column; */
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const BottomLeftBox = styled.div`
   width: 100%;
@@ -346,6 +508,16 @@ const BottomLeftBox = styled.div`
   flex-direction: row;
   padding-right: 10px;
   /* background-color: blue; */
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    padding-right: 0;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const BottomLeftMission = styled.div`
   width: 50%;
@@ -357,6 +529,19 @@ const BottomLeftMission = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    margin-right: 0;
+    height: 95%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const BottomLeftBadge = styled.div`
   width: 50%;
@@ -368,6 +553,18 @@ const BottomLeftBadge = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    height: 95%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const BottomRightBox = styled.div`
   width: 100%;
@@ -376,6 +573,17 @@ const BottomRightBox = styled.div`
   flex-direction: row;
   padding-left: 10px;
   /* background-color: brown; */
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    padding-left: 0;
+    /* margin-top: 20px; */
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const BottomRightPhoto = styled.div`
   width: 50%;
@@ -387,6 +595,19 @@ const BottomRightPhoto = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    margin-right: 0;
+    height: 95%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const BottomRightVoice = styled.div`
   width: 50%;
@@ -398,6 +619,18 @@ const BottomRightVoice = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    height: 95%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 const VoiceArea = styled.div`
   /* width: 100%;
