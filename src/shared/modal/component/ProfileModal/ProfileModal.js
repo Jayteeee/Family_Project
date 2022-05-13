@@ -182,7 +182,7 @@ const Content = styled.div`
   max-height: 384px;
   max-width: 269px;
   width: 100%;
-  border-radius: 0px;
+  border-radius: 16px;
   /* border: 1px solid #d6d6d6; */
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   background-color: #fff;

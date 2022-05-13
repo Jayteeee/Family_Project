@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import { MdOutlineClear, MdCancel, MdDone } from "react-icons/md";
 import { TiArrowSortedDown } from "react-icons/ti";
+import { useSelector } from "react-redux";
 
 // 리덕스
 import { useDispatch } from "react-redux";
@@ -16,8 +17,9 @@ import { useDispatch } from "react-redux";
 import { Input, Button, Text } from "../../../../elements";
 import { scheduleActions } from "../../../../redux/modules/calendar";
 
-const EditScheduleModal = ({ list, onClose, eventId }) => {
+const EditScheduleModal = ({ onClose, eventId }) => {
   const dispatch = useDispatch();
+  const list = useSelector((state) => state.calendar.scheduleOneList[0]);
 
   const [event, setEvent] = React.useState(list?.event);
   const [selec, setSelec] = React.useState(true);
