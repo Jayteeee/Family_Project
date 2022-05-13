@@ -63,7 +63,7 @@ const Header = (props) => {
 };
 
 const HeaderWarp = styled.header`
-  height: 80px;
+  height: 40px;
   background: #fff;
   color: #282828;
   display: flex;

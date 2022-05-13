@@ -83,7 +83,7 @@ const MissionPage = (props) => {
 
 const MissionPageWrap = styled.div`
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
   overflow-y: scroll;

@@ -48,7 +48,8 @@ const OneMission = (props) => {
 
   console.log("미션 달성여부:", familyMissionChk);
 
-  console.log(monthMissionList);
+  const newCompletedAt = dayjs(completedAt).format("MM월 DD일");
+  console.log("달성 날짜:", newCompletedAt);
 
   const myMissionData = missionMemberList.filter(
     (m) => m.familyMemberId === myFamilyMemberId
@@ -84,10 +85,6 @@ const OneMission = (props) => {
 
   console.log(missionId);
 
-  let data = document.getElementsByClassName("checks")[0]?.id;
-  // .filter((m) => console.log(m.name));
-  console.log("내가 속해있는 미션 체크박스", data);
-
   // 미션 제거하기 모달
   const [deleteModalOn, setDeleteModalOn] = useState(false);
   // const [modalPosition, setModalPosition] = useState();
@@ -95,6 +92,7 @@ const OneMission = (props) => {
   const handleDeleteModal = () => {
     setDeleteModalOn(!deleteModalOn);
   };
+
   // 삭제 버튼 위차찾는 함수
   // const handleModalPosition = (e) => {
   //   console.log(e);
@@ -111,7 +109,6 @@ const OneMission = (props) => {
   //   setModalPosition([x, y]);
   //   console.log(element.offsetTop);
   // };
-
   // console.log(modalPosition);
 
   return (
@@ -129,7 +126,7 @@ const OneMission = (props) => {
               />
             ) : (
               <MdCheckBoxOutlineBlank
-                style={{ fontSize: "35px" }}
+                style={{ fontSize: "35px", color: "gray" }}
                 onClick={() => {
                   setCheck(true);
                   checkedItemHandler.bind(this, missionId)();
@@ -137,17 +134,14 @@ const OneMission = (props) => {
               />
             )
           ) : (
-            <MissionChkBox>
-              <div style={{ marginRight: "28px" }} />
-            </MissionChkBox>
+            <div style={{ width: "35px", height: "35px" }} />
           )}
-
-          <div
+          <MissionTitleBox
             style={{
               width: "67%",
               borderBottom: "2px solid #F5F5F5",
               padding: "5px 0",
-              margin: "0 20px",
+              margin: "0 3%",
             }}
           >
             <Text
@@ -159,8 +153,7 @@ const OneMission = (props) => {
             >
               {missionTitle}
             </Text>
-          </div>
-          {/* <div>{familyMissionChk}</div> */}
+          </MissionTitleBox>
           <div
             style={{
               display: "flex",
@@ -176,14 +169,7 @@ const OneMission = (props) => {
             )}
           </div>
           {!familyMissionChk ? (
-            <div
-              style={{
-                width: "3vw",
-                display: "flex",
-                float: "right",
-                justifyContent: "right ",
-                alignItems: "center",
-              }}
+            <MissionDeleteWrap
               onClick={
                 // handleModalPosition(e);
                 handleDeleteModal
@@ -193,7 +179,7 @@ const OneMission = (props) => {
               <MissionDeleteBtn>
                 <CgMoreVerticalAlt style={{ fontSize: "30px" }} />
               </MissionDeleteBtn>
-            </div>
+            </MissionDeleteWrap>
           ) : (
             <div
               style={{
@@ -212,57 +198,32 @@ const OneMission = (props) => {
               <UnMissionDeleteBtn></UnMissionDeleteBtn>
             </div>
           )}
-          {/* ) : (
-            <div
-              style={{
-                width: "3vw",
-                display: "flex",
-                float: "right",
-                justifyContent: "right ",
-                alignItems: "center",
-              }}
-              id={missionId}
-            ></div>
-          )} */}
         </MissionTitle>
-
-        <MissionMemberBox className="res-missionMemberBox">
-          <div
-            style={{ display: "flex", margin: "0 35px" }}
-            className="res-missionMember"
-          >
+        <MissionMemberWrap>
+          <MissionMemberBox className="res-missionMember">
             {missionMemberList ? (
               missionMemberList.map((f, i) => {
                 return (
-                  <div key={f.familyMemberId} style={{ position: "relative" }}>
+                  <ProfileBox key={f.familyMemberId}>
                     <CircleImage
                       XS
                       src={f.profileImg ? f.profileImg : profileImg}
                       margin="0 10px 0 0"
                       size="24px"
+                      className="CicleImage"
                     />
                     {f.myMissionChk ? <CompletedCicle /> : <UncompletedCicle />}
-                  </div>
+                  </ProfileBox>
                 );
               })
             ) : (
               <div>미션 진행자 없습니다</div>
             )}
-          </div>
-          {completedAt && (
-            <div
-              style={{
-                textAlign: "right",
-                flexGrow: "1",
-                fontSize: "16px",
-                color: "#A8A8A8",
-                marginRight: "45px",
-              }}
-            >
-              {completedAt} 달성
-            </div>
+          </MissionMemberBox>
+          {familyMissionChk && (
+            <CompletedAtBox>{newCompletedAt} 달성</CompletedAtBox>
           )}
-        </MissionMemberBox>
+        </MissionMemberWrap>
       </MissionBox>
       {/* 미션 제거하기 모달 */}
       <ModalPortal
@@ -287,13 +248,20 @@ const OneMission = (props) => {
 
 const MissionBox = styled.div`
   text-align: left;
-  padding: 0 0 0 25px;
-  @media only screen and (max-width: 599px) {
-  }
-`;
+  /* padding: 0 0 0 25px; */
 
-const MissionChkBox = styled.label`
-  margin-top: 1px;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const MissionTitle = styled.div`
@@ -303,12 +271,121 @@ const MissionTitle = styled.div`
   font-size: 16px;
   padding: 10px 0;
   height: 60px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 55px;
+    font-size: 10px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
+`;
+
+const MissionTitleBox = styled.div`
+  width: 67%;
+  border-bottom: 2px solid #f5f5f5;
+  padding: 5px 0;
+  margin: 0 3%;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    & p {
+      font-size: 14px;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
+`;
+
+const MissionMemberWrap = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 12px 10px 10px;
+  width: 100%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    padding: 0 12px 10px 0 !important;
+    margin: 0 -35px 0 0 !important;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    padding: 0 0px 0 0 !important;
+    margin: 0 0 0 0 !important;
+  }
 `;
 
 const MissionMemberBox = styled.div`
   display: flex;
-  align-items: center;
-  padding: 0 12px 10px 10px;
+  margin: 0 6.5%;
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 0 5.8% !important;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 0 11% !important;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
+`;
+
+const ProfileBox = styled.div`
+  position: relative;
+  width: 100%;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .CicleImage {
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .CicleImage {
+    }
+  }
 `;
 
 const UncompletedCicle = styled.div`
@@ -320,6 +397,19 @@ const UncompletedCicle = styled.div`
   position: absolute;
   top: 13px;
   right: 7px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const CompletedCicle = styled.div`
@@ -331,6 +421,19 @@ const CompletedCicle = styled.div`
   position: absolute;
   top: 13px;
   right: 7px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const CompletedMission = styled.div`
@@ -345,6 +448,20 @@ const CompletedMission = styled.div`
   border-radius: 21px;
   background: #8c98f8;
   color: white;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: 35px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const UncompletedMission = styled.div`
@@ -359,6 +476,75 @@ const UncompletedMission = styled.div`
   border-radius: 21px;
   background: #f5f5f5;
   color: #757575;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: 35px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+`;
+
+const CompletedAtBox = styled.div`
+  text-align: right;
+  flex-grow: 1;
+  font-size: 16px;
+  color: #a8a8a8;
+  margin-right: 8%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin-right: 10%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    margin-right: 6.5%;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin-right: 1.5%;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    margin-right: 5%;
+  }
+`;
+
+const MissionDeleteWrap = styled.div`
+  width: 3vw;
+  display: flex;
+  float: right;
+  justify-content: right;
+  align-items: center;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin-left: 1%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin-left: 1%;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    margin-left: 2%;
+  }
 `;
 
 const MissionDeleteBtn = styled.div`
@@ -374,6 +560,19 @@ const MissionDeleteBtn = styled.div`
     background: #f5f5f5;
     color: black;
   }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const UnMissionDeleteBtn = styled.div`
@@ -384,6 +583,19 @@ const UnMissionDeleteBtn = styled.div`
   border: none;
   border-radius: 10px;
   color: #757575;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 export default OneMission;

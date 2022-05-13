@@ -140,7 +140,6 @@ const HomePage = (props) => {
                 >
                   <Text fontWeight="600"> 가족 일정</Text>
                 </div>
-
                 <TotalCalendar>
                   <CalendarArea>
                     <HomeCalendar
@@ -230,7 +229,7 @@ const HomePage = (props) => {
 
 const HomePageWrap = styled.div`
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -286,6 +285,7 @@ const ContentsWrap = styled.div`
   flex-direction: column;
   padding: 0 20px 20px 20px;
   /* background-color: aquamarine; */
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     /* width: 1000px; */
@@ -419,6 +419,7 @@ const MiddleLeftBottomBox = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const MiddleLeftMission = styled.div`
   width: 100%;
   height: 100%;
@@ -428,6 +429,7 @@ const MiddleLeftMission = styled.div`
   background-color: #fff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 `;
+
 const MiddleRightBox = styled.div`
   width: 50%;
   height: 100%;
@@ -447,6 +449,7 @@ const MiddleRightBox = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const MiddleRightCalendar = styled.div`
   width: 100%;
   height: 100%;
@@ -456,10 +459,12 @@ const MiddleRightCalendar = styled.div`
   background-color: #fff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 `;
+
 const TotalCalendar = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const CalendarArea = styled.div`
   width: 60%;
 
@@ -474,6 +479,7 @@ const CalendarArea = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const ScheduleArea = styled.div`
   width: 40%;
 
@@ -489,6 +495,7 @@ const ScheduleArea = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const BottomBox = styled.div`
   width: 100%;
   height: 35%;
@@ -510,6 +517,7 @@ const BottomBox = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const BottomLeftBox = styled.div`
   width: 100%;
   height: 100%;
@@ -528,6 +536,7 @@ const BottomLeftBox = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const BottomLeftMission = styled.div`
   width: 50%;
   height: 100%;
@@ -552,6 +561,7 @@ const BottomLeftMission = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const BottomLeftBadge = styled.div`
   width: 50%;
   height: 100%;
@@ -575,6 +585,7 @@ const BottomLeftBadge = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const BottomRightBox = styled.div`
   width: 100%;
   height: 100%;
@@ -594,6 +605,7 @@ const BottomRightBox = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const BottomRightPhoto = styled.div`
   width: 50%;
   height: 100%;
@@ -618,6 +630,7 @@ const BottomRightPhoto = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const BottomRightVoice = styled.div`
   width: 50%;
   height: 100%;
@@ -641,6 +654,7 @@ const BottomRightVoice = styled.div`
   @media screen and (max-width: 599px) {
   }
 `;
+
 const VoiceArea = styled.div`
   /* width: 100%;
   height: 100%; */

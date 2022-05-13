@@ -128,6 +128,26 @@ const MissionLowerHeader = styled.div`
   background: transparent;
   margin: 10px 20px 10px 20px;
   padding: 0px 20px;
+
+  // Medium (Desktop)
+  @media only screen and (max-width: 1199px) {
+    /* margin: 0px 0 15px 0px !important;
+    display: flex !important;
+    text-align: right !important;
+    padding: 0; */
+    /* justify-content: center !important; */
+  }
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+    margin: 5px 0 25px 0px !important;
+    display: flex !important;
+    text-align: right !important;
+    padding: 0px 10px;
+    /* justify-content: center !important; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 export default MissionHeader;

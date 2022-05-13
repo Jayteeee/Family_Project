@@ -45,10 +45,10 @@ const BadgeModal = ({ onClose, familyId }) => {
               >
                 <RiArrowLeftSLine size={24} />
               </CancelBtn>
-              <Text size="28px" fontWeight="600" className="res-badgeTitle">
+              <Text size="28px" fontWeight="600" className="badgeTitle1">
                 우리 가족 배지
               </Text>
-              <Text size="20px">
+              <Text size="20px" className="badgeTitle2">
                 도란도란을 사용하다 보면 여러 배지를 획득 할 수 있어요!{"\n"}
                 배지의 휙득 요건을 확인하고 도전해보세요.
               </Text>
@@ -56,10 +56,20 @@ const BadgeModal = ({ onClose, familyId }) => {
             <BadgeListBox className="res-badgeListBox">
               <BadgRowBox className="res-badgeRowBox">
                 <BadgeBox>
-                  <RactangleImage M size="150px" borderRadius="0" />
+                  <RactangleImage
+                    M
+                    size="150px"
+                    borderRadius="0"
+                    className="badgeImg"
+                  />
 
                   <BadgeTextBox className="res-badgeTestBox">
-                    <Text size="20px" fontWeight="600" padding="0 0 10px 0">
+                    <Text
+                      size="20px"
+                      fontWeight="600"
+                      padding="0 0 10px 0"
+                      className="badgeName"
+                    >
                       단란한 시작
                     </Text>
                     {!badgeList[0]?.badgeChk ? (
@@ -75,15 +85,29 @@ const BadgeModal = ({ onClose, familyId }) => {
                       </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[0]?.badgeCnt}/1</BadghCnt>
-                    <Text size="16px" padding="20px 0 0 0">
+                    <Text
+                      size="16px"
+                      padding="20px 0 0 0"
+                      className="badgeContent"
+                    >
                       새로운 가족을 만들고{"\n"}멤버들을 초대해 보세요!
                     </Text>
                   </BadgeTextBox>
                 </BadgeBox>
                 <BadgeBox>
-                  <RactangleImage M size="150px" borderRadius="0" />
+                  <RactangleImage
+                    M
+                    size="150px"
+                    borderRadius="0"
+                    className="badgeImg"
+                  />
                   <BadgeTextBox className="res-badgeTestBox">
-                    <Text size="20px" fontWeight="600" padding="0 0 10px 0">
+                    <Text
+                      size="20px"
+                      fontWeight="600"
+                      padding="0 0 10px 0"
+                      className="badgeName"
+                    >
                       추억의 발자국
                     </Text>
                     {!badgeList[1]?.badgeChk ? (
@@ -98,16 +122,26 @@ const BadgeModal = ({ onClose, familyId }) => {
                       </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[1]?.badgeCnt}/15</BadghCnt>
-                    <Text size="16px">
+                    <Text size="16px" className="badgeContent">
                       갤러리에 우리 가족{"\n"}추억의 사진을 15개 이상{"\n"}
                       업로드해 보세요!
                     </Text>
                   </BadgeTextBox>
                 </BadgeBox>
                 <BadgeBox>
-                  <RactangleImage M size="150px" borderRadius="0" />
+                  <RactangleImage
+                    M
+                    size="150px"
+                    borderRadius="0"
+                    className="badgeImg"
+                  />
                   <BadgeTextBox className="res-badgeTestBox">
-                    <Text size="20px" fontWeight="600" padding="0 0 10px 0">
+                    <Text
+                      size="20px"
+                      fontWeight="600"
+                      padding="0 0 10px 0"
+                      className="badgeName"
+                    >
                       정겨운 목소리
                     </Text>
                     {!badgeList[2]?.badgeChk ? (
@@ -122,7 +156,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                       </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[2]?.badgeCnt}/10</BadghCnt>
-                    <Text size="16px">
+                    <Text size="16px" className="badgeContent">
                       음성 녹음을 10번 업로드{"\n"}해요. 서로의 목소리를{"\n"}
                       기록해 보세요!
                     </Text>
@@ -131,9 +165,19 @@ const BadgeModal = ({ onClose, familyId }) => {
               </BadgRowBox>
               <BadgRowBox className="res-badgeRowBox">
                 <BadgeBox>
-                  <RactangleImage M size="150px" borderRadius="0" />
+                  <RactangleImage
+                    M
+                    size="150px"
+                    borderRadius="0"
+                    className="badgeImg"
+                  />
                   <BadgeTextBox className="res-badgeTestBox">
-                    <Text size="20px" fontWeight="600" padding="0 0 10px 0">
+                    <Text
+                      size="20px"
+                      fontWeight="600"
+                      padding="0 0 10px 0"
+                      className="badgeName"
+                    >
                       협동의 즐거움
                     </Text>
                     {!badgeList[3]?.badgeChk ? (
@@ -148,16 +192,26 @@ const BadgeModal = ({ onClose, familyId }) => {
                       </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[3]?.badgeCnt}/20</BadghCnt>
-                    <Text size="16px">
+                    <Text size="16px" className="badgeContent">
                       미션을 설정하고,{"\n"}가족들과 함께 20번 이상{"\n"}완료해
                       보세요!
                     </Text>
                   </BadgeTextBox>
                 </BadgeBox>
                 <BadgeBox>
-                  <RactangleImage M size="150px" borderRadius="0" />
+                  <RactangleImage
+                    M
+                    size="150px"
+                    borderRadius="0"
+                    className="badgeImg"
+                  />
                   <BadgeTextBox className="res-badgeTestBox">
-                    <Text size="20px" fontWeight="600" padding="0 0 10px 0">
+                    <Text
+                      size="20px"
+                      fontWeight="600"
+                      padding="0 0 10px 0"
+                      className="badgeName"
+                    >
                       소통의 기쁨
                     </Text>
                     {!badgeList[4]?.badgeChk ? (
@@ -172,15 +226,29 @@ const BadgeModal = ({ onClose, familyId }) => {
                       </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[4]?.badgeCnt}/50</BadghCnt>
-                    <Text size="16px" padding="20px 0 0 0">
+                    <Text
+                      size="16px"
+                      padding="20px 0 0 0"
+                      className="badgeContent"
+                    >
                       댓글 50번 등록 시 지급!{"\n"}함께 이야기 나누어 봐요!
                     </Text>
                   </BadgeTextBox>
                 </BadgeBox>
                 <BadgeBox>
-                  <RactangleImage M size="150px" borderRadius="0" />
+                  <RactangleImage
+                    M
+                    size="150px"
+                    borderRadius="0"
+                    className="badgeImg"
+                  />
                   <BadgeTextBox className="res-badgeTestBox">
-                    <Text size="20px" fontWeight="600" padding="0 0 10px 0">
+                    <Text
+                      size="20px"
+                      fontWeight="600"
+                      padding="0 0 10px 0"
+                      className="badgeName"
+                    >
                       함께하는 나날
                     </Text>
                     {!badgeList[5]?.badgeChk ? (
@@ -195,7 +263,11 @@ const BadgeModal = ({ onClose, familyId }) => {
                       </CompletedBadgeBar>
                     )}
                     <BadghCnt> {badgeList[5]?.badgeCnt}/50</BadghCnt>
-                    <Text size="16px" padding="20px 0 0 0">
+                    <Text
+                      size="16px"
+                      padding="20px 0 0 0"
+                      className="badgeContent"
+                    >
                       우리 가족 일정을 5번 {"\n"}이상 등록해 보세요!
                     </Text>
                   </BadgeTextBox>
@@ -226,7 +298,7 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 700px;
+  height: 70%;
   /* height: 880px; // 반응형 용 */
   max-width: 1222px;
   /* max-width: 800px; // 반응형용 */
@@ -236,6 +308,29 @@ const Content = styled.div`
   position: relative;
   overflow: scroll;
   padding: 30px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: 880px !important;
+    max-width: 800px !important;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    max-width: 800px;
+    height: 880px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 80% !important;
+    padding: 20px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    padding: 15px;
+  }
 `;
 
 const BadgeWrap = styled.div`
@@ -250,6 +345,39 @@ const BadgeWrap = styled.div`
   height: 100%;
   background-color: #fff;
   /* margin-top: 30px; // 모바일 반응형 */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 80% !important;
+    /* margin-top: 30px; */
+    /* display: ""; */
+    .badgeTitle1 {
+      margin-bottom: 30px !important;
+    }
+    .badgeTitle2 {
+      font-size: 15px;
+    }
+    margin-top: 40px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .badgeTitle1 {
+      margin-bottom: 30px !important;
+      font-size: 20px;
+    }
+    .badgeTitle2 {
+      font-size: 12px;
+    }
+  }
 `;
 
 const CancelBtn = styled.div`
@@ -258,7 +386,7 @@ const CancelBtn = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 4px;
-  textalign: left;
+  text-align: left;
   position: absolute;
   left: 0;
   top: 0;
@@ -286,6 +414,32 @@ const BadgeHeaderBox = styled.div`
   /* margin-top: 20px; // 반응형 용 */
   /* margin-top: 200px; // 모바일 반응형 */
   /* margin-bottom: 10px; // 모바일 반응형 */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: 22% !important;
+    padding: 10px 0 40px !important;
+    margin-top: 20px !important;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    margin-top: 0px;
+    height: 22%;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 100%;
+    /* display: flex; */
+    margin-top: 0px !important;
+    margin-bottom: 5px !important;
+    display: block;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const BadgeListBox = styled.div`
@@ -298,8 +452,29 @@ const BadgeListBox = styled.div`
   width: 100%;
   height: 70%;
   /* height: 100%; // 모바이 반응형 */
-  background-color: #fff;
   /* margin-bottom: 50px; */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    flex-direction: row !important;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    flex-direction: row;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    display: block !important;
+    /* flex-direction: column !important; */
+    height: 100% !important;
+    margin-top: 20px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const BadgRowBox = styled.div`
@@ -308,6 +483,27 @@ const BadgRowBox = styled.div`
   /* flex-direction: column; // 모바일 반응형 */
   width: 100%;
   /* height: 70%; // 모바일 반응형 */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    flex-direction: column !important;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    flex-direction: column;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    /* display: flex;
+    flex-direction: row !important;
+    height: 100% !important; */
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const BadgeBox = styled.div`
@@ -317,6 +513,36 @@ const BadgeBox = styled.div`
   justify-content: center;
   padding: 20px;
   width: 100%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    /* display: block; */
+
+    /* width: 100%; */
+    .badgeImg {
+      width: 150px;
+      height: 150px;
+      margin-right: 10px;
+    }
+    padding: 20px 0;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .badgeImg {
+      width: 120px;
+      height: 120px;
+      margin-right: 5px;
+    }
+  }
 `;
 
 const BadgeTextBox = styled.div`
@@ -328,6 +554,34 @@ const BadgeTextBox = styled.div`
   justify-content: flex-start;
   height: 100%;
   /* width: 180px; // 모바일 반응형 */
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    padding-left: 24px !important;
+    width: 180px !important;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    padding-left: 10px !important;
+    width: 48% !important;
+    /* margin-left: 40%; */
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 49% !important;
+    .badgeName {
+      font-size: 15px;
+    }
+    .badgeContent {
+      font-size: 13px;
+    }
+  }
 `;
 
 const BadgeBar = styled.div`
@@ -343,6 +597,11 @@ const BadgeBar = styled.div`
   font-size: 16px;
   position: relative;
   z-index: 1;
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 130px;
+    height: 20px;
+  }
 `;
 
 const BadgeBarPercentage = styled.div`
@@ -359,6 +618,9 @@ const BadgeBarPercentage = styled.div`
   top: 0px;
   left: 0;
   z-index: 2;
+  @media screen and (max-width: 375px) {
+    height: 20px;
+  }
 `;
 
 const BadghCnt = styled.div`
@@ -377,6 +639,11 @@ const BadghCnt = styled.div`
   position: relative;
   bottom: 29px;
   z-index: 3;
+  @media screen and (max-width: 375px) {
+    width: 130px;
+    height: 20px;
+    bottom: 20px;
+  }
 `;
 
 const CompletedBadgeBar = styled.div`
@@ -392,6 +659,10 @@ const CompletedBadgeBar = styled.div`
   z-index: 5;
   color: white;
   font-weight: 600;
+  @media screen and (max-width: 375px) {
+    width: 130px;
+    height: 20px;
+  }
 `;
 
 export default BadgeModal;

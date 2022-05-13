@@ -112,8 +112,13 @@ const Container = styled.div`
     border: none;
     padding: 24px;
     border-radius: 20px;
+    // Medium (Tablet)
+    @media screen and (max-width: 1024px) {
+      padding: 0px;
+    }
     @media only screen and (max-width: 839px) {
       padding: 0px;
+    }
     }
   }
 
@@ -125,11 +130,13 @@ const Container = styled.div`
     font-weight: 600;
     font-size: 24px;
     @media only screen and (max-width: 1199px) {
+      padding: 35px 0;
       top: 40px;
       left: unset;
       right: 0;
       height: 44px;
       width: 207px;
+      margin-right: 20px;
     }
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
