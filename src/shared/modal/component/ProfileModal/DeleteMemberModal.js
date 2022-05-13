@@ -14,9 +14,10 @@ import { Button, Text } from "../../../../elements";
 import { familyMemberActions } from "../../../../redux/modules/familymember";
 
 const DeleteMemberModal = (props) => {
-  const { onClose, familyId, familyMemberId } = props;
+  const { onClose, familyId, familyMemberId, familyMemberNickname } = props;
   const dispatch = useDispatch();
   console.log(familyId, familyMemberId);
+  console.log(familyMemberNickname);
 
   const deleteMember = () => {
     dispatch(
@@ -41,8 +42,36 @@ const DeleteMemberModal = (props) => {
           id="deleteFamilyMember"
         >
           <DeleteMemberBox>
-            <Text>정말 가족을 삭제하시겠습니까?</Text>
-            <Button onClick={deleteMember}>삭제하기</Button>
+            <Text S3>
+              삭제된 가족 구성원은 다시 복구할 수 없어요.
+              <br />
+              정말 삭제할까요?
+            </Text>
+            <ButtonWrap>
+              <Button
+                L
+                onClick={onclose}
+                color="rgba(117, 117, 117, 1)"
+                borderColor="rgba(219, 219, 219, 1)"
+                borderRadius="12px"
+                style={{ backgroundColor: "rgba(219, 219, 219, 1)" }}
+                padding="16px 92px"
+              >
+                취소
+              </Button>
+              <Button
+                L
+                onClick={deleteMember}
+                color="#fff"
+                borderColor="#fff"
+                borderRadius="12px"
+                style={{ backgroundColor: "#6F5FCE" }}
+                padding="16px 92px"
+                margin="0 0 0 10px"
+              >
+                삭제
+              </Button>
+            </ButtonWrap>
           </DeleteMemberBox>
         </Content>
       </Background>
@@ -66,9 +95,6 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 280px;
-  max-width: 420px;
-  width: 100%;
   border-radius: 8px;
   background-color: #fff;
 
@@ -79,6 +105,14 @@ const Content = styled.div`
 const DeleteMemberBox = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 24px;
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  max-width: 452px;
+  width: 100%;
+  margin-top: 56px;
 `;
 
 export default DeleteMemberModal;

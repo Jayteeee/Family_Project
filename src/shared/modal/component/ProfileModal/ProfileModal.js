@@ -2,11 +2,12 @@ import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { RiArrowLeftSLine } from "react-icons/ri";
-import { CgCrown } from "react-icons/cg";
+import { RiVipCrownFill } from "react-icons/ri";
+import { FaPen } from "react-icons/fa";
 
 // 리덕스
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -18,17 +19,26 @@ import {
 } from "./index";
 
 // 엘리먼트
-import { CircleImage, RactangleImage, Text } from "../../../../elements";
+import { RactangleImage, Text } from "../../../../elements";
 
 // 이미지
-import profileImg from "../../../images/profileImg.png";
+import profileImg from "../../../images/profileImg.jpeg";
 
 const ProfileModal = ({ onClose }) => {
+  const params = useParams();
+
   const userInfo = useSelector((state) => state.user.user.user);
   console.log("유저정보: ", userInfo);
 
   const familyTitle = useSelector((state) => state.family);
   console.log("패밀리 타이틀: ", familyTitle);
+
+  const NowFamilyId = params.familyId;
+  console.log("현재 가족: ", NowFamilyId);
+
+  const familyHost = familyTitle?.familyList.find(
+    (h) => h.familyId === NowFamilyId
+  );
 
   console.log(onClose);
   // 가족 생성하기 모달
@@ -77,34 +87,6 @@ const ProfileModal = ({ onClose }) => {
             }}
             id="profileMenu"
           >
-            {/* 여기부터 실제 모달에 보여지는 컨텐츠 들입니다 */}
-            {/* <TopDiv>
-              <TitleWrap
-              // className="flex-row"
-              >
-                <div
-                  style={{
-                    width: "100%",
-                  }}
-                >
-                  <h1
-                    style={{
-                      fontSize: "18px",
-                    }}
-                  >
-                    프로필
-                  </h1>
-                </div>
-                <CancelBtn
-                  className="flex-row"
-                  onClick={() => {
-                    onClose();
-                  }}
-                >
-                  <RiArrowLeftSLine size={24} />
-                </CancelBtn>
-              </TitleWrap>
-            </TopDiv> */}
             <BottomDiv>
               <UserInfo>
                 <ProfileArea>
@@ -112,27 +94,44 @@ const ProfileModal = ({ onClose }) => {
                     S
                     src={userInfo.profileImg ? userInfo.profileImg : profileImg}
                     size="60px"
+                    style={{ position: "relative" }}
                   />
+                  <EditBtn>
+                    <FaPen />
+                  </EditBtn>
                 </ProfileArea>
                 <Usertitle>
                   <UserNickname>
-                    <HostSign>{/* <Crown /> */}</HostSign>
-                    <Text size="15px">{userInfo.nickname}</Text>
+                    {familyHost?.familyHost === userInfo.id ? (
+                      <HostSign>
+                        <RiVipCrownFill />
+                      </HostSign>
+                    ) : null}
+
+                    <Text size="18px" fontWeight="600">
+                      {userInfo.nickname}
+                    </Text>
                   </UserNickname>
-                  <Text size="14px" fontWeight="700">
+                  <Text size="12px" fontWeight="400" color="#757575">
                     {userInfo?.email}
                   </Text>
                   <UserMood>
-                    <TodayMood>오늘의 기분</TodayMood>
-                    <SelectButton>
-                      <option>🙂좋아요</option>
-                      <option>🥰사랑해요</option>
-                      <option>😎멋져요</option>
-                      <option>😥슬퍼요</option>
-                      <option>🤯머리아파요</option>
-                      <option>😡화나요</option>
-                      <option>😴졸려요</option>
-                    </SelectButton>
+                    <TodayMood>
+                      <Text size="10px" fontWeight="600" color="#757575">
+                        오늘의 기분
+                      </Text>
+                    </TodayMood>
+                    <SelectBox>
+                      <SelectButton name="mood">
+                        <option value="good">🙂좋아요</option>
+                        <option value="love">🥰사랑해요</option>
+                        <option value="nice">😎멋져요</option>
+                        <option value="sad">😥슬퍼요</option>
+                        <option value="head">🤯머리아파요</option>
+                        <option value="angry">😡화나요</option>
+                        <option value="sleepy">😴졸려요</option>
+                      </SelectButton>
+                    </SelectBox>
                   </UserMood>
                 </Usertitle>
               </UserInfo>
@@ -153,11 +152,13 @@ const ProfileModal = ({ onClose }) => {
                 </Text>
               </MenuBox>
               <Line />
-              <MenuBox onClick={handleLogoutModal} className="logout">
-                <Text size="15px" fontWeight="700">
+              <LogoutBox onClick={handleLogoutModal}>
+                <p
+                  style={{ size: "15px", fontWeight: "700", color: "#8F8F8F" }}
+                >
                   로그아웃
-                </Text>
-              </MenuBox>
+                </p>
+              </LogoutBox>
             </BottomDiv>
           </Content>
         </Background>
@@ -272,8 +273,26 @@ const ProfileArea = styled.div`
   margin-right: 16px;
 `;
 
+const EditBtn = styled.div`
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  top: 90px;
+  left: 80px;
+  background-color: white;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  & > svg {
+    display: flex;
+    color: #757575;
+    padding: 15%;
+    margin: 10% auto;
+  }
+`;
+
 const UserNickname = styled.div`
   display: flex;
+  align-items: center;
   margin-bottom: 4px;
 `;
 
@@ -285,7 +304,7 @@ const HostSign = styled.div`
   margin-right: 8px;
   & > svg {
     color: white;
-    fill: white;
+    padding: 15%;
   }
 `;
 
@@ -296,18 +315,32 @@ const Usertitle = styled.div`
 
 const UserMood = styled.div`
   display: flex;
+  align-items: center;
   width: 100%;
-  max-width: 146px;
-  max-height: 24px;
+  margin-top: 8px;
+  max-height: 30px;
 `;
 const TodayMood = styled.div`
+  display: flex;
+  align-items: center;
   margin-right: 8px;
+  width: 50%;
+`;
+
+const SelectBox = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 const SelectButton = styled.select`
   width: 100%;
+  height: 100%;
   border: 1px solid #dbdbdb;
   border-radius: 6px;
-  padding: 0 4px;
+  padding: 4px;
+  & > option {
+    border-radius: 20px !important;
+  }
 `;
 
 const MenuBox = styled.div`
@@ -319,11 +352,23 @@ const MenuBox = styled.div`
   width: 100%;
   padding: 8px 16px;
   margin: 8px 0px;
-  .logout {
-    background-color: #f5f5f5;
-  }
   &:hover {
     background: #f6f6f6;
+  }
+`;
+
+const LogoutBox = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: none;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 16px;
+  margin: 8px 0px;
+  background-color: #f5f5f5;
+  &:hover {
+    background: #dbdbdb;
   }
 `;
 

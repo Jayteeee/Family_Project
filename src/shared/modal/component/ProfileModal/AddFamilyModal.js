@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { ModalPortal } from "../../portals";
 
 // 엘리먼트
-import { Input, Button } from "../../../../elements";
+import { Input, Button, Text } from "../../../../elements";
 import { familyActions } from "../../../../redux/modules/family";
 
 const AddFamilyModal = ({ onClose }) => {
@@ -58,40 +58,48 @@ const AddFamilyModal = ({ onClose }) => {
             e.stopPropagation();
           }}
         >
-          <div style={{ textAlign: "start" }}>
-            <label htmlFor="changeName">가족 생성하기</label>
-            <div style={{ margin: "8px 0 20px" }}>
-              <div>
-                <Input
-                  type="text"
-                  id="changeName"
-                  placeholder="가족 이름을 입력해주세요"
-                  size="18px"
-                  padding="0 36px 0 36px"
-                  margin="0 0 20px"
-                  onChange={handleAddFamily}
-                  maxlength="8"
-                  oninput="handleAddFamily(this, 8)"
-                  value={familyTitle}
-                />
-              </div>
-            </div>
+          <Container>
+            <Text S3>가족 생성하기</Text>
+            <Explanation>
+              <Text B1>
+                첫 시작으로 우리 가족만의 공간을 만들어주세요.
+                <br />
+                가족 이름은 언제든 수정이 가능해요.
+              </Text>
+            </Explanation>
+            <InputBox>
+              <Input
+                type="text"
+                id="changeName"
+                className="myInput"
+                placeholder="가족 이름을 입력해주세요"
+                margin="0 0 8px 0"
+                padding="16px"
+                height="56px"
+                style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
+                onChange={handleAddFamily}
+                maxlength="8"
+                oninput="handleAddFamily(this, 8)"
+                value={familyTitle}
+              />
+            </InputBox>
             <Button
-              style={{ minWidth: "80px" }}
-              // width="80px"
-              height="36px"
-              fontSize="15px"
-              bg="black"
-              color="white"
+              L
+              id="myBtn"
               onClick={(e) => {
                 e.stopPropagation();
                 onClose();
                 addFamily();
               }}
+              color="#fff"
+              borderColor="#fff"
+              borderRadius="12px"
+              margin="24px 0 0 0"
+              style={{ backgroundColor: "#6F5FCE", opacity: "0.4" }}
             >
-              가족 생성
+              저장
             </Button>
-          </div>
+          </Container>
         </Content>
       </Background>
     </ModalPortal>
@@ -114,14 +122,34 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 280px;
-  max-width: 420px;
-  width: 100%;
   border-radius: 8px;
   background-color: #fff;
 
   position: relative;
   overflow: scroll;
+`;
+
+const Container = styled.div`
+  margin: 24px;
+  #myBtn {
+    :hover {
+      opacity: 1 !important;
+    }
+  }
+  .myInput {
+    :focus {
+      box-shadow: none;
+      border-color: #6f5fce !important;
+    }
+  }
+`;
+
+const InputBox = styled.div`
+  margin-top: 11px;
+`;
+
+const Explanation = styled.div`
+  margin: 24px 0;
 `;
 
 export default AddFamilyModal;

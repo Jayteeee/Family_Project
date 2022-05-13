@@ -3,6 +3,7 @@ import { MainContext } from "../../../../pages/Main";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import { MdCancel } from "react-icons/md";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -39,6 +40,10 @@ const EditFamilyModal = ({ onClose }) => {
     setChangeTitle(value);
   };
 
+  const reset = () => {
+    setChangeTitle("");
+  };
+
   const editFamilyTitle = () => {
     dispatch(familyActions.editFamilyNameDB(familyId, changeTitle));
     handleEditFamilyTitleModal();
@@ -52,6 +57,7 @@ const EditFamilyModal = ({ onClose }) => {
 
   // 가족 타이틀 수정하기 모달
   const [editFamilyTitleModal, setEditFamilyTitleModal] = useState(false);
+  const [showBorder, setShowBorder] = React.useState(false);
 
   const handleEditFamilyTitleModal = () => {
     setEditFamilyTitleModal(!editFamilyTitleModal);
@@ -113,39 +119,68 @@ const EditFamilyModal = ({ onClose }) => {
             // 부모 태그에 onClose() 가 걸려있어서 모달 내부를 클릭했을때 창이 닫히지 않기위해 선언합니다
             onClick={(e) => {
               e.stopPropagation();
+              setShowBorder(false);
             }}
           >
             <SettingWrap>
+              <TitleBox>
+                <Text S3>가족 수정하기</Text>
+              </TitleBox>
               <SettingBox>
-                <Text>가족이름 수정하기</Text>
-                <div style={{ display: "flex" }}>
-                  <Input
-                    id="changeTitle"
-                    size="15px"
-                    padding="0 20px 0 20px"
-                    onChange={handleTitleChange}
-                    value={changeTitle}
-                  />
-                  <ModalBtn onClick={editFamilyTitle}>수정</ModalBtn>
-                </div>
+                <Text C>가족 이름</Text>
+                <InsertWrap>
+                  <InputBox
+                    show={showBorder}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowBorder(true);
+                    }}
+                  >
+                    <InsertBox>
+                      <Input
+                        id="changeTitle"
+                        size="18px"
+                        onChange={handleTitleChange}
+                        value={changeTitle}
+                        style={{
+                          border: "none",
+                        }}
+                      />
+                      <ResetBox
+                        show={showBorder}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          reset();
+                        }}
+                      >
+                        <MdCancel />
+                      </ResetBox>
+                    </InsertBox>
+                  </InputBox>
+                  <ModalBtn onClick={editFamilyTitle}>저장</ModalBtn>
+                </InsertWrap>
               </SettingBox>
               <MemberBox>
-                <Text>현재 가족 구성원</Text>
+                <Text C>가족 구성원</Text>
                 {familyMemberList.map((f, i) => {
                   return (
-                    <div style={{ display: "flex" }} key={f.familyMemberId}>
-                      <MemberListBox>
-                        <CircleImage
-                          S
-                          src={
-                            f.userInfo?.profileImg
-                              ? f.userInfo.profileImg
-                              : profileImg
-                          }
-                          margin="0 10px"
-                        />
-                        {f.familyMemberNickname}
-                      </MemberListBox>
+                    <div
+                      style={{ display: "flex", margin: "4px 0" }}
+                      key={f.familyMemberId}
+                    >
+                      <ProfileWrap>
+                        <ProfileBox>
+                          <CircleImage
+                            S
+                            src={
+                              f.userInfo?.profileImg
+                                ? f.userInfo.profileImg
+                                : profileImg
+                            }
+                          />
+                        </ProfileBox>
+                        <MemberListBox>{f.familyMemberNickname}</MemberListBox>
+                      </ProfileWrap>
                       <ModalBtn
                         onClick={handleEditMemberNameModal}
                         value={f.familyMemberNickname}
@@ -165,8 +200,10 @@ const EditFamilyModal = ({ onClose }) => {
                     </div>
                   );
                 })}
-                <ModalBtn onClick={handleAddMemberModal}>추가</ModalBtn>
               </MemberBox>
+              <BtnBox>
+                <SaveBtn onClick={handleAddMemberModal}>추가</SaveBtn>
+              </BtnBox>
             </SettingWrap>
           </Content>
         </Background>
@@ -195,6 +232,7 @@ const EditFamilyModal = ({ onClose }) => {
             onClose={handleDeleteMemberModal}
             familyId={familyId}
             familyMemberId={familyMemberId}
+            familyMemberNickname={familyMemberNickname}
           />
         )}
       </ModalPortal>
@@ -230,18 +268,82 @@ const Content = styled.div`
   /* overflow: scroll; */
 `;
 
+const TitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const SettingWrap = styled.div`
   text-align: start;
-  padding: 30px;
+  padding: 24px;
   width: 40rem;
 `;
 
 const SettingBox = styled.div`
-  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 24px;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 4px 16px;
+  border: ${({ show }) => (show ? `2px solid #6f5fce` : `2px solid #E5E5E5`)};
+  border-radius: 12px;
+`;
+
+const InsertWrap = styled.div`
+  display: flex;
+  margin-top: 4px;
+`;
+
+const InsertBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  & > input:focus {
+    box-shadow: none;
+  }
+  & > input:focus-visible {
+    outline: none;
+  }
+`;
+
+const ResetBox = styled.div`
+  width: 20px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  svg {
+    display: ${({ show }) => (show ? null : "none")};
+    width: 100%;
+    height: 100%;
+    color: #757575;
+  }
 `;
 
 const MemberBox = styled.div`
-  margin: 10px 0;
+  margin: 24px 0;
+`;
+
+const ProfileWrap = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
+
+const ProfileBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
 `;
 
 const MemberListBox = styled.div`
@@ -251,23 +353,40 @@ const MemberListBox = styled.div`
   border-radius: 4px;
   margin-top: 5px;
   padding: 10px;
-  width: 70%;
-  &:hover {
-    background: rgba(29, 28, 29, 0.1);
-    color: rgba(29, 28, 29, 1);
-  }
+  width: 100%;
+  border: 1px solid #dbdbdb;
+  border-radius: 12px;
 `;
 
-const ModalBtn = styled.button`
-  border: 1px solid gray;
-  background: #fff;
-  border-radius: 4px;
-  margin-top: 5px;
-  padding: 10px;
-  width: 15%;
+const ModalBtn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12%;
+  margin: 13px 8px 13px 16px;
+  border: none;
+  cursor: pointer;
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+`;
+
+const SaveBtn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #6f5fce;
+  opacity: 0.4;
   &:hover {
-    background: rgba(29, 28, 29, 0.1);
-    color: rgba(29, 28, 29, 1);
+    opacity: 1;
   }
 `;
 

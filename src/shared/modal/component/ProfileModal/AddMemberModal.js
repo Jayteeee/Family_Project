@@ -93,34 +93,58 @@ const AddMemberModal = ({ onClose }) => {
         >
           <SettingWrap>
             <AddMemberBox>
-              <Text>가족 구성원 추가하기</Text>
-              <form autoComplete="off">
+              <TitleBox>
+                <Text S3>구성원 추가하기</Text>
+              </TitleBox>
+              <Main>
+                <form autoComplete="off">
+                  <InputBox>
+                    <Input
+                      type="text"
+                      id="addMember"
+                      className="myInput"
+                      placeholder="구성원의 이메일을 입력하세요"
+                      margin="0 0 8px 0"
+                      padding="16px"
+                      height="56px"
+                      onChange={handleSearchEmail}
+                      style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
+                    />
+                  </InputBox>
+                </form>
+                {searchEmail ? (
+                  <SearchBox>
+                    <SearchUserIdBox
+                      value={searchMember}
+                      onClick={handleSelectEmail}
+                    >
+                      {searchMember}
+                    </SearchUserIdBox>
+                  </SearchBox>
+                ) : null}
+
                 <Input
-                  id="addMember"
-                  placeholder="추가하고 싶은 사람의 email을 입력해 주세요"
-                  size="15px"
-                  padding="0 20px 0 20px"
-                  onChange={handleSearchEmail}
+                  type="text"
+                  id="changeTitle"
+                  className="myInput"
+                  placeholder="호칭을 입력하세요"
+                  padding="16px"
+                  height="56px"
+                  onChange={handleMemberNickName}
+                  style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
                 />
-              </form>
-              {searchMember && (
-                <SearchBox>
-                  <SearchUserIdBox
-                    value={searchMember}
-                    onClick={handleSelectEmail}
-                  >
-                    {searchMember}
-                  </SearchUserIdBox>
-                </SearchBox>
-              )}
-              <Input
-                id="changeTitle"
-                placeholder="가족의 호칭을 입력해 주세요"
-                size="18px"
-                padding="0 20px 0 20px"
-                onChange={handleMemberNickName}
-              />
-              <Button onClick={addFamilyMember}>추가하기</Button>
+              </Main>
+              <Button
+                L
+                id="myBtn"
+                onClick={addFamilyMember}
+                color="#fff"
+                borderColor="#fff"
+                borderRadius="12px"
+                style={{ backgroundColor: "#6F5FCE", opacity: "0.4" }}
+              >
+                추가
+              </Button>
             </AddMemberBox>
           </SettingWrap>
         </Content>
@@ -145,38 +169,68 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  max-width: 420px;
-  width: 100%;
   border-radius: 8px;
   background-color: #fff;
   position: relative;
+  max-width: 376px;
+  width: 100%;
   /* overflow: scroll; */
+  #myBtn {
+    :hover {
+      opacity: 1 !important;
+    }
+  }
+  .myInput {
+    :focus {
+      box-shadow: none;
+      border-color: #6f5fce !important;
+    }
+  }
 `;
 
 const SettingWrap = styled.div`
   text-align: start;
-  padding: 30px;
+  width: 100%;
+  margin: 24px;
+`;
+
+const TitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const AddMemberBox = styled.div`
-  margin: 10px 0;
-
   * & > input::placeholder {
     font-size: 16px;
   }
 `;
 
+const Main = styled.div`
+  margin: 24px 0;
+`;
+
+const InputBox = styled.div`
+  margin-top: 11px;
+  width: 100%;
+`;
+
 const SearchBox = styled.div`
-  border: 1px solid gray;
-  border-radius: 4px;
-  margin-top: 5px;
-  padding: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+  height: 56px;
 `;
 
 const SearchUserIdBox = styled.div`
+  width: 100%;
   transition: background-color 0.2s ease-in;
+  padding: 8px;
+  cursor: pointer;
   &:hover {
-    background-color: #595959;
+    background-color: #dbdbdb;
   }
 `;
 

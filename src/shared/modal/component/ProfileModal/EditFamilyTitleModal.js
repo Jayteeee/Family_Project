@@ -30,7 +30,7 @@ const EditFamilyTitleModal = (props) => {
           id="EditFamilyTitle"
         >
           <EditFamilyTitleBox>
-            <Text>가족타이틀이 수정되었습니다.</Text>
+            <Text>가족이름이 수정되었습니다.</Text>
           </EditFamilyTitleBox>
         </Content>
       </Background>

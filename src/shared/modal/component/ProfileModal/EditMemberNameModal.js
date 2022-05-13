@@ -54,17 +54,30 @@ const EditMemberNameModal = (props) => {
           }}
         >
           <SettingBox>
-            <Text>가족이름 수정하기</Text>
-            <div style={{ display: "flex" }}>
+            <Text S3>가족 구성원 이름 수정하기</Text>
+            <Main>
               <Input
                 id="changeTitle"
-                size="15px"
-                padding="0 20px 0 20px"
+                className="myInput"
+                margin="0 0 8px 0"
+                padding="16px"
+                height="56px"
                 onChange={handleMemberNicknameChange}
                 value={changeMemberNickname}
+                style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
               />
-              <ModalBtn onClick={EditFamilyMemberNickname}>수정</ModalBtn>
-            </div>
+            </Main>
+            <Button
+              L
+              id="myBtn"
+              onClick={EditFamilyMemberNickname}
+              color="#fff"
+              borderColor="#fff"
+              borderRadius="12px"
+              style={{ backgroundColor: "#6F5FCE", opacity: "0.4" }}
+            >
+              수정
+            </Button>
           </SettingBox>
         </Content>
       </Background>
@@ -88,31 +101,30 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 280px;
-  max-width: 420px;
-  width: 100%;
   border-radius: 8px;
   background-color: #fff;
 
   position: relative;
   overflow: scroll;
+  #myBtn {
+    :hover {
+      opacity: 1 !important;
+    }
+  }
+  .myInput {
+    :focus {
+      box-shadow: none;
+      border-color: #6f5fce !important;
+    }
+  }
 `;
 
 const SettingBox = styled.div`
-  margin: 10px 0;
+  margin: 24px;
 `;
 
-const ModalBtn = styled.button`
-  border: 1px solid gray;
-  background: #fff;
-  border-radius: 4px;
-  margin-top: 5px;
-  padding: 10px;
-  width: 15%;
-  &:hover {
-    background: rgba(29, 28, 29, 0.1);
-    color: rgba(29, 28, 29, 1);
-  }
+const Main = styled.div`
+  margin: 24px 0;
 `;
 
 export default EditMemberNameModal;
