@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { DummyData } from "../../shared/DummyData";
 import { MdChevronLeft, MdChevronRight, MdClose } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { Divider } from "@material-ui/core";
 
 const PhotoSlider = ({ onClose }) => {
   // const list = DummyData.photoModalList;
@@ -45,7 +46,7 @@ const PhotoSlider = ({ onClose }) => {
           ? list.map((x) => {
               return (
                 <div className="res-ss" key={x.photoId}>
-                  <img
+                  <Photo
                     key={x.photoId}
                     alt="photoId"
                     src={x.photoFile}
@@ -114,10 +115,6 @@ const Styled_Slide = styled(Slider)`
     align-items: center;
     text-align: start;
     margin: auto;
-    img {
-      height: 100%;
-      width: 100%;
-    }
   }
 
   .slick-dots.slick-thumb {
@@ -167,6 +164,12 @@ const Styled_Slide = styled(Slider)`
     }
   }
 `;
+
+const Photo = styled.img`
+  height: 100%;
+  width: 100%;
+`;
+
 const PagingAnchor = styled.a`
   display: block;
   width: 100px;

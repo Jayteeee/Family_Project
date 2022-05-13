@@ -66,6 +66,7 @@ const Container = styled.div`
   width: 100%;
   overflow-y: hidden;
   @media only screen and (max-width: 839px) {
+    height: fit-content;
     overflow-y: auto;
   }
 `;
@@ -126,6 +127,7 @@ const Question = styled.div`
   @media only screen and (max-width: 839px) {
     width: 100%;
     height: auto;
+    bottom: 0;
   }
 `;
 

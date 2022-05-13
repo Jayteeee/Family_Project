@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { Input, Button, Text } from "../../../../elements";
 import { scheduleActions } from "../../../../redux/modules/calendar";
 
-const EditScheduleModal = ({ list, onClose, day, eventId, familyId }) => {
+const EditScheduleModal = ({ list, onClose, eventId }) => {
   const dispatch = useDispatch();
 
   const [event, setEvent] = React.useState(list?.event);

@@ -183,6 +183,12 @@ const addScheduleDB = (familyId, event, myPic, date) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     console.log(familyId, event, dayjs(date[0]).format("YYYY-MM-DD"), myPic);
+    // const dataList = {
+    //   event: event,
+    //   startDate: dayjs(date[0]).format("YYYY-MM-DD"),
+    //   endDate: dayjs(date[1]).format("YYYY-MM-DD"),
+    //   color: myPic,
+    // };
     await axios
       .post(
         `${BASE_URL}/calendar/${familyId}`,

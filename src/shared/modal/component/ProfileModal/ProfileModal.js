@@ -108,7 +108,8 @@ const ProfileModal = ({ onClose }) => {
               <UserInfo>
                 <CircleImage
                   S
-                  src={userInfo.profileImg ? userInfo.profileImg : profileImg}
+                  // src={userInfo.profileImg ? userInfo.profileImg : profileImg}
+                  // src={profileImg}
                 />
                 <div align="left" style={{ margin: "0 10px" }}>
                   <Text size="15px" fontWeight="700">
@@ -118,6 +119,7 @@ const ProfileModal = ({ onClose }) => {
                   <Text size="15px">닉네임: {userInfo.nickname}</Text>
                 </div>
               </UserInfo>
+              <hr />
               <MenuBox onClick={handleAddFamilyModal}>
                 <Text size="15px" fontWeight="700">
                   가족 생성하기
@@ -133,6 +135,7 @@ const ProfileModal = ({ onClose }) => {
                   가족 제거하기
                 </Text>
               </MenuBox>
+              <hr />
               <MenuBox onClick={handleLogoutModal}>
                 <Text size="15px" fontWeight="700">
                   로그아웃
@@ -243,7 +246,7 @@ const MenuBox = styled.div`
   display: flex;
   align-items: start;
   border: none;
-  background: #f4f4f4;
+  /* background: #f4f4f4; */
   width: 100%;
   padding: 16px 20px;
   margin: 10px 0px;
