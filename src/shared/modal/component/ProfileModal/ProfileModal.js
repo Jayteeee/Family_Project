@@ -36,9 +36,7 @@ const ProfileModal = ({ onClose }) => {
   const NowFamilyId = params.familyId;
   console.log("현재 가족: ", NowFamilyId);
 
-  const familyHost = familyTitle?.familyList.find(
-    (h) => h.familyId === NowFamilyId
-  );
+  const familyHost = familyList?.find((h) => h?.familyId === NowFamilyId);
 
   console.log(onClose);
   // 가족 생성하기 모달

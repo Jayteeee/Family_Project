@@ -26,8 +26,8 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
   console.log(familyId);
 
   const otherFamilyId = familyList.find(
-    (f) => f.familyId !== familyId
-  ).familyId;
+    (f) => f?.familyId !== familyId
+  )?.familyId;
 
   console.log("다른 패밀리아이디:", otherFamilyId);
 
@@ -60,7 +60,7 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
             <ButtonWrap>
               <Button
                 L
-                onClick={onclose}
+                onClick={onClose}
                 color="rgba(117, 117, 117, 1)"
                 borderColor="rgba(219, 219, 219, 1)"
                 borderRadius="12px"
