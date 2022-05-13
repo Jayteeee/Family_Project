@@ -217,6 +217,8 @@ const Figure = styled.div`
   grid-template-rows: 1fr auto;
   /* margin-bottom: 2%; */
   break-inside: avoid;
+  width: 100%;
+  height: 100%;
   &:hover {
     border-radius: 13px;
     cursor: pointer;
@@ -226,12 +228,18 @@ const Figure = styled.div`
   }
 `;
 
-const ImageBox = styled.img`
+const ImageBox = styled.div`
   grid-row: 1 / -1;
   grid-column: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  margin-top: 2%;
+  padding-bottom: 100%;
   border-radius: 13px;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
 `;
 
 const EditFigure = styled.div`
@@ -250,12 +258,18 @@ const EditFigure = styled.div`
   }
 `;
 
-const EditImageBox = styled.img`
+const EditImageBox = styled.div`
   grid-row: 1 / -1;
   grid-column: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  margin-top: 2%;
+  padding-bottom: 100%;
   border-radius: 13px;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
 `;
 
 const DeleteIcon = styled.div`

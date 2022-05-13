@@ -117,9 +117,7 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
             <EditScheduleModal
               list={list}
               onClose={onClose}
-              day={date}
               eventId={eventId}
-              familyId={familyId}
             />
           </CheckBox>
         </Content>

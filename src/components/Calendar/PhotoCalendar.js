@@ -120,8 +120,8 @@ const Container = styled.div`
   .react-calendar__navigation {
     position: absolute;
     display: flex;
-    top: 80px;
-    left: 0;
+    top: 120px;
+    left: 25px;
     font-weight: 600;
     font-size: 24px;
     @media only screen and (max-width: 1199px) {
