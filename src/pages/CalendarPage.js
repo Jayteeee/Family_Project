@@ -156,6 +156,10 @@ const Container = styled.div`
   @media only screen and (max-width: 1199px) {
     padding: 40px;
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    padding: 24px;
+  }
   // Small (Tablet)
   @media only screen and (max-width: 839px) {
     padding: 24px;
@@ -174,6 +178,10 @@ const Title = styled.div`
   // Medium (Desktop)
   @media only screen and (max-width: 1199px) {
     padding: 40px;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    padding: 23px 16px;
   }
   // Small (Tablet)
   @media only screen and (max-width: 839px) {
@@ -310,6 +318,10 @@ const SBox = styled.div`
   @media only screen and (max-width: 1199px) {
     margin: 50px 0 0 0;
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 20px 0 0 0;
+  }
   @media only screen and (max-width: 839px) {
     margin: 20px 0 0 0;
   }
@@ -338,6 +350,10 @@ const ScheduleArea = styled.div`
   @media only screen and (max-width: 1199px) {
     margin: 24px 0 0 0;
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 16px 0 0 0;
+  }
   @media only screen and (max-width: 839px) {
     margin: 16px 0 0 0;
   }
@@ -354,6 +370,21 @@ const CreateButton = styled.div`
     justify-content: center;
     bottom: 80px;
     right: 20px;
+    border-radius: 100%;
+    background-color: #8c98f8;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  @media screen and (max-width: 1024px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 110px;
+    right: 30px;
     border-radius: 100%;
     background-color: #8c98f8;
     font-size: 24px;

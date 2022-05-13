@@ -198,6 +198,89 @@
     width: 100% !important;
   }
 }
+/*  Medium (Tablet) */
+@media screen and (max-width: 1024px) {
+  .res-missionStatusBox {
+    flex-direction: column !important;
+    margin: 0 14px !important;
+  }
+  .res-twoStatusBox {
+    display: flex;
+    /* margin; */
+  }
+  .res-missionHeader {
+    padding: 5px 0 0 0 !important;
+  }
+  .res-missionMonth {
+    margin: 0px 0 15px 0px !important;
+    display: flex !important;
+    text-align: right !important;
+    justify-content: center !important;
+  }
+  .res-missionListWrap {
+    margin: 16px 14px !important;
+  }
+  .res-missinoListBox {
+    margin-top: 0px !important;
+    padding-left: 10px !important;
+  }
+  .res-selectMissionList-1 {
+    display: block !important;
+  }
+  .res-selectMissionList-2 {
+    display: none !important;
+  }
+  .res-missionSelect {
+    display: flex !important;
+  }
+  .res-monthMissionTitle {
+    display: none !important;
+  }
+  .res-pastMissionList {
+    display: block !important;
+  }
+  .res-wepPastMissionList {
+    display: none !important;
+  }
+  .res-missionMemberBox {
+    /* padding: 0 12px 10px 20px !important */
+  }
+  .res-missionMember {
+    margin: 0 35px !important;
+  }
+  /* // 지난미션 용 */
+  .res-missionTitle {
+    margin-left: 25px !important;
+  }
+  .res-missionMemberBox {
+    padding: 0 0 20px 5px !important;
+  }
+  .res-missionCompletedAt {
+    margin-right: 9% !important;
+  }
+  /* 미션 삭제하기 모달 */
+
+  /* 배지 모달 */
+  .res-badgeContent {
+    height: 880px !important;
+    max-width: 800px !important;
+  }
+  .res-badgeHeaderBox {
+    height: 22% !important;
+    padding: 10px 0 40px !important;
+    margin-top: 20px !important;
+  }
+  .res-badgeListBox {
+    flex-direction: row !important;
+  }
+  .res-badgeRowBox {
+    flex-direction: column !important;
+  }
+  .res-badgeTestBox {
+    padding-left: 24px !important;
+    width: 180px !important;
+  }
+}
 /* 반응형CSS 모바일 뷰 */
 @media only screen and (max-width: 599px) {
   .res-missionHeader {
@@ -210,7 +293,7 @@
   }
   .res-statusBox {
     padding: 0px 20px !important;
-    height: 9rem !important;
+    height: 8rem !important;
   }
   .res-stausMiddleBox {
     padding: 15px !important;
@@ -229,6 +312,7 @@
   }
   .res-missinoListBox {
     margin-top: 0px !important;
+  
   }
   .res-missionMemberBox {
     padding: 0 12px 10px 0 !important;

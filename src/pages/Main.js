@@ -206,6 +206,11 @@ const MainWrap = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    flex-direction: column !important;
+    font-size: 15px !important;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     flex-direction: column !important;
@@ -221,6 +226,11 @@ const ContentWrap = styled.div`
   flex-direction: row;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    flex-direction: column !important;
+    font-size: 15px !important;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -267,6 +277,10 @@ const SidebarLeft = styled.nav`
   @media screen and (max-width: 1199px) {
   }
   // Small (Tablet)
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
   @media screen and (max-width: 839px) {
     display: none;
     /* width: 100% !important;
@@ -294,6 +308,11 @@ const SelectBox = styled.div`
   }
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    cursor: pointer !important;
+    width: 100% !important;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -324,6 +343,11 @@ const Label = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    font-size: 20px !important;
+    padding: 10px !important;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     font-size: 20px !important;
@@ -353,6 +377,10 @@ const SelectOptions = styled.ul`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    top: 44px !important;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     top: 44px !important;
@@ -374,6 +402,11 @@ const Option = styled.li`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    text-align: center;
+    font-size: 20px;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -398,6 +431,12 @@ const PageWrap = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: calc(94.1vh - 125px);
+    text-align: center;
+    font-size: 20px;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -435,6 +474,10 @@ const SidebarBottom = styled.nav`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    display: inline-flex;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {

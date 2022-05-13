@@ -196,6 +196,13 @@ const Container = styled.div`
     grid-template-columns: repeat(3, 1fr);
     column-gap: 2%;
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2%;
+    padding: 24px;
+    /* width: 74%; */
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     grid-template-columns: repeat(3, 1fr);

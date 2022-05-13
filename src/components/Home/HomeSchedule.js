@@ -52,6 +52,10 @@ const ScheduleArea = styled.div`
   @media only screen and (max-width: 1199px) {
     margin: 24px 0 0 0;
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 16px 0 0 0;
+  }
   @media only screen and (max-width: 839px) {
     margin: 16px 0 0 0;
   }
