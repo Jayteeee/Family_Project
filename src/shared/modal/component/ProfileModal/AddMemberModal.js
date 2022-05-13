@@ -26,13 +26,11 @@ const AddMemberModal = ({ onClose }) => {
   const [selectEmail, setSelectEmail] = useState("");
   const [familyMemberNickname, setfamilyMemberNickname] = useState("");
 
-  const searchMemberList = useSelector(
-    (state) => state.familymember.searchMemberList
-  );
+  const searchMember = useSelector((state) => state.familymember?.searchMember);
 
   console.log("검색한 이메일:", searchEmail);
 
-  console.log("검색한 맴버 리스트:", searchMemberList);
+  console.log("검색한 맴버:", searchMember);
   console.log("선택한 맴버:", selectEmail);
 
   // 검색한 userId 주입
@@ -105,19 +103,14 @@ const AddMemberModal = ({ onClose }) => {
                   onChange={handleSearchEmail}
                 />
               </form>
-              {searchMemberList.length !== 0 && (
+              {searchMember && (
                 <SearchBox>
-                  {searchMemberList.map((f, i) => {
-                    return (
-                      <SearchUserIdBox
-                        key={f.userId}
-                        value={f.email}
-                        onClick={handleSelectEmail}
-                      >
-                        {f.email}
-                      </SearchUserIdBox>
-                    );
-                  })}
+                  <SearchUserIdBox
+                    value={searchMember}
+                    onClick={handleSelectEmail}
+                  >
+                    {searchMember}
+                  </SearchUserIdBox>
                 </SearchBox>
               )}
               <Input
