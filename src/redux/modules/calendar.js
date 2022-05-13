@@ -148,13 +148,13 @@ const getOneScheduleDB = (date, familyId, eventId) => {
       )
       .then((res) => {
         console.log(res);
-        const scheduleOneList = res.data.eventModalList;
+        const scheduleOneList = res.data.event;
         console.log(scheduleOneList);
         dispatch(getOneSchedule(scheduleOneList));
       })
       .catch((error) => {
         console.log("패밀리 데이터 안옴", error);
-        console.log(error.response);
+        // console.log(error.response);
       });
   };
 };

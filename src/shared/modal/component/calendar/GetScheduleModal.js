@@ -26,7 +26,8 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
   const dispatch = useDispatch();
   const [normal, setNormal] = React.useState(false);
 
-  const list = useSelector((state) => state.calendar.scheduleOneList[0]);
+  const list = useSelector((state) => state.calendar.scheduleOneList);
+  console.log(list);
 
   const deleteSchedule = () => {
     dispatch(scheduleActions.deleteScheduleDB(list.eventId));

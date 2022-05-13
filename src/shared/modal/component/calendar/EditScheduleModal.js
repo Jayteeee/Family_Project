@@ -19,7 +19,8 @@ import { scheduleActions } from "../../../../redux/modules/calendar";
 
 const EditScheduleModal = ({ onClose, eventId }) => {
   const dispatch = useDispatch();
-  const list = useSelector((state) => state.calendar.scheduleOneList[0]);
+  const list = useSelector((state) => state?.calendar?.scheduleOneList);
+  console.log(list);
 
   const [event, setEvent] = React.useState(list?.event);
   const [selec, setSelec] = React.useState(true);
