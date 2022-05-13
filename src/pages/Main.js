@@ -420,10 +420,6 @@ const Option = styled.li`
 `;
 
 const PageWrap = styled.div`
-  /* flex: 1;
-  height: calc(100vh - 44px); */
-
-  /* flex-basis: 680px; */
   flex-grow: 1;
   flex-shrink: 1;
   background-color: #f0f0ff;
@@ -453,6 +449,12 @@ const PageWrap = styled.div`
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
+    height: calc(100vh - 125px);
+    text-align: center;
+    font-size: 20px;
+    font-size: 15px;
+  }
+  @media screen and (max-width: 360px) {
     height: calc(100vh - 130px);
     text-align: center;
     font-size: 20px;
@@ -492,6 +494,16 @@ const SidebarBottom = styled.nav`
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
   }
+  /* // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    max-height: 6vh;
+  }
+  @media screen and (max-width: 360px) {
+    max-height: 7vh;
+  }
+  @media screen and (max-width: 320px) {
+    max-height: 7vh;
+  } */
 `;
 
 export default Main;
