@@ -458,6 +458,12 @@ const PageWrap = styled.div`
     font-size: 20px;
     font-size: 15px;
   }
+  @media screen and (max-width: 320px) {
+    height: calc(100vh - 124px);
+    text-align: center;
+    font-size: 20px;
+    font-size: 15px;
+  }
 `;
 
 const SidebarBottom = styled.nav`
