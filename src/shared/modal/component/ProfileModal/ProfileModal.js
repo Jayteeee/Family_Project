@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import { RiArrowLeftSLine } from "react-icons/ri";
+import { CgCrown } from "react-icons/cg";
 
 // 리덕스
 import { useSelector } from "react-redux";
@@ -17,7 +18,7 @@ import {
 } from "./index";
 
 // 엘리먼트
-import { CircleImage, Text } from "../../../../elements";
+import { CircleImage, RactangleImage, Text } from "../../../../elements";
 
 // 이미지
 import profileImg from "../../../images/profileImg.png";
@@ -77,7 +78,7 @@ const ProfileModal = ({ onClose }) => {
             id="profileMenu"
           >
             {/* 여기부터 실제 모달에 보여지는 컨텐츠 들입니다 */}
-            <TopDiv>
+            {/* <TopDiv>
               <TitleWrap
               // className="flex-row"
               >
@@ -103,23 +104,39 @@ const ProfileModal = ({ onClose }) => {
                   <RiArrowLeftSLine size={24} />
                 </CancelBtn>
               </TitleWrap>
-            </TopDiv>
+            </TopDiv> */}
             <BottomDiv>
               <UserInfo>
-                <CircleImage
-                  S
-                  // src={userInfo.profileImg ? userInfo.profileImg : profileImg}
-                  // src={profileImg}
-                />
-                <div align="left" style={{ margin: "0 10px" }}>
-                  <Text size="15px" fontWeight="700">
-                    아이디:
+                <ProfileArea>
+                  <RactangleImage
+                    S
+                    src={userInfo.profileImg ? userInfo.profileImg : profileImg}
+                    size="60px"
+                  />
+                </ProfileArea>
+                <Usertitle>
+                  <UserNickname>
+                    <HostSign>{/* <Crown /> */}</HostSign>
+                    <Text size="15px">{userInfo.nickname}</Text>
+                  </UserNickname>
+                  <Text size="14px" fontWeight="700">
                     {userInfo?.email}
                   </Text>
-                  <Text size="15px">닉네임: {userInfo.nickname}</Text>
-                </div>
+                  <UserMood>
+                    <TodayMood>오늘의 기분</TodayMood>
+                    <SelectButton>
+                      <option>🙂좋아요</option>
+                      <option>🥰사랑해요</option>
+                      <option>😎멋져요</option>
+                      <option>😥슬퍼요</option>
+                      <option>🤯머리아파요</option>
+                      <option>😡화나요</option>
+                      <option>😴졸려요</option>
+                    </SelectButton>
+                  </UserMood>
+                </Usertitle>
               </UserInfo>
-              <hr />
+              <Line />
               <MenuBox onClick={handleAddFamilyModal}>
                 <Text size="15px" fontWeight="700">
                   가족 생성하기
@@ -135,8 +152,8 @@ const ProfileModal = ({ onClose }) => {
                   가족 제거하기
                 </Text>
               </MenuBox>
-              <hr />
-              <MenuBox onClick={handleLogoutModal}>
+              <Line />
+              <MenuBox onClick={handleLogoutModal} className="logout">
                 <Text size="15px" fontWeight="700">
                   로그아웃
                 </Text>
@@ -179,8 +196,8 @@ const Background = styled.div`
 
 const Content = styled.div`
   z-index: 205;
-  max-height: 384px;
-  max-width: 269px;
+  max-height: 378px;
+  max-width: 326px;
   width: 100%;
   border-radius: 16px;
   /* border: 1px solid #d6d6d6; */
@@ -190,7 +207,8 @@ const Content = styled.div`
   top: 0;
   right: 0;
   overflow: scroll;
-  margin: 40px;
+  margin: 70px 36px;
+  padding: 24px;
 `;
 
 const TopDiv = styled.div`
@@ -199,7 +217,12 @@ const TopDiv = styled.div`
 `;
 
 const BottomDiv = styled.div`
-  margin: 20px;
+  /* margin: 20px; */
+`;
+
+const Line = styled.hr`
+  margin: 16px 0;
+  color: #dbdbdb;
 `;
 
 const TitleWrap = styled.div`
@@ -216,7 +239,6 @@ const CancelBtn = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 4px;
-  textalign: left;
   position: absolute;
   left: 0;
   margin-left: 10px;
@@ -229,29 +251,79 @@ const CancelBtn = styled.div`
 const UserInfo = styled.div`
   cursor: pointer;
   display: flex;
-  // flex-direction: column;
   align-items: center;
+  justify-content: center;
   border: none;
-  margin-bottom: 30px;
-  background: #f4f4f4;
+  max-width: 278px;
+  max-height: 112px;
+  padding: 16px;
   width: 100%;
-  padding: 16px 20px;
-  &:hover {
+  /* &:hover {
     background: #e5e5e5;
+  } */
+`;
+
+const ProfileArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  border-radius: 28px;
+  margin-right: 16px;
+`;
+
+const UserNickname = styled.div`
+  display: flex;
+  margin-bottom: 4px;
+`;
+
+const HostSign = styled.div`
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #6f5fce;
+  margin-right: 8px;
+  & > svg {
+    color: white;
+    fill: white;
   }
+`;
+
+const Usertitle = styled.div`
+  width: 75%;
+  text-align: left;
+`;
+
+const UserMood = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 146px;
+  max-height: 24px;
+`;
+const TodayMood = styled.div`
+  margin-right: 8px;
+`;
+const SelectButton = styled.select`
+  width: 100%;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  padding: 0 4px;
 `;
 
 const MenuBox = styled.div`
   cursor: pointer;
   display: flex;
-  align-items: start;
+  align-items: center;
   border: none;
-  /* background: #f4f4f4; */
+  justify-content: center;
   width: 100%;
-  padding: 16px 20px;
-  margin: 10px 0px;
+  padding: 8px 16px;
+  margin: 8px 0px;
+  .logout {
+    background-color: #f5f5f5;
+  }
   &:hover {
-    background: #e5e5e5;
+    background: #f6f6f6;
   }
 `;
 
