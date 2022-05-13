@@ -82,6 +82,15 @@ const SidebarMenuWrap = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    display: flex !important;
+    margin-top: 0px !important;
+    font-size: 15px !important;
+    text-align: center !important;
+    border-radius: 0px !important;
+    width: 100% !important;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     display: flex !important;
@@ -115,6 +124,15 @@ const MenuBox = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    justify-content: center !important;
+    flex-direction: column !important;
+    border-radius: 0px !important;
+    font-size: 15px !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     justify-content: center !important;
@@ -138,6 +156,10 @@ const Menus = styled.span`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 2px 0 !important;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {

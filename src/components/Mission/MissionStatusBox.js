@@ -37,7 +37,7 @@ const MissionStatusBox = ({ missionStatus, familyId }) => {
                 size="24px"
                 fontWeight="700"
               >
-                우리 가족 전체 미션 수
+                우리 가족 전체{"\n"}미션 수
               </Text>
               <div className="res-stausMiddleBox" style={{ padding: "30px" }} />
               <Text
@@ -57,7 +57,7 @@ const MissionStatusBox = ({ missionStatus, familyId }) => {
                 size="24px"
                 fontWeight="700"
               >
-                현재 달성 완료된 미션 수
+                현재 달성 완료된{"\n"}미션 수
               </Text>
               <div className="res-stausMiddleBox" style={{ padding: "30px" }} />
               <Text
@@ -112,7 +112,7 @@ const MissionStatusBox = ({ missionStatus, familyId }) => {
                 size="24px"
                 fontWeight="700"
               >
-                우리 가족 보유 뱃지 수
+                우리 가족 보유{"\n"}뱃지 수
               </Text>
               <div className="res-stausMiddleBox" style={{ padding: "30px" }} />
               <Text

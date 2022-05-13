@@ -131,6 +131,11 @@ const Container = styled.div`
   @media screen and (max-width: 1199px) {
     column-count: 3;
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    column-count: 3;
+    padding: 24px;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     column-count: 3;

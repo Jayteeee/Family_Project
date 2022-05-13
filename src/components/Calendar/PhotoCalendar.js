@@ -131,6 +131,11 @@ const Container = styled.div`
       height: 44px;
       width: 207px;
     }
+    // Medium (Tablet)
+    @media screen and (max-width: 1024px) {
+      top: 20px;
+      right: 0;
+    }
     @media only screen and (max-width: 839px) {
       top: 20px;
       right: 0;
@@ -169,8 +174,16 @@ const Container = styled.div`
     border-radius: 24px;
     @media only screen and (max-width: 1199px) {
     }
+    // Medium (Tablet)
+    @media screen and (max-width: 1024px) {
+      align-items: flex-start;
+    }
     @media only screen and (max-width: 839px) {
       align-items: flex-start;
+    }
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+      height: 70px;
     }
   }
   .react-calendar__tile:enabled:hover,
@@ -187,6 +200,11 @@ const Container = styled.div`
     border-radius: 24px;
     color: #fff;
     @media only screen and (max-width: 1199px) {
+    }
+    // Medium (Tablet)
+    @media screen and (max-width: 1024px) {
+      height: 48px;
+      border-radius: 8px;
     }
     @media only screen and (max-width: 839px) {
       height: 48px;

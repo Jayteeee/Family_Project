@@ -125,7 +125,7 @@ const MissionList = ({
                     );
                   })
                 ) : (
-                  <Text>리스트 없음.</Text>
+                  <Text margin="0 10px">리스트 없음.</Text>
                 )}
               </div>
             </MissionListBox>
@@ -186,7 +186,7 @@ const MissionList = ({
                   );
                 })
               ) : (
-                <Text>리스트 없음.</Text>
+                <Text margin="0 10px">리스트 없음.</Text>
               )}
             </div>
           </MissionListBox>
@@ -219,96 +219,6 @@ const MissionListBox = styled.div`
   border: none;
   border-radius: 20px;
   box-shadow: 0px 0px 3px 0px #d6d6d6;
-`;
-
-const MissionBox = styled.div`
-  text-align: left;
-  padding: 0 0 0 25px;
-`;
-
-const MissionChkBox = styled.label`
-  margin-top: 5px;
-`;
-
-const MissionTitle = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  padding: 10px 0;
-  height: 60px;
-`;
-
-const MissionMemberBox = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0 12px 10px 20px;
-`;
-
-const UncompletedCicle = styled.div`
-  width: 12px;
-  height: 12px;
-  border-radius: 12px;
-  border: none;
-  background-color: #8f8f8f;
-  position: absolute;
-  top: 13px;
-  right: 7px;
-`;
-
-const CompletedCicle = styled.div`
-  width: 12px;
-  height: 12px;
-  border-radius: 12px;
-  border: none;
-  background-color: #f4cc4d;
-  position: absolute;
-  top: 13px;
-  right: 7px;
-`;
-
-const CompletedMission = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  float: right;
-  min-width: 100px;
-  height: 42px;
-  font-size: 14px;
-  font-weight: 500;
-  border-radius: 21px;
-  background: #8c98f8;
-  color: white;
-  /* margin-left: auto; */
-`;
-
-const UncompletedMission = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  float: right;
-  width: 85px;
-  height: 42px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 21px;
-  background: #f5f5f5;
-  color: #757575;
-`;
-
-const MissionDeleteBtn = styled.div`
-  cursor: pointer;
-  display: flex;
-  width: 30px;
-  height: 40px;
-  align-items: center;
-  border: none;
-  border-radius: 10px;
-  color: #757575;
-  &:hover {
-    background: #f5f5f5;
-    color: black;
-  }
 `;
 
 // 미션 토글용 CSS

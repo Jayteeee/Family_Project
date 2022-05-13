@@ -47,6 +47,7 @@ const MissionHeader = (props) => {
             hover="#6971b2"
             margin="10px 0 0 0"
             onClick={handleModal}
+            className="res-missionBtn"
           >
             <div
               style={{
@@ -104,6 +105,15 @@ const MissionHeaderBox = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    padding: 10px;
+    margin: 10px 6px 5px 6px;
+    .res-missionHeaderBox {
+      font-size: 30px;
+    }
+    .res-missionBtn {
+      width: 130px;
+      height: 40px;
+    }
   }
 `;
 

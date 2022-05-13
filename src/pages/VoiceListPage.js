@@ -45,6 +45,10 @@ const VoicePageWrap = styled.div`
   // Medium (Desktop)
   @media only screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: 100%;
+  }
   // Small (Tablet)
   @media only screen and (max-width: 839px) {
     height: 100%;

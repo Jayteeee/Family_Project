@@ -234,8 +234,13 @@ const HomePageWrap = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: calc(100vh - 100px);
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -285,6 +290,10 @@ const ContentsWrap = styled.div`
   @media screen and (max-width: 1199px) {
     /* width: 1000px; */
     height: 100%;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    padding: 4px;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {

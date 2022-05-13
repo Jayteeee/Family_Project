@@ -288,6 +288,8 @@ const OneMission = (props) => {
 const MissionBox = styled.div`
   text-align: left;
   padding: 0 0 0 25px;
+  @media only screen and (max-width: 599px) {
+  }
 `;
 
 const MissionChkBox = styled.label`

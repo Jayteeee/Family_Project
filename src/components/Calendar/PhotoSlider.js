@@ -93,6 +93,12 @@ const XButton = styled.div`
     top: 0;
     right: 0;
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 70% 10% 0 0;
+    top: 0;
+    right: 0;
+  }
   @media only screen and (max-width: 839px) {
     margin: 70% 10% 0 0;
     top: 0;
@@ -125,6 +131,20 @@ const Styled_Slide = styled(Slider)`
       &.slick-active {
         span {
           filter: none;
+        }
+      }
+    }
+    // Medium (Tablet)
+    @media screen and (max-width: 1024px) {
+      bottom: 0;
+      li {
+        position: relative;
+        display: inline-block;
+        margin: 0 5%;
+        &.slick-active {
+          span {
+            filter: none;
+          }
         }
       }
     }
@@ -166,6 +186,12 @@ const Paging = styled.span`
   vertical-align: end;
   background: no-repeat url(${(props) => props.src});
   background-size: 100% 100%;
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    width: 50%;
+    height: 50%;
+  }
   @media only screen and (max-width: 839px) {
     width: 50%;
     height: 50%;
@@ -178,6 +204,11 @@ const PButton = styled.div`
   color: white;
   font-size: 80px;
   cursor: pointer;
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    font-size: 40px;
+  }
   @media only screen and (max-width: 839px) {
     font-size: 40px;
   }
@@ -188,6 +219,11 @@ const NButton = styled.div`
   color: white;
   font-size: 80px;
   cursor: pointer;
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    font-size: 40px;
+  }
   @media only screen and (max-width: 839px) {
     font-size: 40px;
   }

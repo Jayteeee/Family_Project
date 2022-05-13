@@ -86,6 +86,12 @@ const Container = styled.div`
       transition: all 300ms ease-in;
       filter: brightness(70%);
     }
+
+    // Medium (Tablet)
+    @media screen and (max-width: 1024px) {
+      padding: 0px;
+      height: 40vh;
+    }
     @media only screen and (max-width: 839px) {
       padding: 0px;
       height: 40vh;
@@ -121,6 +127,11 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     color: black;
+
+    // Medium (Tablet)
+    @media screen and (max-width: 1024px) {
+      margin: 0px;
+    }
     @media only screen and (max-width: 839px) {
       margin: 0px;
     }
