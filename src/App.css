@@ -30,67 +30,7 @@
 }
 /* 반응형CSS 태블릿 뷰 */
 @media only screen and (max-width: 839px) {
-  .res-mainWrap {
-    /* flex-direction: column !important;
-    font-size: 15px !important; */
 
-  }
-  .res-sidbar {
-    /* width: 100% !important;
-    height: 80px !important;
-    bottom: 0px !important;
-    border-radius: 0px !important;
-    position: absolute !important;
-    display: flex !important; */
-  }
-  .res-selectWrap {
-    /* padding: 0 !important;
-    border-radius: 0 !important;
-    margin: 0 !important; */
-  }
-  .res-selectBox {
-    /* position: absolute !important;
-    cursor: pointer !important;
-    width: 100% !important; */
-    /* padding: 10px 20px !important; */
-    /* border-bottom: 1px solid rgba(29, 28, 29, 0.13) !important;
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-radius: 0px !important; */
-  }
-  .res-label {
-    /* font-size: 20px !important;
-    padding: 10px !important; */
-  }
-  .res-selectOptions {
-    /* top: 48px !important; */
-  }
-  .res-menuWrap {
-    /* display: flex !important;
-    margin-top: 0px !important;
-    font-size: 15px !important;
-    text-align: center !important;
-    border-radius: 0px !important;
-    width: 100% !important; */
-  }
-  .res-menuBox {
-    /* justify-content: center !important;
-    flex-direction: column !important;
-    border-radius: 0px !important;
-    font-size: 15px !important;
-    width: 100% !important;
-    padding: 0 !important; */
-  }
-  .res-menus {
-    /* margin: 2px 0 !important; */
-  }
-  /* 미션페이지 */
-  .res-pageWrap {
-    /*페이지 공용*/
-    /* padding-top: 50px !important;
-    height: calc(100vh - 150px) !important; */
-  }
   .res-missionStatusBox {
     flex-direction: column !important;
     margin: 0 14px !important;
@@ -102,19 +42,19 @@
   .res-missionHeader {
     padding: 5px 0 0 0 !important;
   }
-  .res-missionMonth {
+  /* .res-missionMonth {
     margin: 0px 0 15px 0px !important;
     display: flex !important;
     text-align: right !important;
     justify-content: center !important;
-  }
-  .res-missionListWrap {
+  } */
+  /* .res-missionListWrap {
     margin: 16px 14px !important;
-  }
-  .res-missinoListBox {
+  } */
+  /* .res-missinoListBox {
     margin-top: 0px !important;
     padding-left: 10px !important;
-  }
+  } */
   .res-selectMissionList-1 {
     display: block !important;
   }
@@ -136,9 +76,9 @@
   .res-missionMemberBox {
     /* padding: 0 12px 10px 20px !important */
   }
-  .res-missionMember {
+  /* .res-missionMember {
     margin: 0 35px !important;
-  }
+  } */
   /* // 지난미션 용 */
   .res-missionTitle {
     margin-left: 25px !important;
@@ -153,49 +93,49 @@
 
   /* 배지 모달 */
   .res-badgeContent {
-    height: 880px !important;
-    max-width: 800px !important;
+    /* height: 880px !important;
+    max-width: 800px !important; */
   }
   .res-badgeHeaderBox {
-    height: 22% !important;
+    /* height: 22% !important;
     padding: 10px 0 40px !important;
-    margin-top: 20px !important;
+    margin-top: 20px !important; */
   }
   .res-badgeListBox {
-    flex-direction: row !important;
+    /* flex-direction: row !important; */
   }
   .res-badgeRowBox {
-    flex-direction: column !important;
+    /* flex-direction: column !important; */
   }
   .res-badgeTestBox {
-    padding-left: 24px !important;
-    width: 180px !important;
+    /* padding-left: 24px !important;
+    width: 180px !important; */
   }
   /* // */
   .res-login {
-    display: none !important;
+    /* display: none !important; */
   }
   .res-loginbar {
-    width: 100% !important;
+    /* width: 100% !important;
     height: 60px !important;
     bottom: 0px !important;
     position: fixed !important;
-    display: flex !important;
+    display: flex !important; */
   }
   .res-cont {
-    box-sizing: border-box !important;
+    /* box-sizing: border-box !important;
     margin: 1.5% 0 !important;
     padding: 5% !important;
-    width: 100% !important;
+    width: 100% !important; */
   }
   .res-ss {
-    box-sizing: border-box !important;
+    /* box-sizing: border-box !important;
     padding: 5% 1% 1% !important;
-    width: 100% !important;
+    width: 100% !important; */
   }
   .res-modal {
-    border-radius: 12px 12px 0px 0px !important;
-    width: 100% !important;
+    /* border-radius: 12px 12px 0px 0px !important;
+    width: 100% !important; */
   }
 }
 /*  Medium (Tablet) */
@@ -211,19 +151,19 @@
   .res-missionHeader {
     padding: 5px 0 0 0 !important;
   }
-  .res-missionMonth {
+  /* .res-missionMonth {
     margin: 0px 0 15px 0px !important;
     display: flex !important;
     text-align: right !important;
     justify-content: center !important;
-  }
-  .res-missionListWrap {
+  } */
+  /* .res-missionListWrap {
     margin: 16px 14px !important;
-  }
-  .res-missinoListBox {
+  } */
+  /* .res-missinoListBox {
     margin-top: 0px !important;
     padding-left: 10px !important;
-  }
+  } */
   .res-selectMissionList-1 {
     display: block !important;
   }
@@ -261,25 +201,25 @@
   /* 미션 삭제하기 모달 */
 
   /* 배지 모달 */
-  .res-badgeContent {
+  /* .res-badgeContent {
     height: 880px !important;
     max-width: 800px !important;
-  }
-  .res-badgeHeaderBox {
+  } */
+  /* .res-badgeHeaderBox {
     height: 22% !important;
     padding: 10px 0 40px !important;
     margin-top: 20px !important;
-  }
-  .res-badgeListBox {
+  } */
+  /* .res-badgeListBox {
     flex-direction: row !important;
-  }
-  .res-badgeRowBox {
+  } */
+  /* .res-badgeRowBox {
     flex-direction: column !important;
-  }
-  .res-badgeTestBox {
+  } */
+  /* .res-badgeTestBox {
     padding-left: 24px !important;
     width: 180px !important;
-  }
+  } */
 }
 /* 반응형CSS 모바일 뷰 */
 @media only screen and (max-width: 599px) {
@@ -314,44 +254,39 @@
     margin-top: 0px !important;
   
   }
-  .res-missionMemberBox {
+  /* .res-missionMemberBox {
     padding: 0 12px 10px 0 !important;
     margin: 0 -35px 0 0 !important;
-  }
+  } */
   .res-missionMember {
     margin: 0 40px !important;
-  }
-  .res-missionCompletedAt {
-    margin-right: 9% !important;
   }
   .res-pastMissionMember {
     margin: 0 25px !important;
   }
   /* 배지 모달 */
-  .res-badgeWrap {
+  /* .res-badgeWrap {
     display: "" !important;
-  }
-  .res-badgeHeaderBox {
+  } */
+  /* .res-badgeHeaderBox {
     margin-top: 420px !important;
     margin-bottom: 170px !important;
-  }
-  .res-badgeTitle {
-    margin-bottom: 30px !important;
-  }
-  .res-badgeListBox {
+  } */
+ 
+  /* .res-badgeListBox {
     display: "" !important;
     flex-direction: column !important;
     height: 100% !important;
-  }
-  .res-badgeRowBox {
+  } */
+  /* .res-badgeRowBox {
     display: flex;
     flex-direction: column !important;
     height: 100% !important;
-  }
-  .res-badgeTestBox {
+  } */
+  /* .res-badgeTestBox {
     padding-left: 24px !important;
     width: 180px !important;
-  }
+  } */
 }
 .flex-row {
   display: flex;

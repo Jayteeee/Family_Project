@@ -54,10 +54,11 @@ const MissionMemberModal = ({ onClose, familyMemberList }) => {
     if (isChecked) {
       checkedItems.add(familyMemberId);
       setCheckedItems(checkedItems);
-      box.style.backgroundColor = "#8F8F8F";
+      // box.style.backgroundColor = "#8F8F8F";
       box.style.borderRadius = "30px";
-      box.style.width = "56px";
-      box.style.height = "56px";
+      // box.style.width = "56px";
+      // box.style.height = "56px";
+      box.style.border = "2px solid #8F8F8F";
     } else if (!isChecked && checkedItems.has(familyMemberId)) {
       checkedItems.delete(familyMemberId);
       setCheckedItems(checkedItems);
@@ -96,11 +97,13 @@ const MissionMemberModal = ({ onClose, familyMemberList }) => {
             >
               <RiArrowLeftSLine size={24} />
             </CancelBtn>
-            <Text size="22px" fontWeight="600">
+            <Text size="22px" fontWeight="600" className="addMemberHeader1">
               참여 구성원 추가하기
             </Text>
             <br />
-            <Text>이번달 목표를 함께할 가족을 정해 보세요</Text>
+            <Text className="addMemberHeader2">
+              이번달 목표를 함께할 가족을 정해 보세요
+            </Text>
             <br />
             <br />
             <br />
@@ -129,6 +132,7 @@ const MissionMemberModal = ({ onClose, familyMemberList }) => {
                                   ? f?.profileImg
                                   : profileImg
                               }
+                              className="circleImage"
                             />
                           </label>
                         </MissionMemberBox>
@@ -203,6 +207,18 @@ const AddMissionWrap = styled.div`
   justify-content: center;
   padding: 40px 20px;
   width: 100%;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .addMemberHeader1 {
+      font-size: 20px;
+    }
+    .addMemberHeader2 {
+      font-size: 14px;
+    }
+  }
 `;
 
 const CancelBtn = styled.div`
@@ -211,7 +227,7 @@ const CancelBtn = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 4px;
-  textalign: left;
+  text-align: left;
   position: absolute;
   left: 0;
   top: 0;
@@ -238,6 +254,14 @@ const FamilyMemberBox = styled.div`
   margin: 20px 0;
   border: 2px solid #dbdbdb;
   border-radius: 20px;
+  overflow-y: scroll;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    padding: 0 25px 20px 25px;
+  }
 `;
 
 const MissionMemberWrap = styled.div`
@@ -247,6 +271,19 @@ const MissionMemberWrap = styled.div`
   justify-content: center;
   text-align: center;
   margin-right: 20px;
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .circleImage {
+      width: 30px;
+      height: 30px;
+    }
+    & > p {
+      font-size: 10px;
+      margin: 0 !important;
+    }
+    margin-right: 0;
+  }
 `;
 
 const MissionMemberBox = styled.div`

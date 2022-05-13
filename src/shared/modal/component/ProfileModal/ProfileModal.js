@@ -30,8 +30,8 @@ const ProfileModal = ({ onClose }) => {
   const userInfo = useSelector((state) => state.user.user.user);
   console.log("유저정보: ", userInfo);
 
-  const familyTitle = useSelector((state) => state.family);
-  console.log("패밀리 타이틀: ", familyTitle);
+  const { familyList } = useSelector((state) => state.family);
+  console.log("패밀리 리스트: ", familyList);
 
   const NowFamilyId = params.familyId;
   console.log("현재 가족: ", NowFamilyId);
@@ -174,7 +174,10 @@ const ProfileModal = ({ onClose }) => {
       {/* 가족 제거하기 모달 */}
       <ModalPortal>
         {deleteFamilyModal && (
-          <DeleteFamilyModal onClose={handleDeleteFamilyModal} />
+          <DeleteFamilyModal
+            onClose={handleDeleteFamilyModal}
+            familyList={familyList}
+          />
         )}
       </ModalPortal>
       {/* 로그아웃 모달 */}

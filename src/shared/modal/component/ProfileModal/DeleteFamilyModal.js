@@ -14,13 +14,25 @@ import { ModalPortal } from "../../portals";
 // 엘리먼트
 import { Button, Text } from "../../../../elements";
 
-const DeleteFamilyModal = ({ onClose }) => {
+const DeleteFamilyModal = ({ onClose, familyList }) => {
   const dispatch = useDispatch();
 
   const { familyId } = useContext(MainContext)[0];
+
+  const family = useContext(MainContext);
+
+  console.log(family);
+
   console.log(familyId);
+
+  const otherFamilyId = familyList.find(
+    (f) => f.familyId !== familyId
+  ).familyId;
+
+  console.log("다른 패밀리아이디:", otherFamilyId);
+
   const deleteFamily = () => {
-    dispatch(familyActions.deleteFamilyDB(familyId));
+    dispatch(familyActions.deleteFamilyDB(familyId, otherFamilyId));
     // document.getElementById("deleteFamily").style.display = "none";
   };
   return (

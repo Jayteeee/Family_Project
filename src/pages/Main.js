@@ -266,7 +266,7 @@ const SidbarWrap = styled.div`
 `;
 
 const SidebarLeft = styled.nav`
-  width: 296px;
+  width: 220px;
   display: inline-flex;
   flex-direction: column;
   background: #fff;
@@ -420,10 +420,6 @@ const Option = styled.li`
 `;
 
 const PageWrap = styled.div`
-  /* flex: 1;
-  height: calc(100vh - 44px); */
-
-  /* flex-basis: 680px; */
   flex-grow: 1;
   flex-shrink: 1;
   background-color: #f0f0ff;
@@ -434,26 +430,38 @@ const PageWrap = styled.div`
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    height: calc(94.1vh - 125px);
+    height: calc(94.1vh - 100px);
     text-align: center;
     font-size: 20px;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    height: calc(94.1vh - 125px);
+    height: calc(94.1vh - 98px);
     text-align: center;
     font-size: 20px;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    height: calc(100vh - 173px);
+    height: calc(100vh - 142px);
     text-align: center;
     font-size: 20px;
     font-size: 15px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    height: calc(100vh - 162px);
+    height: calc(100vh - 125px);
+    text-align: center;
+    font-size: 20px;
+    font-size: 15px;
+  }
+  @media screen and (max-width: 360px) {
+    height: calc(100vh - 130px);
+    text-align: center;
+    font-size: 20px;
+    font-size: 15px;
+  }
+  @media screen and (max-width: 320px) {
+    height: calc(100vh - 124px);
     text-align: center;
     font-size: 20px;
     font-size: 15px;
@@ -462,12 +470,12 @@ const PageWrap = styled.div`
 
 const SidebarBottom = styled.nav`
   width: 100%;
-  max-height: 6vh;
+  max-height: 7vh;
   display: inline-flex;
   flex-direction: column;
   background: #fff;
   border: none;
-  background-color: gray;
+  /* background-color: gray; */
   display: none;
   /* justify-content: end;
   align-items: flex-end; */
@@ -486,6 +494,16 @@ const SidebarBottom = styled.nav`
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
   }
+  /* // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    max-height: 6vh;
+  }
+  @media screen and (max-width: 360px) {
+    max-height: 7vh;
+  }
+  @media screen and (max-width: 320px) {
+    max-height: 7vh;
+  } */
 `;
 
 export default Main;

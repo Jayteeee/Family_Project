@@ -108,11 +108,13 @@ const AddMissionModal = ({ onClose }) => {
                 >
                   <RiArrowLeftSLine size={24} />
                 </CancelBtn>
-                <Text size="24px" fontWeight="600">
+                <Text size="24px" fontWeight="600" className="missionHeader1">
                   미션추가하기
                 </Text>
                 <br />
-                <Text>이번달 우리 가족의 새로운 목표를 설정해 보세요</Text>
+                <Text className="missionHeader2">
+                  이번달 우리 가족의 새로운 목표를 설정해 보세요
+                </Text>
                 <br />
                 <br />
               </AddMissionHeader>
@@ -142,8 +144,13 @@ const AddMissionModal = ({ onClose }) => {
                             src={
                               f?.profileImg == null ? f?.profileImg : profileImg
                             }
+                            className="circleImage"
                           />
-                          <Text size="12px" margin="10px 0 0 0">
+                          <Text
+                            size="12px"
+                            margin="10px 0 0 0"
+                            className="memberNickname"
+                          >
                             {f.familyMemberNickname}
                           </Text>
                         </MissionMemberBox>
@@ -215,7 +222,7 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 750px;
+  height: 80%;
   max-width: 470px;
   width: 100%;
   border-radius: 20px;
@@ -223,6 +230,26 @@ const Content = styled.div`
   padding: 14px;
   position: relative;
   overflow: scroll;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: 50%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: 60%;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 88%;
+    padding: 0px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const AddMissionWrap = styled.div`
@@ -241,7 +268,7 @@ const CancelBtn = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 4px;
-  textalign: left;
+  text-align: left;
   position: absolute;
   left: 0;
   top: 0;
@@ -259,6 +286,18 @@ const AddMissionHeader = styled.div`
   flex-direction: column;
   background-color: #fff;
   padding-top: 40px;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .missionHeader1 {
+      font-size: 20px;
+    }
+    .missionHeader2 {
+      font-size: 14px;
+    }
+  }
 `;
 
 const MissionTitleBox = styled.div`
@@ -285,6 +324,13 @@ const FamilyMemberBox = styled.div`
   height: 36%;
   border: 2px solid #dbdbdb;
   border-radius: 20px;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin-top: 20px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const MissionMemberBox = styled.div`
@@ -294,6 +340,19 @@ const MissionMemberBox = styled.div`
   justify-content: center;
   text-align: center;
   margin-right: 20px;
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    .circleImage {
+      width: 35px;
+      height: 35px;
+    }
+    .memberNickname {
+      font-size: 10px;
+    }
+    margin-right: 5px;
+  }
 `;
 
 const AddFamilyMemberBtnBox = styled.div`
@@ -313,6 +372,14 @@ const AddCicleBtn = styled.div`
   cursor: pointer;
   &:hover {
     background-color: #d6d6d6;
+  }
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 35px;
+    height: 35px;
+    margin-left: 8px;
   }
 `;
 export default AddMissionModal;

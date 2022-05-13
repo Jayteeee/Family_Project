@@ -98,7 +98,7 @@ const editFamilyNameDB = (familyId, familyTitle) => {
     // dispatch(editFamilyName(familyId, familyTitle));
   };
 };
-const deleteFamilyDB = (familyId) => {
+const deleteFamilyDB = (familyId, otherFamilyId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -111,6 +111,7 @@ const deleteFamilyDB = (familyId) => {
         dispatch(deleteFamily(familyId));
         alert("삭제!");
 
+        history.push(`/family/${otherFamilyId}`);
         history.go(0);
       })
       .catch((err) => {

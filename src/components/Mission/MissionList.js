@@ -100,7 +100,7 @@ const MissionList = ({
                   <Text size="15px">지난 미션</Text>
                 </Option>
               </MissionSelect>
-              <div
+              <DayBox
                 style={{
                   textAlign: "left",
                   marginBottom: "15px",
@@ -110,7 +110,7 @@ const MissionList = ({
                 <Text size="24px" fontWeight="700">
                   D-{nowDay}
                 </Text>
-              </div>
+              </DayBox>
               <div>
                 {monthMissionList ? (
                   monthMissionList.map((m, i) => {
@@ -167,11 +167,11 @@ const MissionList = ({
             이번 달 미션
           </Text>
           <MissionListBox className="res-missinoListBox">
-            <div style={{ textAlign: "left", marginBottom: "20px" }}>
+            <DayBox style={{ textAlign: "left", marginBottom: "20px" }}>
               <Text size="24px" fontWeight="700">
                 D-{nowDay}
               </Text>
-            </div>
+            </DayBox>
             <div>
               {monthMissionList ? (
                 monthMissionList.map((m, i) => {
@@ -210,6 +210,21 @@ const MissionList = ({
 const MissionListWrap = styled.div`
   display: flex;
   margin: 20px 30px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 16px 14px !important;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 16px 8px !important;
+  }
 `;
 
 const MissionListBox = styled.div`
@@ -219,6 +234,30 @@ const MissionListBox = styled.div`
   border: none;
   border-radius: 20px;
   box-shadow: 0px 0px 3px 0px #d6d6d6;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin-top: 0px !important;
+    padding-left: 20px !important;
+    padding-right: 0;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin-top: 0px !important;
+    padding-left: 10px !important;
+  }
+`;
+
+const DayBox = styled.div`
+  & > p {
+    font-size: 15px;
+  }
 `;
 
 // 미션 토글용 CSS

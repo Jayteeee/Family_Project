@@ -26,7 +26,9 @@ const AddMemberModal = ({ onClose }) => {
   const [selectEmail, setSelectEmail] = useState("");
   const [familyMemberNickname, setfamilyMemberNickname] = useState("");
 
-  const searchMember = useSelector((state) => state.familymember?.searchMember);
+  const searchMember = useSelector(
+    (state) => state?.familymember?.searchMember
+  );
 
   console.log("검색한 이메일:", searchEmail);
 

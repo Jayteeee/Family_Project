@@ -140,8 +140,15 @@ const Container = styled.div`
     @media screen and (max-width: 1024px) {
       padding: 0px;
     }
+    // Small (Tablet)
     @media only screen and (max-width: 839px) {
       padding: 0px;
+    }
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
     }
   }
 
@@ -166,6 +173,7 @@ const Container = styled.div`
       top: 20px;
       right: 0;
     }
+    // Small (Tablet)
     @media only screen and (max-width: 839px) {
       top: 20px;
       right: 0;
@@ -206,12 +214,16 @@ const Container = styled.div`
     @media screen and (max-width: 1024px) {
       margin: 0px;
     }
+    // Small (Tablet)
     @media only screen and (max-width: 839px) {
       margin: 0px;
     }
     // XSmall (Mobile)
     @media screen and (max-width: 599px) {
       height: 70px;
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
     }
   }
   .react-calendar__tile:enabled:hover,
