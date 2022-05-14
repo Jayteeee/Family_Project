@@ -148,6 +148,15 @@ const Container = styled.div`
       top: 20px;
       right: 0;
     }
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+      top: 0px;
+      margin-right: 0;
+      width: 220px;
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
+    }
   }
 
   .react-calendar__navigation button {
