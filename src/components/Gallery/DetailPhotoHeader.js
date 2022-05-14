@@ -33,7 +33,7 @@ const DetailPhotoHeader = ({
           size="40px"
           fontWeight="700"
           margin="10px 0 0 0"
-          className="res-galleryHeaderBox"
+          className="detailPhotoHeaderBox"
         >
           {photoAlbumName}
         </Text>
@@ -58,70 +58,39 @@ const GalleryHeaderBox = styled.div`
   justify-content: space-between;
   border: none;
   background: transparent;
-  margin: 20px 20px 10px 20px;
+  margin: 19px 20px 10px 20px;
   padding: 16px 20px;
-  width: 100%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .detailPhotoHeaderBox {
+      font-size: 30px;
+      margin-top: 15px;
+    }
+    padding: 0;
+    margin: 18px 16px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const BtnWrap = styled.div`
   display: flex;
   flex-direction: row;
-  margin-right: 40px;
-`;
 
-const AddPhotoBtn = styled.label`
-  width: 143px;
-  height: 48px;
-  border-radius: 4px;
-  /* padding: 12px 24px; */
-  /* margin-left: 24px; */
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  cursor: pointer;
-  &:hover {
-    background: #8c98f8;
-    color: #fff;
-    border: none;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 0;
   }
-`;
-
-const PhotoAlbumBtn = styled.div`
-  width: 143px;
-  height: 48px;
-  border-radius: 4px;
-  padding: 12px 24px;
-  margin-left: 24px;
-  border: 1px solid black;
-  font-weight: 600;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  &:hover {
-    background: #8c98f8;
-    color: #fff;
-    border: none;
-  }
-`;
-
-const EditCompletedBtn = styled.div`
-  width: 143px;
-  height: 48px;
-  border-radius: 4px;
-  padding: 12px 24px;
-  margin-left: 24px;
-  border: none;
-  background: #8c98f8;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  &:hover {
-    background: black;
-    color: #fff;
-    border: none;
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 

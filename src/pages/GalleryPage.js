@@ -33,9 +33,9 @@ const GalleryPage = (props) => {
 };
 
 const GalleryPageWrap = styled.div`
-  width: 100%;
+  max-width: 100%;
   height: calc(100vh - 40px);
-  padding-bottom: 40px;
+  /* padding-bottom: 40px; */
   display: flex;
   flex-direction: column;
   overflow-y: scroll;

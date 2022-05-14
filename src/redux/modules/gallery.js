@@ -93,7 +93,6 @@ const getPhotoDB = (photoAlbumId) => {
         console.log("사진 데이터 안옴", error);
         console.log(error.response);
       });
-
     // dispatch(getPhoto(DummyData.photoList));
   };
 };
