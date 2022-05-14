@@ -114,14 +114,16 @@ const addLikeDB = (familyId, photoId, likeChk) => {
       )
       .then((res) => {
         console.log(res);
-        let { likeChk } = res.data;
+        let newLikeChk = res.data.likeChk;
         console.log(likeChk);
         // let newDic = {
         //   ...resData,
         //   userId: email,
         //   nickname: resData.userNickname,
         // };
-        dispatch(addLike(likeChk));
+
+        dispatch(addLike(newLikeChk));
+
         // dispatch(channelActions.addComment(channelId, contentId, newDic));
       })
       .catch((err) => {

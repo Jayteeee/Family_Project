@@ -120,6 +120,7 @@ const Container = styled.div`
       padding: 0px;
     }
     }
+    
   }
 
   .react-calendar__navigation {

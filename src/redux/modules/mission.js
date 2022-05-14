@@ -261,7 +261,7 @@ const checkMissionDB = (
         };
         dispatch(checkMissionMember(checkedMissionMember));
         dispatch(checkMission(checkedMission));
-        history.go(0);
+        // history.go(0);
       })
       .catch((err) => {
         console.log(err);

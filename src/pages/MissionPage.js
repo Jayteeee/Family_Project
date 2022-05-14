@@ -51,17 +51,12 @@ const MissionPage = (props) => {
   const { pastMissionList } = MissionData;
   console.log("이전 미션리스트:", pastMissionList);
 
-  useEffect(
-    () => {
-      dispatch(missionActions.getMissionPage(familyId));
-      dispatch(missionActions.getPastMissionDB(familyId));
-      dispatch(familyMemberActions.getFamilyMemberDB(familyId));
-      // dispatch(userActions.getUserInfo());
-    },
-    [
-      // thisMonthMissionList
-    ]
-  );
+  useEffect(() => {
+    dispatch(missionActions.getMissionPage(familyId));
+    dispatch(missionActions.getPastMissionDB(familyId));
+    dispatch(familyMemberActions.getFamilyMemberDB(familyId));
+    // dispatch(userActions.getUserInfo());
+  }, []);
 
   return (
     <>
@@ -69,7 +64,11 @@ const MissionPage = (props) => {
         <MissionContext.Provider value={familyId}>
           <MissionHeader />
         </MissionContext.Provider>
-        <MissionStatusBox missionStatus={missionStatus} familyId={familyId} />
+        <MissionStatusBox
+          missionStatus={missionStatus}
+          familyId={familyId}
+          thisMonthMissionList={thisMonthMissionList}
+        />
         <MissionList
           monthMissionList={thisMonthMissionList}
           pastMissionList={pastMissionList}

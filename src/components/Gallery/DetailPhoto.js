@@ -120,7 +120,7 @@ const DetailPhoto = ({
 
   useEffect(() => {
     dispatch(detailPhotoActions.getDetailPhotoDB(photoId));
-  }, []);
+  }, [detailPhotoData.likeChk === false]);
 
   return (
     <>
@@ -218,19 +218,21 @@ const DetailPhoto = ({
                 {likeMemberList &&
                   likeMemberList.map((l, i) => {
                     return (
-                      <div style={{ position: "relative" }} key={i}>
-                        <CircleImage
-                          XS
-                          src={l.profileImg ? l.profileImg : profileImg}
-                          margin="0 5px 0 0"
-                        />
-                        {/* {myMissionChk ?  */}
-                        <MdOutlineFavorite />
-                        {/* : <UncompletedCicle />} */}
-                        <div>
+                      <>
+                        <div style={{ position: "relative" }} key={i}>
+                          <CircleImage
+                            XS
+                            src={l.profileImg ? l.profileImg : profileImg}
+                            margin="0 5px 0 0"
+                          />
+                          {/* {myMissionChk ?  */}
                           <MdOutlineFavorite />
+                          {/* : <UncompletedCicle />} */}
+                          <div>
+                            <MdOutlineFavorite />
+                          </div>
                         </div>
-                      </div>
+                      </>
                     );
                   })}
               </LikeMemberBox>

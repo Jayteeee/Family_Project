@@ -59,7 +59,7 @@ const HomePage = (props) => {
 
   useEffect(() => {
     dispatch(homeActions.getHomeDB(familyId));
-  }, []);
+  }, [familyId]);
 
   return (
     <>

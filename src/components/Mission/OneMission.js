@@ -111,6 +111,13 @@ const OneMission = (props) => {
   // };
   // console.log(modalPosition);
 
+  useEffect(() => {
+    dispatch(missionActions.getMissionPage(familyId));
+    dispatch(missionActions.getPastMissionDB(familyId));
+    dispatch(missionActions.getBadgeListDB(familyId));
+    // dispatch(userActions.getUserInfo());
+  }, [myMissionChk]);
+
   return (
     <>
       <MissionBox key={missionId}>
