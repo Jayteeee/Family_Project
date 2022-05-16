@@ -25,7 +25,7 @@ const Signup = ({ checkClient }) => {
     };
 
     const nickCheck = (nickname) => {
-      let _reg = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣+]*$.{2, 15}/;
+      let _reg = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣+]*.{2, 15}$/;
 
       return _reg.test(nickname);
     };
