@@ -172,11 +172,7 @@ const EditFamilyModal = ({ onClose }) => {
                         <ProfileBox>
                           <CircleImage
                             S
-                            src={
-                              f.userInfo?.profileImg
-                                ? f.userInfo.profileImg
-                                : profileImg
-                            }
+                            src={f.profileImg ? f.profileImg : profileImg}
                           />
                         </ProfileBox>
                         <MemberListBox>{f.familyMemberNickname}</MemberListBox>

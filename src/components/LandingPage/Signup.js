@@ -25,7 +25,7 @@ const Signup = ({ checkClient }) => {
     };
 
     const nickCheck = (nickname) => {
-      let _reg = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣+]*$/;
+      let _reg = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣+]*$.{2, 15}/;
 
       return _reg.test(nickname);
     };
@@ -53,7 +53,7 @@ const Signup = ({ checkClient }) => {
 
     if (!nickCheck(inputs.nickname)) {
       alert(
-        "닉네임은 3-15자,숫자,영어,한글만 가능하며 특수문자 및 띄어쓰기는 불가능합니다."
+        "닉네임은 2-15자,숫자,영어,한글만 가능하며 특수문자 및 띄어쓰기는 불가능합니다."
       );
       return;
     }
