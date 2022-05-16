@@ -8,7 +8,6 @@ const insertToken = (token) => {
 
 const removeToken = () => {
   localStorage.removeItem("token");
-  localStorage.removeItem("isLogin");
 };
 
 export { getToken, insertToken, removeToken };
