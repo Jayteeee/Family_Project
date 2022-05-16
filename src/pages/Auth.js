@@ -20,7 +20,7 @@ import { getToken, insertToken, removeToken } from "../shared/Token";
 
 const Auth = () => {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API;
-  const REDIRECT_URI = "/auth/kakao/callback";
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
 
   // calllback으로 받은 인가코드
   const code = new URL(window.location.href).searchParams.get("code");
