@@ -43,9 +43,17 @@ const VoiceAlbum = ({ PracticeEdit, isEdit, familyId }) => {
 
   const handleAlbumName = (e) => {
     const { value } = e.target;
-    const { id } = e.target;
+    // const { id } = e.target;
     setVoiceAlbumName(value);
-    setVoiceAlbumId(id);
+    // setVoiceAlbumId(voiceAlbumId);
+  };
+
+  const handleVoiceAlbumId = (voiceAlbumId) => {
+    // const { value } = e.target;
+    // const { id } = e.target;
+    // setVoiceAlbumName(value);
+    setVoiceAlbumId(voiceAlbumId);
+    setModalOn(!modalOn);
   };
 
   console.log(
@@ -113,7 +121,12 @@ const VoiceAlbum = ({ PracticeEdit, isEdit, familyId }) => {
                           : noImage
                       }
                     />
-                    <Text size="24px" fontWeight="600">
+                    <Text
+                      size="24px"
+                      fontWeight="600"
+                      margin="5% 0 0 0"
+                      className="albumName"
+                    >
                       {v.voiceAlbumName}
                     </Text>
                   </div>
@@ -147,10 +160,7 @@ const VoiceAlbum = ({ PracticeEdit, isEdit, familyId }) => {
                       id={v.voiceAlbumId}
                     />
                     <DeleteIcon
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleModal();
-                      }}
+                      onClick={handleVoiceAlbumId.bind(this, v.voiceAlbumId)}
                     >
                       <MdRemoveCircle />
                     </DeleteIcon>
@@ -201,7 +211,6 @@ const Container = styled.div`
     grid-template-columns: repeat(3, 1fr);
     column-gap: 2%;
     padding: 24px;
-    /* width: 74%; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -213,7 +222,7 @@ const Container = styled.div`
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 2%;
+    column-gap: 4%;
     padding: 16px;
   }
 `;
@@ -232,6 +241,17 @@ const Figure = styled.div`
     transform: scale(1.02);
     transition: all 300ms ease-in;
     filter: brightness(70%);
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 0;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .albumName {
+      font-size: 20px;
+    }
   }
 `;
 

@@ -45,11 +45,13 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
 
   // const intervalRef = React.useRef(null);
 
-  const handleFileId = (e) => {
-    const { id } = e.target;
-    setVoiceFileId(id);
+  const handleFileId = (voiceId) => {
+    // const { id } = e.target;
+    setVoiceFileId(voiceId);
+    setModalOn(!modalOn);
   };
 
+  console.log(voiceFileId);
   // const start = () => {
   //   intervalRef.current = setInterval(async () => {
   //     setCount((c) => c + 1);
@@ -147,23 +149,86 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
           {voiceList?.map((v) => {
             return (
               <Figure key={v.voiceFileId}>
-                <VoiceBox>
-                  <NonePlayer>
-                    <ProfileBox>
-                      <img
-                        alt="#"
-                        src={v.profileImg ? v.profileImg : noImage}
-                      />
-                      <p>{v.familyMemberNickname}</p>
-                    </ProfileBox>
-                    <TitleBox>
-                      <Text S2>{v.voiceTitle}</Text>
-                      <Text B1 style={{ color: "#757575" }}>
-                        {dayjs(v.createdAt).format("YYYY-MM-DD")}
-                      </Text>
-                    </TitleBox>
-                  </NonePlayer>
-                  <PlayBox>
+                <VoiceWrap>
+                  <VoiceBox>
+                    <NonePlayer>
+                      <ProfileBox>
+                        <img
+                          alt="#"
+                          src={v.profileImg ? v.profileImg : noImage}
+                        />
+                        <p>{v.familyMemberNickname}</p>
+                      </ProfileBox>
+                      <TitleBox>
+                        <Text S2 className="voiceTitle">
+                          {v.voiceTitle}
+                        </Text>
+                        <Text B1 style={{ color: "#757575" }}>
+                          {dayjs(v.createdAt).format("YYYY-MM-DD")}
+                        </Text>
+                      </TitleBox>
+                    </NonePlayer>
+                    <PlayBox>
+                      <ProgressBar>
+                        <PercentBar
+                          width={
+                            sound === v.voiceFile
+                              ? (count / v.voicePlayTime) * 100 + "%"
+                              : 0
+                          }
+                        ></PercentBar>
+                        <Dot></Dot>
+                      </ProgressBar>
+                      <audio ref={myRef} src={sound} />
+                      <RunTime>
+                        <Text S3>
+                          {sound === v.voiceFile && currentMinutes[0] < 10
+                            ? `0${currentMinutes[0]}`
+                            : sound === v.voiceFile && currentMinutes[0] >= 10
+                            ? currentMinutes[0]
+                            : "00"}{" "}
+                          :{" "}
+                          {sound === v.voiceFile && currentSeconds[0] < 10
+                            ? `0${currentSeconds[0]}`
+                            : sound === v.voiceFile && currentSeconds[0] >= 10
+                            ? currentSeconds[0]
+                            : "00"}{" "}
+                          /{" "}
+                          {`0${Math.floor(v.voicePlayTime / 60)} :  ${
+                            v.voicePlayTime % 60 < 10
+                              ? `0${v.voicePlayTime % 60}`
+                              : v.voicePlayTime % 60
+                          }`}
+                        </Text>
+                      </RunTime>
+                    </PlayBox>
+                    <PlayBtn
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setRun(!run);
+                        // play.bind(this, v?.voiceFile)();
+                      }}
+                    >
+                      {!run && sound === v.voiceFile ? (
+                        <MdOutlinePause
+                          onClick={() => {
+                            pause();
+                            // handlePlay();
+                          }}
+                        />
+                      ) : (
+                        <MdPlayArrow
+                          onClick={() => {
+                            setSound(v.voiceFile);
+                            play();
+                            // play.bind(this, v?.voiceFile)();
+                            // handlePlay();
+                          }}
+                        />
+                      )}
+                    </PlayBtn>
+                  </VoiceBox>
+                  <MobilePlayBox>
                     <ProgressBar>
                       <PercentBar
                         width={
@@ -196,33 +261,8 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
                         }`}
                       </Text>
                     </RunTime>
-                  </PlayBox>
-                  <PlayBtn
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setRun(!run);
-                      // play.bind(this, v?.voiceFile)();
-                    }}
-                  >
-                    {!run && sound === v.voiceFile ? (
-                      <MdOutlinePause
-                        onClick={() => {
-                          pause();
-                          // handlePlay();
-                        }}
-                      />
-                    ) : (
-                      <MdPlayArrow
-                        onClick={() => {
-                          setSound(v.voiceFile);
-                          play();
-                          // play.bind(this, v?.voiceFile)();
-                          // handlePlay();
-                        }}
-                      />
-                    )}
-                  </PlayBtn>
-                </VoiceBox>
+                  </MobilePlayBox>
+                </VoiceWrap>
               </Figure>
             );
           })}
@@ -235,16 +275,9 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
                 <VoiceBox
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleFileId(e);
                   }}
-                  id={v.voiceFileId}
                 >
-                  <DeleteIcon
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleModal();
-                    }}
-                  >
+                  <DeleteIcon onClick={handleFileId.bind(this, v.voiceFileId)}>
                     <MdRemoveCircle />
                   </DeleteIcon>
                   <NonePlayer>
@@ -350,6 +383,9 @@ const Container = styled.div`
     column-count: 1;
     padding: 16px;
   }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const Figure = styled.div`
@@ -361,7 +397,7 @@ const Figure = styled.div`
   }
 `;
 
-const VoiceBox = styled.div`
+const VoiceWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -371,18 +407,104 @@ const VoiceBox = styled.div`
   padding: 40px;
   margin: 16px 0;
   border-radius: 20px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    padding: 16px;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    padding: 0 24px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
+`;
+
+const VoiceBox = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const NonePlayer = styled.div`
   display: flex;
   align-items: center;
+  /* width: 100%; */
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 100%;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const ProfileBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
   & > img {
     height: 60px;
     width: 60px;
     border-radius: 50%;
+  }
+  & > p {
+    white-space: nowrap;
+  }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    /* display: none; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    /* max-width: 130px; */
+    & > img {
+      height: 45px;
+      width: 45px;
+      border-radius: 50%;
+    }
+    & > p {
+      font-size: 14px;
+      margin-top: 10px;
+      white-space: nowrap;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -391,16 +513,90 @@ const TitleBox = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  width: 100%;
+  overflow-x: scroll;
+
+  /* width: 300px; */
   margin: 0px 40px;
   & > p {
     margin: 15px 0;
+  }
+  .voiceTitle {
+    font-size: 20px;
+    /* width: 35%; */
+    /* overflow-x: scroll; */
+  }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    margin: 0px 20px;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    /* display: none; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    & > p {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    width: 180px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 150px;
   }
 `;
 
 const PlayBox = styled.div`
   display: flex;
   width: 60%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    width: 80%;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    display: none;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
+`;
+
+const MobilePlayBox = styled.div`
+  display: none;
+  width: 100%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    display: flex;
+    flex-direction: column;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const ProgressBar = styled.div`
@@ -411,6 +607,26 @@ const ProgressBar = styled.div`
   align-items: center;
   margin: auto 12px;
   border-radius: 20px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    width: 70%;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 74%;
+    margin-left: 26%;
+    height: 2px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const PercentBar = styled.div`
@@ -426,6 +642,14 @@ const Dot = styled.div`
   height: 23px;
   border-radius: 50%;
   background: #292929;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 20px;
+    height: 20px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const RunTime = styled.div`
@@ -434,20 +658,48 @@ const RunTime = styled.div`
   align-items: center;
   width: 20%;
   /* justify-content: center; */
+  & > p {
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 100%;
+    & > p {
+      font-size: 12px;
+      margin-right: 16px;
+      margin-top: 10px;
+      margin-bottom: 16px;
+    }
+    justify-content: right;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const PlayBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 68px;
-  width: 68px;
+  min-height: 68px;
+  min-width: 68px;
   border: 1px solid black;
   border-radius: 50%;
   cursor: pointer;
   & > svg {
     width: 80%;
     height: 80%;
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    min-height: 45px;
+    min-width: 45px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 

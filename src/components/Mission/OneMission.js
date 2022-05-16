@@ -113,8 +113,8 @@ const OneMission = (props) => {
 
   useEffect(() => {
     dispatch(missionActions.getMissionPage(familyId));
-    dispatch(missionActions.getPastMissionDB(familyId));
-    dispatch(missionActions.getBadgeListDB(familyId));
+    // dispatch(missionActions.getPastMissionDB(familyId));
+    // dispatch(missionActions.getBadgeListDB(familyId));
     // dispatch(userActions.getUserInfo());
   }, [myMissionChk]);
 

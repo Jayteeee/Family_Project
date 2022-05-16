@@ -154,8 +154,9 @@ const Container = styled.div`
       margin-right: 0;
       width: 220px;
     }
-    // XXSmall (Mobile)
-    @media screen and (max-width: 375px) {
+     // XXSmall (Mobile)
+     @media screen and (max-width: 375px) {
+      top: 4px;
     }
   }
 
@@ -164,6 +165,13 @@ const Container = styled.div`
     min-width: 44px;
     background: none;
     font-size: 24px;
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
+      font-size: 20px;
+    }
   }
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {

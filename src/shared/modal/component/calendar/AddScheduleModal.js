@@ -554,6 +554,16 @@ const CommonBox = styled.div`
 const CalendarBox = styled.div`
   position: fixed;
   margin: 16px 8px;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    margin: 0px auto;
+    width: 300px;
+    top: 250px;
+    /* right: auto; */
+  }
 `;
 
 const TitleBox = styled.div`

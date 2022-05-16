@@ -56,7 +56,9 @@ const Header = (props) => {
       </div>
       {/* 프로필 모달 */}
       <ModalPortal>
-        {modalOn && <ProfileModal onClose={handleModal}></ProfileModal>}
+        {modalOn && (
+          <ProfileModal onClose={handleModal} user={user}></ProfileModal>
+        )}
       </ModalPortal>
     </>
   );
