@@ -130,20 +130,24 @@ const Container = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     column-count: 3;
+    column-gap: 2%;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     column-count: 3;
+    column-gap: 2%;
     padding: 24px;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     column-count: 3;
+    column-gap: 2%;
     padding: 24px;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     column-count: 2;
+    column-gap: 3%;
     padding: 16px;
   }
 `;

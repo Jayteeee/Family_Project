@@ -202,10 +202,13 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                   }}
                 >
                   <InsertBox>
-                    <Text B2>제목</Text>
+                    <Text B2 color="#757575">
+                      제목
+                    </Text>
                     <Input
+                      className="inputSaheduleTitle"
                       id="changeName"
-                      size="18px"
+                      size="16px"
                       onChange={handleAddSchedule}
                       value={event}
                       style={{
@@ -232,18 +235,18 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                   }}
                 >
                   <Text B2 style={{ marginBottom: "6px" }}>
-                    시작일{" "}
+                    시작일
                   </Text>
-                  <Text S15>
+                  <Text S15 className="startDate">
                     {dayjs(date[0]).locale("ko").format(`MM월DD일 dddd`)}
                   </Text>
                 </Box>
                 <p style={{ margin: "20px 16px", fontSize: "24px" }}>-</p>
                 <Box>
                   <Text B2 style={{ marginBottom: "6px" }}>
-                    종료일{" "}
+                    종료일
                   </Text>
-                  <Text S15>
+                  <Text S15 className="endDate">
                     {dayjs(date[1]).locale("ko").format(`MM월DD일 dddd`)}
                   </Text>
                 </Box>
@@ -429,6 +432,13 @@ const Content = styled.div`
   padding: 24px;
   position: relative;
   overflow: scroll;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    padding: 16px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const ContentBox = styled.div`
@@ -459,6 +469,15 @@ const InsertBox = styled.div`
   }
   & > input:focus-visible {
     outline: none;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    & > input {
+      height: 30px;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -512,21 +531,66 @@ const CommonBox = styled.div`
   border: 1px solid gray;
   border: none;
   border-radius: 8px;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .startDate {
+      font-size: 16px;
+    }
+    .endDate {
+      font-size: 16px;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .startDate {
+      font-size: 0.8rem;
+    }
+    .endDate {
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 const CalendarBox = styled.div`
   position: fixed;
   margin: 16px 8px;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    margin: 0px auto;
+    width: 300px;
+    top: 250px;
+    /* right: auto; */
+  }
 `;
 
 const TitleBox = styled.div`
   display: flex;
   margin: 14px 0px;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 70px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    height: 60px;
+  }
 `;
 
 const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 14px;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin-top: 5px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 export default AddScheduleModal;

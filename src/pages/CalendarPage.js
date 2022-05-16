@@ -60,7 +60,9 @@ const CalendarPage = (props) => {
   return (
     <Container>
       <Title>
-        <Text H1>캘린더</Text>
+        <Text H1 className="calendarTitle">
+          캘린더
+        </Text>
         <AddButton onClick={handleModal}>
           <span
             style={{
@@ -110,7 +112,9 @@ const CalendarPage = (props) => {
             </CalendarArea>
           </SBox>
           <ScheduleArea>
-            <Text S1>이번 달 일정</Text>
+            <Text S1 className="scheduleTitle">
+              이번 달 일정
+            </Text>
             {scheduleList
               ? scheduleList.map((x, i) => (
                   <FlexBox1 key={i}>
@@ -123,7 +127,9 @@ const CalendarPage = (props) => {
                     </TextBox>
                     <FlexBox2>
                       <DateColor color={x?.color}></DateColor>
-                      <Text S3> {x?.event}</Text>
+                      <Text S3 className="scheduleText">
+                        {x?.event}
+                      </Text>
                     </FlexBox2>
                   </FlexBox1>
                 ))
@@ -166,6 +172,7 @@ const Container = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    padding: 16px;
   }
 `;
 
@@ -189,6 +196,13 @@ const Title = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    .calendarTitle {
+      font-size: 30px;
+    }
+    padding: 10px 0;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -205,6 +219,12 @@ const AddButton = styled.button`
   height: 56px;
   @media only screen and (max-width: 1199px) {
     display: none;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -274,6 +294,33 @@ const Option2 = styled.div`
   }
 `;
 
+const ScheduleArea = styled.div`
+  /* position: relative; */
+  width: 100%;
+  max-height: 800px;
+  overflow-y: scroll;
+  border-radius: 20px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  margin-top: 110px;
+  margin-right: 12px;
+  padding: 24px;
+  background-color: #fff;
+  text-align: start;
+  @media only screen and (max-width: 1199px) {
+    margin: 24px 0 0 0;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 16px 0 0 0;
+  }
+  @media only screen and (max-width: 839px) {
+    margin: 16px 0 0 0;
+    .scheduleTitle {
+      font-size: 20px;
+    }
+  }
+`;
+
 const FlexBox = styled.div`
   display: flex;
   align-items: flex-start;
@@ -286,13 +333,30 @@ const FlexBox = styled.div`
 
 const FlexBox1 = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin: 24px;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 24px 16px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const FlexBox2 = styled.div`
   display: flex;
   align-items: center;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .scheduleText {
+      font-size: 15px;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const TextBox = styled.div`
@@ -300,8 +364,16 @@ const TextBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 8px 24px 0 0;
+  margin: 0 24px 0 0;
   color: #757575;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 0 20px 0 0;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const SBox = styled.div`
@@ -325,6 +397,14 @@ const SBox = styled.div`
   @media only screen and (max-width: 839px) {
     margin: 20px 0 0 0;
   }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 550px;
+    padding: 0 10px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const Wrap = styled.div`
@@ -334,30 +414,6 @@ const Wrap = styled.div`
 `;
 
 const CalendarArea = styled.div``;
-
-const ScheduleArea = styled.div`
-  /* position: relative; */
-  width: 100%;
-  max-height: 800px;
-  overflow-y: scroll;
-  border-radius: 20px;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
-  margin-top: 110px;
-  margin-right: 12px;
-  padding: 24px;
-  background-color: #fff;
-  text-align: start;
-  @media only screen and (max-width: 1199px) {
-    margin: 24px 0 0 0;
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-    margin: 16px 0 0 0;
-  }
-  @media only screen and (max-width: 839px) {
-    margin: 16px 0 0 0;
-  }
-`;
 
 const CreateButton = styled.div`
   display: none;
@@ -384,6 +440,38 @@ const CreateButton = styled.div`
     align-items: center;
     justify-content: center;
     bottom: 110px;
+    right: 30px;
+    border-radius: 100%;
+    background-color: #8c98f8;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 90px;
+    right: 30px;
+    border-radius: 100%;
+    background-color: #8c98f8;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 80px;
     right: 30px;
     border-radius: 100%;
     background-color: #8c98f8;

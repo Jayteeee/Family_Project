@@ -211,7 +211,16 @@ const DetailPhoto = ({
                     return <OneComment {...c} key={c._id} />;
                   })
                 ) : (
-                  <Text size="15px">아직 작성된 댓글이 없어요.</Text>
+                  <div
+                    style={{
+                      height: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text size="15px">아직 작성된 댓글이 없어요.</Text>
+                  </div>
                 )}
               </CommentListBox>
               <LikeMemberBox>
@@ -318,6 +327,10 @@ const Container = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    padding: 16px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -338,6 +351,9 @@ const ContentBox = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -381,6 +397,9 @@ const CommentBox = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -426,6 +445,10 @@ const CommentListBox = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    height: 20vh;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 

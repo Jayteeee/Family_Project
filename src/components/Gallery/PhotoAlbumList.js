@@ -100,7 +100,12 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                   }}
                 >
                   <ImageBox src={p.randomPhoto ? p.randomPhoto : noImage} />
-                  <Text size="24px" fontWeight="600">
+                  <Text
+                    size="24px"
+                    fontWeight="600"
+                    margin="5% 0 0 0"
+                    className="albumName"
+                  >
                     {p.photoAlbumName}
                   </Text>
                 </Figure>
@@ -190,7 +195,7 @@ const Container = styled.div`
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 2%;
+    column-gap: 4%;
     padding: 16px;
   }
 `;
@@ -212,6 +217,17 @@ const Figure = styled.div`
     transform: scale(1.02);
     transition: all 300ms ease-in;
     filter: brightness(70%);
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 0;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .albumName {
+      font-size: 20px;
+    }
   }
 `;
 

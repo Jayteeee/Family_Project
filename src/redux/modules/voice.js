@@ -214,9 +214,9 @@ const deleteVoiceAlbumDB = (voiceAlbumId) => {
       })
       .then((res) => {
         console.log(res);
-        alert("삭제완료되었습니다.");
-        dispatch(deleteVoiceAlbum(voiceAlbumId));
-        history.go(0);
+        alert("앨범삭제완료되었습니다.");
+        // dispatch(deleteVoiceAlbum(voiceAlbumId));
+        // history.go(0);
       })
       .catch((err) => {
         console.log(err);
@@ -225,6 +225,7 @@ const deleteVoiceAlbumDB = (voiceAlbumId) => {
   };
 };
 const deleteVoiceDB = (voiceFileId) => {
+  console.log(voiceFileId);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios

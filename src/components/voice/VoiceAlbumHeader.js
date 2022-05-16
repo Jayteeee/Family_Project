@@ -34,7 +34,7 @@ const VoiceAlbumHeader = ({
           size="40px"
           fontWeight="700"
           margin="10px 0 0 0"
-          className="res-galleryHeaderBox"
+          className="voiceHeaderBox"
         >
           음성메시지
         </Text>
@@ -101,33 +101,39 @@ const AlbumHeaderBox = styled.div`
   justify-content: space-between;
   border: none;
   background: transparent;
-  margin: 20px 20px 10px 20px;
+  margin: 19px 20px 10px 20px;
   padding: 16px 20px;
-  width: 100%;
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    /* grid-template-columns: repeat(3, 1fr);
-    column-gap: 2%; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    /* grid-template-columns: repeat(3, 1fr);
-    column-gap: 2%;
-    padding: 24px;
-    width: 74%; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    /* grid-template-columns: repeat(2, 1fr);
-    column-gap: 2%;
-    padding: 16px; */
+    .voiceHeaderBox {
+      font-size: 30px;
+    }
+    padding: 0;
+    margin: 22px 16px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 
 const BtnWrap = styled.div`
   display: flex;
   flex-direction: row;
-  margin-right: 40px;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 0;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const VoiceAlbumBtn = styled.div`
@@ -155,6 +161,16 @@ const VoiceAlbumBtn = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    width: 80px;
+    padding: 12px 12px;
+    margin-left: 16px;
+    height: 40px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    height: 40px;
+    width: 80px;
+    margin-left: 8px;
   }
 `;
 
@@ -177,7 +193,6 @@ const EditCompletedBtn = styled.div`
 
   // Medium (Desktop)
   @media only screen and (max-width: 1199px) {
-    margin-top: 10px;
     width: 160px;
   }
   // Small (Tablet)
