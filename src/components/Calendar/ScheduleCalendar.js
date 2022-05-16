@@ -158,7 +158,7 @@ const Container = styled.div`
     top: 120px;
     left: 25px;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 15px;
     @media only screen and (max-width: 1199px) {
       padding: 35px 0;
       top: 40px;
