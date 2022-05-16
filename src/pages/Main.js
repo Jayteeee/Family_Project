@@ -54,6 +54,7 @@ const Main = (props) => {
   console.log("현재 familyTitle: ", NowFamilyTitle);
 
   const { user } = useSelector((state) => state?.user?.user);
+  console.log("메인유저정보: ", user);
 
   // familyId 변경될때마다 리랜더링
   useEffect(() => {

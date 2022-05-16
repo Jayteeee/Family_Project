@@ -60,7 +60,7 @@ const loginDB = (inputs) => {
       .then((res) => {
         console.log(res);
         const token = res.data.logIntoken;
-        const user = jwt(token);
+        const user = res.data.userInfoList[0];
         const familyId = res.data.familyList[0]?.familyId;
         insertToken(token);
         dispatch(login(user));
@@ -100,7 +100,7 @@ export default handleActions(
   {
     [LOG_IN]: (state, action) =>
       produce(state, (draft) => {
-        draft.user = action.payload.user;
+        draft.user.user = action.payload.user;
         draft.isLogin = true;
       }),
     [LOG_OUT]: (state) =>

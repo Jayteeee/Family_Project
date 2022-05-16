@@ -24,11 +24,11 @@ import { RactangleImage, Text } from "../../../../elements";
 // 이미지
 import profileImg from "../../../images/profileImg.jpeg";
 
-const ProfileModal = ({ onClose }) => {
+const ProfileModal = ({ onClose, user }) => {
   const params = useParams();
 
-  const userInfo = useSelector((state) => state.user.user.user);
-  console.log("유저정보: ", userInfo);
+  // const userInfo = useSelector((state) => state.user.user.user);
+  // console.log("유저정보: ", userInfo);
 
   const { familyList } = useSelector((state) => state.family);
   console.log("패밀리 리스트: ", familyList);
@@ -90,7 +90,7 @@ const ProfileModal = ({ onClose }) => {
                 <ProfileArea>
                   <RactangleImage
                     S
-                    src={userInfo.profileImg ? userInfo.profileImg : profileImg}
+                    src={user?.profileImg ? user?.profileImg : profileImg}
                     size="60px"
                     style={{ position: "relative" }}
                   />
@@ -100,18 +100,18 @@ const ProfileModal = ({ onClose }) => {
                 </ProfileArea>
                 <Usertitle>
                   <UserNickname>
-                    {familyHost?.familyHost === userInfo.id ? (
+                    {familyHost?.familyHost === user?.id ? (
                       <HostSign>
                         <RiVipCrownFill />
                       </HostSign>
                     ) : null}
 
                     <Text size="18px" fontWeight="600">
-                      {userInfo.nickname}
+                      {user?.nickname}
                     </Text>
                   </UserNickname>
                   <Text size="12px" fontWeight="400" color="#757575">
-                    {userInfo?.email}
+                    {user?.email}
                   </Text>
                   <UserMood>
                     <TodayMood>

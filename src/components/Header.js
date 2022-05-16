@@ -21,6 +21,7 @@ const Header = (props) => {
   const { bg, user } = props;
 
   console.log(bg);
+  console.log("유저정보: ", user);
 
   // const { user } = useSelector((state) => state?.user.user);
 
@@ -56,7 +57,9 @@ const Header = (props) => {
       </div>
       {/* 프로필 모달 */}
       <ModalPortal>
-        {modalOn && <ProfileModal onClose={handleModal}></ProfileModal>}
+        {modalOn && (
+          <ProfileModal onClose={handleModal} user={user}></ProfileModal>
+        )}
       </ModalPortal>
     </>
   );
