@@ -4,7 +4,6 @@ import HomeVoice from "./HomeVoice";
 import HomeBadge from "./HomeBadge";
 import HomeMission from "./HomeMission";
 import HomeMissionStatus from "./HomeMissionStatus";
-import HomePhoto from "./HomePhoto";
 
 export {
   HomeCalendar,
@@ -13,5 +12,4 @@ export {
   HomeBadge,
   HomeMission,
   HomeMissionStatus,
-  HomePhoto,
 };

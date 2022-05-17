@@ -54,13 +54,13 @@ const HomeMission = ({
                           borderColor="none"
                           className="proFileImage"
                         />
-                        <TodayMoodBox>
-                          <TodayMood
+                        <MissionChkBox>
+                          <MissionChk
                           // src={
 
                           // }
                           />
-                        </TodayMoodBox>
+                        </MissionChkBox>
                       </Profile>
                     </ProfileBox>
                   );
@@ -77,17 +77,12 @@ const Container = styled.div`
   width: 90%;
   height: 100%;
   @media screen and (max-width: 1199px) {
-    /* column-count: 1; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    /* column-count: 1;
-    padding: 24px; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    /* column-count: 1;
-    padding: 8px; */
   }
 `;
 
@@ -97,16 +92,8 @@ const Figure = styled.div`
 `;
 
 const ContantBox = styled.div`
-  /* display: flex;
-  align-items: center; */
-  /* justify-content: center; */
-  /* justify-content: space-around; */
-  /* flex-direction: column; */
-  /* height: 100%; */
   width: 100%;
   background-color: #fff;
-  /* border-radius: 20px;
-  border: 1px solid #c4c4c4; */
   margin-top: 5%;
   .recentMissionTitle {
     font-size: 28px;
@@ -130,21 +117,19 @@ const ProfileBox = styled.div`
 
 const Profile = styled.div`
   position: relative;
-  /* width: 80px; */
   & > p {
     white-space: nowrap;
   }
   width: 100%;
 `;
 
-const TodayMoodBox = styled.div`
+const MissionChkBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 24px;
   height: 24px;
   font-size: 17px;
-  /* padding: 0 4px 0 0; */
   border-radius: 30px;
   border: none;
   background-color: #fff;
@@ -154,7 +139,7 @@ const TodayMoodBox = styled.div`
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 `;
 
-const TodayMood = styled.div`
+const MissionChk = styled.div`
   width: 27px;
   height: 27px;
   background-image: url("${(props) => props.src}");

@@ -13,7 +13,6 @@ import {
   HomeCalendar,
   HomeMission,
   HomeMissionStatus,
-  HomePhoto,
   HomeSchedule,
   HomeVoice,
 } from "../components/Home";
@@ -39,6 +38,7 @@ import explodingEmoji from "../shared/images/explodingEmoji.png";
 import angryEmoji from "../shared/images/angryEmoji.png";
 import sleepingEmoji from "../shared/images/sleepingEmoji.png";
 import profileImg from "../shared/images/profileImg.png";
+import noImage from "../shared/images/noImage.png";
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
@@ -217,72 +217,9 @@ const HomePage = (props) => {
                 </MiddleRightCalendar>
               </MiddleRightBox>
             </MiddleBox>
-            {/* <BottomBox>
-              <BottomLeftBox>
-                <BottomLeftMission>
-                  <TitleBox>
-                    <Text fontWeight="600" className="missionTitle">
-                      오늘의 미션
-                    </Text>
-                    <MdKeyboardArrowRight
-                      onClick={() => {
-                        history.push(`/family/${familyId}/mission/`);
-                      }}
-                    />
-                  </TitleBox>
-                  <HomeMission
-                    recentMission={recentMission}
-                    recentMissionUser={recentMissionUser}
-                    recentMissionMembers={recentMissionMembers}
-                  />
-                </BottomLeftMission>
-                <BottomLeftBadge>
-                  <TitleBox>
-                    <Text fontWeight="600" className="badgeTitle">
-                      달성 배지
-                    </Text>
-                    <MdKeyboardArrowRight
-                      onClick={() => {
-                        getBadgeList();
-                        handleBadgeModal();
-                      }}
-                    />
-                  </TitleBox>
-                  <HomeBadge randomBadge={randomBadge} familyId={familyId} />
-                </BottomLeftBadge>
-              </BottomLeftBox>
-              <BottomRightBox>
-                <BottomRightPhoto>
-                  <TitleBox>
-                    <Text fontWeight="600" className="photoTitle">
-                      최근 사진
-                    </Text>
-                    <MdKeyboardArrowRight
-                      onClick={() => {
-                        history.push(`/family/${familyId}/gallery/`);
-                      }}
-                    />
-                  </TitleBox>
-                  <HomePhoto recentPhoto={recentPhoto} familyId={familyId} />
-                </BottomRightPhoto>
-                <BottomRightVoice>
-                  <TitleBox>
-                    <Text fontWeight="600" className="voiceTitle">
-                      최근 음성메시지
-                    </Text>
-                    <MdKeyboardArrowRight
-                      onClick={() => {
-                        history.push(`/family/${familyId}/voiceMsg/`);
-                      }}
-                    />
-                  </TitleBox>
-                  <HomeVoice recentVoiceFile={recentVoiceFile} />
-                </BottomRightVoice>
-              </BottomRightBox>
-            </BottomBox> */}
             <Container>
               <Figure>
-                <ImageBox>
+                <ContentsBox>
                   <BottomLeftMission>
                     <TitleBox>
                       <Text fontWeight="600" className="missionTitle">
@@ -300,10 +237,10 @@ const HomePage = (props) => {
                       recentMissionMembers={recentMissionMembers}
                     />
                   </BottomLeftMission>
-                </ImageBox>
+                </ContentsBox>
               </Figure>
               <Figure>
-                <ImageBox>
+                <ContentsBox>
                   <BottomLeftBadge>
                     <TitleBox>
                       <Text fontWeight="600" className="badgeTitle">
@@ -318,12 +255,16 @@ const HomePage = (props) => {
                     </TitleBox>
                     <HomeBadge randomBadge={randomBadge} familyId={familyId} />
                   </BottomLeftBadge>
-                </ImageBox>
+                </ContentsBox>
               </Figure>
               <Figure>
-                <ImageBox>
-                  <BottomRightPhoto>
-                    <TitleBox>
+                <ContentsBox>
+                  <BottomRightPhoto
+                    src={
+                      recentPhoto?.photoFile ? recentPhoto?.photoFile : noImage
+                    }
+                  >
+                    <PhotoTitleBox>
                       <Text fontWeight="600" className="photoTitle">
                         최근 사진
                       </Text>
@@ -332,13 +273,13 @@ const HomePage = (props) => {
                           history.push(`/family/${familyId}/gallery/`);
                         }}
                       />
-                    </TitleBox>
-                    <HomePhoto recentPhoto={recentPhoto} familyId={familyId} />
+                    </PhotoTitleBox>
+                    {/* <HomePhoto recentPhoto={recentPhoto} familyId={familyId} /> */}
                   </BottomRightPhoto>
-                </ImageBox>
+                </ContentsBox>
               </Figure>
               <Figure>
-                <ImageBox>
+                <ContentsBox>
                   <BottomRightVoice>
                     <TitleBox>
                       <Text fontWeight="600" className="voiceTitle">
@@ -352,7 +293,7 @@ const HomePage = (props) => {
                     </TitleBox>
                     <HomeVoice recentVoiceFile={recentVoiceFile} />
                   </BottomRightVoice>
-                </ImageBox>
+                </ContentsBox>
               </Figure>
             </Container>
           </ContentsWrap>
@@ -754,26 +695,76 @@ const ScheduleArea = styled.div`
   }
 `;
 
-const BottomBox = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  padding: 10px 20px 20px 20px;
-  /* background-color: bisque; */
+const Container = styled.div`
+  /* display: grid; */
+  display: grid;
+  /* grid-template-rows: repeat(2, 150px); */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px 10px;
+  column-count: 4;
+  column-gap: 1.6%;
+  padding: 1% 20px;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    /* flex-direction: column; */
-    display: block;
-    width: 100%;
-    height: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2%;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2%;
+    /* padding: 24px; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2%;
+    padding: 24px;
+    /* width: 74%; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 4%;
+    padding: 16px;
   }
+`;
+
+const Figure = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 2fr);
+  grid-template-rows: 1fr auto;
+  /* margin-bottom: 2%; */
+  break-inside: avoid;
+  width: 100%;
+  height: 100%;
+  /* width: 300px;
+  min-height: 300px; */
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 0;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .albumName {
+      font-size: 20px;
+    }
+  }
+`;
+
+const ContentsBox = styled.div`
+  position: relative;
+  grid-row: 1 / -1;
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 100%;
+  /* background-color: gray; */
+  background-position: center;
+  background-size: cover;
 `;
 
 const TitleBox = styled.div`
@@ -796,23 +787,23 @@ const TitleBox = styled.div`
   }
 `;
 
-const BottomLeftBox = styled.div`
-  width: 100%;
-  height: 140%;
+const PhotoTitleBox = styled.div`
   display: flex;
-  flex-direction: row;
-  padding-right: 10px;
-  /* background-color: blue; */
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-    padding-right: 0;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 5%;
+  & > svg {
+    padding: 2px;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    &:hover {
+      background: #f5f5f5;
+      color: black;
+    }
   }
 `;
 
@@ -893,26 +884,6 @@ const BottomLeftBadge = styled.div`
   }
 `;
 
-const BottomRightBox = styled.div`
-  width: 100%;
-  height: 140%;
-  display: flex;
-  flex-direction: row;
-  padding-left: 10px;
-  /* background-color: brown; */
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-    padding-left: 0;
-    /* margin-top: 20px; */
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
-`;
-
 const BottomRightPhoto = styled.div`
   width: 100%;
   height: 100%;
@@ -927,6 +898,9 @@ const BottomRightPhoto = styled.div`
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   position: absolute;
   top: 0;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
 
   .photoTitle {
     display: flex;
@@ -990,106 +964,4 @@ const BottomRightVoice = styled.div`
   }
 `;
 
-const VoiceArea = styled.div`
-  /* width: 100%;
-  height: 100%; */
-`;
-
-const Container = styled.div`
-  /* display: grid; */
-  display: grid;
-  /* grid-template-rows: repeat(2, 150px); */
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px 10px;
-  column-count: 4;
-  column-gap: 1.6%;
-  padding: 0.5% 20px;
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 2%;
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 2%;
-    /* padding: 24px; */
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 2%;
-    padding: 24px;
-    /* width: 74%; */
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 4%;
-    padding: 16px;
-  }
-`;
-
-const Figure = styled.div`
-  display: grid;
-  grid-template-columns: repeat(1, 2fr);
-  grid-template-rows: 1fr auto;
-  /* margin-bottom: 2%; */
-  break-inside: avoid;
-  width: 100%;
-  height: 100%;
-  /* width: 300px;
-  min-height: 300px; */
-
-  &:hover {
-    border-radius: 13px;
-    cursor: pointer;
-    transform: scale(1.02);
-    transition: all 300ms ease-in;
-    filter: brightness(70%);
-  }
-
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    margin: 0;
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-    .albumName {
-      font-size: 20px;
-    }
-  }
-`;
-
-const ImageBox = styled.div`
-  position: relative;
-  grid-row: 1 / -1;
-  grid-column: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding-bottom: 100%;
-  /* border-radius: 13px; */
-  background-color: gray;
-  /* ${({ src }) => `background-image: url(${src});`}; */
-  background-position: center;
-  background-size: cover;
-`;
-
-const EditFigure = styled.div`
-  display: grid;
-  grid-template-rows: 1fr auto;
-  /* margin-bottom: 2%; */
-  break-inside: avoid;
-  filter: brightness(70%);
-
-  &:hover {
-    border-radius: 13px;
-    cursor: pointer;
-    transform: scale(1.02);
-    transition: all 300ms ease-in;
-    filter: brightness(70%);
-  }
-`;
 export default HomePage;
