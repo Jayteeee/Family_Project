@@ -118,6 +118,18 @@ const DetailPhoto = ({
     setModalOn(!modalOn);
   };
 
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket.socket);
+
+  const handleNotification = (type) => {
+    socket.emit("sendNotification", {
+      senderName: likeMember,
+      receiverName: detailPhoto.userId,
+      type,
+    });
+  };
+
   useEffect(() => {
     dispatch(detailPhotoActions.getDetailPhotoDB(photoId));
   }, [detailPhotoData.likeChk === false]);
@@ -164,6 +176,7 @@ const DetailPhoto = ({
                   onClick={() => {
                     handleLike();
                     addlike();
+                    handleNotification(1);
                   }}
                 >
                   <MdFavoriteBorder />
@@ -278,7 +291,10 @@ const DetailPhoto = ({
                       color: `${comment ? "#FFF" : ""}`,
                     }}
                     disabled={!comment}
-                    onClick={submitComment}
+                    onClick={() => {
+                      submitComment();
+                      handleNotification(2);
+                    }}
                   />
                 </Comment>
               </CommentFooter>
