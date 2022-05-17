@@ -14,14 +14,10 @@ import { Text } from "../../elements";
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 
-const HomeMissionStatus = ({ completePercentage, familyId }) => {
+const HomeMissionStatus = ({ completePercentage }) => {
   return (
     <>
-      <Container
-        onClick={() => {
-          history.push(`/family/${familyId}/mission/`);
-        }}
-      >
+      <Container>
         <Figure>
           <ContantBox>
             <Text>{completePercentage}%</Text>
@@ -34,7 +30,7 @@ const HomeMissionStatus = ({ completePercentage, familyId }) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 80%;
+  height: 70%;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     /* column-count: 1; */

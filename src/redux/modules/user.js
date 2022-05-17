@@ -28,6 +28,7 @@ const userLogout = () => {
   return async function (dispatch, getState, { history }) {
     dispatch(logOut());
     history.replace("/");
+    history.go(0);
   };
 };
 
@@ -61,6 +62,7 @@ const loginDB = (inputs) => {
         console.log(res);
         const token = res.data.logIntoken;
         const user = res.data.userInfoList[0];
+        console.log(user);
         const familyId = res.data.familyList[0]?.familyId;
         insertToken(token);
         dispatch(login(user));

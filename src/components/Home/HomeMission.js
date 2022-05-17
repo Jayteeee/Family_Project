@@ -14,14 +14,10 @@ import { Text } from "../../elements";
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 
-const HomeMission = ({ recentMission, familyId }) => {
+const HomeMission = ({ recentMission }) => {
   return (
     <>
-      <Container
-        onClick={() => {
-          history.push(`/family/${familyId}/mission/`);
-        }}
-      >
+      <Container>
         <Figure>
           <ContantBox>
             <Text>{recentMission?.missionTitle}</Text>
@@ -34,7 +30,7 @@ const HomeMission = ({ recentMission, familyId }) => {
 
 const Container = styled.div`
   width: 90%;
-  height: 70%;
+  height: 100%;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     /* column-count: 1; */
@@ -55,12 +51,6 @@ const Figure = styled.div`
   break-inside: avoid;
   width: 100%;
   height: 100%;
-  cursor: pointer;
-  &:hover {
-    border-radius: 13px;
-    transition: all 300ms ease-in;
-    filter: brightness(70%);
-  }
 `;
 const ContantBox = styled.div`
   display: flex;

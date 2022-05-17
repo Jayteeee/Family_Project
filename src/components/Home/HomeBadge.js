@@ -22,24 +22,10 @@ import { BadgeModal } from "../../shared/modal/component/MissionModal";
 
 const HomeBadge = ({ randomBadge, familyId }) => {
   const dispatch = useDispatch();
-  // 배지 목록 모달
-  const [modalOn, setModalOn] = useState(false);
 
-  const handleModal = () => {
-    setModalOn(!modalOn);
-  };
-
-  const getBadgeList = () => {
-    dispatch(missionActions.getBadgeListDB(familyId));
-  };
   return (
     <>
-      <Container
-        onClick={() => {
-          getBadgeList();
-          handleModal();
-        }}
-      >
+      <Container>
         <Figure>
           <ContantBox>
             <div
@@ -72,19 +58,13 @@ const HomeBadge = ({ randomBadge, familyId }) => {
           </ContantBox>
         </Figure>
       </Container>
-      {/* 배지 목록 모달 */}
-      <ModalPortal>
-        {modalOn && (
-          <BadgeModal onClose={handleModal} familyId={familyId}></BadgeModal>
-        )}
-      </ModalPortal>
     </>
   );
 };
 
 const Container = styled.div`
   width: 90%;
-  height: 70%;
+  height: 100%;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     /* column-count: 1; */
@@ -105,12 +85,6 @@ const Figure = styled.div`
   break-inside: avoid;
   width: 100%;
   height: 100%;
-  cursor: pointer;
-  &:hover {
-    border-radius: 13px;
-    transition: all 300ms ease-in;
-    filter: brightness(70%);
-  }
 `;
 const ContantBox = styled.div`
   display: flex;
