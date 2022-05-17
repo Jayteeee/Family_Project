@@ -32,19 +32,37 @@ const Header = (props) => {
     setModalOn(!modalOn);
   };
 
+  // 알림 모달
+  const [notiOn, setNotiOn] = useState(false);
+
+  const handleNoti = () => {
+    setNotiOn(!notiOn);
+  };
+
   return (
     <>
       <div>
         <HeaderWarp>
           <RogoBox>도란도란</RogoBox>
           <HeaderRightBox>
-            <IoMdNotifications
-              style={{
-                marginRight: "20px",
-                fontSize: "25px",
-                color: "#d6d6d6",
-              }}
-            />
+            <NotiBox>
+              <IoMdNotifications
+                style={{
+                  marginRight: "20px",
+                  fontSize: "25px",
+                  color: "#d6d6d6",
+                  cursor: "pointer",
+                }}
+                onClick={handleNoti}
+              />
+              <NotiCount>2</NotiCount>
+            </NotiBox>
+            {notiOn ? (
+              <NotiMsgBox>
+                <NotiMsg>홍길동 님이 좋아요를 누르셨습니다.</NotiMsg>
+              </NotiMsgBox>
+            ) : null}
+
             <ProfileBox onClick={handleModal}>
               <CircleImage
                 XS
@@ -85,6 +103,43 @@ const HeaderRightBox = styled.div`
   display: flex;
   align-items: center;
   padding-right: 30px;
+`;
+
+const NotiBox = styled.div`
+  position: relative;
+`;
+
+const NotiMsgBox = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 40px;
+  right: 140px;
+  max-width: 282px;
+  max-height: 405px;
+  background-color: white;
+`;
+
+const NotiMsg = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+`;
+
+const NotiCount = styled.div`
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: absolute;
+  top: -3px;
+  left: 12px;
 `;
 
 const ProfileBox = styled.div`

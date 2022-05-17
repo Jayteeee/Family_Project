@@ -26,11 +26,6 @@ const LandingPage = () => {
     history.push(`/family/${isMember[0].familyId}`);
   }
 
-  React.useEffect(() => {
-    const socket = io("http://localhost:3000");
-    console.log(socket);
-  }, []);
-
   return (
     <Container>
       <Box>
