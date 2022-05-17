@@ -18,6 +18,7 @@ const GET_SEARCH_MEMBER = "GET_SEARCH_MEMBER";
 const ADD_FAMILY_MEMBER = "ADD_FAMILY_MEMBER";
 const EDIT_FAMILY_MEMBER_NICKNAME = "EDIT_FAMILY_MEMBER";
 const DELETE_FAMILY_MEMBER = "DELETE_FAMILY_MEMBER";
+const HOME_PROFILE_UPDATE = "HOME_PROFILE_UPDATE";
 
 // 액션 생성함수
 const getFamilyMember = createAction(
@@ -41,6 +42,14 @@ const editFamilyMembeNickname = createAction(
   })
 );
 const deleteFamilyMember = createAction(
+  DELETE_FAMILY_MEMBER,
+  (familyId, familyMemberId) => ({
+    familyId,
+    familyMemberId,
+  })
+);
+
+const homeProfileUpdate = createAction(
   DELETE_FAMILY_MEMBER,
   (familyId, familyMemberId) => ({
     familyId,
@@ -152,9 +161,13 @@ const editFamilyMemberNicknameDB = (
       )
       .then((res) => {
         console.log(res);
-        // dispatch(
-        //   editFamilyMembeNickname(familyId, familyMemberId, familyMemberNickname)
-        // );
+        dispatch(
+          editFamilyMembeNickname(
+            familyId,
+            familyMemberId,
+            familyMemberNickname
+          )
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -167,23 +180,24 @@ const editFamilyMemberNicknameDB = (
 };
 
 const deleteFamilyMemberDB = (familyId, familyMemberId) => {
+  console.log(familyId, familyMemberId);
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .delete(`${BASE_URL}/family/${familyId}/${familyMemberId}`, {
-    //     headers: config,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     // window.alert(res.msg)
-    //     alert("삭제!");
-    dispatch(deleteFamilyMember(familyId, familyMemberId));
-    // history.go(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .delete(`${BASE_URL}/family/familyMember/${familyMemberId}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        // window.alert(res.msg)
+        alert("삭제!");
+        dispatch(deleteFamilyMember(familyId, familyMemberId));
+        // history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 

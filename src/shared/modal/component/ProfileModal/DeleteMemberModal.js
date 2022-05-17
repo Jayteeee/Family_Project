@@ -25,6 +25,8 @@ const DeleteMemberModal = (props) => {
     );
     onClose();
   };
+
+  console.log(familyMemberId);
   return (
     <ModalPortal>
       <Background

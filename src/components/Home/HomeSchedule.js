@@ -13,11 +13,8 @@ import { scheduleActions } from "../../redux/modules/calendar";
 import { Text, Button } from "../../elements";
 
 const HomeSchedule = ({ familyId, thisMonthEventList }) => {
-  const dispatch = useDispatch();
-  let nowMonth = dayjs(new Date()).format("YYYY년 M월");
   return (
     <ScheduleArea>
-      <Text fontWeight="600">{nowMonth}</Text>
       {thisMonthEventList
         ? thisMonthEventList.map((x) => (
             <FlexBox1 key={x?.familyId}>
@@ -30,8 +27,7 @@ const HomeSchedule = ({ familyId, thisMonthEventList }) => {
               </TextBox>
               <FlexBox2>
                 <DateColor color={x?.color}></DateColor>
-                <Text fontWeight="600" size="15px">
-                  {" "}
+                <Text fontWeight="400" size="15px">
                   {x?.event}
                 </Text>
               </FlexBox2>
@@ -44,11 +40,12 @@ const HomeSchedule = ({ familyId, thisMonthEventList }) => {
 
 const ScheduleArea = styled.div`
   width: 100%;
-  height: 100%;
+  height: 40vh;
   background-color: transparent;
   text-align: start;
   border: none;
   margin: 0 0 0 10px;
+  overflow-y: scroll;
   @media only screen and (max-width: 1199px) {
     margin: 24px 0 0 0;
   }
@@ -73,10 +70,11 @@ const FlexBox2 = styled.div`
 `;
 
 const TextBox = styled.div`
+  width: 35%;
   height: 18px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   margin: 2px 20px 0 0;
   color: #757575;
 `;

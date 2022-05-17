@@ -18,6 +18,7 @@ const initialState = {
   selectedMemberIdList: [],
   badgeList: [],
   myMissionChk: {},
+  missionStatus: {},
 };
 
 // 액션
@@ -26,6 +27,7 @@ const GET_PAST_MISSION = "GET_PAST_MISSION";
 const GET_MISSION_MEMBER = "GET_MISSION_MEMBER";
 const GET_BADGE_LIST = "GET_BADGE_LIST";
 const GET_MY_MISSION_CHK = "GET_MY_MISSION_CHK";
+const GET_MISSION_STATUS = "GET_MISSION_STATUS";
 const ADD_MISSION = "ADD_MISSION";
 const ADD_MISSION_MEMBER = "ADD_MISSION_MEMBER";
 const CHECK_MISSION = "CHECK_MISSION";
@@ -52,6 +54,12 @@ const getMyMissionChk = createAction(GET_MY_MISSION_CHK, (myMissionChk) => ({
 const getBadgeList = createAction(GET_BADGE_LIST, (badgeList) => ({
   badgeList,
 }));
+const getMissionStatus = createAction(
+  GET_MISSION_STATUS,
+  (missionStatusData) => ({
+    missionStatusData,
+  })
+);
 const addMission = createAction(ADD_MISSION, (newMission) => ({
   newMission,
 }));
@@ -179,6 +187,25 @@ const getBadgeListDB = (familyId) => {
       })
       .catch((err) => {
         console.log("배지 데이터 안옴", err);
+        // window.alert(err.response.data.msg);
+      });
+    // const badgeList = DummyData.badgePage.badge;
+    // dispatch(getBadgeList(badgeList));
+  };
+};
+
+const getMissionStatusDB = (familyId) => {
+  return async function (dispatch, getState, { history }) {
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/mission/dashboard/${familyId}`, { headers: config })
+      .then((res) => {
+        console.log("미션 현황 GET:", res);
+        const missionStatusData = res.data;
+        dispatch(getMissionStatus(missionStatusData));
+      })
+      .catch((err) => {
+        console.log("미션 현황 데이터 안옴", err);
         // window.alert(err.response.data.msg);
       });
     // const badgeList = DummyData.badgePage.badge;
@@ -327,6 +354,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.myMissionChk = action.payload.myMissionChk;
       }),
+    [GET_MISSION_STATUS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.missionStatus = action.payload.missionStatusData;
+      }),
     [ADD_MISSION]: (state, action) =>
       produce(state, (draft) => {
         draft.nowMissionData.thisMonthMissionList.unshift(
@@ -386,7 +417,7 @@ export default handleActions(
         let checkedMissionMember =
           thisMonthMissionList.missionMemberList.filter(
             (f) => f.userId === userId
-          );
+          )[0];
         let memberIdx = thisMonthMissionList.missionMemberList.findIndex(
           (f) => f.userId === userId
         );
@@ -434,6 +465,7 @@ export const missionActions = {
   getPastMissionDB,
   getMissionMemberDB,
   getBadgeListDB,
+  getMissionStatusDB,
   addMissionDB,
   addMissionMember,
   checkMissionDB,

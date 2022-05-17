@@ -91,9 +91,9 @@ const EditFamilyModal = ({ onClose }) => {
   // 가족 구성원 제거하기 모달
   const [deleteMemberModal, setDeleteMemberModal] = useState(false);
 
-  const handleDeleteMemberModal = (e) => {
+  const handleDeleteMemberModal = (familyMemberId) => {
     setDeleteMemberModal(!deleteMemberModal);
-    setfamilyMemberId(e?.target.getAttribute("id"));
+    setfamilyMemberId(familyMemberId);
   };
 
   useEffect(
@@ -187,7 +187,10 @@ const EditFamilyModal = ({ onClose }) => {
                       {/* 가족 구성원 호칭 수정하기 모달 */}
 
                       <ModalBtn
-                        onClick={handleDeleteMemberModal}
+                        onClick={handleDeleteMemberModal.bind(
+                          this,
+                          f.familyMemberId
+                        )}
                         value={f.familyMemberNickname}
                         id={f.familyMemberId}
                       >

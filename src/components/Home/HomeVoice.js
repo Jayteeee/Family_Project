@@ -96,7 +96,7 @@ const HomeVoice = ({ recentVoiceFile, familyId }) => {
 
 const Container = styled.div`
   width: 90%;
-  height: 70%;
+  height: 100%;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     /* column-count: 1; */
