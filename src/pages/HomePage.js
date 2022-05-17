@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { homeActions } from "../redux/modules/home";
 import { missionActions } from "../redux/modules/mission";
 import { history } from "../redux/configureStore";
+import { familyMemberActions } from "../redux/modules/familymember";
 
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
@@ -38,8 +39,6 @@ import explodingEmoji from "../shared/images/explodingEmoji.png";
 import angryEmoji from "../shared/images/angryEmoji.png";
 import sleepingEmoji from "../shared/images/sleepingEmoji.png";
 import profileImg from "../shared/images/profileImg.png";
-import { familyActions } from "../redux/modules/family";
-import { familyMemberActions } from "../redux/modules/familymember";
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
@@ -73,8 +72,14 @@ const HomePage = (props) => {
   const { recentMission } = homeData;
   console.log("최근 미션:", recentMission);
 
-  const { completePercentage } = homeData;
-  console.log("미션 달성률:", completePercentage);
+  const { recentMissionUser } = homeData;
+  console.log("최근 미션등록 유저:", recentMissionUser);
+
+  const { recentMissionMembers } = homeData;
+  console.log("최근 미션 맴버리스트:", recentMissionMembers);
+
+  // const { completePercentage } = homeData;
+  // console.log("미션 달성률:", completePercentage);
 
   // 프로필 수정 모달
   const [modalOn, setModalOn] = useState(false);
@@ -183,7 +188,8 @@ const HomePage = (props) => {
                       />
                     </MiddleTitleBox>
                     <HomeMissionStatus
-                      completePercentage={completePercentage}
+                      // completePercentage={completePercentage}
+                      familyId={familyId}
                     />
                   </MiddleLeftMission>
                 </MiddleLeftBottomBox>
@@ -211,7 +217,7 @@ const HomePage = (props) => {
                 </MiddleRightCalendar>
               </MiddleRightBox>
             </MiddleBox>
-            <BottomBox>
+            {/* <BottomBox>
               <BottomLeftBox>
                 <BottomLeftMission>
                   <TitleBox>
@@ -224,7 +230,11 @@ const HomePage = (props) => {
                       }}
                     />
                   </TitleBox>
-                  <HomeMission recentMission={recentMission} />
+                  <HomeMission
+                    recentMission={recentMission}
+                    recentMissionUser={recentMissionUser}
+                    recentMissionMembers={recentMissionMembers}
+                  />
                 </BottomLeftMission>
                 <BottomLeftBadge>
                   <TitleBox>
@@ -269,7 +279,82 @@ const HomePage = (props) => {
                   <HomeVoice recentVoiceFile={recentVoiceFile} />
                 </BottomRightVoice>
               </BottomRightBox>
-            </BottomBox>
+            </BottomBox> */}
+            <Container>
+              <Figure>
+                <ImageBox>
+                  <BottomLeftMission>
+                    <TitleBox>
+                      <Text fontWeight="600" className="missionTitle">
+                        오늘의 미션
+                      </Text>
+                      <MdKeyboardArrowRight
+                        onClick={() => {
+                          history.push(`/family/${familyId}/mission/`);
+                        }}
+                      />
+                    </TitleBox>
+                    <HomeMission
+                      recentMission={recentMission}
+                      recentMissionUser={recentMissionUser}
+                      recentMissionMembers={recentMissionMembers}
+                    />
+                  </BottomLeftMission>
+                </ImageBox>
+              </Figure>
+              <Figure>
+                <ImageBox>
+                  <BottomLeftBadge>
+                    <TitleBox>
+                      <Text fontWeight="600" className="badgeTitle">
+                        달성 배지
+                      </Text>
+                      <MdKeyboardArrowRight
+                        onClick={() => {
+                          getBadgeList();
+                          handleBadgeModal();
+                        }}
+                      />
+                    </TitleBox>
+                    <HomeBadge randomBadge={randomBadge} familyId={familyId} />
+                  </BottomLeftBadge>
+                </ImageBox>
+              </Figure>
+              <Figure>
+                <ImageBox>
+                  <BottomRightPhoto>
+                    <TitleBox>
+                      <Text fontWeight="600" className="photoTitle">
+                        최근 사진
+                      </Text>
+                      <MdKeyboardArrowRight
+                        onClick={() => {
+                          history.push(`/family/${familyId}/gallery/`);
+                        }}
+                      />
+                    </TitleBox>
+                    <HomePhoto recentPhoto={recentPhoto} familyId={familyId} />
+                  </BottomRightPhoto>
+                </ImageBox>
+              </Figure>
+              <Figure>
+                <ImageBox>
+                  <BottomRightVoice>
+                    <TitleBox>
+                      <Text fontWeight="600" className="voiceTitle">
+                        최근 음성메시지
+                      </Text>
+                      <MdKeyboardArrowRight
+                        onClick={() => {
+                          history.push(`/family/${familyId}/voiceMsg/`);
+                        }}
+                      />
+                    </TitleBox>
+                    <HomeVoice recentVoiceFile={recentVoiceFile} />
+                  </BottomRightVoice>
+                </ImageBox>
+              </Figure>
+            </Container>
           </ContentsWrap>
         </div>
       </HomePageWrap>
@@ -437,6 +522,7 @@ const MiddleLeftTodayMood = styled.div`
   text-align: left;
   background-color: #fff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  overflow-y: scroll;
   .todayMoodTitle {
     display: flex;
     font-size: 14px;
@@ -601,6 +687,7 @@ const MiddleRightCalendar = styled.div`
   text-align: left;
   background-color: #fff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  overflow-y: scroll;
   & > svg {
     position: absolute;
     right: 0;
@@ -730,17 +817,19 @@ const BottomLeftBox = styled.div`
 `;
 
 const BottomLeftMission = styled.div`
-  width: 50%;
-  height: 90%;
-  margin-right: 10px;
+  width: 100%;
+  height: 100%;
+  /* margin-left: 10px; */
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  padding: 2% 0;
+  padding: 5% 0;
   /* justify-content: center; */
   align-items: center;
   background-color: #fff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top: 0;
 
   .missionTitle {
     display: flex;
@@ -767,17 +856,19 @@ const BottomLeftMission = styled.div`
 `;
 
 const BottomLeftBadge = styled.div`
-  width: 50%;
-  height: 90%;
-  margin-left: 10px;
+  width: 100%;
+  height: 100%;
+  /* margin-left: 10px; */
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  padding: 2% 0;
+  padding: 5% 0;
   /* justify-content: center; */
   align-items: center;
   background-color: #fff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top: 0;
 
   .badgeTitle {
     display: flex;
@@ -823,17 +914,19 @@ const BottomRightBox = styled.div`
 `;
 
 const BottomRightPhoto = styled.div`
-  width: 50%;
-  height: 90%;
-  margin-right: 10px;
+  width: 100%;
+  height: 100%;
+  /* margin-left: 10px; */
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  padding: 2% 0;
+  padding: 5% 0;
   /* justify-content: center; */
   align-items: center;
   background-color: #fff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top: 0;
 
   .photoTitle {
     display: flex;
@@ -848,8 +941,8 @@ const BottomRightPhoto = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    margin-right: 0;
-    height: 95%;
+    /* margin-right: 0;
+    height: 95%; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -860,17 +953,19 @@ const BottomRightPhoto = styled.div`
 `;
 
 const BottomRightVoice = styled.div`
-  width: 50%;
-  height: 90%;
-  margin-left: 10px;
+  width: 100%;
+  height: 100%;
+  /* margin-left: 10px; */
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  padding: 2% 0;
+  padding: 5% 0;
   /* justify-content: center; */
   align-items: center;
   background-color: #fff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top: 0;
 
   .voiceTitle {
     display: flex;
@@ -885,7 +980,7 @@ const BottomRightVoice = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    height: 95%;
+    height: 100%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -898,5 +993,103 @@ const BottomRightVoice = styled.div`
 const VoiceArea = styled.div`
   /* width: 100%;
   height: 100%; */
+`;
+
+const Container = styled.div`
+  /* display: grid; */
+  display: grid;
+  /* grid-template-rows: repeat(2, 150px); */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px 10px;
+  column-count: 4;
+  column-gap: 1.6%;
+  padding: 0.5% 20px;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2%;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2%;
+    /* padding: 24px; */
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2%;
+    padding: 24px;
+    /* width: 74%; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 4%;
+    padding: 16px;
+  }
+`;
+
+const Figure = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 2fr);
+  grid-template-rows: 1fr auto;
+  /* margin-bottom: 2%; */
+  break-inside: avoid;
+  width: 100%;
+  height: 100%;
+  /* width: 300px;
+  min-height: 300px; */
+
+  &:hover {
+    border-radius: 13px;
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: all 300ms ease-in;
+    filter: brightness(70%);
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 0;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .albumName {
+      font-size: 20px;
+    }
+  }
+`;
+
+const ImageBox = styled.div`
+  position: relative;
+  grid-row: 1 / -1;
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 100%;
+  /* border-radius: 13px; */
+  background-color: gray;
+  /* ${({ src }) => `background-image: url(${src});`}; */
+  background-position: center;
+  background-size: cover;
+`;
+
+const EditFigure = styled.div`
+  display: grid;
+  grid-template-rows: 1fr auto;
+  /* margin-bottom: 2%; */
+  break-inside: avoid;
+  filter: brightness(70%);
+
+  &:hover {
+    border-radius: 13px;
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: all 300ms ease-in;
+    filter: brightness(70%);
+  }
 `;
 export default HomePage;

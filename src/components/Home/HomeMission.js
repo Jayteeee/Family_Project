@@ -9,18 +9,63 @@ import dayjs from "dayjs";
 import { history } from "../../redux/configureStore";
 
 // 엘리먼트
-import { Text } from "../../elements";
+import { RactangleImage, Text } from "../../elements";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
+import profileImg from "../../shared/images/profileImg.png";
 
-const HomeMission = ({ recentMission }) => {
+const HomeMission = ({
+  recentMission,
+  recentMissionUser,
+  recentMissionMembers,
+}) => {
   return (
     <>
       <Container>
         <Figure>
           <ContantBox>
-            <Text>{recentMission?.missionTitle}</Text>
+            <Text className="recentMissionTitle">
+              {recentMission?.missionTitle}
+            </Text>
+            <Text className="missionUser">
+              {recentMissionUser?.familyMemberNickname}님이 제안했어요!
+            </Text>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                marginLeft: "auto",
+                width: "100%",
+                justifyContent: "center",
+              }}
+            >
+              {recentMissionMembers &&
+                recentMissionMembers.map((f) => {
+                  return (
+                    <ProfileBox key={f.familyMemberId}>
+                      <Profile>
+                        <RactangleImage
+                          S
+                          src={f.profileImg ? f.profileImg : profileImg}
+                          size="56px"
+                          borderRadius="20px"
+                          borderColor="none"
+                          className="proFileImage"
+                        />
+                        <TodayMoodBox>
+                          <TodayMood
+                          // src={
+
+                          // }
+                          />
+                        </TodayMoodBox>
+                      </Profile>
+                    </ProfileBox>
+                  );
+                })}
+            </div>
           </ContantBox>
         </Figure>
       </Container>
@@ -31,7 +76,6 @@ const HomeMission = ({ recentMission }) => {
 const Container = styled.div`
   width: 90%;
   height: 100%;
-  // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     /* column-count: 1; */
   }
@@ -50,17 +94,71 @@ const Container = styled.div`
 const Figure = styled.div`
   break-inside: avoid;
   width: 100%;
-  height: 100%;
 `;
+
 const ContantBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  height: 100%;
+  /* display: flex;
+  align-items: center; */
+  /* justify-content: center; */
+  /* justify-content: space-around; */
+  /* flex-direction: column; */
+  /* height: 100%; */
   width: 100%;
   background-color: #fff;
-  border-radius: 20px;
-  border: 1px solid #c4c4c4;
+  /* border-radius: 20px;
+  border: 1px solid #c4c4c4; */
+  margin-top: 5%;
+  .recentMissionTitle {
+    font-size: 28px;
+    font-weight: 600;
+    padding: 1%;
+  }
+  .missionUser {
+    font-size: 16px;
+    color: #757575;
+    padding: 2%;
+  }
+`;
+
+const ProfileBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5% 2% 2% 2%;
+`;
+
+const Profile = styled.div`
+  position: relative;
+  /* width: 80px; */
+  & > p {
+    white-space: nowrap;
+  }
+  width: 100%;
+`;
+
+const TodayMoodBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 17px;
+  /* padding: 0 4px 0 0; */
+  border-radius: 30px;
+  border: none;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0px;
+  right: -5px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+`;
+
+const TodayMood = styled.div`
+  width: 27px;
+  height: 27px;
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
 `;
 
 export default HomeMission;

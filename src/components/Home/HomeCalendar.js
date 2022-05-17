@@ -28,11 +28,12 @@ const HomeCalendar = ({ thisMonthEventList, familyId }) => {
                 (x) => x.startDate === dayjs(date).format("YYYY-MM-DD")
               );
             }
+            // console.log(events);
             if (events.length !== 0) {
               html.push(
-                events.map((x, i) => {
+                events.map((x) => {
                   return (
-                    <div className="division" key={i}>
+                    <div className="division" key={x.eventId}>
                       <div
                         className="dot"
                         date={dayjs(date).format("YYYY-MM-DD")}
