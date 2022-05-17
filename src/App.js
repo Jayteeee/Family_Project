@@ -44,7 +44,7 @@ function App() {
     dispatch(
       socketActions.getSocketDB(
         io.connect(`http://52.79.130.222`, {
-          cors: { origin: "http://52.79.130.222" },
+          cors: { origin: " " },
         })
       )
     );
