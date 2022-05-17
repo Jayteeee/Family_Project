@@ -192,6 +192,7 @@ const addMissionDB = (
   familyMemberId,
   selectedMemberList
 ) => {
+  console.log(missionTitle);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -228,7 +229,8 @@ const checkMissionDB = (
   familyMissionChk,
   completedAt,
   familyId,
-  myFamilyMemberId
+  userId,
+  missionStatus
 ) => {
   return async function (dispatch, getState, { history }) {
     let missionChkData = {
@@ -239,7 +241,7 @@ const checkMissionDB = (
     console.log(familyId);
     console.log(missionId);
     console.log(missionChkData);
-    console.log(myFamilyMemberId);
+    console.log(userId);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .post(`${BASE_URL}/mission/${familyId}/${missionId}`, missionChkData, {
@@ -252,21 +254,23 @@ const checkMissionDB = (
         const checkedMission = {
           missionId: missionId,
           familyMissionChk: data.familyMissionChk,
+          myMissionChk: myMissionChk,
         };
         const checkedMissionMember = {
           missionId: missionId,
           myMissionChk: myMissionChk,
           familyMissionChk: familyMissionChk,
-          familyMemberId: myFamilyMemberId,
+          userId: userId,
         };
         dispatch(checkMissionMember(checkedMissionMember));
         dispatch(checkMission(checkedMission));
+        // dispatch(missionStatusUpdate(missionStatus));
         // history.go(0);
       })
       .catch((err) => {
         console.log(err);
         console.log(err.response);
-        window.alert(err.response.data.msg);
+        // window.alert(err.response.data.msg);
       });
   };
 };
@@ -336,7 +340,8 @@ export default handleActions(
       }),
     [CHECK_MISSION]: (state, action) =>
       produce(state, (draft) => {
-        const { missionId, familyMissionChk } = action.payload.missionChkData;
+        const { missionId, familyMissionChk, myMissionChk } =
+          action.payload.missionChkData;
 
         console.log(missionId, familyMissionChk);
 
@@ -355,6 +360,7 @@ export default handleActions(
         thisMonthMissionList = {
           ...thisMonthMissionList,
           familyMissionChk: familyMissionChk,
+          myMissionChk: myMissionChk,
         };
 
         console.log(thisMonthMissionList);
@@ -364,10 +370,10 @@ export default handleActions(
       }),
     [CHECK_MISSION_MEMBER]: (state, action) =>
       produce(state, (draft) => {
-        const { missionId, myMissionChk, familyMissionChk, familyMemberId } =
+        const { missionId, myMissionChk, familyMissionChk, userId } =
           action.payload.checkedMissionMember;
 
-        console.log(missionId, myMissionChk, familyMissionChk, familyMemberId);
+        console.log(missionId, myMissionChk, familyMissionChk, userId);
 
         let thisMonthMissionList =
           state.nowMissionData.thisMonthMissionList.filter(
@@ -379,10 +385,10 @@ export default handleActions(
         );
         let checkedMissionMember =
           thisMonthMissionList.missionMemberList.filter(
-            (f) => f.familyMemberId === familyMemberId
+            (f) => f.userId === userId
           );
         let memberIdx = thisMonthMissionList.missionMemberList.findIndex(
-          (f) => f.familyMemberId === familyMemberId
+          (f) => f.userId === userId
         );
 
         console.log(missionIdx, memberIdx);
@@ -405,7 +411,8 @@ export default handleActions(
     [MISSION_STATUS_UPDATE]: (state, action) =>
       produce(state, (draft) => {
         const { missionStatus } = action.payload;
-        draft.nowMissionData.missionBox = missionStatus;
+
+        draft.nowMissionData = missionStatus;
       }),
     [DELETE_MISSION]: (state, action) =>
       produce(state, (draft) => {

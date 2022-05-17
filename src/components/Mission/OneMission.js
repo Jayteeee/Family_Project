@@ -32,58 +32,53 @@ const OneMission = (props) => {
     familyMissionChk,
     missionMemberList,
     familyId,
-    myFamilyMemberId,
-    monthMissionList,
+    myMissionChk,
+    missionStatus,
   } = props;
 
-  const missionChk = useSelector((state) => state.mission.myMissionChk);
-  console.log("받아온 나의미션체크:", missionChk);
+  // console.log("받아온 나의미션리스트:", monthMissionList);
 
-  // const userId = useSelector((state) => state.user.user.user);
-  console.log("나의 패밀리멤버ID:", myFamilyMemberId);
+  // console.log("나의 패밀리멤버ID:", myFamilyMemberId);
 
-  console.log(missionId);
+  // console.log(missionId);
 
-  console.log(props);
+  // console.log(props);
 
-  console.log("미션 달성여부:", familyMissionChk);
+  // console.log("미션 달성여부:", familyMissionChk);
 
   const newCompletedAt = dayjs(completedAt).format("MM월 DD일");
-  console.log("달성 날짜:", newCompletedAt);
+  // console.log("달성 날짜:", newCompletedAt);
 
-  const myMissionData = missionMemberList.filter(
-    (m) => m.familyMemberId === myFamilyMemberId
-  );
+  const { userId } = useSelector((state) => state.user.user.user);
 
-  console.log("나의 미션 데이터:", myMissionData);
+  // console.log("userId:", userId);
 
-  const myMissionId = myMissionData[0]?.missionId;
-  console.log("나의 미션ID:", myMissionId);
-
-  const myMissionChk = myMissionData[0]?.myMissionChk;
-  console.log("나의미션체크:", myMissionChk);
-
-  console.log(myFamilyMemberId);
   // 미션 체크
-  const [check, setCheck] = useState(false);
+  // const [check, setCheck] = useState(false);
 
-  const checkedItemHandler = (missionId) => {
-    // setChack(!check);
+  // const handleCheck = () => {
+  //   setCheck(!check);
+  // };
+
+  // console.log("check:", check);
+
+  const checkedItemHandler = (missionId, missionChk) => {
+    console.log(missionChk);
+
     let completedAt = dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss");
-    // let misiionId = target.value;
+
     dispatch(
       missionActions.checkMissionDB(
         missionId,
-        myMissionChk,
+        missionChk,
         familyMissionChk,
         completedAt,
         familyId,
-        myFamilyMemberId
+        userId
+        // missionStatus
       )
     );
   };
-
-  console.log(missionId);
 
   // 미션 제거하기 모달
   const [deleteModalOn, setDeleteModalOn] = useState(false);
@@ -113,9 +108,6 @@ const OneMission = (props) => {
 
   useEffect(() => {
     dispatch(missionActions.getMissionPage(familyId));
-    // dispatch(missionActions.getPastMissionDB(familyId));
-    // dispatch(missionActions.getBadgeListDB(familyId));
-    // dispatch(userActions.getUserInfo());
   }, [myMissionChk]);
 
   return (
@@ -123,20 +115,19 @@ const OneMission = (props) => {
       <MissionBox key={missionId}>
         <MissionTitle>
           {!familyMissionChk ? (
-            myMissionChk || check ? (
+            myMissionChk ? (
               <MdCheckBox
                 style={{ fontSize: "35px" }}
                 onClick={() => {
-                  setCheck(false);
-                  checkedItemHandler.bind(this, missionId)();
+                  checkedItemHandler.bind(this, missionId, false)();
                 }}
               />
             ) : (
+              // <div></div>
               <MdCheckBoxOutlineBlank
                 style={{ fontSize: "35px", color: "gray" }}
                 onClick={() => {
-                  setCheck(true);
-                  checkedItemHandler.bind(this, missionId)();
+                  checkedItemHandler.bind(this, missionId, true)();
                 }}
               />
             )
@@ -211,7 +202,7 @@ const OneMission = (props) => {
             {missionMemberList ? (
               missionMemberList.map((f, i) => {
                 return (
-                  <ProfileBox key={f.familyMemberId}>
+                  <ProfileBox key={i}>
                     <CircleImage
                       XS
                       src={f.profileImg ? f.profileImg : profileImg}

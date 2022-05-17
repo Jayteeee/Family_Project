@@ -28,11 +28,9 @@ const MissionList = ({
   monthMissionList,
   pastMissionList,
   familyId,
-  myFamilyMemberId,
+  missionStatus,
 }) => {
   const dispatch = useDispatch();
-
-  // console.log(myFamilyMemberId);
 
   console.log(monthMissionList);
 
@@ -120,7 +118,7 @@ const MissionList = ({
                         {...m}
                         familyId={familyId}
                         monthMissionList={monthMissionList}
-                        myFamilyMemberId={myFamilyMemberId}
+                        missionStatus={missionStatus}
                       />
                     );
                   })
@@ -181,7 +179,7 @@ const MissionList = ({
                       {...m}
                       familyId={familyId}
                       monthMissionList={monthMissionList}
-                      myFamilyMemberId={myFamilyMemberId}
+                      missionStatus={missionStatus}
                     />
                   );
                 })

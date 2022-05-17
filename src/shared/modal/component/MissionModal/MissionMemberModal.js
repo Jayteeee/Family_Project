@@ -115,8 +115,8 @@ const MissionMemberModal = ({ onClose, familyMemberList }) => {
                 <AddFamilyMemberBtnBox>
                   {familyMemberList.map((f, l) => {
                     return (
-                      <MissionMemberWrap>
-                        <MissionMemberBox key={f.familyMemberId}>
+                      <MissionMemberWrap key={f.familyMemberId}>
+                        <MissionMemberBox>
                           <label>
                             <input
                               type="checkbox"
