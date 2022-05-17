@@ -1,24 +1,19 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import axios from "axios";
-import jwt from "jwt-decode";
-
-// 로컬스토리지 token 작업 임포트
-import { getToken, insertToken, removeToken } from "../../shared/Token";
-
-// const BASE_URL = "http://52.79.130.22";
 
 const initialState = {
   socket: {},
 };
 
 // 액션
-const SOCKET = "SOCKET";
+const GET_SOCKET = "GET_SOCKET";
+const SET_SOCKET = "SET_SOCKET";
 // const LOG_OUT = "LOG_OUT";
 // const GET_USER = "GET_USER";
 
 // 액션 생성함수
-const socket = createAction(SOCKET, (inputs) => ({ inputs }));
+const getsocket = createAction(GET_SOCKET, (inputs) => ({ inputs }));
+const setsocket = createAction(SET_SOCKET, (data) => ({ data }));
 // const logOut = createAction(LOG_OUT);
 // const getUser = createAction(GET_USER, (user) => ({ user }));
 
@@ -30,78 +25,30 @@ const socket = createAction(SOCKET, (inputs) => ({ inputs }));
 //   };
 // };
 
-// 여기부터 api 응답 받는 미들웨어
-// /auth/signup
-// const signUpDB = (inputs) => {
-//   return async function (dispatch, getState, { history }) {
-//     const { email, password, passwordCheck, nickname } = inputs;
-
-//     await axios
-//       .post(`${BASE_URL}/auth/signup`, inputs)
-//       .then((res) => {
-//         console.log(res);
-//         alert(res.data.msg);
-//         history.go(0);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         // alert(err.data.msg);
-//       });
-//   };
-// };
-
-// /user/login
-const socketDB = (inputs) => {
-  return async function (dispatch, getState, { history }) {
-    // axios
-    // await axios
-    //   .post(`${BASE_URL}/auth/login`, inputs)
-    //   .then((res) => {
-    //     console.log(res);
-    //     const token = res.data.logIntoken;
-    //     const user = res.data.userInfoList[0];
-    //     const familyId = res.data.familyList[0]?.familyId;
-    //     insertToken(token);
-    //     dispatch(login(user));
-    //     res.data.familyList.length !== 0
-    //       ? history.push(`/family/${familyId}`)
-    //       : history.go(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     alert("로그인 정보를 확인해주세요.");
-    //   });
-
-    dispatch(socket(inputs));
+// NewUser
+const getSocketDB = (inputs) => {
+  return async function (dispatch) {
+    dispatch(getsocket(inputs));
   };
 };
 
 // // /user/me
-// const getUserInfo = (token) => {
-//   return async function (dispatch, getState, { history }) {
-//     const dUser = jwt(token);
-//     console.log(dUser);
-//     const config = { Authorization: `Bearer ${token}` };
-//     await axios
-//       .get(`${BASE_URL}/user/me`, { headers: config })
-//       .then((res) => {
-//         console.log("유저정보:", res.data);
-//         const user = res.data;
-//         dispatch(getUser(user));
-//         localStorage.setItem("isLogin", token);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
+const setSocketDB = (data) => {
+  return async function (dispatch, getState, { history }) {
+    dispatch(setsocket(data));
+  };
+};
 
 // 리듀서
 export default handleActions(
   {
-    [SOCKET]: (state, action) =>
+    [GET_SOCKET]: (state, action) =>
       produce(state, (draft) => {
         draft.socket = action.payload.inputs;
+      }),
+    [SET_SOCKET]: (state, action) =>
+      produce(state, (draft) => {
+        draft.sender = action.payload.data;
       }),
     // [LOG_OUT]: (state) =>
     //   produce(state, (draft) => {
@@ -120,7 +67,7 @@ export default handleActions(
 
 export const socketActions = {
   // signUpDB,
-  socketDB,
-  // getUserInfo,
+  getSocketDB,
+  setSocketDB,
   // userLogout,
 };

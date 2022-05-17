@@ -63,6 +63,11 @@ const DetailPhoto = ({
   const nowUserId = useSelector((state) => state.user.user.user?.userId);
   console.log("현재 userID:", nowUserId);
 
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+  console.log("현재 userNickname:", nowUserNickname);
+
   const [comment, setComment] = useState("");
 
   console.log("댓글내용:", comment);
@@ -118,21 +123,28 @@ const DetailPhoto = ({
     setModalOn(!modalOn);
   };
 
+  useEffect(() => {
+    dispatch(detailPhotoActions.getDetailPhotoDB(photoId));
+  }, [detailPhotoData.likeChk === false]);
+
   // socket 부분
 
   let socket = useSelector((state) => state.socket.socket);
 
   const handleNotification = (type) => {
     socket.emit("sendNotification", {
-      senderName: likeMember,
+      senderName: nowUserNickname,
       receiverName: detailPhoto.userId,
+      category: "갤러리",
+      type,
+    });
+    console.log("좋아요 클릭 시, ", {
+      senderName: nowUserNickname,
+      receiverName: detailPhoto.userId,
+      category: "갤러리",
       type,
     });
   };
-
-  useEffect(() => {
-    dispatch(detailPhotoActions.getDetailPhotoDB(photoId));
-  }, [detailPhotoData.likeChk === false]);
 
   return (
     <>
@@ -176,7 +188,7 @@ const DetailPhoto = ({
                   onClick={() => {
                     handleLike();
                     addlike();
-                    handleNotification(1);
+                    handleNotification("좋아요");
                   }}
                 >
                   <MdFavoriteBorder />
@@ -293,7 +305,7 @@ const DetailPhoto = ({
                     disabled={!comment}
                     onClick={() => {
                       submitComment();
-                      handleNotification(2);
+                      handleNotification("댓글");
                     }}
                   />
                 </Comment>

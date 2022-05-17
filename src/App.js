@@ -6,12 +6,11 @@ import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 
 // 소켓
-// 소켓
 import { io } from "socket.io-client";
 
 // 리덕스
 import { history } from "./redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "./redux/modules/user";
 import { socketActions } from "./redux/modules/socket";
 
@@ -25,11 +24,16 @@ function App() {
   const dispatch = useDispatch();
   let token = getToken();
 
-  // 소켓 변수
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
   const [socket, setSocket] = useState(null);
 
   console.log(socket);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(userActions.getUserInfo(token));
+    }
+  }, []);
 
   useEffect(() => {
     setSocket(
@@ -38,7 +42,7 @@ function App() {
       })
     );
     dispatch(
-      socketActions.socketDB(
+      socketActions.getSocketDB(
         io.connect(`http://52.79.130.222`, {
           cors: { origin: "http://52.79.130.222" },
         })
@@ -46,21 +50,15 @@ function App() {
     );
   }, []);
 
+  const user = useSelector((state) => state?.user?.user?.user?.userId);
+
   useEffect(() => {
     socket?.emit("newUser", user);
+    socket?.on("getNotification", (data) => {
+      console.log(data);
+      dispatch(socketActions.setSocketDB(data));
+    });
   }, [socket, user]);
-
-  // useEffect(() => {
-  //   socket?.on("news", (data) => {
-  //     console.log(data);
-  //   });
-  // }, [socket]);
-
-  useEffect(() => {
-    if (token) {
-      dispatch(userActions.getUserInfo(token));
-    }
-  }, []);
 
   return (
     <div className="App">

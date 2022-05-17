@@ -98,7 +98,7 @@ const HomePage = (props) => {
                               size="15px"
                               fontWeight="600"
                             >
-                              {f.familyMemberNickname}
+                              {f?.familyMemberNickname}
                             </Text>
                             <TodayMood>💙 </TodayMood>
                           </div>
