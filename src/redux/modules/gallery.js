@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 
 import { getToken } from "../../shared/Token";
 
-const BASE_URL = "http://2.79.130.222";
+const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   photoAlbumList: [],

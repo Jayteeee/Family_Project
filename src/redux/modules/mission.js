@@ -8,7 +8,7 @@ import { getToken } from "../../shared/Token";
 
 import { DummyData } from "../../shared/DummyData";
 
-const BASE_URL = "http://2.79.130.222";
+const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   nowMissionData: [],

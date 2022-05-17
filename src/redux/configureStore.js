@@ -12,6 +12,7 @@ import Gallery from "./modules/gallery";
 import Detailphoto from "./modules/detailphoto";
 import FamilyMember from "./modules/familymember";
 import Voice from "./modules/voice";
+import Socket from "./modules/socket";
 
 export const history = createBrowserHistory();
 
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   detailPhoto: Detailphoto,
   familymember: FamilyMember,
   voice: Voice,
+  socket: Socket,
 
   router: connectRouter(history),
 });

@@ -10,8 +10,9 @@ import { io, Socket } from "socket.io-client";
 
 // 리덕스
 import { history } from "./redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "./redux/modules/user";
+import { socketActions } from "./redux/modules/socket";
 
 // 페이지
 import { Main, LandingPage, Auth } from "./pages/index";
@@ -23,7 +24,7 @@ function App() {
   const dispatch = useDispatch();
   let token = getToken();
 
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
   const [socket, setSocket] = useState(null);
 
   console.log(socket);
@@ -40,17 +41,24 @@ function App() {
         cors: { origin: "http://52.79.130.222" },
       })
     );
+    dispatch(
+      socketActions.getSocketDB(
+        io.connect(`http://52.79.130.222`, {
+          cors: { origin: "http://52.79.130.222" },
+        })
+      )
+    );
   }, []);
+
+  const user = useSelector((state) => state?.user?.user?.user?.userId);
 
   useEffect(() => {
     socket?.emit("newUser", user);
+    socket?.on("getNotification", (data) => {
+      console.log(data);
+      dispatch(socketActions.setSocketDB(data));
+    });
   }, [socket, user]);
-
-  // useEffect(() => {
-  //   socket?.on("news", (data) => {
-  //     console.log(data);
-  //   });
-  // }, [socket]);
 
   return (
     <div className="App">
