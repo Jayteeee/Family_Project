@@ -8,6 +8,7 @@ import {
   CreateFamily,
 } from "../components/LandingPage";
 import { useHistory } from "react-router-dom";
+import { io } from "socket.io-client";
 
 const LandingPage = () => {
   const history = useHistory();
@@ -24,6 +25,11 @@ const LandingPage = () => {
   if (isLogin && isMember?.length !== 0) {
     history.push(`/family/${isMember[0].familyId}`);
   }
+
+  React.useEffect(() => {
+    const socket = io("http://localhost:3000");
+    console.log(socket);
+  }, []);
 
   return (
     <Container>
