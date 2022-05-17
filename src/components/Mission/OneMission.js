@@ -49,7 +49,7 @@ const OneMission = (props) => {
   const newCompletedAt = dayjs(completedAt).format("MM월 DD일");
   // console.log("달성 날짜:", newCompletedAt);
 
-  const { userId } = useSelector((state) => state.user.user.user);
+  const userId = useSelector((state) => state.user.user.user?.userId);
 
   // console.log("userId:", userId);
 
@@ -78,6 +78,7 @@ const OneMission = (props) => {
         // missionStatus
       )
     );
+    dispatch(missionActions.getMissionStatusDB(familyId));
   };
 
   // 미션 제거하기 모달
@@ -105,10 +106,6 @@ const OneMission = (props) => {
   //   console.log(element.offsetTop);
   // };
   // console.log(modalPosition);
-
-  useEffect(() => {
-    dispatch(missionActions.getMissionPage(familyId));
-  }, [myMissionChk]);
 
   return (
     <>

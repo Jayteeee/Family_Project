@@ -34,7 +34,7 @@ const MissionPage = (props) => {
   const MissionData = useSelector((state) => state.mission);
   console.log("현재 미션 데이터: ", MissionData);
 
-  const missionStatus = MissionData.nowMissionData;
+  const { missionStatus } = useSelector((state) => state.mission);
   console.log("미션 현황:", missionStatus);
 
   const { thisMonthMissionList } = MissionData?.nowMissionData;
@@ -46,6 +46,7 @@ const MissionPage = (props) => {
   useEffect(() => {
     dispatch(missionActions.getMissionPage(familyId));
     dispatch(missionActions.getPastMissionDB(familyId));
+    dispatch(missionActions.getMissionStatusDB(familyId));
   }, []);
 
   return (

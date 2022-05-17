@@ -38,6 +38,8 @@ import explodingEmoji from "../shared/images/explodingEmoji.png";
 import angryEmoji from "../shared/images/angryEmoji.png";
 import sleepingEmoji from "../shared/images/sleepingEmoji.png";
 import profileImg from "../shared/images/profileImg.png";
+import { familyActions } from "../redux/modules/family";
+import { familyMemberActions } from "../redux/modules/familymember";
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
@@ -53,7 +55,7 @@ const HomePage = (props) => {
   const { nowRandomMsg } = useSelector((state) => state?.home);
   console.log("현재 랜덤메시지:", nowRandomMsg);
 
-  const { familyMemberList } = useSelector((state) => state?.home);
+  const { familyMemberList } = useSelector((state) => state?.familymember);
   console.log("가족구성원 리스트:", familyMemberList);
 
   const { randomBadge } = homeData;
@@ -97,6 +99,7 @@ const HomePage = (props) => {
 
   useEffect(() => {
     dispatch(homeActions.getHomeDB(familyId));
+    dispatch(familyMemberActions.getFamilyMemberDB(familyId));
   }, [familyId]);
 
   return (

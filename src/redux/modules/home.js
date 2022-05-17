@@ -8,7 +8,6 @@ const BASE_URL = "https://doremilan.shop";
 const initialState = {
   homeData: [],
   nowRandomMsg: {},
-  familyMemberList: [],
 };
 
 // 액션
