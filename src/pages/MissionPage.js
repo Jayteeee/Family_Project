@@ -28,14 +28,6 @@ const MissionPage = (props) => {
   );
   console.log("가족 구성원:", familyMemberList);
 
-  const myFamilyMemberData = familyMemberList.filter(
-    (f) => f.userId === userId
-  );
-  console.log("나의 가족멤버데이터:", myFamilyMemberData);
-
-  const myFamilyMemberId = myFamilyMemberData[0]?.familyMemberId;
-  console.log("나의 가족멤버ID:", myFamilyMemberId);
-
   const { familyId } = props.match?.params;
   console.log("현재 미션페이지 패밀리 아이디:", familyId);
 
@@ -54,8 +46,6 @@ const MissionPage = (props) => {
   useEffect(() => {
     dispatch(missionActions.getMissionPage(familyId));
     dispatch(missionActions.getPastMissionDB(familyId));
-    dispatch(familyMemberActions.getFamilyMemberDB(familyId));
-    // dispatch(userActions.getUserInfo());
   }, []);
 
   return (
@@ -73,7 +63,7 @@ const MissionPage = (props) => {
           monthMissionList={thisMonthMissionList}
           pastMissionList={pastMissionList}
           familyId={familyId}
-          myFamilyMemberId={myFamilyMemberId}
+          missionStatus={missionStatus}
         />
       </MissionPageWrap>
     </>
