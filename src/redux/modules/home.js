@@ -3,7 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 import { getToken } from "../../shared/Token";
 
-const BASE_URL = "https://doremilan.shop";
+const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   homeData: [],

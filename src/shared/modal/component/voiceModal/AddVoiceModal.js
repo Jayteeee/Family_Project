@@ -58,6 +58,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
           // formData
         )
       );
+      console.log(audioUrl);
       onClose();
       setCount(0);
     } else {

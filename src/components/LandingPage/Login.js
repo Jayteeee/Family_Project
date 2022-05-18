@@ -20,6 +20,15 @@ const Login = ({ checkClient }) => {
     dispatch(userActions.loginDB(inputs));
   };
 
+  let isIOS = navigator.userAgent.match(/i(Phone|Pod)/i) != null;
+
+  if (isIOS) {
+    let st = document.getElementsByClassName("myInput");
+    st.addEventListener("change", function () {
+      handleChange();
+    });
+  }
+
   return (
     <LoginWrap>
       <Text S3>로그인</Text>
