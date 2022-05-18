@@ -6,8 +6,8 @@ import jwt from "jwt-decode";
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/Token";
 
-// const BASE_URL = "https://doremilan.shop";
-const BASE_URL = "http://52.79.130.222";
+const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   user: {},
