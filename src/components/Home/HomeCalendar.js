@@ -35,19 +35,11 @@ const HomeCalendar = ({ thisMonthEventList, familyId }) => {
                 html.push(
                   events.map((x) => {
                     return (
-                      <div className="division" key={x.eventId}>
-                        <div
-                          className="dot"
-                          date={dayjs(date).format("YYYY-MM-DD")}
-                          style={{ backgroundColor: x.color }}
-                        ></div>
-                        <div
-                          className="event"
-                          date={dayjs(date).format("YYYY-MM-DD")}
-                        >
-                          {x.event}
-                        </div>
-                      </div>
+                      <div
+                        className="dot"
+                        date={dayjs(date).format("YYYY-MM-DD")}
+                        style={{ backgroundColor: x.color }}
+                      ></div>
                     );
                   })
                 );
