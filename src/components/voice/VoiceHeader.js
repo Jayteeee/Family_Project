@@ -162,7 +162,7 @@ const AddPhotoBtn = styled.label`
   font-weight: 600;
   cursor: pointer;
   &:hover {
-    background: #8c98f8;
+    background: #6371f7;
     color: #fff;
     border: none;
   }
@@ -203,7 +203,7 @@ const PhotoAlbumBtn = styled.div`
   justify-content: center;
   cursor: pointer;
   &:hover {
-    background: #8c98f8;
+    background: #6371f7;
     color: #fff;
     border: none;
   }
@@ -238,7 +238,7 @@ const EditCompletedBtn = styled.div`
   padding: 12px 24px;
   margin-left: 24px;
   border: none;
-  background: #8c98f8;
+  background: #6371f7;
   color: #fff;
   font-weight: 600;
   cursor: pointer;

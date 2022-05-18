@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdPlayArrow, MdOutlinePause } from "react-icons/md";
+import { MdPlayArrow, MdOutlinePause, MdCheckCircle } from "react-icons/md";
 import dayjs from "dayjs";
 
 // 리덕스
@@ -14,6 +14,7 @@ import { RactangleImage, Text } from "../../elements";
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 import profileImg from "../../shared/images/profileImg.png";
+import missionChkImg from "../../shared/images/missionChkImg.png";
 
 const HomeMission = ({
   recentMission,
@@ -54,13 +55,10 @@ const HomeMission = ({
                           borderColor="none"
                           className="proFileImage"
                         />
-                        <MissionChkBox>
-                          <MissionChk
-                          // src={
 
-                          // }
-                          />
-                        </MissionChkBox>
+                        {f.myMissionChk && (
+                          <MissionChkBox src={missionChkImg} />
+                        )}
                       </Profile>
                     </ProfileBox>
                   );
@@ -136,12 +134,16 @@ const MissionChkBox = styled.div`
   position: absolute;
   bottom: 0px;
   right: -5px;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  background-color: #6371f7;
+  /* box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05); */
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
+  background-position: center;
 `;
 
 const MissionChk = styled.div`
-  width: 27px;
-  height: 27px;
+  width: 24px;
+  height: 24px;
   background-image: url("${(props) => props.src}");
   background-size: cover;
 `;

@@ -74,7 +74,7 @@ const DeleteMissionModal = ({
                 M
                 onClick={deleteMission}
                 borderColor="transparent"
-                bg="#8C98F8"
+                bg="#6371F7"
                 color="white"
                 width="96px"
                 height="56px"

@@ -13,6 +13,7 @@ import { Text } from "../../elements";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
+import albumCover4 from "../../shared/images/albumCover4.jpg";
 
 const HomeVoice = ({ recentVoiceFile, familyId }) => {
   const v = recentVoiceFile;
@@ -84,7 +85,7 @@ const HomeVoice = ({ recentVoiceFile, familyId }) => {
                   position: "relative",
                 }}
               >
-                <PlayBtnImg src={noImage} />
+                <PlayBtnImg src={albumCover4} />
                 <PlayBtn
                   onClick={(e) => {
                     e.stopPropagation();
@@ -221,6 +222,7 @@ const PlayBtnImg = styled.div`
   border-radius: 10px;
   background-position: center;
   background-size: cover;
+  filter: brightness(70%);
 `;
 
 const PlayBtn = styled.div`
@@ -233,7 +235,7 @@ const PlayBtn = styled.div`
   border: 5px solid #fff;
   border-radius: 50%;
   position: absolute;
-  top: 35%;
+  top: 36%;
   cursor: pointer;
   & > svg {
     width: 80%;

@@ -240,7 +240,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
                     percentage={
                       onRec ? 100 : (`${parseInt(count)}` / 180) * 100
                     }
-                    primaryColor={["#F4CC4D", "#8C98F8"]}
+                    primaryColor={["#F4CC4D", "#6371F7"]}
                     secondaryColor="#F5F5F5"
                     hidePercentageText
                     style={{
@@ -320,7 +320,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
                   M
                   onClick={AddVoice}
                   borderColor="transparent"
-                  bg="#8C98F8"
+                  bg="#6371F7"
                   color="white"
                   width="96px"
                   height="56px"
@@ -414,7 +414,7 @@ const InputBox = styled.div`
   width: 100%;
   height: 76px;
   padding: 0 16px;
-  border: ${({ show }) => (show ? `2px solid #8c98f8` : `2px solid #E5E5E5`)};
+  border: ${({ show }) => (show ? `2px solid #6371F7` : `2px solid #E5E5E5`)};
   border-radius: 8px;
   margin-top: 24px;
 `;

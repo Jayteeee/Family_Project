@@ -116,7 +116,7 @@ const AddPhotoBtn = styled.label`
   font-weight: 600;
   cursor: pointer;
   &:hover {
-    background: #8c98f8;
+    background: #6371f7;
     color: #fff;
     border: none;
   }

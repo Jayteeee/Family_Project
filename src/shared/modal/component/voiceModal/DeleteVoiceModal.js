@@ -71,7 +71,7 @@ const DeleteVoiceModal = ({ onClose, voiceFileId }) => {
                   M
                   onClick={deleteVoiceFile}
                   borderColor="transparent"
-                  bg="#8C98F8"
+                  bg="#6371F7"
                   color="white"
                   width="96px"
                   height="56px"

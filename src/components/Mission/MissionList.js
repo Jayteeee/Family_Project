@@ -244,6 +244,7 @@ const MissionListBox = styled.div`
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
+    margin: 20px 9px;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {

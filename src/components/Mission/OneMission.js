@@ -441,7 +441,7 @@ const CompletedMission = styled.div`
   font-size: 14px;
   font-weight: 500;
   border-radius: 21px;
-  background: #8c98f8;
+  background: #6371f7;
   color: white;
 
   // Medium (Desktop)

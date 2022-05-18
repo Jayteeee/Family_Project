@@ -610,7 +610,7 @@ const BadgeBarPercentage = styled.div`
   justify-content: center;
   ${({ badgeCnt }) => ` width: ${badgeCnt}%`};
   height: 30px;
-  background-color: #8c98f8;
+  background-color: #6371f7;
   border: none;
   border-radius: 5px 0 0 5px;
   font-size: 16px;
