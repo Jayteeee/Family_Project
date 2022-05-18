@@ -138,12 +138,6 @@ const DetailPhoto = ({
       category: "갤러리",
       type,
     });
-    console.log("좋아요 클릭 시, ", {
-      senderName: nowUserNickname,
-      receiverName: detailPhoto.userId,
-      category: "갤러리",
-      type,
-    });
   };
 
   return (

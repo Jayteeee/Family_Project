@@ -56,7 +56,7 @@ const Header = (props) => {
                 }}
                 onClick={handleNoti}
               />
-              <NotiCount>{sender?.length}</NotiCount>
+              {sender ? <NotiCount>{sender?.length}</NotiCount> : null}
             </NotiBox>
             {notiOn ? (
               <NotiMsgBox>

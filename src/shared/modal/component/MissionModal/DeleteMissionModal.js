@@ -8,7 +8,7 @@ import { MdCancel, MdClose } from "react-icons/md";
 import { ModalPortal } from "../../portals";
 
 // 리덕스
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { missionActions } from "../../../../redux/modules/mission";
 
 // 엘리먼트
@@ -27,6 +27,23 @@ const DeleteMissionModal = ({
   };
 
   console.log(missionId);
+
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: familyId,
+      category: "미션",
+      type,
+    });
+  };
 
   return (
     <ModalPortal>
@@ -72,7 +89,10 @@ const DeleteMissionModal = ({
               </Button>
               <Button
                 M
-                onClick={deleteMission}
+                onClick={() => {
+                  deleteMission();
+                  handleNotification("미션삭제");
+                }}
                 borderColor="transparent"
                 bg="#8C98F8"
                 color="white"

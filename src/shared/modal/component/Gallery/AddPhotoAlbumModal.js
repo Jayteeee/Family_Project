@@ -8,7 +8,7 @@ import { MdCancel, MdClose } from "react-icons/md";
 import { ModalPortal } from "../../portals";
 
 // 리덕스
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // 엘리먼트
 import { Button, Text, Input } from "../../../../elements";
@@ -42,6 +42,23 @@ const AddPhotoAlbumModal = ({ onClose, familyId }) => {
     } else {
       alert("앨범 제목을 입력하지 않았습니다.");
     }
+  };
+
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: familyId,
+      category: "갤러리",
+      type,
+    });
   };
 
   return (
@@ -130,7 +147,10 @@ const AddPhotoAlbumModal = ({ onClose, familyId }) => {
                 </Button>
                 <Button
                   M
-                  onClick={addPhotoAlbum}
+                  onClick={() => {
+                    addPhotoAlbum();
+                    handleNotification("앨범생성");
+                  }}
                   borderColor="transparent"
                   bg="#8C98F8"
                   color="white"

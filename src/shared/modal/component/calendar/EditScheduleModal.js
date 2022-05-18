@@ -53,6 +53,23 @@ const EditScheduleModal = ({ onClose, eventId }) => {
     setEvent("");
   };
 
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: list.familyId,
+      category: "캘린더",
+      type,
+    });
+  };
+
   return (
     <ContentBox
       onClick={(e) => {
@@ -242,6 +259,7 @@ const EditScheduleModal = ({ onClose, eventId }) => {
             e.stopPropagation();
             onClose();
             editSchedule();
+            handleNotification("일정수정");
           }}
         >
           저장

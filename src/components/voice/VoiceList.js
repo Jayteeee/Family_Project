@@ -277,7 +277,11 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
                     e.stopPropagation();
                   }}
                 >
-                  <DeleteIcon onClick={handleFileId.bind(this, v.voiceFileId)}>
+                  <DeleteIcon
+                    onClick={() => {
+                      handleFileId.bind(this, v.voiceFileId);
+                    }}
+                  >
                     <MdRemoveCircle />
                   </DeleteIcon>
                   <NonePlayer>
@@ -360,6 +364,7 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
           <DeleteVoiceModal
             onClose={handleModal}
             voiceFileId={voiceFileId}
+            familyId={familyId}
           ></DeleteVoiceModal>
         )}
       </ModalPortal>

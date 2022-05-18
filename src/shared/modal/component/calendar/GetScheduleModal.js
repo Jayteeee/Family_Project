@@ -35,6 +35,23 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
 
   console.log("props로 받는 값:", date, event, familyId, eventId);
 
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: familyId,
+      category: "캘린더",
+      type,
+    });
+  };
+
   React.useEffect(() => {
     dispatch(
       scheduleActions.getOneScheduleDB(
@@ -68,6 +85,7 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                   deleteSchedule();
+                  handleNotification("일정삭제");
                 }}
               >
                 <MdDeleteOutline />

@@ -10,7 +10,7 @@ import { MdOutlineClear, MdCancel, MdDone } from "react-icons/md";
 import { TiArrowSortedDown } from "react-icons/ti";
 
 // 리덕스
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -39,6 +39,23 @@ const AddScheduleModal = ({ onClose, familyId }) => {
 
   const reset = () => {
     setEvent("");
+  };
+
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: familyId,
+      category: "캘린더",
+      type,
+    });
   };
 
   return (
@@ -285,6 +302,7 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                   e.stopPropagation();
                   onClose();
                   addSchedule();
+                  handleNotification("일정추가");
                 }}
               >
                 저장

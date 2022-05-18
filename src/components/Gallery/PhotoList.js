@@ -61,6 +61,23 @@ const PhotoList = ({
     dispatch(galleryActions.getPhotoDB(photoAlbumId));
   }, [photoList.length]);
 
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: NowFamilyId,
+      category: "갤러리",
+      type,
+    });
+  };
+
   return (
     <>
       <PhotoHeader
@@ -102,7 +119,12 @@ const PhotoList = ({
                       // history.push(`/detail/${p._id}`);
                     }}
                   />
-                  <DeleteIcon onClick={DeletePhoto.bind(this, p?.photoId)}>
+                  <DeleteIcon
+                    onClick={() => {
+                      DeletePhoto.bind(this, p?.photoId);
+                      handleNotification("사진 삭제");
+                    }}
+                  >
                     <MdRemoveCircle />
                   </DeleteIcon>
                 </div>

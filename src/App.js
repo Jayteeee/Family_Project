@@ -24,11 +24,6 @@ function App() {
   const dispatch = useDispatch();
   let token = getToken();
 
-  // const [user, setUser] = useState("");
-  // const [socket, setSocket] = useState(null);
-
-  // console.log(socket);
-
   useEffect(() => {
     if (token) {
       dispatch(userActions.getUserInfo(token));
@@ -37,39 +32,63 @@ function App() {
 
   // 소켓
 
+  // useEffect(() => {
+  // setSocket(
+  //   io.connect(`http://52.79.130.222`, {
+  //     cors: { origin: "http://52.79.130.222" },
+  //   })
+  // );
+  // dispatch(
+  // socketActions.getSocketDB(
+  // io.connect(`http://52.79.130.222`, {
+  //   cors: { origin: "http://52.79.130.222" },
+  // })
+  // socket
+  // )
+  // );
+  // }, []);
+
+  // let socket = io.connect(ENDPOINT, {
+  //   transports: ["websocket"],
+  //   forceNew: true,
+  // });
+
   const ENDPOINT = "http://52.79.130.222";
-
-  let socket = io.connect(ENDPOINT, {
-    transports: ["websocket"],
-    forceNew: true,
-  });
-
-  console.log(socket);
-
-  useEffect(() => {
-    // setSocket(
-    //   io.connect(`http://52.79.130.222`, {
-    //     cors: { origin: "http://52.79.130.222" },
-    //   })
-    // );
-    dispatch(
-      socketActions.getSocketDB(
-        // io.connect(`http://52.79.130.222`, {
-        //   cors: { origin: "http://52.79.130.222" },
-        // })
-        socket
-      )
-    );
-  }, []);
-
   const user = useSelector((state) => state?.user?.user?.user?.userId);
 
+  // const [user, setUser] = useState("");
+  const [socket, setSocket] = useState(
+    io.connect(ENDPOINT, {
+      transports: ["websocket"],
+      forceNew: true,
+    })
+  );
+
+  console.log("소켓연결, ", socket);
+
   useEffect(() => {
-    socket?.emit("newUser", user);
-    socket?.on("getNotification", (data) => {
-      console.log(data);
-      dispatch(socketActions.setSocketDB(data));
-    });
+    dispatch(socketActions.getSocketDB(socket));
+  }, []);
+
+  // useEffect(() => {
+  //   socket?.emit("newUser", user);
+  //   socket?.emit("join", "hi");
+  // }, [socket, user]);
+
+  // useEffect(() => {
+  //   socket?.on("getNotification", (data) => {
+  //     dispatch(socketActions.setSocketDB(data));
+  //   });
+  // }, [socket]);
+
+  useEffect(() => {
+    if (token) {
+      socket?.emit("newUser", user);
+      socket?.emit("join", "hi");
+      socket?.on("getNotification", (data) => {
+        dispatch(socketActions.setSocketDB(data));
+      });
+    }
   }, [socket, user]);
 
   return (
