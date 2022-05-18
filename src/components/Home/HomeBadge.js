@@ -30,7 +30,7 @@ const HomeBadge = ({ randomBadge, familyId }) => {
           <ContantBox>
             <div
               style={{
-                width: "15%",
+                width: "32%",
                 display: "flex",
                 justifyContent: "center",
                 marginBottom: "5px",
@@ -54,7 +54,7 @@ const HomeBadge = ({ randomBadge, familyId }) => {
                 }
               />
             </div>
-            <Text>{randomBadge?.badgeTitle}</Text>
+            <Text className="homeBadgeTitle">{randomBadge?.badgeTitle}</Text>
           </ContantBox>
         </Figure>
       </Container>
@@ -94,8 +94,13 @@ const ContantBox = styled.div`
   height: 100%;
   width: 100%;
   background-color: #fff;
-  border-radius: 20px;
-  border: 1px solid #c4c4c4;
+  /* border-radius: 20px;
+  border: 1px solid #c4c4c4; */
+  .homeBadgeTitle {
+    margin-top: 5%;
+    font-size: 16px;
+    color: #757575;
+  }
 `;
 
 const BadgeImg = styled.div`

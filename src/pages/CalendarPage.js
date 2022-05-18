@@ -210,7 +210,7 @@ const AddButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #8c98f8;
+  background-color: #6371f7;
   border-color: transparent;
   color: white;
   border-radius: 8px;
@@ -262,7 +262,7 @@ const Option1 = styled.div`
   border-radius: 21px;
   ${({ value }) =>
     value === "schedule"
-      ? "background-color: #8C98F8;"
+      ? "background-color: #6371F7;"
       : "background-color: transparent;"};
   ${({ value }) => (value === "schedule" ? "color: white;" : "color: #757575")};
   & > div {
@@ -427,7 +427,7 @@ const CreateButton = styled.div`
     bottom: 80px;
     right: 20px;
     border-radius: 100%;
-    background-color: #8c98f8;
+    background-color: #6371f7;
     font-size: 24px;
     color: white;
     cursor: pointer;
@@ -442,7 +442,7 @@ const CreateButton = styled.div`
     bottom: 110px;
     right: 30px;
     border-radius: 100%;
-    background-color: #8c98f8;
+    background-color: #6371f7;
     font-size: 24px;
     color: white;
     cursor: pointer;
@@ -458,7 +458,7 @@ const CreateButton = styled.div`
     bottom: 90px;
     right: 30px;
     border-radius: 100%;
-    background-color: #8c98f8;
+    background-color: #6371f7;
     font-size: 24px;
     color: white;
     cursor: pointer;
@@ -474,7 +474,7 @@ const CreateButton = styled.div`
     bottom: 80px;
     right: 30px;
     border-radius: 100%;
-    background-color: #8c98f8;
+    background-color: #6371f7;
     font-size: 24px;
     color: white;
     cursor: pointer;

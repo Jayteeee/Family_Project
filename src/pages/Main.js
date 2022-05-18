@@ -428,7 +428,7 @@ const Option = styled.li`
 const PageWrap = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
-  background-color: #f0f0ff;
+  background-color: #f5f6fe;
   overflow-y: scroll;
 
   // Medium (Desktop)

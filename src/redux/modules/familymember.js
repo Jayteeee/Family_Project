@@ -154,7 +154,7 @@ const editFamilyMemberNicknameDB = (
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .put(
-        `${BASE_URL}/family/familyMember/${familyMemberId}`,
+        `${BASE_URL}/family/${familyId}/${familyMemberId}`,
         { familyMemberNickname },
         {
           headers: config,

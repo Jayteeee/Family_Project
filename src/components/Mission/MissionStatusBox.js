@@ -43,7 +43,7 @@ const MissionStatusBox = ({ missionStatus, familyId }) => {
               <Text
                 className="res-missionStatus"
                 size="40px"
-                color="#8C98F8"
+                color="#6371F7"
                 fontWeight="700"
               >
                 {missionStatus?.totalMission ? missionStatus?.totalMission : 0}
@@ -63,7 +63,7 @@ const MissionStatusBox = ({ missionStatus, familyId }) => {
               <Text
                 className="res-missionStatus"
                 size="40px"
-                color="#8C98F8"
+                color="#6371F7"
                 fontWeight="700"
               >
                 0
@@ -88,7 +88,7 @@ const MissionStatusBox = ({ missionStatus, familyId }) => {
               <Text
                 className="res-missionStatus"
                 size="40px"
-                color="#8C98F8"
+                color="#6371F7"
                 fontWeight="700"
               >
                 {missionStatus?.completePercentage
@@ -118,7 +118,7 @@ const MissionStatusBox = ({ missionStatus, familyId }) => {
               <Text
                 className="res-missionStatus"
                 size="40px"
-                color="#8C98F8"
+                color="#6371F7"
                 fontWeight="700"
               >
                 0{missionStatus?.totalBadge ? missionStatus?.totalBadge : 0}
@@ -165,6 +165,22 @@ const StatusBox = styled.div`
   box-shadow: 0px 0px 3px 0px #d6d6d6;
   &:hover {
     background: #f8f8f8;
+  }
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 10px 9px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
   }
 `;
 

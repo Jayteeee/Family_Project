@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdPlayArrow, MdOutlinePause } from "react-icons/md";
+import { MdPlayArrow, MdOutlinePause, MdCheckCircle } from "react-icons/md";
 import dayjs from "dayjs";
 
 // 리덕스
@@ -14,6 +14,7 @@ import { RactangleImage, Text } from "../../elements";
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 import profileImg from "../../shared/images/profileImg.png";
+import missionChkImg from "../../shared/images/missionChkImg.png";
 
 const HomeMission = ({
   recentMission,
@@ -54,13 +55,10 @@ const HomeMission = ({
                           borderColor="none"
                           className="proFileImage"
                         />
-                        <TodayMoodBox>
-                          <TodayMood
-                          // src={
 
-                          // }
-                          />
-                        </TodayMoodBox>
+                        {f.myMissionChk && (
+                          <MissionChkBox src={missionChkImg} />
+                        )}
                       </Profile>
                     </ProfileBox>
                   );
@@ -77,17 +75,12 @@ const Container = styled.div`
   width: 90%;
   height: 100%;
   @media screen and (max-width: 1199px) {
-    /* column-count: 1; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    /* column-count: 1;
-    padding: 24px; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    /* column-count: 1;
-    padding: 8px; */
   }
 `;
 
@@ -97,16 +90,8 @@ const Figure = styled.div`
 `;
 
 const ContantBox = styled.div`
-  /* display: flex;
-  align-items: center; */
-  /* justify-content: center; */
-  /* justify-content: space-around; */
-  /* flex-direction: column; */
-  /* height: 100%; */
   width: 100%;
   background-color: #fff;
-  /* border-radius: 20px;
-  border: 1px solid #c4c4c4; */
   margin-top: 5%;
   .recentMissionTitle {
     font-size: 28px;
@@ -130,33 +115,35 @@ const ProfileBox = styled.div`
 
 const Profile = styled.div`
   position: relative;
-  /* width: 80px; */
   & > p {
     white-space: nowrap;
   }
   width: 100%;
 `;
 
-const TodayMoodBox = styled.div`
+const MissionChkBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 24px;
   height: 24px;
   font-size: 17px;
-  /* padding: 0 4px 0 0; */
   border-radius: 30px;
   border: none;
   background-color: #fff;
   position: absolute;
   bottom: 0px;
   right: -5px;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+  background-color: #6371f7;
+  /* box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05); */
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
+  background-position: center;
 `;
 
-const TodayMood = styled.div`
-  width: 27px;
-  height: 27px;
+const MissionChk = styled.div`
+  width: 24px;
+  height: 24px;
   background-image: url("${(props) => props.src}");
   background-size: cover;
 `;

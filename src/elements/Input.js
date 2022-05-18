@@ -89,7 +89,7 @@ const Input = (props) => {
 const DefaultInput = styled.input`
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 0px #8c98f8, 0 0 0 2px #8c98f8;
+    box-shadow: 0 0 0 0px #6371f7, 0 0 0 2px #6371f7;
   }
 
   width: ${({ width }) => (width ? `${width};` : "100%;")};
@@ -112,7 +112,7 @@ const DefaultInput = styled.input`
 const Textarea = styled.textarea`
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 0px #8c98f8, 0 0 0 2px #8c98f8;
+    box-shadow: 0 0 0 0px #6371f7, 0 0 0 2px #6371f7;
   }
 
   width: ${({ width }) => (width ? `${width};` : "100%;")};

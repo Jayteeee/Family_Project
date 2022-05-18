@@ -251,7 +251,7 @@ const Container = styled.div`
   }
   .react-calendar__tile--now {
     & > abbr {
-      background: #8c98f8;
+      background: #6371f7;
       color: #fff;
       font-weight: 400;
     }

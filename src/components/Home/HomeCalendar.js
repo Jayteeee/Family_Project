@@ -13,53 +13,64 @@ const HomeCalendar = ({ thisMonthEventList, familyId }) => {
   return (
     <div>
       <Container>
-        <Calendar
-          onChange={setValue} // useState로 포커스 변경 시 현재 날짜 받아오기
-          formatDay={(locale, date) => dayjs(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
-          value={value}
-          showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
-          tileContent={({ date, view }) => {
-            // 날짜 타일에 컨텐츠 추가하기 (html 태그)
-            // 추가할 html 태그를 변수 초기화
-            let html = [];
-            let events = "";
-            if (thisMonthEventList) {
-              events = thisMonthEventList.filter(
-                (x) => x.startDate === dayjs(date).format("YYYY-MM-DD")
+        <div>
+          <Calendar
+            className="homeCalendar"
+            onChange={setValue} // useState로 포커스 변경 시 현재 날짜 받아오기
+            formatDay={(locale, date) => dayjs(date).format("D")} // 날'일' 제외하고 숫자만 보이도록 설정
+            value={value}
+            showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
+            tileContent={({ date, view }) => {
+              // 날짜 타일에 컨텐츠 추가하기 (html 태그)
+              // 추가할 html 태그를 변수 초기화
+              let html = [];
+              let events = "";
+              if (thisMonthEventList) {
+                events = thisMonthEventList.filter(
+                  (x) => x.startDate === dayjs(date).format("YYYY-MM-DD")
+                );
+              }
+              // console.log(events);
+              if (events.length !== 0) {
+                html.push(
+                  events.map((x) => {
+                    return (
+                      <div className="division" key={x.eventId}>
+                        <div
+                          className="dot"
+                          date={dayjs(date).format("YYYY-MM-DD")}
+                          style={{ backgroundColor: x.color }}
+                        ></div>
+                        <div
+                          className="event"
+                          date={dayjs(date).format("YYYY-MM-DD")}
+                        >
+                          {x.event}
+                        </div>
+                      </div>
+                    );
+                  })
+                );
+              }
+              // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
+              return (
+                <>
+                  <div className="mdot">{html}</div>
+                </>
               );
-            }
-            // console.log(events);
-            if (events.length !== 0) {
-              html.push(
-                events.map((x) => {
-                  return (
-                    <div
-                      key={x.eventId}
-                      className="dot"
-                      date={dayjs(date).format("YYYY-MM-DD")}
-                      style={{ backgroundColor: x.color }}
-                    ></div>
-                  );
-                })
-              );
-            }
-            // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
-            return (
-              <>
-                <div className="mdot">{html}</div>
-              </>
-            );
-          }}
-        ></Calendar>
+            }}
+          ></Calendar>
+        </div>
       </Container>
     </div>
   );
 };
 
 const Container = styled.div`
+  margin-top: 15px;
   width: 100%;
-  height: 80%;
-  .react-calendar {
+  /* height: 80%; */
+  .homeCalendar {
     width: 100%;
     max-width: 100%;
     height: 40vh;
@@ -69,17 +80,29 @@ const Container = styled.div`
     padding: 12px 24px 12px 24px;
     overflow-y: scroll;
     border-radius: 16px;
-    border: 1px solid #c4c4c4;
+    border: 1px solid #dbdbdb;
 
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
       padding: 0px;
-      height: 40vh;
     }
+    // Small (Tablet)
     @media only screen and (max-width: 839px) {
       padding: 0px;
       height: 40vh;
     }
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+      padding: 20px 10px;
+      abbr {
+        padding: 4px;
+      }
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
+    }
+  }
+  .react-calendar {
   }
 
   .react-calendar__navigation {
@@ -95,11 +118,12 @@ const Container = styled.div`
   abbr[title] {
     text-decoration: none;
     font-size: 14px;
+    color: #757575;
   }
   abbr {
     padding: 8px;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .react-calendar__tile {
@@ -129,7 +153,7 @@ const Container = styled.div`
   }
   .react-calendar__tile--now {
     & > abbr {
-      background: #8c98f8;
+      background: #6371f7;
       color: #fff;
       font-weight: 400;
     }

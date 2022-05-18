@@ -40,7 +40,7 @@ const MissionHeader = (props) => {
             M
             borderRadius="8px"
             borderColor="transparent"
-            bg="#8C98F8"
+            bg="#6371F7"
             color="#fff"
             width="159px"
             height="56px"

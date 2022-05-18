@@ -196,7 +196,7 @@ const AddMissionModal = ({ onClose }) => {
                     handleNotification("미션추가");
                   }}
                   borderColor="transparent"
-                  bg="#8C98F8"
+                  bg="#6371F7"
                   color="white"
                   width="110px"
                   height="53px"

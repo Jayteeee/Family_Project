@@ -12,14 +12,14 @@ import { scheduleActions } from "../../redux/modules/calendar";
 //엘리먼트
 import { Text, Button } from "../../elements";
 
-const HomeSchedule = ({ familyId, thisMonthEventList }) => {
+const HomeSchedule = ({ thisMonthEventList }) => {
   return (
     <ScheduleArea>
       {thisMonthEventList
         ? thisMonthEventList.map((x) => (
-            <FlexBox1 key={x?.familyId}>
+            <FlexBox1 key={x?.eventId}>
               <TextBox>
-                <Text BM>
+                <Text BM className="homeScheduleDate">
                   {`${dayjs(x?.startDate)
                     .locale("ko")
                     .format("MM월 DD일, dd")}`}
@@ -27,7 +27,7 @@ const HomeSchedule = ({ familyId, thisMonthEventList }) => {
               </TextBox>
               <FlexBox2>
                 <DateColor color={x?.color}></DateColor>
-                <Text fontWeight="400" size="15px">
+                <Text fontWeight="400" size="15px" className="homeScheduleText">
                   {x?.event}
                 </Text>
               </FlexBox2>
@@ -46,22 +46,50 @@ const ScheduleArea = styled.div`
   border: none;
   margin: 0 0 0 10px;
   overflow-y: scroll;
+
+  // Medium (Desktop)
   @media only screen and (max-width: 1199px) {
-    margin: 24px 0 0 0;
+    margin: 24px 0 50px 0;
+    height: 100%;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    margin: 16px 0 0 0;
+    height: 100%;
   }
-  @media only screen and (max-width: 839px) {
-    margin: 16px 0 0 0;
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 10px 0 50px 0;
+    height: 100%;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .homeScheduleDate {
+      font-size: 10px;
+    }
+    .homeScheduleText {
+      font-size: 12px;
+    }
   }
 `;
 
 const FlexBox1 = styled.div`
   display: flex;
+  /* flex-wrap: wrap; */
+  /* display: flex; */
   align-items: flex-start;
-  margin: 20px;
+  margin: 20px 20px 0 20px;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 15px 15px 0 15px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    margin: 10px 10px 0 10px;
+  }
 `;
 
 const FlexBox2 = styled.div`
@@ -70,13 +98,23 @@ const FlexBox2 = styled.div`
 `;
 
 const TextBox = styled.div`
-  width: 35%;
+  width: 31%;
   height: 18px;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   /* justify-content: center; */
   margin: 2px 20px 0 0;
   color: #757575;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 2px 0 0 0;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    margin: 0;
+    width: 27%;
+  }
 `;
 
 const DateColor = styled.div`

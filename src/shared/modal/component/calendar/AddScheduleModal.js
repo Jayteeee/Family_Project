@@ -159,14 +159,14 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                       <MdDone mypic={myPic} value="#5FB3CE" />
                     </Color>
                     <Color
-                      value="#8C98F8"
+                      value="#6371F7"
                       onClick={(e) => {
                         e.stopPropagation();
-                        setMyPic("#8C98F8");
+                        setMyPic("#6371F7");
                       }}
                       mypic={myPic}
                     >
-                      <MdDone mypic={myPic} value="#8C98F8" />
+                      <MdDone mypic={myPic} value="#6371F7" />
                     </Color>
                     <Color
                       value="#C588F6"
@@ -291,7 +291,7 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                   minWidth: "96px",
                   height: "56px",
                   width: "96px",
-                  backgroundColor: "#8C98F8",
+                  backgroundColor: "#6371F7",
                   color: "white",
                   margin: "40px 0 0 0",
                   borderRadius: "8px",
@@ -472,7 +472,7 @@ const InputBox = styled.div`
   justify-content: center;
   width: 100%;
   padding: 8px 16px;
-  border: ${({ show }) => (show ? `2px solid #8c98f8` : `2px solid #E5E5E5`)};
+  border: ${({ show }) => (show ? `2px solid #6371F7` : `2px solid #E5E5E5`)};
   border-radius: 8px;
 `;
 

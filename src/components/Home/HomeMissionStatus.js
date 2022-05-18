@@ -93,14 +93,6 @@ const ContantBox = styled.div`
   height: 100%;
   width: 100%;
   background-color: #fff;
-
-  /* .totalMission {
-    font-size: 12px;
-    display: flex;
-    width: 100%;
-    justify-content: right;
-    padding: 5px 0;
-  } */
 `;
 
 const BottomTextBox = styled.div`
@@ -169,7 +161,7 @@ const BadgeBar = styled.div`
   z-index: 1;
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    width: 130px;
+    width: 100%;
     height: 20px;
   }
 `;
@@ -190,29 +182,6 @@ const BadgeBarPercentage = styled.div`
   z-index: 2;
   @media screen and (max-width: 375px) {
     height: 20px;
-  }
-`;
-
-const BadghCnt = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 30px;
-  background-color: transparent;
-  margin-bottom: auto;
-  border: none;
-  border-radius: 50px;
-  font-size: 16px;
-  /* position: absolute;
-  top: 0px; */
-  position: relative;
-  bottom: 29px;
-  z-index: 3;
-  @media screen and (max-width: 375px) {
-    width: 130px;
-    height: 20px;
-    bottom: 20px;
   }
 `;
 
