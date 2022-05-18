@@ -20,15 +20,6 @@ const Login = ({ checkClient }) => {
     dispatch(userActions.loginDB(inputs));
   };
 
-  let isIOS = navigator.userAgent.match(/i(Phone|Pod)/i) != null;
-
-  if (isIOS) {
-    let st = document.getElementsByClassName("myInput");
-    st.addEventListener("change", function () {
-      handleChange();
-    });
-  }
-
   return (
     <LoginWrap>
       <Text S3>로그인</Text>
@@ -40,6 +31,7 @@ const Login = ({ checkClient }) => {
             className="myInput"
             type="text"
             onChange={handleChange}
+            onBlur={handleChange}
             value={inputs.email}
             placeholder="아이디"
             margin="0 0 8px 0"
@@ -55,6 +47,7 @@ const Login = ({ checkClient }) => {
             className="myInput"
             type="password"
             onChange={handleChange}
+            onBlur={handleChange}
             value={inputs.password}
             placeholder="비밀번호"
             margin="0 0 8px 0"
