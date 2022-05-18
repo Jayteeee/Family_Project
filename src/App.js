@@ -25,9 +25,9 @@ function App() {
   let token = getToken();
 
   // const [user, setUser] = useState("");
-  const [socket, setSocket] = useState(null);
+  // const [socket, setSocket] = useState(null);
 
-  console.log(socket);
+  // console.log(socket);
 
   useEffect(() => {
     if (token) {
@@ -35,17 +35,29 @@ function App() {
     }
   }, []);
 
+  // 소켓
+
+  const ENDPOINT = "http://52.79.130.222";
+
+  let socket = io.connect(ENDPOINT, {
+    transports: ["websocket"],
+    forceNew: true,
+  });
+
+  console.log(socket);
+
   useEffect(() => {
-    setSocket(
-      io.connect(`http://52.79.130.222`, {
-        cors: { origin: "http://52.79.130.222" },
-      })
-    );
+    // setSocket(
+    //   io.connect(`http://52.79.130.222`, {
+    //     cors: { origin: "http://52.79.130.222" },
+    //   })
+    // );
     dispatch(
       socketActions.getSocketDB(
-        io.connect(`http://52.79.130.222`, {
-          cors: { origin: " " },
-        })
+        // io.connect(`http://52.79.130.222`, {
+        //   cors: { origin: "http://52.79.130.222" },
+        // })
+        socket
       )
     );
   }, []);

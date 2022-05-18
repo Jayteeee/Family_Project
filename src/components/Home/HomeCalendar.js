@@ -33,19 +33,12 @@ const HomeCalendar = ({ thisMonthEventList, familyId }) => {
               html.push(
                 events.map((x) => {
                   return (
-                    <div className="division" key={x.eventId}>
-                      <div
-                        className="dot"
-                        date={dayjs(date).format("YYYY-MM-DD")}
-                        style={{ backgroundColor: x.color }}
-                      ></div>
-                      <div
-                        className="event"
-                        date={dayjs(date).format("YYYY-MM-DD")}
-                      >
-                        {x.event}
-                      </div>
-                    </div>
+                    <div
+                      key={x.eventId}
+                      className="dot"
+                      date={dayjs(date).format("YYYY-MM-DD")}
+                      style={{ backgroundColor: x.color }}
+                    ></div>
                   );
                 })
               );
@@ -111,12 +104,13 @@ const Container = styled.div`
 
   .react-calendar__tile {
     width: 100%;
-    height: 100%;
+    height: 70px;
 
     background: none;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     color: black;
 
     // Medium (Tablet)
@@ -144,28 +138,21 @@ const Container = styled.div`
   .react-calendar__tile--now:enabled:focus {
   }
   .mdot {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: flex-start;
-    overflow: auto;
-  }
-  .division {
-    display: flex;
-    justify-content: start;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
-    margin: 2px 0;
   }
   .dot {
-    height: 14px;
-    width: 4px;
-    margin-right: 2px;
-  }
-  .event {
-    width: 100%;
-    height: 14px;
-    overflow: auto;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10px;
+    width: 10px;
+    top: 3px;
+    border-radius: 50%;
   }
 `;
 
