@@ -16,6 +16,13 @@
   display: none;
 }
 
+input {
+  -webkit-user-select: text; /* Chrome, Opera, Safari */
+  -moz-user-select: text; /* Firefox 2+ */
+  -ms-user-select: text; /* IE 10+ */
+  user-select: text; /* Standard syntax */
+}
+
 .App {
   text-align: center;
   width: 100vw;
@@ -30,7 +37,6 @@
 }
 /* 반응형CSS 태블릿 뷰 */
 @media only screen and (max-width: 839px) {
-
   .res-missionStatusBox {
     flex-direction: column !important;
     margin: 0 14px !important;
@@ -147,7 +153,6 @@
   }
   .res-missinoListBox {
     margin-top: 0px !important;
-  
   }
 
   .res-missionMember {
