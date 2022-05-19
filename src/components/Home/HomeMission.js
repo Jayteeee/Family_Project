@@ -30,7 +30,9 @@ const HomeMission = ({
               {recentMission?.missionTitle}
             </Text>
             <Text className="missionUser">
-              {recentMissionUser?.familyMemberNickname}님이 제안했어요!
+              {recentMission?.missionTitle
+                ? `${recentMissionUser?.familyMemberNickname}님이 제안했어요!`
+                : "미션을 생성하고 수행해보세요!"}
             </Text>
             <div
               style={{

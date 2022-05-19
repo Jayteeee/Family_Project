@@ -27,7 +27,6 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
       formData.append("photoFile", file);
     }
     console.log("이미지파일", file);
-    console.log("formData:", formData);
 
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };

@@ -89,7 +89,12 @@ const EditScheduleModal = ({ onClose, eventId }) => {
       </XButton>
       <InnerBox>
         <TitleBox>
-          <SelectBox onClick={() => setShowOptions((prev) => !prev)}>
+          <SelectBox
+            onClick={() => {
+              setShowOptions((prev) => !prev);
+              setSelec(false);
+            }}
+          >
             <Label>
               <Preview value={myPic}></Preview>
               <TiArrowSortedDown />
@@ -185,6 +190,8 @@ const EditScheduleModal = ({ onClose, eventId }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowBorder(true);
+                  setSelec(false);
+                  setShowOptions(false);
                 }}
                 value={event}
                 style={{
@@ -206,6 +213,7 @@ const EditScheduleModal = ({ onClose, eventId }) => {
           <Box
             onClick={(e) => {
               setSelec(!selec);
+              setShowOptions(false);
             }}
           >
             <Text B2 style={{ marginBottom: "6px" }}>

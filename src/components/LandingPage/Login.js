@@ -30,9 +30,8 @@ const Login = ({ checkClient }) => {
             id="email"
             className="myInput"
             type="text"
-            // onInput={handleChange}
             onChange={handleChange}
-            value={inputs.email}
+            value={inputs.email ? inputs.email : ""}
             placeholder="아이디"
             margin="0 0 8px 0"
             padding="16px"
@@ -46,9 +45,8 @@ const Login = ({ checkClient }) => {
             id="password"
             className="myInput"
             type="password"
-            // onInput={handleChange}
             onChange={handleChange}
-            value={inputs.password}
+            value={inputs.password ? inputs.password : ""}
             placeholder="비밀번호"
             margin="0 0 8px 0"
             padding="16px"

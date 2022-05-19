@@ -93,6 +93,7 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowOptions((prev) => !prev);
+                    setSelec(false);
                   }}
                 >
                   <Label>
@@ -216,6 +217,8 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowBorder(true);
+                    setSelec(false);
+                    setShowOptions(false);
                   }}
                 >
                   <InsertBox>
@@ -249,6 +252,7 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     setSelec(!selec);
+                    setShowOptions(false);
                   }}
                 >
                   <Text B2 style={{ marginBottom: "6px" }}>

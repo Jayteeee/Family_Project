@@ -69,7 +69,9 @@ const HomeVoice = ({ recentVoiceFile, familyId }) => {
                 {v?.voiceTitle}
               </Text>
               <Text className="voiceUser">
-                {v?.familyMemberNickname}님이 음성메시지를 보냈어요!
+                {v?.voiceFile
+                  ? `${v?.familyMemberNickname}님이 음성메시지를 보냈어요!`
+                  : "녹음된 음성메시지가 없어요!"}
               </Text>
               <div
                 style={{
@@ -102,25 +104,32 @@ const HomeVoice = ({ recentVoiceFile, familyId }) => {
                 </PlayBtn>
               </div>
               <audio ref={myRef} src={v?.voiceFile} />
-              <Text S3 className="homeVoiceRunTime">
-                {currentMinutes[0] < 10
-                  ? `0${currentMinutes[0]}`
-                  : currentMinutes[0] >= 10
-                  ? currentMinutes[0]
-                  : "00"}{" "}
-                :{" "}
-                {currentSeconds[0] < 10
-                  ? `0${currentSeconds[0]}`
-                  : currentSeconds[0] >= 10
-                  ? currentSeconds[0]
-                  : "00"}{" "}
-                /{" "}
-                {`0${Math.floor(v?.voicePlayTime / 60)} :  ${
-                  v?.voicePlayTime % 60 < 10
-                    ? `0${v?.voicePlayTime % 60}`
-                    : v?.voicePlayTime % 60
-                }`}
-              </Text>
+              {v?.voiceFile ? (
+                <Text S3 className="homeVoiceRunTime">
+                  {currentMinutes[0] < 10
+                    ? `0${currentMinutes[0]}`
+                    : currentMinutes[0] >= 10
+                    ? currentMinutes[0]
+                    : "00"}{" "}
+                  :{" "}
+                  {currentSeconds[0] < 10
+                    ? `0${currentSeconds[0]}`
+                    : currentSeconds[0] >= 10
+                    ? currentSeconds[0]
+                    : "00"}{" "}
+                  /{" "}
+                  {`0${Math.floor(v?.voicePlayTime / 60)} :  ${
+                    v?.voicePlayTime % 60 < 10
+                      ? `0${v?.voicePlayTime % 60}`
+                      : v?.voicePlayTime % 60
+                  }`}
+                </Text>
+              ) : (
+                <Text S3 className="homeVoiceRunTime">
+                  {" "}
+                  {`00 : 00 / 00 : 00`}
+                </Text>
+              )}
             </VoiceBox>
           </VoiceWrap>
         </Figure>

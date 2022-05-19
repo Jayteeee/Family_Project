@@ -12,10 +12,9 @@ import { Divider } from "@material-ui/core";
 const PhotoSlider = ({ onClose }) => {
   // const list = DummyData.photoModalList;
   const list = useSelector((state) => state.calendar?.photoOneList);
-  console.log(list);
 
   const settings = {
-    arrows: true, //화살표 o
+    arrows: false, //화살표 x
     dots: true, //이동 점
     infinite: true, //끝-처음 반복
     slidesToShow: 1, //한화면에 보이는 개수
@@ -35,7 +34,7 @@ const PhotoSlider = ({ onClose }) => {
   const slider = React.useRef(null);
 
   return (
-    <>
+    <Container>
       <Styled_Slide
         {...settings}
         dotsClass="slick-dots slick-thumb"
@@ -45,14 +44,9 @@ const PhotoSlider = ({ onClose }) => {
         {list
           ? list.map((x) => {
               return (
-                <div className="res-ss" key={x.photoId}>
-                  <Photo
-                    key={x.photoId}
-                    alt="photoId"
-                    src={x.photoFile}
-                    className="res-ss"
-                  />
-                </div>
+                <PhotoBox className="res-ss" key={x.photoId}>
+                  <Photo alt="photoId" src={x.photoFile} className="res-ss" />
+                </PhotoBox>
               );
             })
           : null}
@@ -71,107 +65,93 @@ const PhotoSlider = ({ onClose }) => {
       <NButton onClick={() => slider?.current?.slickNext()}>
         <MdChevronRight />
       </NButton>
-    </>
+    </Container>
   );
 };
-const XButton = styled.div`
-  position: absolute;
-  display: flex;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  font-size: 40px;
-  color: white;
-  align-items: center;
-  justify-content: center;
-  top: 11%;
-  right: 11%;
-  cursor: pointer;
-  z-index: 1;
-  @media only screen and (max-width: 1199px) {
-    margin: 15% 10% 0 0;
-    top: 0;
-    right: 0;
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-    margin: 70% 10% 0 0;
-    top: 0;
-    right: 0;
-  }
-  @media only screen and (max-width: 839px) {
-    margin: 70% 10% 0 0;
-    top: 0;
-    right: 0;
-  }
+
+const Container = styled.div`
+  position: relative;
 `;
 
 const Styled_Slide = styled(Slider)`
   .slick-list {
     //얘로 크기조정
-    max-width: 80%;
-    max-height: 80%;
-    object-fit: contain;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    max-height: 800px;
+    width: 100%;
     align-items: center;
-    text-align: start;
+    justify-content: center;
+    text-align: center;
     margin: auto;
   }
 
   .slick-dots.slick-thumb {
     position: absolute;
-    display: flex;
-    align-items: baseline;
-    bottom: 5%;
-    right: 27%;
+    left: -3%;
     list-style: none;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     li {
-      position: relative;
-      display: inline-block;
-      margin: 0 50px;
-      &.slick-active {
-        span {
-          filter: none;
-        }
-      }
+      margin: 0 5%;
     }
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
-      bottom: 0;
       li {
-        position: relative;
-        display: inline-block;
-        margin: 0 5%;
-        &.slick-active {
-          span {
-            filter: none;
-          }
-        }
+        margin: 0 4%;
       }
     }
     @media only screen and (max-width: 839px) {
-      /* margin: 70% 10% 0 0; */
-      bottom: 0;
       li {
-        position: relative;
-        display: inline-block;
-        margin: 0 5%;
-        &.slick-active {
-          span {
-            filter: none;
-          }
-        }
+        margin: 0 3%;
       }
     }
+  }
+`;
+
+const PhotoBox = styled.div`
+  /* position: fixed; */
+  display: flex;
+  top: 50%;
+  right: 50%;
+  max-height: 800px;
+  height: 800px;
+  max-width: 800px;
+  width: 800px;
+
+  overflow: auto;
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    max-width: 600px;
+    max-height: 600px;
+  }
+  @media only screen and (max-width: 839px) {
+    max-width: 500px;
+    max-height: 500px;
+  }
+  @media only screen and (max-width: 412px) {
+    max-width: 300px;
+    max-height: 300px;
   }
 `;
 
 const Photo = styled.img`
   height: 100%;
   width: 100%;
+  object-fit: cover;
+  margin: auto;
+
+  overflow: auto;
 `;
 
 const PagingAnchor = styled.a`
-  display: block;
+  /* position: absolute; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   width: 100px;
   height: 100px;
   img {
@@ -180,27 +160,61 @@ const PagingAnchor = styled.a`
   }
 `;
 const Paging = styled.span`
-  display: inline-block;
+  display: flex;
   width: 100%;
   height: 100%;
-  vertical-align: end;
+  /* vertical-align: end; */
   background: no-repeat url(${(props) => props.src});
-  background-size: 100% 100%;
+  background-size: cover;
 
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    width: 50%;
-    height: 50%;
+    width: 70%;
+    height: 70%;
   }
   @media only screen and (max-width: 839px) {
     width: 50%;
     height: 50%;
+  }
+  @media only screen and (max-width: 412px) {
+    width: 40%;
+    height: 40%;
+  }
+`;
+
+const XButton = styled.div`
+  position: fixed;
+  display: flex;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  font-size: 40px;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  top: 5%;
+  right: 5%;
+  cursor: pointer;
+  z-index: 1;
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    width: 40px;
+    height: 40px;
+  }
+  @media only screen and (max-width: 839px) {
+    width: 30px;
+    height: 30px;
   }
 `;
 
 const PButton = styled.div`
   position: absolute;
   left: 0;
+  top: 50%;
   color: white;
   font-size: 80px;
   cursor: pointer;
@@ -216,6 +230,7 @@ const PButton = styled.div`
 const NButton = styled.div`
   position: absolute;
   right: 0;
+  top: 50%;
   color: white;
   font-size: 80px;
   cursor: pointer;
