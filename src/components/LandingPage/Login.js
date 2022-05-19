@@ -30,8 +30,8 @@ const Login = ({ checkClient }) => {
             id="email"
             className="myInput"
             type="text"
-            onChange={handleChange}
-            onBlur={handleChange}
+            onInput={handleChange}
+            // onChange={handleChange}
             value={inputs.email}
             placeholder="아이디"
             margin="0 0 8px 0"
@@ -46,8 +46,8 @@ const Login = ({ checkClient }) => {
             id="password"
             className="myInput"
             type="password"
-            onChange={handleChange}
-            onBlur={handleChange}
+            onInput={handleChange}
+            // onChange={handleChange}
             value={inputs.password}
             placeholder="비밀번호"
             margin="0 0 8px 0"

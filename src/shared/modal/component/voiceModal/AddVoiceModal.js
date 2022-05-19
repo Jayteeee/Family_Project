@@ -43,6 +43,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
   const [sound, setSound] = useState();
+  const [voiceFile, setVoiceFile] = useState();
   const [disabled, setDisabled] = useState(false);
 
   // ----------음성 전송 ------------//
@@ -53,7 +54,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
           familyId,
           voiceAlbumId,
           voiceTitle,
-          audioUrl,
+          voiceFile,
           count
           // formData
         )
@@ -91,6 +92,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
       setStream(stream);
       setMedia(mediaRecorder);
       makeSound(stream);
+      console.log(mediaRecorder);
 
       analyser.onaudioprocess = function (e) {
         // 3분(180초) 지나면 자동으로 음성 저장 및 녹음 중지
@@ -121,11 +123,14 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
 
     // dataavailable 이벤트로 Blob 데이터에 대한 응답을 받을 수 있음
     media.ondataavailable = function (e) {
+      console.log(e);
       setAudioUrl(e.data);
       setOnRec(true);
       setSound(URL.createObjectURL(e.data)); // File 정보 출력
+      setVoiceFile(new File([e.data], "file", { type: e.data.type }));
     };
 
+    console.log(sound);
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
     stream.getAudioTracks().forEach(function (track) {
       track.stop();

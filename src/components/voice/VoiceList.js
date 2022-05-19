@@ -22,7 +22,7 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
 
   useEffect(() => {
     dispatch(voiceActions.getVoiceListDB(voiceAlbumId));
-  }, []);
+  }, [voiceList?.length]);
 
   return (
     <>
@@ -36,6 +36,7 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
       {voiceList?.map((v) => {
         return (
           <Audio
+            key={v.voiceFileId}
             voiceAlbumId={voiceAlbumId}
             familyId={familyId}
             isEdit={isEdit}
