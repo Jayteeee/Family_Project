@@ -17,57 +17,52 @@ import albumCover4 from "../../shared/images/albumCover4.jpg";
 
 const HomeVoice = ({ recentVoiceFile, familyId }) => {
   const v = recentVoiceFile;
-  const [run, setRun] = useState(false);
+  const [run, setRun] = useState(true);
   const [count, setCount] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
-  const [sound, setSound] = useState();
 
   const myRef = useRef();
 
   const timer = () => {
-    // const checkMinutes = Math.floor(count / 60);
-    // const minutes = [checkMinutes & 60];
-    // const seconds = [count % 60];
     const minutes = [Math.floor(myRef.current?.currentTime / 60)];
     const seconds = [Math.floor(myRef.current?.currentTime)];
-
-    setCount(seconds);
+    setTimeout(() => {
+      setCount(seconds);
+    }, 50);
     setCurrentMinutes(minutes);
     setCurrentSeconds(seconds);
   };
 
-  const play = () => {
-    let isPlaying =
-      myRef.current?.currentTime > 0 &&
-      !myRef.current?.paused &&
-      !myRef.current?.ended;
-    if (!isPlaying) {
+  const handlePlay = async () => {
+    if (run) {
       timer();
-      myRef.current.play();
+      setRun(false);
+      play();
+    } else {
+      setRun(true);
+      pause();
     }
   };
 
-  const pause = () => {
-    let isPlaying =
-      myRef.current?.currentTime > 0 &&
-      !myRef.current?.paused &&
-      !myRef.current?.ended;
-    if (isPlaying) {
-      myRef.current.pause();
-    }
+  const play = async () => {
+    await myRef.current.load();
+    await myRef.current.play();
+  };
+
+  const pause = async () => {
+    setCount(0);
+    await myRef.current.pause();
   };
 
   useEffect(() => {
-    if (myRef.current?.currentTime > 0 && myRef.current?.ended) {
-      setRun(false);
-    }
-  }, []);
+    timer();
+  }, [count]);
 
   return (
     <>
       <Container>
-        <Figure key={v?.voiceFileId}>
+        <Figure>
           <VoiceWrap>
             <VoiceBox>
               <Text S2 className="homeVoiceTitle">
@@ -89,40 +84,34 @@ const HomeVoice = ({ recentVoiceFile, familyId }) => {
                 <PlayBtn
                   onClick={(e) => {
                     e.stopPropagation();
-                    setRun(!run);
-                    // play.bind(this, v?.voiceFile)();
                   }}
                 >
-                  {!run && sound === v?.voiceFile ? (
+                  {!run ? (
                     <MdOutlinePause
                       onClick={() => {
-                        pause();
-                        // handlePlay();
+                        handlePlay();
                       }}
                     />
                   ) : (
                     <MdPlayArrow
                       onClick={() => {
-                        setSound(v?.voiceFile);
-                        play();
-                        // play.bind(this, v?.voiceFile)();
-                        // handlePlay();
+                        handlePlay();
                       }}
                     />
                   )}
                 </PlayBtn>
               </div>
-              <audio ref={myRef} src={sound} />
+              <audio ref={myRef} src={v?.voiceFile} />
               <Text S3 className="homeVoiceRunTime">
-                {sound === v?.voiceFile && currentMinutes[0] < 10
+                {currentMinutes[0] < 10
                   ? `0${currentMinutes[0]}`
-                  : sound === v?.voiceFile && currentMinutes[0] >= 10
+                  : currentMinutes[0] >= 10
                   ? currentMinutes[0]
                   : "00"}{" "}
                 :{" "}
-                {sound === v?.voiceFile && currentSeconds[0] < 10
+                {currentSeconds[0] < 10
                   ? `0${currentSeconds[0]}`
-                  : sound === v?.voiceFile && currentSeconds[0] >= 10
+                  : currentSeconds[0] >= 10
                   ? currentSeconds[0]
                   : "00"}{" "}
                 /{" "}
