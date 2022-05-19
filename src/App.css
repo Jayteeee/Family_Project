@@ -16,6 +16,8 @@
   display: none;
 }
 
+/* ----------------cross-browsing 해결, 아이폰에서 input 값 입력안되는 문제 해결------------------- */
+
 input {
   -webkit-user-select: text; /* Chrome, Opera, Safari */
   -moz-user-select: text; /* Firefox 2+ */
