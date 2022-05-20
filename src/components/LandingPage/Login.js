@@ -5,6 +5,7 @@ import { userActions } from "../../redux/modules/user";
 import { Button, Input, Text } from "../../elements";
 import kakaoImg from "../../shared/images/kakao_login_large_wide.png";
 import { KakaoPath } from "../../shared/KakaoPath";
+import { familyMemberActions } from "../../redux/modules/familymember";
 
 const Login = ({ checkClient }) => {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const Login = ({ checkClient }) => {
           color="#fff"
           borderColor="#fff"
           borderRadius="12px"
-          style={{ backgroundColor: "#6F5FCE", opacity: "0.4" }}
+          style={{ backgroundColor: "#6371F7", opacity: "0.4" }}
         >
           로그인
         </Button>
@@ -101,7 +102,8 @@ const LoginWrap = styled.div`
   .myInput {
     :focus {
       box-shadow: none;
-      border-color: #6f5fce !important;
+      outline: none !important;
+      border-color: #6371f7 !important;
     }
   }
 `;

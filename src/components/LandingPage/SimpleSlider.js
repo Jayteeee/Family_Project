@@ -168,7 +168,7 @@ const Styled_Slide = styled(Slider)`
 
   .reset li.slick-active button:before {
     opacity: 0.75;
-    color: #6f5fce;
+    color: #6371f7;
   }
 `;
 

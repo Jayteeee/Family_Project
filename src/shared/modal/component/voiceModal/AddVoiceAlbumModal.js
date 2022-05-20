@@ -13,10 +13,10 @@ import { useDispatch } from "react-redux";
 // 엘리먼트
 import { Button, Text, Input } from "../../../../elements";
 import { voiceActions } from "../../../../redux/modules/voice";
-import albumCover1 from "../../../images/albumCover1.jpg";
-import albumCover2 from "../../../images/albumCover2.jpg";
-import albumCover3 from "../../../images/albumCover3.jpg";
-import albumCover4 from "../../../images/albumCover4.jpg";
+import albumCover1 from "../../../images/albumCover1.svg";
+import albumCover2 from "../../../images/albumCover2.svg";
+import albumCover3 from "../../../images/albumCover3.svg";
+import albumCover4 from "../../../images/albumCover4.svg";
 
 const AddVoiceAlbumModal = ({ onClose, familyId }) => {
   const dispatch = useDispatch();

@@ -95,7 +95,7 @@ const AddFamilyModal = ({ onClose }) => {
               borderColor="#fff"
               borderRadius="12px"
               margin="24px 0 0 0"
-              style={{ backgroundColor: "#6F5FCE", opacity: "0.4" }}
+              style={{ backgroundColor: "#6371F7", opacity: "0.4" }}
             >
               저장
             </Button>
@@ -139,7 +139,8 @@ const Container = styled.div`
   .myInput {
     :focus {
       box-shadow: none;
-      border-color: #6f5fce !important;
+      outline: none !important;
+      border-color: #6371f7 !important;
     }
   }
 `;

@@ -13,10 +13,15 @@ import { Text } from "../../elements";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
-import albumCover4 from "../../shared/images/albumCover4.jpg";
+import albumCover1 from "../../shared/images/albumCover1.svg";
+import albumCover2 from "../../shared/images/albumCover2.svg";
+import albumCover3 from "../../shared/images/albumCover3.svg";
+import albumCover4 from "../../shared/images/albumCover4.svg";
 
-const HomeVoice = ({ recentVoiceFile, familyId }) => {
+const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
   const v = recentVoiceFile;
+  const voiceAlbumCover = voiceAlbumInfo?.voiceAlbumCover;
+  console.log(voiceAlbumCover);
   const [run, setRun] = useState(true);
   const [count, setCount] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
@@ -82,7 +87,19 @@ const HomeVoice = ({ recentVoiceFile, familyId }) => {
                   position: "relative",
                 }}
               >
-                <PlayBtnImg src={albumCover4} />
+                <PlayBtnImg
+                  src={
+                    voiceAlbumCover === "albumCover1"
+                      ? albumCover1
+                      : voiceAlbumCover === "albumCover2"
+                      ? albumCover2
+                      : voiceAlbumCover === "albumCover3"
+                      ? albumCover3
+                      : voiceAlbumCover === "albumCover4"
+                      ? albumCover4
+                      : noImage
+                  }
+                />
                 <PlayBtn
                   onClick={(e) => {
                     e.stopPropagation();
@@ -164,6 +181,7 @@ const Figure = styled.div`
 
 const VoiceWrap = styled.div`
   width: 100%;
+
   /* height: 100%; */
   background-color: transparent;
   margin-top: 7%;
@@ -208,8 +226,6 @@ const VoiceBox = styled.div`
   /* height: 100%; */
   width: 100%;
   background-color: transparent;
-
-  /* border: 1px solid #c4c4c4; */
 `;
 
 const PlayBtnImg = styled.div`

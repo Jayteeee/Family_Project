@@ -24,14 +24,7 @@ import { history } from "../../redux/configureStore";
 import noImage from "../../shared/images/noImage.png";
 import profileImg from "../../shared/images/profileImg.png";
 
-const OneComment = ({
-  _id,
-  userInfo,
-  comment,
-  createdAt,
-  commentId,
-  profileImg,
-}) => {
+const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.user.user);
@@ -43,13 +36,18 @@ const OneComment = ({
     dispatch(detailPhotoActions.deleteCommentDB(commentId));
   };
 
+  console.log(userInfo);
+
   return (
     <>
       <OneCommentBox key={_id}>
         <CommentContentWrap>
           <CommentProfile>
             <div>
-              <CircleImage XS src={profileImg ? profileImg : profileImg} />
+              <CircleImage
+                XS
+                src={userInfo?.profileImg ? userInfo?.profileImg : profileImg}
+              />
             </div>
             <Text size="15px" padding="0 10px 0 10px" fontWeight="600">
               {userInfo.familyMemberNickname}

@@ -5,9 +5,9 @@ import jwt from "jwt-decode";
 
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/Token";
+import { familyMemberActions } from "./familymember";
 
 const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   user: {},
@@ -18,11 +18,23 @@ const initialState = {
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
+const EDIT_PROFILE_IMG = "EDIT_PROFILE_IMG";
+const EDIT_TODAY_MOOD = "EDIT_TODAY_MOOD";
 
 // 액션 생성함수
 const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT);
 const getUser = createAction(GET_USER, (user) => ({ user }));
+const editProfileImg = createAction(
+  EDIT_PROFILE_IMG,
+  (newProfile, myFamiyMemberId) => ({
+    newProfile,
+    myFamiyMemberId,
+  })
+);
+const editTodayMood = createAction(EDIT_TODAY_MOOD, (todayMood) => ({
+  todayMood,
+}));
 
 // 미들웨어
 const userLogout = () => {
@@ -60,7 +72,7 @@ const loginDB = (inputs) => {
     await axios
       .post(`${BASE_URL}/auth/login`, inputs)
       .then((res) => {
-        console.log(res);
+        console.log("로그인 시 들어오는 데이터:", res);
         const token = res.data.logIntoken;
         const user = res.data;
         console.log(user);
@@ -70,6 +82,7 @@ const loginDB = (inputs) => {
         res.data.familyList.length !== 0
           ? history.push(`/family/${familyId}`)
           : history.go(0);
+        dispatch(familyMemberActions.getFamilyMemberDB(familyId));
       })
       .catch((err) => {
         console.log(err);
@@ -98,6 +111,58 @@ const getUserInfo = (token) => {
   };
 };
 
+const editTodayMoodDB = (todayMood) => {
+  return async function (dispatch, getState, { history }) {
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .put(
+        `${BASE_URL}/user/myProfile/todaymood`,
+        { todayMood },
+        {
+          headers: config,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        const todayMood = res.data;
+        console.log(todayMood);
+
+        // dispatch(editTodayMood(todayMood));
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("새로고침 해주세요.");
+      });
+  };
+};
+
+const editProfileImgDB = (formData, myFamiyMemberId) => {
+  return async function (dispatch, getState, { history }) {
+    console.log("formData:", formData);
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .put(`${BASE_URL}/user/myProfile`, formData, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.msg);
+        const newProfileImg = res.data.photoFile;
+        dispatch(
+          familyMemberActions.editFamilyProfileImg(
+            newProfileImg,
+            myFamiyMemberId
+          )
+        );
+        window.alert("프로필 이미지가 수정되었습니다.");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+  };
+};
+
 // 리듀서
 export default handleActions(
   {
@@ -117,6 +182,11 @@ export default handleActions(
         draft.user = action.payload.user;
         draft.isLogin = true;
       }),
+    // [EDIT_TODAY_MOOD]: (state, action) =>
+    // produce(state, (draft) => {
+    //   draft.user = action.payload.user;
+    //   draft.isLogin = true;
+    // }),
   },
   initialState
 );
@@ -126,4 +196,6 @@ export const userActions = {
   loginDB,
   getUserInfo,
   userLogout,
+  editProfileImgDB,
+  editTodayMoodDB,
 };

@@ -11,6 +11,7 @@ import { Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { familyActions } from "../redux/modules/family";
 import { history } from "../redux/configureStore";
+import { familyMemberActions } from "../redux/modules/familymember";
 
 // 페이지
 import {
@@ -56,9 +57,20 @@ const Main = (props) => {
   const { user } = useSelector((state) => state?.user?.user);
   console.log("메인유저정보: ", user);
 
+  // const { familyMemberList } = useSelector((state) => state.familymember);
+
+  // const myFamilyMemberNickname = familyMemberList?.find(
+  //   (m) => m?.userId === user?.userId
+  // )?.familyMemberNickname;
+
+  // console.log(user?.userId);
+  // console.log(familyMemberList);
+  // console.log("나의 가족구성원호칭", myFamilyMemberNickname);
+
   // familyId 변경될때마다 리랜더링
   useEffect(() => {
     dispatch(familyActions.getFamilyDB());
+    // dispatch(familyMemberActions.getFamilyMemberDB(familyId));
   }, [familyId]);
 
   // div로 만든 Dropdown
@@ -91,7 +103,12 @@ const Main = (props) => {
         }}
       >
         <MainContext.Provider value={NowFamily}>
-          <Header bg={bg} user={user} />
+          <Header
+            bg={bg}
+            user={user}
+            familyId={familyId}
+            // myFamilyMemberNickname={myFamilyMemberNickname}
+          />
         </MainContext.Provider>
         <ContentWrap>
           <SidbarWrap className="res-selectWrap">

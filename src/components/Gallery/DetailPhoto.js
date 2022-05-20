@@ -549,8 +549,9 @@ const Comment = styled.div`
 
 const CommentTextarea = styled.textarea`
   &:focus {
-    outline: none;
-    box-shadow: 0 0 0 0px #6371f7, 0 0 0 2px #6371f7;
+    box-shadow: none;
+    outline: none !important;
+    border-color: #6371f7 !important;
   }
   width: ${({ width }) => (width ? `${width};` : "100%;")};
   height: 24px;

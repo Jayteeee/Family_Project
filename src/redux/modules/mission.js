@@ -308,7 +308,7 @@ const deleteMissionDB = (familyId, missionId) => {
     console.log(missionId);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
-      .delete(`${BASE_URL}/mission/${familyId}/${missionId}`, {
+      .delete(`${BASE_URL}/mission/${missionId}`, {
         headers: config,
       })
       .then((res) => {

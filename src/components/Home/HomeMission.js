@@ -131,13 +131,13 @@ const MissionChkBox = styled.div`
   height: 24px;
   font-size: 17px;
   border-radius: 30px;
-  border: none;
+  border: 2px solid #fff;
   background-color: #fff;
   position: absolute;
   bottom: 0px;
   right: -5px;
   background-color: #6371f7;
-  /* box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05); */
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;

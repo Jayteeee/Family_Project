@@ -64,7 +64,7 @@ const DeletePhotoAlbumModal = ({ onClose, photoAlbumId, photoAlbumName }) => {
                 M
                 onClick={deletePhotoAlbum}
                 borderColor="transparent"
-                bg="#6F5FCE"
+                bg="#6371F7"
                 color="white"
                 width="100%"
                 height="56px"

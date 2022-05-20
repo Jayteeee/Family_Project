@@ -18,10 +18,10 @@ import { DeleteVoiceAlbumModal } from "../../shared/modal/component/voiceModal";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
-import albumCover1 from "../../shared/images/albumCover1.jpg";
-import albumCover2 from "../../shared/images/albumCover2.jpg";
-import albumCover3 from "../../shared/images/albumCover3.jpg";
-import albumCover4 from "../../shared/images/albumCover4.jpg";
+import albumCover1 from "../../shared/images/albumCover1.svg";
+import albumCover2 from "../../shared/images/albumCover2.svg";
+import albumCover3 from "../../shared/images/albumCover3.svg";
+import albumCover4 from "../../shared/images/albumCover4.svg";
 
 // 컴포넌트
 import VoiceAlbumHeader from "./VoiceAlbumHeader";

@@ -158,22 +158,6 @@ const addPhotoDB = (familyId, photoAlbumId, formData) => {
         console.log(err);
         console.log(err.response);
       });
-
-    const newPhoto = {
-      // familyId: `${familyTitle}`,
-      // familyTitle: `${familyTitle}`, // 가족 이름
-      // familyImg: "url",
-      // familyHost: "홍길동",
-      // createdAt: "2022-05-18 00:51",
-      // userId: "user3@gamil.com",
-      // userNickname: "홍길동",
-      // profileImg: "url",
-      // todayMood: "이모지", // 이모지 사용
-      // missionStatus: "끈끈해요(75%)",
-      // randomMsg: "오늘은 부모님께 안부전화 한 통 어떨까요?",
-    };
-
-    // dispatch(addPhoto(newFamily));
   };
 };
 

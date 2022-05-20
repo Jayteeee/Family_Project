@@ -4,6 +4,7 @@ import axios from "axios";
 import { DummyData } from "../../shared/DummyData";
 import dayjs from "dayjs";
 import { getToken } from "../../shared/Token";
+import { homeActions } from "./home";
 
 const BASE_URL = "https://doremilan.shop";
 // const BASE_URL = "http://52.79.130.222";
@@ -17,9 +18,9 @@ const initialState = {
 const GET_FAMILY_MEMBER = "GET_FAMILY_MEMBER";
 const GET_SEARCH_MEMBER = "GET_SEARCH_MEMBER";
 const ADD_FAMILY_MEMBER = "ADD_FAMILY_MEMBER";
-const EDIT_FAMILY_MEMBER_NICKNAME = "EDIT_FAMILY_MEMBER";
+const EDIT_FAMILY_MEMBER_NICKNAME = "EDIT_FAMILY_MEMBER_NICKNAME";
+const EDIT_FAMILY_PROFILE_IMG = "EDIT_FAMILY_PROFILE_IMG";
 const DELETE_FAMILY_MEMBER = "DELETE_FAMILY_MEMBER";
-const HOME_PROFILE_UPDATE = "HOME_PROFILE_UPDATE";
 
 // 액션 생성함수
 const getFamilyMember = createAction(
@@ -42,15 +43,14 @@ const editFamilyMembeNickname = createAction(
     familyMemberNickname,
   })
 );
-const deleteFamilyMember = createAction(
-  DELETE_FAMILY_MEMBER,
-  (familyId, familyMemberId) => ({
-    familyId,
+const editFamilyProfileImg = createAction(
+  EDIT_FAMILY_PROFILE_IMG,
+  (newProfileImg, familyMemberId) => ({
+    newProfileImg,
     familyMemberId,
   })
 );
-
-const homeProfileUpdate = createAction(
+const deleteFamilyMember = createAction(
   DELETE_FAMILY_MEMBER,
   (familyId, familyMemberId) => ({
     familyId,
@@ -140,7 +140,8 @@ const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
 const editFamilyMemberNicknameDB = (
   familyId,
   familyMemberId,
-  familyMemberNickname
+  familyMemberNickname,
+  userId
 ) => {
   console.log(
     "가족아이디:",
@@ -148,7 +149,9 @@ const editFamilyMemberNicknameDB = (
     "가족맴버아이디:",
     familyMemberId,
     "가족맴버호칭:",
-    familyMemberNickname
+    familyMemberNickname,
+    "userId",
+    userId
   );
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
@@ -167,6 +170,13 @@ const editFamilyMemberNicknameDB = (
             familyId,
             familyMemberId,
             familyMemberNickname
+          )
+        );
+        dispatch(
+          homeActions.homeProfileUpdate(
+            familyMemberId,
+            familyMemberNickname,
+            userId
           )
         );
       })
@@ -218,10 +228,12 @@ export default handleActions(
         // 멤버 리스트 주입
         draft.searchMember = userEmail;
       }),
+
     [ADD_FAMILY_MEMBER]: (state, action) =>
       produce(state, (draft) => {
         draft.familyMemberList.push(action.payload.newFamilyMember);
       }),
+
     [EDIT_FAMILY_MEMBER_NICKNAME]: (state, action) =>
       produce(state, (draft) => {
         const { familyId, familyMemberId, familyMemberNickname } =
@@ -242,6 +254,30 @@ export default handleActions(
         nowFamilyMember = {
           ...nowFamilyMember,
           familyMemberNickname: familyMemberNickname,
+        };
+
+        draft.familyMemberList[index] = nowFamilyMember;
+      }),
+
+    [EDIT_FAMILY_PROFILE_IMG]: (state, action) =>
+      produce(state, (draft) => {
+        const { newProfileImg, familyMemberId } = action.payload;
+        // 현재 가족
+        let nowFamilyMember = draft.familyMemberList.find(
+          (l) => l.familyMemberId === familyMemberId
+        );
+
+        // console.log(state,fam)
+
+        // let nowFamilMemberList = d
+        // // 변경해야할 배열 인덱스
+        let index = draft.familyMemberList.findIndex(
+          (l) => l.familyMemberId === familyMemberId
+        );
+
+        nowFamilyMember = {
+          ...nowFamilyMember,
+          profileImg: newProfileImg,
         };
 
         draft.familyMemberList[index] = nowFamilyMember;
@@ -269,6 +305,7 @@ export const familyMemberActions = {
   getSearchMember,
   addFamilyMember,
   editFamilyMembeNickname,
+  editFamilyProfileImg,
   deleteFamilyMember,
   getFamilyMemberDB,
   getSearchMemberDB,
