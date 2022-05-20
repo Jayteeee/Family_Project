@@ -237,7 +237,7 @@ const deleteVoiceDB = (voiceFileId) => {
         console.log(res);
         alert("삭제완료되었습니다.");
         dispatch(deleteVoice(voiceFileId));
-        history.go(0);
+        // history.go(0);
       })
       .catch((err) => {
         console.log(err);

@@ -21,7 +21,7 @@ import albumCover4 from "../../shared/images/albumCover4.svg";
 const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
   const v = recentVoiceFile;
   const voiceAlbumCover = voiceAlbumInfo?.voiceAlbumCover;
-  console.log(voiceAlbumCover);
+  // console.log(voiceAlbumCover);
   const [run, setRun] = useState(true);
   const [count, setCount] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
@@ -34,7 +34,7 @@ const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
     const seconds = [Math.floor(myRef.current?.currentTime)];
     setTimeout(() => {
       setCount(seconds);
-    }, 50);
+    }, 1000);
     setCurrentMinutes(minutes);
     setCurrentSeconds(seconds);
   };

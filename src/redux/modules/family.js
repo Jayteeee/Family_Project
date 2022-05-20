@@ -108,12 +108,15 @@ const deleteFamilyDB = (familyId, otherFamilyId) => {
       })
       .then((res) => {
         console.log(res);
-        // window.alert(res.msg)
-        dispatch(deleteFamily(familyId));
-        alert("삭제!");
 
-        history.push(`/family/${otherFamilyId}`);
-        history.go(0);
+        dispatch(deleteFamily(familyId));
+
+        if (otherFamilyId !== undefined) {
+          history.replace(`/family/${otherFamilyId}`);
+        } else {
+          history.replace("/");
+        }
+        // history.go(0);
       })
       .catch((err) => {
         console.log(err);

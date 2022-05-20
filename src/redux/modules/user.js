@@ -23,7 +23,7 @@ const EDIT_PROFILE_IMG = "EDIT_PROFILE_IMG";
 const EDIT_TODAY_MOOD = "EDIT_TODAY_MOOD";
 
 // 액션 생성함수
-const login = createAction(LOG_IN, (user) => ({ user }));
+const login = createAction(LOG_IN, (userData) => ({ userData }));
 const logOut = createAction(LOG_OUT);
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const editProfileImg = createAction(
@@ -42,7 +42,7 @@ const userLogout = () => {
   return async function (dispatch, getState, { history }) {
     dispatch(logOut());
     history.replace("/");
-    history.go(0);
+    // history.go(0);
   };
 };
 
@@ -75,14 +75,22 @@ const loginDB = (inputs) => {
       .then((res) => {
         console.log("로그인 시 들어오는 데이터:", res);
         const token = res.data.logIntoken;
-        const user = res.data;
-        console.log(user);
+        const { userInfo } = res.data;
+        console.log(userInfo);
         const familyId = res.data.familyList[0]?.familyId;
         insertToken(token);
-        dispatch(login(user));
+        const { familyList } = res.data;
+
+        // 로그인시 들어오는 데이터 GET_USER시 들어오는 데이터와 똑같이 맞추기 위함.
+        let userData = { familyList, user: userInfo };
+        console.log(userData);
+
+        dispatch(login(userData));
+
         res.data.familyList.length !== 0
           ? history.push(`/family/${familyId}`)
           : history.go(0);
+
         dispatch(familyMemberActions.getFamilyMemberDB(familyId));
       })
       .catch((err) => {
@@ -169,7 +177,8 @@ export default handleActions(
   {
     [LOG_IN]: (state, action) =>
       produce(state, (draft) => {
-        draft.user.user = action.payload.user.userInfo;
+        draft.user = action.payload.userData;
+
         draft.isLogin = true;
       }),
     [LOG_OUT]: (state) =>

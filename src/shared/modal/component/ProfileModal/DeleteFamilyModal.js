@@ -7,9 +7,11 @@ import styled from "styled-components";
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 import { familyActions } from "../../../../redux/modules/family";
+import { history } from "../../../../redux/configureStore";
 
 // 모달
 import { ModalPortal } from "../../portals";
+import AlertModal from "../AlertModal";
 
 // 엘리먼트
 import { Button, Text } from "../../../../elements";
@@ -33,8 +35,9 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
 
   const deleteFamily = () => {
     dispatch(familyActions.deleteFamilyDB(familyId, otherFamilyId));
-    // document.getElementById("deleteFamily").style.display = "none";
+    onClose();
   };
+
   return (
     <ModalPortal>
       <Background
@@ -65,7 +68,7 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
                 borderColor="rgba(219, 219, 219, 1)"
                 borderRadius="12px"
                 style={{ backgroundColor: "rgba(219, 219, 219, 1)" }}
-                className="deleteMemberBtn"
+                className="deleteBtn"
               >
                 취소
               </Button>
@@ -77,7 +80,7 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
                 borderRadius="12px"
                 style={{ backgroundColor: "#6371F7" }}
                 margin="0 0 0 10px"
-                className="deleteMemberBtn"
+                className="deleteBtn"
               >
                 삭제
               </Button>
@@ -132,8 +135,9 @@ const ButtonWrap = styled.div`
   display: flex;
   width: 100%;
   margin-top: 36px;
-  .deleteMemberBtn {
-    padding: 16px 90px;
+  .deleteBtn {
+    height: 56px;
+    width: 221px;
     cursor: pointer;
     &:hover {
       filter: brightness(70%);
@@ -142,14 +146,16 @@ const ButtonWrap = styled.div`
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    .deleteMemberBtn {
-      padding: 16px 60px;
+    .deleteBtn {
+      padding: 16px 20px;
+      height: 100%;
+      width: 100%;
     }
     margin-top: 30px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    .deleteMemberBtn {
+    .deleteBtn {
       padding: 8px 20px;
     }
     margin-top: 30px;

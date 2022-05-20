@@ -33,6 +33,7 @@ const ProfileModal = ({
   user,
   // myFamilyMemberNickname
 }) => {
+  console.log(user);
   const dispatch = useDispatch();
 
   const params = useParams();
@@ -341,11 +342,13 @@ const ProfileModal = ({
                   </MenuBox>
                 </>
               )}
-              <MenuBox onClick={handleLeaveFamilyModal}>
-                <Text size="15px" fontWeight="700">
-                  가족 나가기
-                </Text>
-              </MenuBox>
+              {familyHost?.familyHost !== user?.id && (
+                <MenuBox onClick={handleLeaveFamilyModal}>
+                  <Text size="15px" fontWeight="700">
+                    가족 나가기
+                  </Text>
+                </MenuBox>
+              )}
               <Line />
               <LogoutBox onClick={handleLogoutModal}>
                 <p
@@ -397,6 +400,7 @@ const ProfileModal = ({
               onClose={handleLeaveFamilyModal}
               familyId={NowFamilyId}
               familyMemberId={myFamiyMemberId}
+              familyList={familyList}
             />
           )}
         </ModalPortal>

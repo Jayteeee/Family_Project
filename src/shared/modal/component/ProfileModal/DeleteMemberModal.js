@@ -60,7 +60,7 @@ const DeleteMemberModal = (props) => {
                 borderColor="rgba(219, 219, 219, 1)"
                 borderRadius="12px"
                 style={{ backgroundColor: "rgba(219, 219, 219, 1)" }}
-                className="deleteMemberBtn"
+                className="deleteBtn"
               >
                 취소
               </Button>
@@ -72,7 +72,7 @@ const DeleteMemberModal = (props) => {
                 borderRadius="12px"
                 style={{ backgroundColor: "#6371F7" }}
                 margin="0 0 0 10px"
-                className="deleteMemberBtn"
+                className="deleteBtn"
               >
                 삭제
               </Button>
@@ -127,8 +127,9 @@ const ButtonWrap = styled.div`
   display: flex;
   width: 100%;
   margin-top: 36px;
-  .deleteMemberBtn {
-    padding: 16px 90px;
+  .deleteBtn {
+    height: 56px;
+    width: 221px;
     cursor: pointer;
     &:hover {
       filter: brightness(70%);
@@ -137,14 +138,16 @@ const ButtonWrap = styled.div`
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    .deleteMemberBtn {
-      padding: 16px 60px;
+    .deleteBtn {
+      padding: 16px 20px;
+      height: 100%;
+      width: 100%;
     }
     margin-top: 30px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    .deleteMemberBtn {
+    .deleteBtn {
       padding: 8px 20px;
     }
     margin-top: 30px;

@@ -41,9 +41,9 @@ const ScheduleCalendar = ({ familyId, list }) => {
 
     const newEvent = list
       .filter((x, i) => {
-        return x.startDate !== x.endDate;
+        return x?.startDate !== x.endDate;
       })
-      .find((x) => x.startDate === result[0].startDate1);
+      .find((x) => x?.startDate === result[0]?.startDate1);
 
     if (newEvent) {
       for (let i = 0; i < result.length; i++) {
@@ -63,7 +63,7 @@ const ScheduleCalendar = ({ familyId, list }) => {
   let longList = [];
 
   longEvents.filter((x) =>
-    longList.push(getDatesStartToEnd(x.startDate, x.endDate))
+    longList.push(getDatesStartToEnd(x?.startDate, x?.endDate))
   );
   console.log(longList);
 
@@ -91,7 +91,7 @@ const ScheduleCalendar = ({ familyId, list }) => {
           prev2Label={null}
           onClickDay={(value, event) => {
             let schedule = list.filter(
-              (x) => x.startDate === dayjs(value).format("YYYY-MM-DD")
+              (x) => x?.startDate === dayjs(value).format("YYYY-MM-DD")
             );
             // test();
             if (schedule.length !== 0) {
@@ -125,8 +125,8 @@ const ScheduleCalendar = ({ familyId, list }) => {
 
             if (list) {
               shortEvents = list.filter((x) =>
-                x.startDate === x.endDate
-                  ? x.startDate === dayjs(date).format("YYYY-MM-DD")
+                x?.startDate === x?.endDate
+                  ? x?.startDate === dayjs(date).format("YYYY-MM-DD")
                   : null
               );
             }
