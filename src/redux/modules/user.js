@@ -7,8 +7,8 @@ import jwt from "jwt-decode";
 import { getToken, insertToken, removeToken } from "../../shared/Token";
 import { familyMemberActions } from "./familymember";
 
-// const BASE_URL = "https://doremilan.shop";
-const BASE_URL = "http://52.79.130.222";
+const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   user: {},

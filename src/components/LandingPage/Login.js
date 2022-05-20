@@ -33,9 +33,9 @@ const Login = ({ checkClient }) => {
   );
 
   const login = () => {
+    dispatch(userActions.loginDB(inputs));
     socket?.emit("join", userId);
     console.log(userId);
-    dispatch(userActions.loginDB(inputs));
   };
 
   return (
