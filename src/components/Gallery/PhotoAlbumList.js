@@ -64,15 +64,18 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
   // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
   const DeleteAlbum = (photoAlbumId, photoAlbumName) => {
-    setModalOn(!modalOn);
+    // setModalOn(!modalOn);
     setPhotoAlbumId(photoAlbumId);
     setPhotoAlbumName(photoAlbumName);
     console.log(photoAlbumId);
+    handleModal();
   };
   const handleModal = (e) => {
     setModalOn(!modalOn);
-    const deleteBtm = document.getElementById("deleteBtn");
+    const deleteBtn = document.getElementById("deleteBtn");
   };
+
+  console.log(modalOn);
 
   useEffect(() => {
     dispatch(galleryActions.getPhotoAlbumDB(NowFamilyId));
@@ -150,7 +153,7 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                           this,
                           p.photoAlbumId,
                           p.photoAlbumName
-                        );
+                        )();
                         handleNotification("앨범 삭제");
                       }}
                     >

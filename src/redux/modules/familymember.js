@@ -5,6 +5,7 @@ import { DummyData } from "../../shared/DummyData";
 import dayjs from "dayjs";
 import { getToken } from "../../shared/Token";
 import { homeActions } from "./home";
+import { familyActions } from "./family";
 
 const BASE_URL = "https://doremilan.shop";
 // const BASE_URL = "http://52.79.130.222";
@@ -21,6 +22,7 @@ const ADD_FAMILY_MEMBER = "ADD_FAMILY_MEMBER";
 const EDIT_FAMILY_MEMBER_NICKNAME = "EDIT_FAMILY_MEMBER_NICKNAME";
 const EDIT_FAMILY_PROFILE_IMG = "EDIT_FAMILY_PROFILE_IMG";
 const DELETE_FAMILY_MEMBER = "DELETE_FAMILY_MEMBER";
+const LEAVE_FAMILY = "LEAVE_FAMILY";
 
 // 액션 생성함수
 const getFamilyMember = createAction(
@@ -57,6 +59,10 @@ const deleteFamilyMember = createAction(
     familyMemberId,
   })
 );
+const leaveFamily = createAction(LEAVE_FAMILY, (familyId, familyMemberId) => ({
+  familyId,
+  familyMemberId,
+}));
 
 // api 응답 받는 미들웨어
 const getFamilyMemberDB = (familyId) => {
@@ -128,7 +134,7 @@ const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
       .then((res) => {
         console.log(res);
         console.log(res.msg);
-        dispatch(addFamilyMember(newFamilyMember));
+        dispatch(addFamilyMember(res.data.familyMember));
       })
       .catch((err) => {
         console.log(err);
@@ -200,9 +206,35 @@ const deleteFamilyMemberDB = (familyId, familyMemberId) => {
       })
       .then((res) => {
         console.log(res);
-        // window.alert(res.msg)
-        alert("삭제!");
+        // dispatch(familyActions.deleteFamily(familyId));
         dispatch(deleteFamilyMember(familyId, familyMemberId));
+        // history.go(0);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+  };
+};
+
+const leaveFamilyDB = (familyId, familyMemberId, otherFamilyId) => {
+  console.log(familyId, familyMemberId);
+  return async function (dispatch, getState, { history }) {
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .delete(`${BASE_URL}/family/familyMember/${familyMemberId}`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log(res);
+
+        dispatch(deleteFamilyMember(familyId, familyMemberId));
+        dispatch(familyActions.deleteFamily(familyId));
+        if (otherFamilyId !== undefined) {
+          history.replace(`/family/${otherFamilyId}`);
+        } else {
+          history.replace("/");
+        }
         // history.go(0);
       })
       .catch((err) => {
@@ -285,7 +317,21 @@ export default handleActions(
 
     [DELETE_FAMILY_MEMBER]: (state, action) =>
       produce(state, (draft) => {
-        const { famliyId, familyMemberId } = action.payload;
+        const { familyId, familyMemberId } = action.payload;
+        let newArr = draft.familyMemberList.filter(
+          (l) => l.familyMemberId !== familyMemberId
+        );
+        console.log(
+          state.familyMemberList.filter(
+            (l) => l.familyMemberId !== familyMemberId
+          )
+        );
+        draft.familyMemberList = newArr;
+      }),
+
+    [LEAVE_FAMILY]: (state, action) =>
+      produce(state, (draft) => {
+        const { familyId, familyMemberId } = action.payload;
         let newArr = draft.familyMemberList.filter(
           (l) => l.familyMemberId !== familyMemberId
         );
@@ -312,4 +358,5 @@ export const familyMemberActions = {
   addFamilyMemberDB,
   editFamilyMemberNicknameDB,
   deleteFamilyMemberDB,
+  leaveFamilyDB,
 };

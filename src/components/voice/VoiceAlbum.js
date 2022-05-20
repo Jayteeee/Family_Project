@@ -178,7 +178,7 @@ const VoiceAlbum = ({ PracticeEdit, isEdit, familyId }) => {
                     />
                     <DeleteIcon
                       onClick={() => {
-                        handleVoiceAlbumId.bind(this, v.voiceAlbumId);
+                        handleVoiceAlbumId.bind(this, v.voiceAlbumId)();
                         handleNotification("앨범 삭제");
                       }}
                     >

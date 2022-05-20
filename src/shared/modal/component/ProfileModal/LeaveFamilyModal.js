@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
+import { history } from "../../../../redux/configureStore";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -14,15 +15,30 @@ import { Button, Text } from "../../../../elements";
 import { familyMemberActions } from "../../../../redux/modules/familymember";
 
 const LeaveFamilyModal = (props) => {
-  const { onClose, familyId, familyMemberId } = props;
+  const {
+    onClose,
+    familyId,
+    familyMemberId,
+    // familyList
+  } = props;
   const dispatch = useDispatch();
   console.log(familyId, familyMemberId);
 
+  const familyList = useSelector((state) => state?.familyList);
+
+  const otherFamilyId = familyList?.find(
+    (f) => f?.familyId !== familyId
+  )?.familyId;
+
   const deleteMember = () => {
     dispatch(
-      familyMemberActions.deleteFamilyMemberDB(familyId, familyMemberId)
+      familyMemberActions.leaveFamilyDB(familyId, familyMemberId, otherFamilyId)
     );
-    onClose();
+    // if (otherFamilyId !== undefined) {
+    //   history.replace(`/family/${otherFamilyId}`);
+    // } else {
+    //   history.replace("/");
+    // }
   };
 
   console.log(familyMemberId);
@@ -59,7 +75,7 @@ const LeaveFamilyModal = (props) => {
                 borderColor="rgba(219, 219, 219, 1)"
                 borderRadius="12px"
                 style={{ backgroundColor: "rgba(219, 219, 219, 1)" }}
-                className="deleteMemberBtn"
+                className="deleteBtn"
               >
                 취소
               </Button>
@@ -71,9 +87,9 @@ const LeaveFamilyModal = (props) => {
                 borderRadius="12px"
                 style={{ backgroundColor: "#6371F7" }}
                 margin="0 0 0 10px"
-                className="deleteMemberBtn"
+                className="deleteBtn"
               >
-                삭제
+                나가기
               </Button>
             </ButtonWrap>
           </DeleteMemberBox>
@@ -126,8 +142,9 @@ const ButtonWrap = styled.div`
   display: flex;
   width: 100%;
   margin-top: 36px;
-  .deleteMemberBtn {
-    padding: 16px 90px;
+  .deleteBtn {
+    height: 56px;
+    width: 221px;
     cursor: pointer;
     &:hover {
       filter: brightness(70%);
@@ -136,14 +153,16 @@ const ButtonWrap = styled.div`
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    .deleteMemberBtn {
-      padding: 16px 60px;
+    .deleteBtn {
+      padding: 16px 20px;
+      height: 100%;
+      width: 100%;
     }
     margin-top: 30px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    .deleteMemberBtn {
+    .deleteBtn {
       padding: 8px 20px;
     }
     margin-top: 30px;
