@@ -118,15 +118,40 @@ const ScheduleCalendar = ({ familyId, list }) => {
             let newLongEvents = [];
 
             if (list) {
+              newLongEvents = newnewList?.filter(
+                (x) => x.startDate1 === dayjs(date).format("YYYY-MM-DD")
+              );
+            }
+
+            if (list) {
               shortEvents = list.filter((x) =>
                 x.startDate === x.endDate
                   ? x.startDate === dayjs(date).format("YYYY-MM-DD")
                   : null
               );
             }
-            if (list) {
-              newLongEvents = newnewList?.filter(
-                (x) => x.startDate1 === dayjs(date).format("YYYY-MM-DD")
+
+            if (longList.length !== 0) {
+              html.push(
+                newLongEvents.map((x, i) => {
+                  return (
+                    <div className="long" key={i}>
+                      <div className="division">
+                        <div
+                          className="range"
+                          date={dayjs(date).format("YYYY-MM-DD")}
+                          style={{
+                            backgroundColor: x.color,
+                            width: "100%",
+                            color: "#fff",
+                          }}
+                        >
+                          {x.event}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
               );
             }
 
@@ -134,44 +159,26 @@ const ScheduleCalendar = ({ familyId, list }) => {
               html.push(
                 shortEvents.map((x, i) => {
                   return (
-                    <div className="division" key={i}>
-                      <div
-                        className="dot"
-                        date={dayjs(date).format("YYYY-MM-DD")}
-                        style={{ backgroundColor: x.color }}
-                      ></div>
-                      <div
-                        className="event"
-                        date={dayjs(date).format("YYYY-MM-DD")}
-                      >
-                        {x.event}
+                    <div className="short" key={i}>
+                      <div className="division">
+                        <div
+                          className="dot"
+                          date={dayjs(date).format("YYYY-MM-DD")}
+                          style={{ backgroundColor: x.color }}
+                        ></div>
+                        <div
+                          className="event"
+                          date={dayjs(date).format("YYYY-MM-DD")}
+                        >
+                          {x.event}
+                        </div>
                       </div>
                     </div>
                   );
                 })
               );
             }
-            if (longList.length !== 0) {
-              html.push(
-                newLongEvents.map((x, i) => {
-                  return (
-                    <div className="division">
-                      <div
-                        className="range"
-                        date={dayjs(date).format("YYYY-MM-DD")}
-                        style={{
-                          backgroundColor: x.color,
-                          width: "100%",
-                          color: "#fff",
-                        }}
-                      >
-                        {x.event}
-                      </div>
-                    </div>
-                  );
-                })
-              );
-            }
+
             // if (events.length !== 0) {
             //   html.push(
             //     events.map((x, i) => {
@@ -210,7 +217,8 @@ const ScheduleCalendar = ({ familyId, list }) => {
             // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
             return (
               <>
-                <div className="mdot">{html}</div>
+                {/* <div className="mdot">{html}</div> */}
+                {html}
               </>
             );
           }}
@@ -332,6 +340,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     color: black;
+    padding: 0;
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
       margin: 0px;
@@ -364,7 +373,7 @@ const Container = styled.div`
   .react-calendar__tile--now:enabled:hover,
   .react-calendar__tile--now:enabled:focus {
   }
-  .mdot {
+  .long {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -372,12 +381,42 @@ const Container = styled.div`
     width: 100%;
     overflow: auto;
   }
+  .short {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    overflow: auto;
+    @media screen and (max-width: 1024px) {
+      /* margin: 0px; */
+    }
+    // Small (Tablet)
+    @media only screen and (max-width: 839px) {
+      /* margin: 0px; */
+    }
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+      /* display: flex; */
+      /* flex-direction: row; */
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
+    }
+  }
   .division {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
     margin: 2px 0;
+  }
+  .range {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
   .dot {
     height: 14px;
@@ -391,6 +430,20 @@ const Container = styled.div`
     overflow: auto;
     align-items: flex-start;
     justify-content: flex-start;
+    @media screen and (max-width: 1024px) {
+      /* margin: 0px; */
+    }
+    // Small (Tablet)
+    @media only screen and (max-width: 839px) {
+      /* margin: 0px; */
+    }
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+      display: none;
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
+    }
   }
 `;
 

@@ -121,7 +121,7 @@ const PhotoList = ({
                   />
                   <DeleteIcon
                     onClick={() => {
-                      DeletePhoto.bind(this, p?.photoId);
+                      DeletePhoto.bind(this, p?.photoId)();
                       handleNotification("사진 삭제");
                     }}
                   >

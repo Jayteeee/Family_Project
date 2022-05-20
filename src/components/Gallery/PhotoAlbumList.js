@@ -150,7 +150,7 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                           this,
                           p.photoAlbumId,
                           p.photoAlbumName
-                        );
+                        )();
                         handleNotification("앨범 삭제");
                       }}
                     >

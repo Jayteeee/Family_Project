@@ -232,7 +232,6 @@ const Container = styled.div`
       border-radius: 8px;
     }
     @media only screen and (max-width: 839px) {
-      height: 48px;
       border-radius: 8px;
     }
   }

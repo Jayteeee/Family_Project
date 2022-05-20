@@ -53,8 +53,8 @@ function App() {
   //   forceNew: true,
   // });
 
-  const ENDPOINT = "http://52.79.130.222";
-  const user = useSelector((state) => state?.user?.user?.user?.userId);
+  const ENDPOINT = "http://52.79.130.222/room";
+  const userId = useSelector((state) => state?.user?.user?.user?.userId);
 
   // const [user, setUser] = useState("");
   const [socket, setSocket] = useState(
@@ -83,13 +83,16 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      socket?.emit("newUser", user);
-      socket?.emit("join", "hi");
-      socket?.on("getNotification", (data) => {
-        dispatch(socketActions.setSocketDB(data));
-      });
+      // socket?.on('connection')
+      socket?.emit("newUser", userId);
     }
-  }, [socket, user]);
+  }, [socket, userId]);
+
+  useEffect(() => {
+    socket?.on("getNotification", (data) => {
+      dispatch(socketActions.setSocketDB(data));
+    });
+  }, [socket]);
 
   return (
     <div className="App">

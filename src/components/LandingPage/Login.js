@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../redux/modules/user";
 import { Button, Input, Text } from "../../elements";
 import kakaoImg from "../../shared/images/kakao_login_large_wide.png";
 import { KakaoPath } from "../../shared/KakaoPath";
 import { familyMemberActions } from "../../redux/modules/familymember";
+import { io } from "socket.io-client";
 
 const Login = ({ checkClient }) => {
   const dispatch = useDispatch();
@@ -17,7 +18,23 @@ const Login = ({ checkClient }) => {
     setInputs((values) => ({ ...values, [id]: value }));
   };
 
+  // 소켓 부분
+
+  const ENDPOINT = "http://52.79.130.222/room";
+  const userId = useSelector((state) => state?.user?.user?.user?.userId);
+
+  // const [user, setUser] = useState("");
+  const [socket, setSocket] = React.useState(
+    io.connect(ENDPOINT, {
+      transports: ["websocket"],
+      forceNew: true,
+      path: "/socket.io",
+    })
+  );
+
   const login = () => {
+    socket?.emit("join", userId);
+    console.log(userId);
     dispatch(userActions.loginDB(inputs));
   };
 

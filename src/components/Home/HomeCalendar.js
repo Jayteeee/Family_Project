@@ -70,18 +70,18 @@ const Container = styled.div`
     background-color: #fff;
     color: #222;
     border: none;
-    padding: 12px 24px 12px 24px;
+    padding: 24px 24px 12px 24px;
     overflow-y: scroll;
     border-radius: 16px;
     border: 1px solid #dbdbdb;
 
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
-      padding: 0px;
+      padding: 24px 24px 12px 24px;
     }
     // Small (Tablet)
     @media only screen and (max-width: 839px) {
-      padding: 0px;
+      padding: 24px 24px 12px 24px;
       height: 40vh;
     }
     // XSmall (Mobile)
@@ -121,7 +121,7 @@ const Container = styled.div`
 
   .react-calendar__tile {
     width: 100%;
-    height: 70px;
+    height: 60px;
 
     background: none;
     display: flex;
@@ -133,6 +133,7 @@ const Container = styled.div`
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
       margin: 0px;
+      height: 60px;
     }
     @media only screen and (max-width: 839px) {
       margin: 0px;

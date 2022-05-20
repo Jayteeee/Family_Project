@@ -7,8 +7,8 @@ import { getToken } from "../../shared/Token";
 
 import { DummyData } from "../../shared/DummyData";
 
-const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
+// const BASE_URL = "https://doremilan.shop";
+const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   nowVoiceData: [
@@ -216,7 +216,7 @@ const deleteVoiceAlbumDB = (voiceAlbumId) => {
       .then((res) => {
         console.log(res);
         alert("앨범삭제완료되었습니다.");
-        // dispatch(deleteVoiceAlbum(voiceAlbumId));
+        dispatch(deleteVoiceAlbum(voiceAlbumId));
         // history.go(0);
       })
       .catch((err) => {
