@@ -81,15 +81,15 @@ function App() {
   //   });
   // }, [socket]);
 
-  useEffect(() => {
-    if (token) {
-      socket?.emit("newUser", user);
-      socket?.emit("join", "hi");
-      socket?.on("getNotification", (data) => {
-        dispatch(socketActions.setSocketDB(data));
-      });
-    }
-  }, [socket, user]);
+  // useEffect(() => {
+  //   if (token) {
+  //     socket?.emit("newUser", user);
+  //     socket?.emit("join", "hi");
+  //     socket?.on("getNotification", (data) => {
+  //       dispatch(socketActions.setSocketDB(data));
+  //     });
+  //   }
+  // }, [socket, user]);
 
   return (
     <div className="App">
