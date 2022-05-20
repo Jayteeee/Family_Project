@@ -80,6 +80,23 @@ const VoiceAlbum = ({ PracticeEdit, isEdit, familyId }) => {
     setModalOn(!modalOn);
   };
 
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: familyId,
+      category: "음성메시지",
+      type,
+    });
+  };
+
   return (
     <>
       <VoiceAlbumHeader
@@ -160,7 +177,10 @@ const VoiceAlbum = ({ PracticeEdit, isEdit, familyId }) => {
                       id={v.voiceAlbumId}
                     />
                     <DeleteIcon
-                      onClick={handleVoiceAlbumId.bind(this, v.voiceAlbumId)}
+                      onClick={() => {
+                        handleVoiceAlbumId.bind(this, v.voiceAlbumId);
+                        handleNotification("앨범 삭제");
+                      }}
                     >
                       <MdRemoveCircle />
                     </DeleteIcon>

@@ -8,13 +8,13 @@ import { MdCancel, MdClose } from "react-icons/md";
 import { ModalPortal } from "../../portals";
 
 // 리덕스
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // 엘리먼트
 import { Button, Text } from "../../../../elements";
 import { voiceActions } from "../../../../redux/modules/voice";
 
-const DeleteVoiceModal = ({ onClose, voiceFileId }) => {
+const DeleteVoiceModal = ({ onClose, voiceFileId, familyId }) => {
   const dispatch = useDispatch();
 
   const deleteVoiceFile = () => {
@@ -23,6 +23,23 @@ const DeleteVoiceModal = ({ onClose, voiceFileId }) => {
   };
 
   console.log("음성메시지ID", voiceFileId);
+
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: familyId,
+      category: "음성메시지",
+      type,
+    });
+  };
 
   return (
     <>
@@ -69,7 +86,10 @@ const DeleteVoiceModal = ({ onClose, voiceFileId }) => {
                 </Button>
                 <Button
                   M
-                  onClick={deleteVoiceFile}
+                  onClick={() => {
+                    deleteVoiceFile();
+                    handleNotification("음성메시지 삭제");
+                  }}
                   borderColor="transparent"
                   bg="#6371F7"
                   color="white"

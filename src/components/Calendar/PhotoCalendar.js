@@ -119,8 +119,6 @@ const Container = styled.div`
     @media only screen and (max-width: 839px) {
       padding: 0px;
     }
-    }
-    
   }
 
   .react-calendar__navigation {
@@ -154,8 +152,8 @@ const Container = styled.div`
       margin-right: 0;
       width: 220px;
     }
-     // XXSmall (Mobile)
-     @media screen and (max-width: 375px) {
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
       top: 4px;
     }
   }
@@ -215,6 +213,7 @@ const Container = styled.div`
   .react-calendar__tile:enabled:focus {
     background: transparent;
     color: #000;
+    background-size: cover;
   }
   .react-calendar__tile--now {
   }
@@ -224,6 +223,7 @@ const Container = styled.div`
   .highlight {
     border-radius: 24px;
     color: #fff;
+    background-size: cover;
     @media only screen and (max-width: 1199px) {
     }
     // Medium (Tablet)

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import dayjs from "dayjs";
+import { useSelector } from "react-redux";
 
 // 엘리먼트
 import { Text, Button } from "../../elements/index";
@@ -24,6 +25,23 @@ const GalleryHeader = ({
 
   const handleModal = () => {
     setModalOn(!modalOn);
+  };
+
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: NowFamilyId,
+      category: "갤러리",
+      type,
+    });
   };
 
   return (
@@ -68,6 +86,7 @@ const GalleryHeader = ({
               onClick={() => {
                 EditPhotoAlbum();
                 PracticeEdit();
+                handleNotification("앨범수정");
               }}
               style={{
                 alignItems: "center",

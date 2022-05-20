@@ -76,6 +76,23 @@ const AddMissionModal = ({ onClose }) => {
     }
   };
 
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: familyId,
+      category: "미션",
+      type,
+    });
+  };
+
   useEffect(() => {
     // dispatch(missionActions.getMissionMemberDB());
     dispatch(familyMemberActions.getFamilyMemberDB(familyId));
@@ -174,7 +191,10 @@ const AddMissionModal = ({ onClose }) => {
               <div>
                 <Button
                   M
-                  onClick={AddMission}
+                  onClick={() => {
+                    AddMission();
+                    handleNotification("미션추가");
+                  }}
                   borderColor="transparent"
                   bg="#6371F7"
                   color="white"

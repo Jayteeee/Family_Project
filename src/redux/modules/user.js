@@ -7,6 +7,7 @@ import jwt from "jwt-decode";
 import { getToken, insertToken, removeToken } from "../../shared/Token";
 
 const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   user: {},
@@ -61,7 +62,7 @@ const loginDB = (inputs) => {
       .then((res) => {
         console.log(res);
         const token = res.data.logIntoken;
-        const user = res.data.userInfoList[0];
+        const user = res.data;
         console.log(user);
         const familyId = res.data.familyList[0]?.familyId;
         insertToken(token);
@@ -102,7 +103,7 @@ export default handleActions(
   {
     [LOG_IN]: (state, action) =>
       produce(state, (draft) => {
-        draft.user.user = action.payload.user;
+        draft.user.user = action.payload.user.userInfo;
         draft.isLogin = true;
       }),
     [LOG_OUT]: (state) =>

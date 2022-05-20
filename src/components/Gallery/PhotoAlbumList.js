@@ -78,6 +78,23 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
     dispatch(galleryActions.getPhotoAlbumDB(NowFamilyId));
   }, []);
 
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: NowFamilyId,
+      category: "갤러리",
+      type,
+    });
+  };
+
   return (
     <>
       <GalleryHeader
@@ -128,11 +145,14 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
                       }}
                     />
                     <DeleteIcon
-                      onClick={DeleteAlbum.bind(
-                        this,
-                        p.photoAlbumId,
-                        p.photoAlbumName
-                      )}
+                      onClick={() => {
+                        DeleteAlbum.bind(
+                          this,
+                          p.photoAlbumId,
+                          p.photoAlbumName
+                        );
+                        handleNotification("앨범 삭제");
+                      }}
                     >
                       <MdRemoveCircle />
                     </DeleteIcon>

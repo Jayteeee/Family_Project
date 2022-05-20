@@ -46,6 +46,23 @@ const AddPhotoModal = ({ onClose }) => {
     }
   };
 
+  // socket 부분
+
+  let socket = useSelector((state) => state.socket?.socket);
+
+  const nowUserNickname = useSelector(
+    (state) => state.user.user.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: familyId,
+      category: "갤러리",
+      type,
+    });
+  };
+
   return (
     <>
       <ModalPortal>
@@ -105,7 +122,10 @@ const AddPhotoModal = ({ onClose }) => {
                 </Button>
                 <Button
                   M
-                  onClick={addPhotoAlbum}
+                  onClick={() => {
+                    addPhotoAlbum();
+                    handleNotification("사진등록");
+                  }}
                   borderColor="transparent"
                   bg="#6371F7"
                   color="white"
