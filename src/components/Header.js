@@ -26,6 +26,8 @@ const Header = (props) => {
 
   const sender = useSelector((state) => state?.socket.sender);
 
+  // const familyMemberNickname = familyMemberList.
+
   // 프로필 수정 모달
   const [modalOn, setModalOn] = useState(false);
 

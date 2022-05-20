@@ -126,25 +126,27 @@ const Audio = ({ voiceAlbumId, familyId, isEdit, PracticeEdit, voiceList }) => {
                     </Text>
                   </RunTime>
                 </PlayBox>
-                <PlayBtn
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  {!run ? (
-                    <MdOutlinePause
-                      onClick={() => {
-                        handlePlay();
-                      }}
-                    />
-                  ) : (
-                    <MdPlayArrow
-                      onClick={() => {
-                        handlePlay();
-                      }}
-                    />
-                  )}
-                </PlayBtn>
+                <BtnBox>
+                  <PlayBtn
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    {!run ? (
+                      <MdOutlinePause
+                        onClick={() => {
+                          handlePlay();
+                        }}
+                      />
+                    ) : (
+                      <MdPlayArrow
+                        onClick={() => {
+                          handlePlay();
+                        }}
+                      />
+                    )}
+                  </PlayBtn>
+                </BtnBox>
               </VoiceBox>
               <MobilePlayBox>
                 <ProgressBar>
@@ -242,7 +244,7 @@ const Audio = ({ voiceAlbumId, familyId, isEdit, PracticeEdit, voiceList }) => {
                   setRun(!run);
                 }}
               >
-                {!run ? (
+                {run ? (
                   <MdPlayArrow
                     onClick={() => {
                       // play();
@@ -335,6 +337,7 @@ const VoiceWrap = styled.div`
 
 const VoiceBox = styled.div`
   display: flex;
+  height: 100%;
   width: 100%;
   flex-direction: row;
   align-items: center;
@@ -478,6 +481,12 @@ const PlayBox = styled.div`
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
   }
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  max-width: 68px;
+  max-height: 68px;
 `;
 
 const MobilePlayBox = styled.div`

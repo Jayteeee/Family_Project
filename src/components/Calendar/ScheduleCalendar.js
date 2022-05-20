@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // css import
@@ -25,6 +25,57 @@ const ScheduleCalendar = ({ familyId, list }) => {
     console.log("모달 온오프:", modalOn);
   };
 
+  // 시작날짜와 마지막 날짜 받아서 배열 안에 모든 날짜 넣어주는 함수
+
+  function getDatesStartToEnd(startDate, endDate) {
+    let regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
+    if (!(regex.test(startDate) && regex.test(endDate)))
+      return "Not Date Format";
+    let result = [];
+    let curDate = new Date(startDate);
+
+    while (curDate <= new Date(endDate)) {
+      result.push({ startDate1: curDate.toISOString().split("T")[0] });
+      curDate.setDate(curDate.getDate() + 1);
+    }
+
+    const newEvent = list
+      .filter((x, i) => {
+        return x.startDate !== x.endDate;
+      })
+      .find((x) => x.startDate === result[0].startDate1);
+
+    if (newEvent) {
+      for (let i = 0; i < result.length; i++) {
+        Object.assign(result[i], newEvent);
+      }
+    }
+
+    return result;
+  }
+
+  let longEvents = [];
+  if (list) {
+    longEvents = list.filter((x) => x.startDate !== x.endDate);
+  }
+  console.log(longEvents);
+
+  let longList = [];
+
+  longEvents.filter((x) =>
+    longList.push(getDatesStartToEnd(x.startDate, x.endDate))
+  );
+  console.log(longList);
+
+  // function merge(...arr) {
+  //   return arr.reduce((acc, val) => {
+  //     return { ...acc, ...val };
+  //   }, {});
+  // }
+
+  const newnewList = longList[0]?.concat(longList[1]);
+  console.log(newnewList);
+
   return (
     <div>
       <Container>
@@ -42,6 +93,7 @@ const ScheduleCalendar = ({ familyId, list }) => {
             let schedule = list.filter(
               (x) => x.startDate === dayjs(value).format("YYYY-MM-DD")
             );
+            // test();
             if (schedule.length !== 0) {
               handleModal();
               setDay(value);
@@ -61,16 +113,27 @@ const ScheduleCalendar = ({ familyId, list }) => {
             // 날짜 타일에 컨텐츠 추가하기 (html 태그)
             // 추가할 html 태그를 변수 초기화
             let html = [];
-            let events = "";
+
+            let shortEvents = [];
+            let newLongEvents = [];
+
             if (list) {
-              events = list.filter(
-                (x) => x.startDate === dayjs(date).format("YYYY-MM-DD")
+              shortEvents = list.filter((x) =>
+                x.startDate === x.endDate
+                  ? x.startDate === dayjs(date).format("YYYY-MM-DD")
+                  : null
               );
             }
-            if (events.length !== 0) {
+            if (list) {
+              newLongEvents = newnewList?.filter(
+                (x) => x.startDate1 === dayjs(date).format("YYYY-MM-DD")
+              );
+            }
+
+            if (shortEvents.length !== 0) {
               html.push(
-                events.map((x, i) => {
-                  return x.startDate === x.endDate ? (
+                shortEvents.map((x, i) => {
+                  return (
                     <div className="division" key={i}>
                       <div
                         className="dot"
@@ -84,7 +147,14 @@ const ScheduleCalendar = ({ familyId, list }) => {
                         {x.event}
                       </div>
                     </div>
-                  ) : (
+                  );
+                })
+              );
+            }
+            if (longList.length !== 0) {
+              html.push(
+                newLongEvents.map((x, i) => {
+                  return (
                     <div className="division">
                       <div
                         className="range"
@@ -102,6 +172,41 @@ const ScheduleCalendar = ({ familyId, list }) => {
                 })
               );
             }
+            // if (events.length !== 0) {
+            //   html.push(
+            //     events.map((x, i) => {
+            //       return x.startDate === x.endDate ? (
+            //         <div className="division" key={i}>
+            //           <div
+            //             className="dot"
+            //             date={dayjs(date).format("YYYY-MM-DD")}
+            //             style={{ backgroundColor: x.color }}
+            //           ></div>
+            //           <div
+            //             className="event"
+            //             date={dayjs(date).format("YYYY-MM-DD")}
+            //           >
+            //             {x.event}
+            //           </div>
+            //         </div>
+            //       ) : (
+            //         <div className="division">
+            //           <div
+            //             className="range"
+            //             date={dayjs(date).format("YYYY-MM-DD")}
+            //             style={{
+            //               backgroundColor: x.color,
+            //               width: "100%",
+            //               color: "#fff",
+            //             }}
+            //           >
+            //             {x.event}
+            //           </div>
+            //         </div>
+            //       );
+            //     })
+            //   );
+            // }
             // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
             return (
               <>
