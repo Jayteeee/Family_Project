@@ -17,9 +17,16 @@ import { ProfileModal } from "../shared/modal/component/ProfileModal";
 
 // 이미지
 import profileImg from "../shared/images/profileImg.png";
+import { familyMemberActions } from "../redux/modules/familymember";
 
 const Header = (props) => {
-  const { bg, user } = props;
+  const {
+    bg,
+    user,
+    familyId,
+    // myFamilyMemberNickname
+  } = props;
+  const dispatch = useDispatch();
 
   console.log(bg);
   console.log("유저정보: ", user);
@@ -29,8 +36,17 @@ const Header = (props) => {
   // 프로필 수정 모달
   const [modalOn, setModalOn] = useState(false);
 
+  // const { familyMemberList } = useSelector((state) => state.familymember);
+
+  // const myFamilyMemberNickname = familyMemberList?.find(
+  //   (m) => m?.userId === user?.userId
+  // )?.familyMemberNickname;
+
+  // console.log("나의 가족구성원호칭", myFamilyMemberNickname);
+
   const handleModal = () => {
     setModalOn(!modalOn);
+    dispatch(familyMemberActions.getFamilyMemberDB(familyId));
   };
 
   // 알림 모달
@@ -98,7 +114,11 @@ const Header = (props) => {
       {/* 프로필 모달 */}
       <ModalPortal>
         {modalOn && (
-          <ProfileModal onClose={handleModal} user={user}></ProfileModal>
+          <ProfileModal
+            onClose={handleModal}
+            user={user}
+            // myFamilyMemberNickname={myFamilyMemberNickname}
+          ></ProfileModal>
         )}
       </ModalPortal>
     </>

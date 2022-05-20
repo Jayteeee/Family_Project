@@ -4,13 +4,13 @@ import React from "react";
 import styled from "styled-components";
 
 // 모달
-import { ModalPortal } from "../../portals";
+import { ModalPortal } from "../portals";
 
 // 엘리먼트
-import { Text } from "../../../../elements";
+import { Text } from "../../../elements";
 
-const EditFamilyTitleModal = (props) => {
-  const { onClose } = props;
+const AlertModal = (props) => {
+  const { onClose, content } = props;
 
   return (
     <ModalPortal>
@@ -30,7 +30,7 @@ const EditFamilyTitleModal = (props) => {
           id="EditFamilyTitle"
         >
           <EditFamilyTitleBox>
-            <Text>가족이름이 수정되었습니다.</Text>
+            <Text className="alertText">{content}</Text>
           </EditFamilyTitleBox>
         </Content>
       </Background>
@@ -54,11 +54,12 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 280px;
-  max-width: 420px;
+  min-height: 150px;
+  max-width: 300px;
   width: 100%;
   border-radius: 8px;
   background-color: #fff;
+  padding: 16px 24px;
 
   position: relative;
   overflow: scroll;
@@ -67,6 +68,9 @@ const Content = styled.div`
 const EditFamilyTitleBox = styled.div`
   display: flex;
   flex-direction: column;
+  .alertText {
+    word-break: break-all;
+  }
 `;
 
-export default EditFamilyTitleModal;
+export default AlertModal;

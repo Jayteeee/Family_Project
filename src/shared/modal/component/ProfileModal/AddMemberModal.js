@@ -143,7 +143,7 @@ const AddMemberModal = ({ onClose }) => {
                 color="#fff"
                 borderColor="#fff"
                 borderRadius="12px"
-                style={{ backgroundColor: "#6F5FCE", opacity: "0.4" }}
+                style={{ backgroundColor: "#6371F7", opacity: "0.4" }}
               >
                 추가
               </Button>
@@ -185,7 +185,8 @@ const Content = styled.div`
   .myInput {
     :focus {
       box-shadow: none;
-      border-color: #6f5fce !important;
+      outline: none !important;
+      border-color: #6371f7 !important;
     }
   }
 `;

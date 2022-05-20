@@ -42,7 +42,6 @@ const LogoutModal = ({ onClose }) => {
               logOut();
             }}
           >
-            {" "}
             로그아웃{" "}
           </Button>
         </Content>

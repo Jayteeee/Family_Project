@@ -15,7 +15,7 @@ import { missionActions } from "../../../../redux/modules/mission";
 import { history } from "../../../../redux/configureStore";
 
 // 엘리먼트
-import { Button, CircleImage, Text, Input } from "../../../../elements";
+import { Button, RactangleImage, Text, Input } from "../../../../elements";
 
 // 이미지
 import profileImg from "../../../images/profileImg.png";
@@ -155,13 +155,12 @@ const AddMissionModal = ({ onClose }) => {
                     {selectedMemberList.map((f, l) => {
                       return (
                         <MissionMemberBox key={f.familyMemberId}>
-                          <CircleImage
-                            M
-                            size="50px"
-                            src={
-                              f?.profileImg == null ? f?.profileImg : profileImg
-                            }
-                            className="circleImage"
+                          <RactangleImage
+                            S
+                            size="65px"
+                            src={f?.profileImg ? f?.profileImg : profileImg}
+                            className="missionProfileImage"
+                            borderRadius="23px"
                           />
                           <Text
                             size="12px"
@@ -329,6 +328,7 @@ const MissionTitleBox = styled.div`
   width: 100%;
   margin-top: 3px;
 `;
+
 const FamilyMemberTitle = styled.div`
   display: flex;
   flex-direction: column;
@@ -337,20 +337,31 @@ const FamilyMemberTitle = styled.div`
   font-size: 18px;
   margin-top: 20px;
 `;
+
 const FamilyMemberBox = styled.div`
   background-color: #fff;
   width: 100%;
-  padding: 5px 20px;
+  padding: 24px 24px;
   height: 36%;
   border: 2px solid #dbdbdb;
   border-radius: 20px;
+  align-items: center;
+  overflow-y: scroll;
+
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     margin-top: 20px;
+    padding: 10px 10px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
   }
+`;
+
+const AddFamilyMemberBtnBox = styled.div`
+  display: flex;
+  /* margin-top: 15px; */
+  flex-wrap: wrap;
 `;
 
 const MissionMemberBox = styled.div`
@@ -359,25 +370,33 @@ const MissionMemberBox = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-right: 20px;
+  width: 70px;
+  margin: 8px;
 
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-    width: 50px;
-    .circleImage {
-      width: 35px;
-      height: 35px;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .missionProfileImage {
+      width: 60px;
+      height: 60px;
+      border-radius: 21px;
     }
     .memberNickname {
       font-size: 10px;
     }
-    margin-right: 5px;
   }
-`;
-
-const AddFamilyMemberBtnBox = styled.div`
-  display: flex;
-  margin-top: 15px;
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 60px;
+    margin: 7px;
+    .missionProfileImage {
+      width: 50px;
+      height: 50px;
+      border-radius: 21px;
+    }
+    .memberNickname {
+      font-size: 10px;
+    }
+  }
 `;
 
 const AddCicleBtn = styled.div`
@@ -388,6 +407,7 @@ const AddCicleBtn = styled.div`
   height: 50px;
   border-radius: 46px;
   background-color: #f6f6f6;
+  margin: 18px;
   /* margin-left: 10px; */
   cursor: pointer;
   &:hover {
@@ -399,7 +419,7 @@ const AddCicleBtn = styled.div`
   @media screen and (max-width: 375px) {
     width: 35px;
     height: 35px;
-    margin-left: 8px;
+    margin: 19px;
   }
 `;
 export default AddMissionModal;

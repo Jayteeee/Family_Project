@@ -39,6 +39,7 @@ const HomeCalendar = ({ thisMonthEventList, familyId }) => {
                         className="dot"
                         date={dayjs(date).format("YYYY-MM-DD")}
                         style={{ backgroundColor: x.color }}
+                        key={x.eventId}
                       ></div>
                     );
                   })

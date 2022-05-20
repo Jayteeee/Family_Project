@@ -1,40 +1,31 @@
 import React, { useState, useContext, useEffect } from "react";
-import { MainContext } from "../../../../pages/Main";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
-import { familyActions } from "../../../../redux/modules/family";
 
 // 모달
 import { ModalPortal } from "../../portals";
 
 // 엘리먼트
 import { Button, Text } from "../../../../elements";
+import { familyMemberActions } from "../../../../redux/modules/familymember";
 
-const DeleteFamilyModal = ({ onClose, familyList }) => {
+const LeaveFamilyModal = (props) => {
+  const { onClose, familyId, familyMemberId } = props;
   const dispatch = useDispatch();
+  console.log(familyId, familyMemberId);
 
-  const { familyId } = useContext(MainContext)[0];
-
-  const family = useContext(MainContext);
-
-  console.log(family);
-
-  console.log(familyId);
-
-  const otherFamilyId = familyList.find(
-    (f) => f?.familyId !== familyId
-  )?.familyId;
-
-  console.log("다른 패밀리아이디:", otherFamilyId);
-
-  const deleteFamily = () => {
-    dispatch(familyActions.deleteFamilyDB(familyId, otherFamilyId));
-    // document.getElementById("deleteFamily").style.display = "none";
+  const deleteMember = () => {
+    dispatch(
+      familyMemberActions.deleteFamilyMemberDB(familyId, familyMemberId)
+    );
+    onClose();
   };
+
+  console.log(familyMemberId);
   return (
     <ModalPortal>
       <Background
@@ -49,18 +40,21 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
           onClick={(e) => {
             e.stopPropagation();
           }}
-          id="deleteFamily"
+          id="deleteFamilyMember"
         >
-          <DeleteFamilyBox>
-            <Text S3 className="deletefamilyText">
-              삭제된 가족은 다시 복구할 수 없어요.
+          <DeleteMemberBox>
+            <Text S3 className="deleteMemberText">
+              한번 나간 가족은 다시 복구할 수 없어요.
               <br />
-              정말 삭제할까요?
+              정말 나기실 건가요?
             </Text>
             <ButtonWrap>
               <Button
                 L
-                onClick={onClose}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
                 color="rgba(117, 117, 117, 1)"
                 borderColor="rgba(219, 219, 219, 1)"
                 borderRadius="12px"
@@ -71,7 +65,7 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
               </Button>
               <Button
                 L
-                onClick={deleteFamily}
+                onClick={deleteMember}
                 color="#fff"
                 borderColor="#fff"
                 borderRadius="12px"
@@ -82,7 +76,7 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
                 삭제
               </Button>
             </ButtonWrap>
-          </DeleteFamilyBox>
+          </DeleteMemberBox>
         </Content>
       </Background>
     </ModalPortal>
@@ -105,21 +99,21 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  /* height: 280px; */
-  border-radius: 8px;
+  border-radius: 20px;
   background-color: #fff;
+
   position: relative;
   overflow: scroll;
 `;
 
-const DeleteFamilyBox = styled.div`
+const DeleteMemberBox = styled.div`
   display: flex;
   flex-direction: column;
   margin: 24px;
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    .deletefamilyText {
+    .deleteMemberText {
       font-size: 18px;
     }
   }
@@ -156,4 +150,4 @@ const ButtonWrap = styled.div`
   }
 `;
 
-export default DeleteFamilyModal;
+export default LeaveFamilyModal;

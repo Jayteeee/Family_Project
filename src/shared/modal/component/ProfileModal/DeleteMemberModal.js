@@ -44,7 +44,7 @@ const DeleteMemberModal = (props) => {
           id="deleteFamilyMember"
         >
           <DeleteMemberBox>
-            <Text S3>
+            <Text S3 className="deleteMemberText">
               삭제된 가족 구성원은 다시 복구할 수 없어요.
               <br />
               정말 삭제할까요?
@@ -52,12 +52,15 @@ const DeleteMemberModal = (props) => {
             <ButtonWrap>
               <Button
                 L
-                onClick={onclose}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
                 color="rgba(117, 117, 117, 1)"
                 borderColor="rgba(219, 219, 219, 1)"
                 borderRadius="12px"
                 style={{ backgroundColor: "rgba(219, 219, 219, 1)" }}
-                padding="16px 92px"
+                className="deleteMemberBtn"
               >
                 취소
               </Button>
@@ -67,9 +70,9 @@ const DeleteMemberModal = (props) => {
                 color="#fff"
                 borderColor="#fff"
                 borderRadius="12px"
-                style={{ backgroundColor: "#6F5FCE" }}
-                padding="16px 92px"
+                style={{ backgroundColor: "#6371F7" }}
                 margin="0 0 0 10px"
+                className="deleteMemberBtn"
               >
                 삭제
               </Button>
@@ -97,7 +100,7 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  border-radius: 8px;
+  border-radius: 20px;
   background-color: #fff;
 
   position: relative;
@@ -108,13 +111,44 @@ const DeleteMemberBox = styled.div`
   display: flex;
   flex-direction: column;
   margin: 24px;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .deleteMemberText {
+      font-size: 18px;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const ButtonWrap = styled.div`
   display: flex;
-  max-width: 452px;
   width: 100%;
-  margin-top: 56px;
+  margin-top: 36px;
+  .deleteMemberBtn {
+    padding: 16px 90px;
+    cursor: pointer;
+    &:hover {
+      filter: brightness(70%);
+    }
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .deleteMemberBtn {
+      padding: 16px 60px;
+    }
+    margin-top: 30px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .deleteMemberBtn {
+      padding: 8px 20px;
+    }
+    margin-top: 30px;
+  }
 `;
 
 export default DeleteMemberModal;

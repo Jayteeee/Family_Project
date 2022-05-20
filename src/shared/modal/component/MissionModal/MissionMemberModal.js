@@ -12,7 +12,12 @@ import { missionActions } from "../../../../redux/modules/mission";
 import { ModalPortal } from "../../portals";
 
 // 엘리먼트
-import { Button, CircleImage, Text } from "../../../../elements";
+import {
+  Button,
+  CircleImage,
+  RactangleImage,
+  Text,
+} from "../../../../elements";
 
 // 이미지
 import profileImg from "../../../images/profileImg.png";
@@ -55,14 +60,16 @@ const MissionMemberModal = ({ onClose, familyMemberList }) => {
       checkedItems.add(familyMemberId);
       setCheckedItems(checkedItems);
       // box.style.backgroundColor = "#8F8F8F";
-      box.style.borderRadius = "30px";
+      box.style.borderRadius = "25px";
       // box.style.width = "56px";
       // box.style.height = "56px";
-      box.style.border = "2px solid #8F8F8F";
+      box.style.border = "3px solid #F4CC4D";
+      box.style.backgroundColor = "#F4CC4D";
     } else if (!isChecked && checkedItems.has(familyMemberId)) {
       checkedItems.delete(familyMemberId);
       setCheckedItems(checkedItems);
       box.style.backgroundColor = "#fff";
+      box.style.border = "none";
     }
     return checkedItems;
   };
@@ -124,15 +131,12 @@ const MissionMemberModal = ({ onClose, familyMemberList }) => {
                               id={f.familyMemberNickname}
                               onChange={(e) => checkHandler(e)}
                             />
-                            <CircleImage
-                              M
-                              size="50px"
-                              src={
-                                f?.profileImg == null
-                                  ? f?.profileImg
-                                  : profileImg
-                              }
-                              className="circleImage"
+                            <RactangleImage
+                              S
+                              size="65px"
+                              src={f?.profileImg ? f?.profileImg : profileImg}
+                              className="missionProfileImage"
+                              borderRadius="23px"
                             />
                           </label>
                         </MissionMemberBox>
@@ -190,14 +194,14 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 35rem;
+  height: 36rem;
   max-width: 430px;
   width: 100%;
   border-radius: 25px;
   background-color: #fff;
 
   position: relative;
-  overflow: scroll;
+  /* overflow: scroll; */
 `;
 
 const AddMissionWrap = styled.div`
@@ -207,6 +211,7 @@ const AddMissionWrap = styled.div`
   justify-content: center;
   padding: 40px 20px;
   width: 100%;
+
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
   }
@@ -250,10 +255,13 @@ const FamilyMemberTitle = styled.div`
 const FamilyMemberBox = styled.div`
   background-color: #fff;
   width: 100%;
+  max-height: 250px;
   padding: 20px 25px;
   margin: 20px 0;
   border: 2px solid #dbdbdb;
   border-radius: 20px;
+  display: flex;
+  /* flex-wrap: wrap; */
   overflow-y: scroll;
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
@@ -270,13 +278,29 @@ const MissionMemberWrap = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-right: 20px;
+  width: 70px;
+  margin: 7px;
 
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .missionProfileImage {
+      width: 60px;
+      height: 60px;
+      border-radius: 21px;
+    }
+    & > p {
+      font-size: 10px;
+      margin: 0 !important;
+    }
+    margin-right: 0;
+  }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    .circleImage {
-      width: 30px;
-      height: 30px;
+    width: 60px;
+    .missionProfileImage {
+      width: 50px;
+      height: 50px;
+      border-radius: 21px;
     }
     & > p {
       font-size: 10px;
@@ -292,10 +316,10 @@ const MissionMemberBox = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 30px;
-  padding-right: 0.2px;
+  width: 70px;
+  height: 70px;
+  border-radius: 25px;
+
   &:visited {
     background: red;
     * & > div {
@@ -303,7 +327,7 @@ const MissionMemberBox = styled.div`
     }
   }
   &:hover {
-    background-color: #a8a8a8;
+    background-color: #ffdc9b;
   }
   /* &:active {
     background: red;
@@ -311,11 +335,24 @@ const MissionMemberBox = styled.div`
   * & > label > input {
     display: none;
   }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 70px;
+    height: 70px;
+    border-radius: 21px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 60px;
+    height: 60px;
+    border-radius: 21px;
+  }
 `;
 
 const AddFamilyMemberBtnBox = styled.div`
   display: flex;
-  margin-top: 15px;
+  /* overflow-y: scroll; */
+  flex-wrap: wrap;
 `;
 
 export default MissionMemberModal;

@@ -67,6 +67,9 @@ const HomePage = (props) => {
   const { recentVoiceFile } = homeData;
   console.log("최근 음성메시지:", recentVoiceFile);
 
+  const { voiceAlbumInfo } = homeData;
+  console.log("음성 메시지 앨범 정보", voiceAlbumInfo);
+
   const { thisMonthEventList } = homeData;
   console.log("현재 일정:", thisMonthEventList);
 
@@ -105,7 +108,7 @@ const HomePage = (props) => {
 
   // 캘린더 높이 조절
   const [open, setOpen] = useState(false);
-  const [height, setHeight] = useState(false);
+  const [height, setHeight] = useState("false");
 
   const handleOpen = () => {
     setOpen(!open);
@@ -168,19 +171,19 @@ const HomePage = (props) => {
                               <TodayMoodBox>
                                 <TodayMood
                                   src={
-                                    f.todayMood === "smilingEmoji"
+                                    f.todayMood === "good"
                                       ? smilingEmoji
-                                      : f.todayMood === "heartsSmileEmoji"
+                                      : f.todayMood === "love"
                                       ? heartsSmileEmoji
-                                      : f.todayMood === "sunglassesEmoji"
+                                      : f.todayMood === "nice"
                                       ? sunglassesEmoji
-                                      : f.todayMood === "cryingEmoji"
+                                      : f.todayMood === "sad"
                                       ? cryingEmoji
-                                      : f.todayMood === "explodingEmoji"
+                                      : f.todayMood === "head"
                                       ? explodingEmoji
-                                      : f.todayMood === "angryEmoji"
+                                      : f.todayMood === "angry"
                                       ? angryEmoji
-                                      : f.todayMood === "sleepingEmoji"
+                                      : f.todayMood === "sleepy"
                                       ? sleepingEmoji
                                       : smilingEmoji
                                   }
@@ -306,7 +309,7 @@ const HomePage = (props) => {
                           : noImage
                       }
                     >
-                      <PhotoTitleBox>
+                      <TitleBox>
                         <Text fontWeight="600" className="photoTitle">
                           최근 사진
                         </Text>
@@ -315,7 +318,7 @@ const HomePage = (props) => {
                             history.push(`/family/${familyId}/gallery/`);
                           }}
                         />
-                      </PhotoTitleBox>
+                      </TitleBox>
                       {/* <HomePhoto recentPhoto={recentPhoto} familyId={familyId} /> */}
                     </BottomRightPhoto>
                   </ContentsBox>
@@ -333,7 +336,10 @@ const HomePage = (props) => {
                           }}
                         />
                       </TitleBox>
-                      <HomeVoice recentVoiceFile={recentVoiceFile} />
+                      <HomeVoice
+                        recentVoiceFile={recentVoiceFile}
+                        voiceAlbumInfo={voiceAlbumInfo}
+                      />
                     </BottomRightVoice>
                   </ContentsBox>
                 </Figure>
@@ -598,6 +604,7 @@ const TodayMoodBox = styled.div`
   width: 37px;
   height: 37px;
   font-size: 17px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   /* padding: 0 4px 0 0; */
   border-radius: 20px;
   border: none;
