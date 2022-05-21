@@ -147,6 +147,7 @@ const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
       .catch((err) => {
         console.log(err);
         console.log(err.response);
+        window.alert(err.response.data.msg);
       });
   };
 };
@@ -198,9 +199,6 @@ const editFamilyMemberNicknameDB = (
         console.log(err);
         console.log(err.response);
       });
-    // dispatch(
-    //   editFamilyMembeNickname(familyId, familyMemberId, familyMemberNickname)
-    // );
   };
 };
 

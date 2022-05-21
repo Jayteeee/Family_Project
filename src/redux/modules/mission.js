@@ -284,7 +284,7 @@ const checkMissionDB = (
       .catch((err) => {
         console.log(err);
         console.log(err.response);
-        // window.alert(err.response.data.msg);
+        window.alert(err.response.data.msg);
       });
   };
 };
