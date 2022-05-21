@@ -9,8 +9,8 @@ import { familyMemberActions } from "./familymember";
 import { detailPhotoActions } from "./detailphoto";
 import { missionActions } from "./mission";
 
-const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
+// const BASE_URL = "https://doremilan.shop";
+const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   user: {},
@@ -85,9 +85,9 @@ const loginDB = (inputs) => {
 
         // 소켓 부분
 
-        // const socket = getState().socket.socket;
+        const socket = getState().socket.socket;
 
-        // socket?.emit("join", res.data.userInfo.id);
+        socket?.emit("join", res.data.userInfo.id);
 
         // 로그인시 들어오는 데이터 GET_USER시 들어오는 데이터와 똑같이 맞추기 위함.
         let userData = { familyList, user: userInfo };
