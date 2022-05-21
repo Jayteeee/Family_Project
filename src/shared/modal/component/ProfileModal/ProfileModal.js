@@ -444,7 +444,7 @@ const Background = styled.div`
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     /* display: none; */
-    background-color: rgba(0, 0, 0, 0.5);
+    /* background-color: rgba(0, 0, 0, 0.5); */
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {

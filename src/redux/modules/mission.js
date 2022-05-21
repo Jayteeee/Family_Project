@@ -229,6 +229,7 @@ const addMissionDB = (
           missionMemberList: createdMember,
         };
         dispatch(addMission(newMission));
+        dispatch(getMissionStatusDB(familyId));
       })
       .catch((err) => {
         console.log(err);
@@ -265,10 +266,12 @@ const checkMissionDB = (
         console.log(res);
         const { data } = res;
         let { myMissionChk } = data;
+        const { completedAt } = data;
         const checkedMission = {
           missionId: missionId,
           familyMissionChk: data.familyMissionChk,
           myMissionChk: myMissionChk,
+          completedAt: completedAt,
         };
         const checkedMissionMember = {
           missionId: missionId,
@@ -278,6 +281,7 @@ const checkMissionDB = (
         };
         dispatch(checkMissionMember(checkedMissionMember));
         dispatch(checkMission(checkedMission));
+        dispatch(getMissionStatusDB(familyId));
         // dispatch(missionStatusUpdate(missionStatus));
         // history.go(0);
       })
@@ -300,8 +304,9 @@ const deleteMissionDB = (familyId, missionId) => {
       .then((res) => {
         console.log(res);
         dispatch(deleteMission(missionId));
+        dispatch(getMissionStatusDB(familyId));
         // dispatch(missionStatusUpdate(missionStatus));
-        history.go(0);
+        // history.go(0);
       })
       .catch((err) => {
         console.log(err);
@@ -376,7 +381,7 @@ export default handleActions(
     //   }),
     [CHECK_MISSION]: (state, action) =>
       produce(state, (draft) => {
-        const { missionId, familyMissionChk, myMissionChk } =
+        const { missionId, familyMissionChk, myMissionChk, completedAt } =
           action.payload.missionChkData;
 
         console.log(missionId, familyMissionChk);
@@ -397,6 +402,7 @@ export default handleActions(
           ...thisMonthMissionList,
           familyMissionChk: familyMissionChk,
           myMissionChk: myMissionChk,
+          completedAt: completedAt,
         };
 
         console.log(thisMonthMissionList);
