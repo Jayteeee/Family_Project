@@ -102,6 +102,7 @@ const getMissionPage = (familyId) => {
   return async function (dispatch, getState, { history }) {
     const pastMissionList = getState().mission.pastMissionList;
     const config = { Authorization: `Bearer ${getToken()}` };
+    console.log("미션페이지 get familyId", familyId);
     await axios
       .get(`${BASE_URL}/mission/${familyId}`, { headers: config })
       .then((res) => {
