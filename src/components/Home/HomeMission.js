@@ -15,11 +15,11 @@ import { RactangleImage, Text } from "../../elements";
 import noImage from "../../shared/images/noImage.png";
 // import profileImg from "../../shared/images/profileImg.png";
 import missionChkImg from "../../shared/images/missionChkImg.png";
-import Profile01 from "../../shared/images/Profile01.png";
-import Profile02 from "../../shared/images/Profile02.png";
-import Profile03 from "../../shared/images/Profile03.png";
-import Profile04 from "../../shared/images/Profile04.png";
-import Profile05 from "../../shared/images/Profile05.png";
+import Profile01 from "../../shared/images/Profile01.svg";
+import Profile02 from "../../shared/images/Profile02.svg";
+import Profile03 from "../../shared/images/Profile03.svg";
+import Profile04 from "../../shared/images/Profile04.svg";
+import Profile05 from "../../shared/images/Profile05.svg";
 
 const HomeMission = ({
   recentMission,

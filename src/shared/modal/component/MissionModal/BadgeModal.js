@@ -64,7 +64,7 @@ const BadgeModal = ({ onClose, familyId }) => {
               </Text>
               <Text size="20px" className="badgeTitle2">
                 도란도란을 사용하다 보면 여러 배지를 획득 할 수 있어요!{"\n"}
-                배지의 휙득 요건을 확인하고 도전해보세요.
+                배지의 획득 요건을 확인하고 도전해보세요.
               </Text>
             </BadgeHeaderBox>
             <BadgeListBox className="res-badgeListBox">
@@ -342,7 +342,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <p style={{ margin: "1px 0 0 0" }}>성공</p>
                       </CompletedBadgeBar>
                     )}
-                    <BadghCnt> {badgeList[5]?.badgeCnt}/50</BadghCnt>
+                    <BadghCnt> {badgeList[5]?.badgeCnt}/5</BadghCnt>
                     <Text
                       size="16px"
                       padding="20px 0 0 0"

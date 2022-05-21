@@ -16,11 +16,15 @@ const LandingPage = () => {
     setIsClient(!isClient);
   };
   const isLogin = useSelector((state) => state.user.isLogin);
-  // const isMember = useSelector((state) => state.user?.user?.familyList);
-  const isMember = useSelector((state) => state.family?.familyList);
+  const isMember = useSelector((state) => state.user?.user?.familyList);
+  const familyList = useSelector((state) => state.family?.familyList);
   // const isLikeFamilyList = useSelector(
   //   (state) => state.user?.user.familyListUnique
   // );
+
+  // if (isLogin && familyList?.length !== 0) {
+  //   history.replace(`/family/${familyList[0]?.familyId}`);
+  // }
 
   if (isLogin && isMember?.length !== 0) {
     history.replace(`/family/${isMember[0]?.familyId}`);

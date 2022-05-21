@@ -8,8 +8,8 @@ import { getToken } from "../../shared/Token";
 
 import { DummyData } from "../../shared/DummyData";
 
-// const BASE_URL = "https://doremilan.shop";
-const BASE_URL = "http://52.79.130.222";
+const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   nowMissionData: [],
@@ -102,6 +102,7 @@ const getMissionPage = (familyId) => {
   return async function (dispatch, getState, { history }) {
     const pastMissionList = getState().mission.pastMissionList;
     const config = { Authorization: `Bearer ${getToken()}` };
+    console.log("미션페이지 get familyId", familyId);
     await axios
       .get(`${BASE_URL}/mission/${familyId}`, { headers: config })
       .then((res) => {
@@ -229,6 +230,7 @@ const addMissionDB = (
           missionMemberList: createdMember,
         };
         dispatch(addMission(newMission));
+        dispatch(getMissionStatusDB(familyId));
       })
       .catch((err) => {
         console.log(err);
@@ -265,10 +267,12 @@ const checkMissionDB = (
         console.log(res);
         const { data } = res;
         let { myMissionChk } = data;
+        const { completedAt } = data;
         const checkedMission = {
           missionId: missionId,
           familyMissionChk: data.familyMissionChk,
           myMissionChk: myMissionChk,
+          completedAt: completedAt,
         };
         const checkedMissionMember = {
           missionId: missionId,
@@ -278,13 +282,14 @@ const checkMissionDB = (
         };
         dispatch(checkMissionMember(checkedMissionMember));
         dispatch(checkMission(checkedMission));
+        dispatch(getMissionStatusDB(familyId));
         // dispatch(missionStatusUpdate(missionStatus));
         // history.go(0);
       })
       .catch((err) => {
         console.log(err);
         console.log(err.response);
-        // window.alert(err.response.data.msg);
+        window.alert(err.response.data.msg);
       });
   };
 };
@@ -300,8 +305,9 @@ const deleteMissionDB = (familyId, missionId) => {
       .then((res) => {
         console.log(res);
         dispatch(deleteMission(missionId));
+        dispatch(getMissionStatusDB(familyId));
         // dispatch(missionStatusUpdate(missionStatus));
-        history.go(0);
+        // history.go(0);
       })
       .catch((err) => {
         console.log(err);
@@ -376,7 +382,7 @@ export default handleActions(
     //   }),
     [CHECK_MISSION]: (state, action) =>
       produce(state, (draft) => {
-        const { missionId, familyMissionChk, myMissionChk } =
+        const { missionId, familyMissionChk, myMissionChk, completedAt } =
           action.payload.missionChkData;
 
         console.log(missionId, familyMissionChk);
@@ -397,6 +403,7 @@ export default handleActions(
           ...thisMonthMissionList,
           familyMissionChk: familyMissionChk,
           myMissionChk: myMissionChk,
+          completedAt: completedAt,
         };
 
         console.log(thisMonthMissionList);

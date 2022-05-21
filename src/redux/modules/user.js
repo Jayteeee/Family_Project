@@ -9,8 +9,8 @@ import { familyMemberActions } from "./familymember";
 import { detailPhotoActions } from "./detailphoto";
 import { missionActions } from "./mission";
 
-// const BASE_URL = "https://doremilan.shop";
-const BASE_URL = "http://52.79.130.222";
+const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   user: {},
@@ -22,6 +22,7 @@ const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 const EDIT_PROFILE_IMG = "EDIT_PROFILE_IMG";
+const DELETE_USER_FAMILY = "DELETE_USER_FAMILY";
 // const EDIT_TODAY_MOOD = "EDIT_TODAY_MOOD";
 
 // 액션 생성함수
@@ -30,6 +31,9 @@ const logOut = createAction(LOG_OUT);
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const editProfileImg = createAction(EDIT_PROFILE_IMG, (profileImg) => ({
   profileImg,
+}));
+const deleteUserFamily = createAction(DELETE_USER_FAMILY, (familyId) => ({
+  familyId,
 }));
 // const editTodayMood = createAction(EDIT_TODAY_MOOD, (todayMood) => ({
 //   todayMood,
@@ -222,6 +226,17 @@ export default handleActions(
         const { profileImg } = action.payload;
         draft.user.user.profileImg = profileImg;
       }),
+    [DELETE_USER_FAMILY]: (state, action) =>
+      produce(state, (draft) => {
+        const { familyId } = action.payload;
+        let newArr = draft.user.familyList.filter(
+          (l) => l.familyId !== familyId
+        );
+        console.log(
+          state.user.familyList.filter((l) => l.familyId !== familyId)
+        );
+        draft.user.familyList = newArr;
+      }),
   },
   initialState
 );
@@ -233,4 +248,5 @@ export const userActions = {
   userLogout,
   editProfileImgDB,
   editTodayMoodDB,
+  deleteUserFamily,
 };

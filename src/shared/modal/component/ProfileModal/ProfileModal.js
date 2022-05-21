@@ -26,11 +26,11 @@ import {
 import { RactangleImage, Text, Input } from "../../../../elements";
 
 // 이미지
-import Profile01 from "../../../images/Profile01.png";
-import Profile02 from "../../../images/Profile02.png";
-import Profile03 from "../../../images/Profile03.png";
-import Profile04 from "../../../images/Profile04.png";
-import Profile05 from "../../../images/Profile05.png";
+import Profile01 from "../../../images/Profile01.svg";
+import Profile02 from "../../../images/Profile02.svg";
+import Profile03 from "../../../images/Profile03.svg";
+import Profile04 from "../../../images/Profile04.svg";
+import Profile05 from "../../../images/Profile05.svg";
 
 const ProfileModal = ({
   onClose,
@@ -444,7 +444,7 @@ const Background = styled.div`
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     /* display: none; */
-    background-color: rgba(0, 0, 0, 0.5);
+    /* background-color: rgba(0, 0, 0, 0.5); */
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {

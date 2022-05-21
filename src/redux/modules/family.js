@@ -4,9 +4,10 @@ import axios from "axios";
 import { DummyData } from "../../shared/DummyData";
 import dayjs from "dayjs";
 import { getToken } from "../../shared/Token";
+import { userActions } from "./user";
 
-// const BASE_URL = "https://doremilan.shop";
-const BASE_URL = "http://52.79.130.222";
+const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   familyList: [],
@@ -110,6 +111,7 @@ const deleteFamilyDB = (familyId, otherFamilyId) => {
         console.log(res);
 
         dispatch(deleteFamily(familyId));
+        dispatch(userActions.deleteUserFamily(familyId));
 
         if (otherFamilyId !== undefined) {
           history.replace(`/family/${otherFamilyId}`);

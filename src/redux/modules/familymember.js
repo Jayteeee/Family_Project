@@ -7,8 +7,8 @@ import { getToken } from "../../shared/Token";
 import { homeActions } from "./home";
 import { familyActions } from "./family";
 
-// const BASE_URL = "https://doremilan.shop";
-const BASE_URL = "http://52.79.130.222";
+const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   familyMemberList: [],
@@ -147,6 +147,7 @@ const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
       .catch((err) => {
         console.log(err);
         console.log(err.response);
+        window.alert(err.response.data.msg);
       });
   };
 };
@@ -198,9 +199,6 @@ const editFamilyMemberNicknameDB = (
         console.log(err);
         console.log(err.response);
       });
-    // dispatch(
-    //   editFamilyMembeNickname(familyId, familyMemberId, familyMemberNickname)
-    // );
   };
 };
 

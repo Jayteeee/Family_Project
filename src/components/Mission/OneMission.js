@@ -14,11 +14,11 @@ import { Button, CircleImage, Text } from "../../elements";
 
 // 이미지
 // import profileImg from "../../shared/images/profileImg.png";
-import Profile01 from "../../shared/images/Profile01.png";
-import Profile02 from "../../shared/images/Profile02.png";
-import Profile03 from "../../shared/images/Profile03.png";
-import Profile04 from "../../shared/images/Profile04.png";
-import Profile05 from "../../shared/images/Profile05.png";
+import Profile01 from "../../shared/images/Profile01.svg";
+import Profile02 from "../../shared/images/Profile02.svg";
+import Profile03 from "../../shared/images/Profile03.svg";
+import Profile04 from "../../shared/images/Profile04.svg";
+import Profile05 from "../../shared/images/Profile05.svg";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
@@ -40,6 +40,7 @@ const OneMission = (props) => {
     myMissionChk,
     missionStatus,
   } = props;
+  console.log(props);
 
   // console.log("받아온 나의미션리스트:", monthMissionList);
 
@@ -50,6 +51,7 @@ const OneMission = (props) => {
   // console.log(props);
 
   // console.log("미션 달성여부:", familyMissionChk);
+  console.log(completedAt);
 
   const newCompletedAt = dayjs(completedAt).format("MM월 DD일");
   // console.log("달성 날짜:", newCompletedAt);

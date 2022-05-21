@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -23,6 +23,18 @@ const SidebarMenu = (familyId) => {
   const { NowFamilyId } = familyId;
   console.log("사이드바에 적용할 Id값: ", NowFamilyId);
 
+  const [homeMenuColor, setHomeMenuColor] = useState("#c2c2c2");
+  const [missionMenuColor, setMissionMenuColor] = useState("#c2c2c2");
+  const [calendarMenuColor, setCalendarMenuColor] = useState("#c2c2c2");
+  const [galleryMenuColor, setGalleryMenuColor] = useState("#c2c2c2");
+  const [voiceMenuColor, setVoiceMenuColor] = useState("#c2c2c2");
+
+  // const handleMenuColor = () => {
+  //   setMenuColor(menuColor === "#c2c2c2" ? "#6371F7" : "#c2c2c2");
+  //   // setMenuColor("#6371F7");
+  // };
+  // console.log(menuColor);
+
   return (
     <>
       <SidebarMenuWrap className="res-menuWrap">
@@ -30,10 +42,12 @@ const SidebarMenu = (familyId) => {
           className="res-menuBox"
           onClick={() => {
             history.replace(`/family/${NowFamilyId}`);
+            // handleMenuColor();
           }}
+          // color={menuColor}
         >
           <MdHome style={{ fontSize: "24px" }} />
-          <Menus className="res-menus">홈</Menus>
+          <Menus className="Sidebarmenus">홈</Menus>
         </MenuBox>
         <MenuBox
           className="res-menuBox"
@@ -42,7 +56,7 @@ const SidebarMenu = (familyId) => {
           }}
         >
           <MdVerified style={{ fontSize: "24px" }} />
-          <Menus className="res-menus"> 미션</Menus>
+          <Menus className="Sidebarmenus"> 미션</Menus>
         </MenuBox>
         <MenuBox
           className="res-menuBox"
@@ -51,7 +65,7 @@ const SidebarMenu = (familyId) => {
           }}
         >
           <MdEvent style={{ fontSize: "24px" }} />
-          <Menus className="res-menus">캘린더</Menus>
+          <Menus className="Sidebarmenus">캘린더</Menus>
         </MenuBox>
         <MenuBox
           className="res-menuBox"
@@ -60,7 +74,7 @@ const SidebarMenu = (familyId) => {
           }}
         >
           <MdPhotoLibrary style={{ fontSize: "24px" }} />
-          <Menus className="res-menus">갤러리</Menus>
+          <Menus className="Sidebarmenus">갤러리</Menus>
         </MenuBox>
         <MenuBox
           className="res-menuBox"
@@ -69,7 +83,7 @@ const SidebarMenu = (familyId) => {
           }}
         >
           <MdOutlineVoicemail style={{ fontSize: "24px" }} />
-          <Menus className="res-menus">음성메시지</Menus>
+          <Menus className="Sidebarmenus">음성메시지</Menus>
         </MenuBox>
       </SidebarMenuWrap>
     </>
@@ -115,6 +129,7 @@ const MenuBox = styled.div`
   font-size: 20px;
   font-weight: 500;
   color: #c2c2c2;
+  ${({ color }) => `color: ${color}`};
   cursor: pointer;
 
   &:hover {
