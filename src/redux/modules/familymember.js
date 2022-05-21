@@ -20,7 +20,8 @@ const GET_FAMILY_MEMBER = "GET_FAMILY_MEMBER";
 const GET_SEARCH_MEMBER = "GET_SEARCH_MEMBER";
 const ADD_FAMILY_MEMBER = "ADD_FAMILY_MEMBER";
 const EDIT_FAMILY_MEMBER_NICKNAME = "EDIT_FAMILY_MEMBER_NICKNAME";
-const EDIT_FAMILY_PROFILE_IMG = "EDIT_FAMILY_PROFILE_IMG";
+const EDIT_FAMILY_MEMBER_PROFILE_IMG = "EDIT_FAMILY_MEMBER_PROFILE_IMG";
+const EDIT_FAMILY_MEMBER_TODAY_MOOD = "EDIT_FAMILY_MEMBER_TODAY_MOOD";
 const DELETE_FAMILY_MEMBER = "DELETE_FAMILY_MEMBER";
 const LEAVE_FAMILY = "LEAVE_FAMILY";
 
@@ -45,10 +46,17 @@ const editFamilyMembeNickname = createAction(
     familyMemberNickname,
   })
 );
-const editFamilyProfileImg = createAction(
-  EDIT_FAMILY_PROFILE_IMG,
+const editFamilyMemberProfileImg = createAction(
+  EDIT_FAMILY_MEMBER_PROFILE_IMG,
   (newProfileImg, familyMemberId) => ({
     newProfileImg,
+    familyMemberId,
+  })
+);
+const editFamilyMemberTodayMood = createAction(
+  EDIT_FAMILY_MEMBER_TODAY_MOOD,
+  (todayMood, familyMemberId) => ({
+    todayMood,
     familyMemberId,
   })
 );
@@ -291,7 +299,7 @@ export default handleActions(
         draft.familyMemberList[index] = nowFamilyMember;
       }),
 
-    [EDIT_FAMILY_PROFILE_IMG]: (state, action) =>
+    [EDIT_FAMILY_MEMBER_PROFILE_IMG]: (state, action) =>
       produce(state, (draft) => {
         const { newProfileImg, familyMemberId } = action.payload;
         // 현재 가족
@@ -310,6 +318,30 @@ export default handleActions(
         nowFamilyMember = {
           ...nowFamilyMember,
           profileImg: newProfileImg,
+        };
+
+        draft.familyMemberList[index] = nowFamilyMember;
+      }),
+
+    [EDIT_FAMILY_MEMBER_TODAY_MOOD]: (state, action) =>
+      produce(state, (draft) => {
+        const { todayMood, familyMemberId } = action.payload;
+        // 현재 가족
+        let nowFamilyMember = draft.familyMemberList.find(
+          (l) => l.familyMemberId === familyMemberId
+        );
+
+        // console.log(state,fam)
+
+        // let nowFamilMemberList = d
+        // // 변경해야할 배열 인덱스
+        let index = draft.familyMemberList.findIndex(
+          (l) => l.familyMemberId === familyMemberId
+        );
+
+        nowFamilyMember = {
+          ...nowFamilyMember,
+          todayMood: todayMood,
         };
 
         draft.familyMemberList[index] = nowFamilyMember;
@@ -351,7 +383,8 @@ export const familyMemberActions = {
   getSearchMember,
   addFamilyMember,
   editFamilyMembeNickname,
-  editFamilyProfileImg,
+  editFamilyMemberProfileImg,
+  editFamilyMemberTodayMood,
   deleteFamilyMember,
   getFamilyMemberDB,
   getSearchMemberDB,
