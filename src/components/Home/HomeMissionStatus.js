@@ -10,13 +10,19 @@ import { history } from "../../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 
 // 엘리먼트
-import { Text } from "../../elements";
+import { CircleImage, Text } from "../../elements";
 import { missionActions } from "../../redux/modules/mission";
+
+// 이미지
+import homeMissionStatus from "../../shared/images/homeMissionStatus.png";
+import yellowface from "../../shared/images/yellowface.svg";
 
 const HomeMissionStatus = ({ familyId }) => {
   const dispatch = useDispatch();
 
   const { missionStatus } = useSelector((state) => state.mission);
+
+  const percenTage = missionStatus?.completePercentage;
 
   console.log("미션현황:", missionStatus);
 
@@ -24,33 +30,39 @@ const HomeMissionStatus = ({ familyId }) => {
 
   useEffect(() => {
     dispatch(missionActions.getMissionStatusDB(familyId));
-  }, []);
+  }, [familyId]);
 
   return (
     <>
       <Container>
         <Figure>
           <ContantBox>
-            <CountText>대단해요</CountText>
-            {!(missionStatus?.completePercentage === 100) ? (
+            <MiddleTextBox>
+              <CircleImage S src={yellowface} size="40px" />
+              <CountText>
+                {percenTage}%{" "}
+                {percenTage === 100
+                  ? "우리는 환상의 가족"
+                  : 75 <= percenTage && percenTage < 100
+                  ? "돌파! 끈끈해요"
+                  : 50 <= percenTage && percenTage < 75
+                  ? "돌파! 대단해요"
+                  : 25 <= percenTage && percenTage < 50
+                  ? "돌파! 도전해요"
+                  : 0 <= percenTage && percenTage < 25
+                  ? "이제 시작해요"
+                  : "이제 시작해요"}
+              </CountText>
+            </MiddleTextBox>
+            {!(percenTage === 100) ? (
               <BadgeBar>
-                <BadgeBarPercentage
-                  badgeCnt={missionStatus?.completePercentage}
-                ></BadgeBarPercentage>
+                <BadgeBarPercentage badgeCnt={percenTage}></BadgeBarPercentage>
               </BadgeBar>
             ) : (
               <CompletedBadgeBar>
                 <p style={{ margin: "1px 0 0 0" }}>성공</p>
               </CompletedBadgeBar>
             )}
-            <BottomTextBox>
-              <Text className="nowMission">
-                현재 {missionStatus?.completedMission}개 달성
-              </Text>
-              <Text className="totalMission">
-                {nowMonth} 미션 {missionStatus?.totalMission}개
-              </Text>
-            </BottomTextBox>
           </ContantBox>
         </Figure>
       </Container>
@@ -95,12 +107,14 @@ const ContantBox = styled.div`
   background-color: #fff;
 `;
 
-const BottomTextBox = styled.div`
+const MiddleTextBox = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
   flex-direction: right;
   width: 100%;
+  margin-bottom: 27px;
+  margin-top: 16px;
 
   .nowMission {
     font-size: 12px;
@@ -121,28 +135,30 @@ const BottomTextBox = styled.div`
 
 const CountText = styled.div`
   position: relative;
-  background: #757575;
+  display: flex;
+  align-items: center;
+  background: #f7f8ff;
   padding: 8px 16px;
   white-space: nowrap;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
   border-radius: 6px;
-  color: #fff;
-  margin-bottom: 10px;
+  color: #6371f7;
+  margin-left: 10px;
 
   &:after {
-    top: 100%;
-    left: 50%;
+    right: 100%;
+    top: 50%;
     border: solid transparent;
     content: "";
     height: 0;
     width: 0;
     position: absolute;
     pointer-events: none;
-    border-color: none;
-    border-top-color: #757575;
+    border-color: rgba(247, 248, 255, 0);
+    border-right-color: #f7f8ff;
     border-width: 5px;
-    margin-left: -5px;
+    margin-top: -5px;
   }
 `;
 
@@ -172,7 +188,7 @@ const BadgeBarPercentage = styled.div`
   justify-content: center;
   ${({ badgeCnt }) => ` width: ${badgeCnt}%`};
   height: 20px;
-  background-color: #f4cc4d;
+  background-color: #6371f7;
   border: none;
   border-radius: 50px 0 0 50px;
   font-size: 16px;
@@ -191,9 +207,9 @@ const CompletedBadgeBar = styled.div`
   justify-content: center;
   width: 100%;
   height: 20px;
-  background-color: #f4cc4d;
+  background-color: #6371f7;
   border: none;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 16px;
   z-index: 5;
   color: white;

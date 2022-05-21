@@ -25,6 +25,11 @@ import AlertModal from "../AlertModal";
 
 // 이미지
 // import profileImg from "../../../images/profileImg.png";
+import Profile01 from "../../../images/Profile01.png";
+import Profile02 from "../../../images/Profile02.png";
+import Profile03 from "../../../images/Profile03.png";
+import Profile04 from "../../../images/Profile04.png";
+import Profile05 from "../../../images/Profile05.png";
 
 const EditOneFamilyMember = ({
   profileImg,
@@ -93,7 +98,26 @@ const EditOneFamilyMember = ({
     >
       <ProfileWrap>
         <ProfileBox>
-          <CircleImage S src={profileImg ? profileImg : null} size="40px" />
+          <CircleImage
+            S
+            // src={profileImg ? profileImg : null}
+            size="40px"
+            src={
+              profileImg === "Profile01"
+                ? Profile01
+                : profileImg === "Profile02"
+                ? Profile02
+                : profileImg === "Profile03"
+                ? Profile03
+                : profileImg === "Profile04"
+                ? Profile04
+                : profileImg === "Profile05"
+                ? Profile05
+                : profileImg
+                ? profileImg
+                : Profile01
+            }
+          />
         </ProfileBox>
         <InputWrap>
           <Input

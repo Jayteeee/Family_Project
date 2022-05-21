@@ -177,6 +177,7 @@ const Container = styled.div`
 const Figure = styled.div`
   break-inside: avoid;
   width: 100%;
+  height: 100%;
 `;
 
 const VoiceWrap = styled.div`

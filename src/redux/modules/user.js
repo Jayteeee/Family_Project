@@ -27,16 +27,16 @@ const EDIT_TODAY_MOOD = "EDIT_TODAY_MOOD";
 const login = createAction(LOG_IN, (userData) => ({ userData }));
 const logOut = createAction(LOG_OUT);
 const getUser = createAction(GET_USER, (user) => ({ user }));
-const editProfileImg = createAction(
-  EDIT_PROFILE_IMG,
-  (newProfile, myFamiyMemberId) => ({
-    newProfile,
-    myFamiyMemberId,
-  })
-);
-const editTodayMood = createAction(EDIT_TODAY_MOOD, (todayMood) => ({
-  todayMood,
-}));
+// const editProfileImg = createAction(
+//   EDIT_PROFILE_IMG,
+//   (newProfile, myFamiyMemberId) => ({
+//     newProfile,
+//     myFamiyMemberId,
+//   })
+// );
+// const editTodayMood = createAction(EDIT_TODAY_MOOD, (todayMood) => ({
+//   todayMood,
+// }));
 
 // 미들웨어
 const userLogout = () => {
@@ -133,7 +133,7 @@ const getUserInfo = (token) => {
   };
 };
 
-const editTodayMoodDB = (todayMood) => {
+const editTodayMoodDB = (todayMood, myFamiyMemberId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -146,10 +146,15 @@ const editTodayMoodDB = (todayMood) => {
       )
       .then((res) => {
         console.log(res);
-        const todayMood = res.data;
+        const { todayMood } = res.data;
         console.log(todayMood);
 
-        // dispatch(editTodayMood(todayMood));
+        dispatch(
+          familyMemberActions.editFamilyMemberTodayMood(
+            todayMood,
+            myFamiyMemberId
+          )
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -171,7 +176,7 @@ const editProfileImgDB = (formData, myFamiyMemberId) => {
         console.log(res.msg);
         const newProfileImg = res.data.photoFile;
         dispatch(
-          familyMemberActions.editFamilyProfileImg(
+          familyMemberActions.editFamilyMemberProfileImg(
             newProfileImg,
             myFamiyMemberId
           )

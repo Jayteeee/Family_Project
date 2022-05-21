@@ -20,7 +20,12 @@ import {
 } from "../../../../elements";
 
 // 이미지
-import profileImg from "../../../images/profileImg.png";
+// import profileImg from "../../../images/profileImg.png";
+import Profile01 from "../../../images/Profile01.png";
+import Profile02 from "../../../images/Profile02.png";
+import Profile03 from "../../../images/Profile03.png";
+import Profile04 from "../../../images/Profile04.png";
+import Profile05 from "../../../images/Profile05.png";
 
 const MissionMemberModal = ({ onClose, familyMemberList }) => {
   const dispatch = useDispatch();
@@ -134,7 +139,22 @@ const MissionMemberModal = ({ onClose, familyMemberList }) => {
                             <RactangleImage
                               S
                               size="65px"
-                              src={f?.profileImg ? f?.profileImg : profileImg}
+                              // src={f?.profileImg ? f?.profileImg : profileImg}
+                              src={
+                                f?.profileImg === "Profile01"
+                                  ? Profile01
+                                  : f?.profileImg === "Profile02"
+                                  ? Profile02
+                                  : f?.profileImg === "Profile03"
+                                  ? Profile03
+                                  : f?.profileImg === "Profile04"
+                                  ? Profile04
+                                  : f?.profileImg === "Profile05"
+                                  ? Profile05
+                                  : f?.profileImg
+                                  ? f?.profileImg
+                                  : Profile01
+                              }
                               className="missionProfileImage"
                               borderRadius="23px"
                             />

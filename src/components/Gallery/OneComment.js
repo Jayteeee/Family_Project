@@ -23,6 +23,11 @@ import { history } from "../../redux/configureStore";
 // 이미지
 import noImage from "../../shared/images/noImage.png";
 import profileImg from "../../shared/images/profileImg.png";
+import Profile01 from "../../shared/images/Profile01.png";
+import Profile02 from "../../shared/images/Profile02.png";
+import Profile03 from "../../shared/images/Profile03.png";
+import Profile04 from "../../shared/images/Profile04.png";
+import Profile05 from "../../shared/images/Profile05.png";
 
 const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
   const dispatch = useDispatch();
@@ -46,7 +51,22 @@ const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
             <div>
               <CircleImage
                 XS
-                src={userInfo?.profileImg ? userInfo?.profileImg : profileImg}
+                // src={userInfo?.profileImg ? userInfo?.profileImg : profileImg}
+                src={
+                  userInfo?.profileImg === "Profile01"
+                    ? Profile01
+                    : userInfo?.profileImg === "Profile02"
+                    ? Profile02
+                    : userInfo?.profileImg === "Profile03"
+                    ? Profile03
+                    : userInfo?.profileImg === "Profile04"
+                    ? Profile04
+                    : userInfo?.profileImg === "Profile05"
+                    ? Profile05
+                    : userInfo?.profileImg
+                    ? userInfo?.profileImg
+                    : Profile01
+                }
               />
             </div>
             <Text size="15px" padding="0 10px 0 10px" fontWeight="600">
