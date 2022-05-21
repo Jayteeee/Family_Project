@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -23,28 +23,65 @@ const SidebarMenu = (familyId) => {
   const { NowFamilyId } = familyId;
   console.log("사이드바에 적용할 Id값: ", NowFamilyId);
 
-  const [homeMenuColor, setHomeMenuColor] = useState("#c2c2c2");
+  const [homeMenuColor, setHomeMenuColor] = useState("#familyId");
   const [missionMenuColor, setMissionMenuColor] = useState("#c2c2c2");
   const [calendarMenuColor, setCalendarMenuColor] = useState("#c2c2c2");
   const [galleryMenuColor, setGalleryMenuColor] = useState("#c2c2c2");
   const [voiceMenuColor, setVoiceMenuColor] = useState("#c2c2c2");
+  const [newfamilyId, setnewfamilyId] = useState("familyId");
 
-  // const handleMenuColor = () => {
-  //   setMenuColor(menuColor === "#c2c2c2" ? "#6371F7" : "#c2c2c2");
-  //   // setMenuColor("#6371F7");
-  // };
-  // console.log(menuColor);
+  const handleHomeMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#6371F7");
+    localStorage.setItem("missionMenuColor", "#c2c2c2");
+    localStorage.setItem("calendarMenuColor", "#c2c2c2");
+    localStorage.setItem("galleryMenuColor", "#c2c2c2");
+    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+  };
+
+  console.log(localStorage.getItem("homeMenuColor"));
+
+  const handleMissionMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#c2c2c2");
+    localStorage.setItem("missionMenuColor", "#6371F7");
+    localStorage.setItem("calendarMenuColor", "#c2c2c2");
+    localStorage.setItem("galleryMenuColor", "#c2c2c2");
+    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+  };
+
+  const handleCalendarMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#c2c2c2");
+    localStorage.setItem("missionMenuColor", "#c2c2c2");
+    localStorage.setItem("calendarMenuColor", "#6371F7");
+    localStorage.setItem("galleryMenuColor", "#c2c2c2");
+    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+  };
+
+  const handleGalleryMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#c2c2c2");
+    localStorage.setItem("missionMenuColor", "#c2c2c2");
+    localStorage.setItem("calendarMenuColor", "#c2c2c2");
+    localStorage.setItem("galleryMenuColor", "#6371F7");
+    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+  };
+
+  const handleVoiceMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#c2c2c2");
+    localStorage.setItem("missionMenuColor", "#c2c2c2");
+    localStorage.setItem("calendarMenuColor", "#c2c2c2");
+    localStorage.setItem("galleryMenuColor", "#c2c2c2");
+    localStorage.setItem("voiceMenuColor", "#6371F7");
+  };
 
   return (
     <>
       <SidebarMenuWrap className="res-menuWrap">
         <MenuBox
-          className="res-menuBox"
+          className="homeMenu"
           onClick={() => {
             history.replace(`/family/${NowFamilyId}`);
-            // handleMenuColor();
+            handleHomeMenuColor();
           }}
-          // color={menuColor}
+          color={localStorage.getItem("homeMenuColor")}
         >
           <MdHome style={{ fontSize: "24px" }} />
           <Menus className="Sidebarmenus">홈</Menus>
@@ -53,7 +90,9 @@ const SidebarMenu = (familyId) => {
           className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/mission/`);
+            handleMissionMenuColor();
           }}
+          color={localStorage.getItem("missionMenuColor")}
         >
           <MdVerified style={{ fontSize: "24px" }} />
           <Menus className="Sidebarmenus"> 미션</Menus>
@@ -62,7 +101,9 @@ const SidebarMenu = (familyId) => {
           className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/calendar/`);
+            handleCalendarMenuColor();
           }}
+          color={localStorage.getItem("calendarMenuColor")}
         >
           <MdEvent style={{ fontSize: "24px" }} />
           <Menus className="Sidebarmenus">캘린더</Menus>
@@ -71,7 +112,9 @@ const SidebarMenu = (familyId) => {
           className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/gallery/`);
+            handleGalleryMenuColor();
           }}
+          color={localStorage.getItem("galleryMenuColor")}
         >
           <MdPhotoLibrary style={{ fontSize: "24px" }} />
           <Menus className="Sidebarmenus">갤러리</Menus>
@@ -80,7 +123,9 @@ const SidebarMenu = (familyId) => {
           className="res-menuBox"
           onClick={() => {
             history.push(`/family/${NowFamilyId}/voiceMsg/`);
+            handleVoiceMenuColor();
           }}
+          color={localStorage.getItem("voiceMenuColor")}
         >
           <MdOutlineVoicemail style={{ fontSize: "24px" }} />
           <Menus className="Sidebarmenus">음성메시지</Menus>
@@ -131,6 +176,10 @@ const MenuBox = styled.div`
   color: #c2c2c2;
   ${({ color }) => `color: ${color}`};
   cursor: pointer;
+
+  .homeMenu {
+    color: #6371f7 !important;
+  }
 
   &:hover {
     background: #d6d6d6;
