@@ -54,21 +54,21 @@ function App() {
     }
   }, [socket, userId]);
 
-  useEffect(() => {
-    if (token) {
-      socket?.on("getNotification", (data) => {
-        dispatch(socketActions.setSocketDB(data));
-        console.log(data);
-      });
-    }
-  }, [socket]);
+  // useEffect(() => {
+  //   if (token) {
+  //     socket?.on("getNotification", (data) => {
+  //       dispatch(socketActions.setNotiDB(data));
+  //       console.log(data);
+  //     });
+  //   }
+  // }, [socket]);
 
   useEffect(() => {
     if (token) {
       socket?.emit("getMyAlert", { userId: userId, type: "초대" });
       socket?.on("newInviteDB", (data) => {
         console.log("newInviteDB, ", data);
-        dispatch(socketActions.setSocketDB(data));
+        dispatch(socketActions.setAlertDB(data));
       });
     }
   }, [socket]);
@@ -76,9 +76,9 @@ function App() {
   useEffect(() => {
     if (token) {
       socket?.emit("getFamilyNoti", { userId: userId });
-      socket?.on("sendFamilyNoti", (data) => {
-        console.log("getFamilyNoti, ", data);
-        dispatch(socketActions.setSocketDB(data));
+      socket?.on("notiReturn", (data) => {
+        console.log("notiReturn, ", data);
+        dispatch(socketActions.setFamilyNotiDB(data));
       });
     }
   }, [socket]);

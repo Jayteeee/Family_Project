@@ -34,9 +34,6 @@ const LandingPage = () => {
     <Container>
       <Box>
         <DesBox>
-          <LogoBox>
-            <Logo>로고</Logo>
-          </LogoBox>
           <Description />
         </DesBox>
         {!isLogin ? (
@@ -66,7 +63,7 @@ const LandingPage = () => {
 };
 
 const Container = styled.div`
-  background-color: rgba(111, 95, 206, 0.1);
+  background-color: #eff1fe;
   height: 100%;
   width: 100%;
   overflow-y: hidden;
@@ -99,17 +96,6 @@ const DesBox = styled.div`
   @media only screen and (max-width: 839px) {
     width: 100%;
   }
-`;
-const LogoBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 20%;
-`;
-const Logo = styled.div`
-  width: 258px;
-  height: 80px;
 `;
 
 const Content = styled.div`

@@ -4,6 +4,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import image from "../../shared/images/noImage.png";
+import landing1 from "../../shared/images/landing_page_1.png";
+import landing2 from "../../shared/images/landing_page_2.png";
+import landing3 from "../../shared/images/landing_page_3.png";
+import landing4 from "../../shared/images/landing_page_4.png";
+import landing5 from "../../shared/images/landing_page_5.png";
 
 import { Text } from "../../elements";
 
@@ -24,84 +29,31 @@ const SimpleSlider = () => {
         className="res-ss res-reset"
       >
         <Container className="res-ss">
-          <TextBox>
-            <Title>
-              <Text H2 className="res-ss">
-                우리가족 소통공간, 도란도란
-              </Text>
-            </Title>
-            <SubTitle>
-              <Text B1 className="res-ss">
-                부모님 생신 잊어버린 적 있으시죠? <br />
-                그러고 싶지 않았지만 잊고 부랴부랴 챙기는 경험, 이제는
-                없어집니다!
-              </Text>
-            </SubTitle>
-          </TextBox>
-          <img alt="description1" src={image} className="res-ss" />
+          <img alt="description1" src={landing1} className="res-ss" />
         </Container>
         <Container className="res-ss">
-          <TextBox>
-            <Title>
-              <Text H2 className="res-ss">
-                도란도란의 캘린더 기능은
-                <br />
-                가족들의 일정을 한눈에 파악할 수 있도록 돕습니다.
-              </Text>
-            </Title>
-            <SubTitle>
-              <Text B1 className="res-ss">
-                부모님 생신 잊어버린 적 있으시죠? <br />
-                그러고 싶지 않았지만 잊고 부랴부랴 챙기는 경험, 이제는
-                없어집니다!
-              </Text>
-            </SubTitle>
-          </TextBox>
-          <img alt="description2" src={image} className="res-ss" />
+          <img alt="description2" src={landing2} className="res-ss" />
         </Container>
         <Container className="res-ss">
-          <TextBox>
-            <Title>
-              <Text H2 className="res-ss">
-                도란도란의 미션 기능은
-                <br />
-                가족들과의 관계 개선을 돕습니다.
-              </Text>
-            </Title>
-            <SubTitle>
-              <Text B1 className="res-ss">
-                부모님께 연락드리기 잊으신 적 있으시죠? <br />
-                중요하지만 미루게 되는 가족들과의 관계 개선! 다양한 미션을 통해
-                해결해보세요.
-              </Text>
-            </SubTitle>
-          </TextBox>
-          <img alt="description3" src={image} className="res-ss" />
+          <img alt="description3" src={landing3} className="res-ss" />
         </Container>
         <Container className="res-ss">
-          <TextBox>
-            <Title>
-              <Text H2 className="res-ss">
-                도란도란의 갤러리 기능은
-                <br />
-                가족들과의 추억을 한눈에 파악할 수 있도록 돕습니다.
-              </Text>
-            </Title>
-            <SubTitle>
-              <Text B1 className="res-ss">
-                지난 번에 올렸던 귀여운 손주사진을 못찾으시겠다구요? <br />
-                도란도란 캘린더 기능으로 소중한 추억 원할 때마다 편하게
-                찾아보세요!
-              </Text>
-            </SubTitle>
-          </TextBox>
-          <img alt="description4" src={image} className="res-ss" />
+          <img alt="description4" src={landing4} className="res-ss" />
+        </Container>
+        <Container className="res-ss">
+          <img alt="description4" src={landing5} className="res-ss" />
         </Container>
       </Styled_Slide>
     </>
   );
 };
 const Styled_Slide = styled(Slider)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
   .slick-list {
     //얘로 크기조정
     max-width: 100%;
@@ -114,10 +66,11 @@ const Styled_Slide = styled(Slider)`
     }
   }
   img {
-    height: 50%;
-    width: 50%;
-    margin: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
     align-items: center;
+    justify-content: center;
   }
   .reset {
     transform: none;
@@ -173,13 +126,4 @@ const Styled_Slide = styled(Slider)`
 `;
 
 const Container = styled.div``;
-
-const TextBox = styled.div`
-  margin: 24px 40px;
-`;
-
-const Title = styled.div`
-  margin: 16px 0;
-`;
-const SubTitle = styled.div``;
 export default SimpleSlider;

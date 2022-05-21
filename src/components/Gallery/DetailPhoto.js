@@ -140,8 +140,8 @@ const DetailPhoto = ({
     socket.emit("sendNotification", {
       senderName: nowUserNickname,
       receiverName: detailPhoto.userId,
-      category: "갤러리",
       type,
+      category: "갤러리",
     });
   };
 

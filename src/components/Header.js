@@ -38,8 +38,10 @@ const Header = (props) => {
   console.log(bg);
   console.log("유저정보: ", user);
 
-  const sender = useSelector((state) => state?.socket?.sender?.findUserAlertDB);
   const socket = useSelector((state) => state?.socket?.socket);
+  // const alert = useSelector((state) => state?.socket?.alert?.findUserAlertDB);
+  // const familyNoti = useSelector((state) => state?.socket?.familyNoti?.findAlertDB);
+  const alert = useSelector((state) => state?.socket?.alert);
 
   // const familyMemberNickname = familyMemberList.
 
@@ -104,14 +106,14 @@ const Header = (props) => {
                 }}
                 onClick={handleNoti}
               />
-              {sender ? <NotiCount>{sender?.length}</NotiCount> : null}
+              {alert ? <NotiCount>{alert?.length}</NotiCount> : null}
             </NotiBox>
             {notiOn ? (
               <>
                 <NotiMsgBox>
                   <span className="triangle"></span>
-                  {sender ? (
-                    sender.map((x) => {
+                  {alert ? (
+                    alert.map((x) => {
                       return (
                         <div>
                           <NotiHead>

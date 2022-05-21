@@ -5,9 +5,7 @@ import SimpleSlider from "./SimpleSlider";
 const Description = () => {
   return (
     <Container className="res-cont">
-      <div>
-        <SimpleSlider />
-      </div>
+      <SimpleSlider />
     </Container>
   );
 };
