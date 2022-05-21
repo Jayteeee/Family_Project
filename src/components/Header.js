@@ -255,6 +255,7 @@ const NotiMsgBox = styled.div`
   padding: 16px;
   border-radius: 12px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.12), 2px 6px 12px rgba(0, 0, 0, 0.12);
+  overflow: auto;
   .triangle {
     border-bottom: 10px solid white;
     border-right: 8px solid transparent;

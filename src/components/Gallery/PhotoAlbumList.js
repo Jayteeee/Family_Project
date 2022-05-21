@@ -89,8 +89,11 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
     (state) => state.user.user.user?.nickname
   );
 
+  const nowUserId = useSelector((state) => state.user.user.user?.userId);
+
   const handleNotification = (type) => {
     socket.emit("sendFamilyNoti", {
+      userId: nowUserId,
       senderName: nowUserNickname,
       receiverFamily: NowFamilyId,
       category: "갤러리",

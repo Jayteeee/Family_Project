@@ -61,8 +61,11 @@ const EditScheduleModal = ({ onClose, eventId }) => {
     (state) => state.user.user.user?.nickname
   );
 
+  const nowUserId = useSelector((state) => state.user.user.user?.userId);
+
   const handleNotification = (type) => {
     socket.emit("sendFamilyNoti", {
+      userId: nowUserId,
       senderName: nowUserNickname,
       receiverFamily: list.familyId,
       category: "캘린더",

@@ -9,8 +9,8 @@ import { familyMemberActions } from "./familymember";
 import { detailPhotoActions } from "./detailphoto";
 import { missionActions } from "./mission";
 
-const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
+// const BASE_URL = "https://doremilan.shop";
+const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   user: {},

@@ -79,6 +79,7 @@ const Main = (props) => {
 
   const handleSocket = (e) => {
     const familyId = e.target.getAttribute("id");
+    socket?.emit("leaveRoom", { NowFamilyId });
     socket?.emit("movingRoom", { familyId });
   };
 
