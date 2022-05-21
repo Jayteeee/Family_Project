@@ -7,6 +7,8 @@ import { io } from "socket.io-client";
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/Token";
 import { familyMemberActions } from "./familymember";
+import { detailPhotoActions } from "./detailphoto";
+import { missionActions } from "./mission";
 
 // const BASE_URL = "https://doremilan.shop";
 const BASE_URL = "http://52.79.130.222";
@@ -21,19 +23,15 @@ const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 const EDIT_PROFILE_IMG = "EDIT_PROFILE_IMG";
-const EDIT_TODAY_MOOD = "EDIT_TODAY_MOOD";
+// const EDIT_TODAY_MOOD = "EDIT_TODAY_MOOD";
 
 // 액션 생성함수
 const login = createAction(LOG_IN, (userData) => ({ userData }));
 const logOut = createAction(LOG_OUT);
 const getUser = createAction(GET_USER, (user) => ({ user }));
-// const editProfileImg = createAction(
-//   EDIT_PROFILE_IMG,
-//   (newProfile, myFamiyMemberId) => ({
-//     newProfile,
-//     myFamiyMemberId,
-//   })
-// );
+const editProfileImg = createAction(EDIT_PROFILE_IMG, (profileImg) => ({
+  profileImg,
+}));
 // const editTodayMood = createAction(EDIT_TODAY_MOOD, (todayMood) => ({
 //   todayMood,
 // }));
@@ -175,12 +173,28 @@ const editProfileImgDB = (formData, myFamiyMemberId) => {
         console.log(res);
         console.log(res.msg);
         const newProfileImg = res.data.photoFile;
+
         dispatch(
           familyMemberActions.editFamilyMemberProfileImg(
             newProfileImg,
             myFamiyMemberId
           )
         );
+
+        dispatch(editProfileImg(newProfileImg));
+
+        dispatch(
+          detailPhotoActions.editDetailPhotoProfileImg(
+            newProfileImg,
+            myFamiyMemberId
+          )
+        );
+        // dispatch(
+        //   missionActions.editMissionMemberProfileImg(
+        //     newProfileImg,
+        //     myFamiyMemberId
+        //   )
+        // );
         window.alert("프로필 이미지가 수정되었습니다.");
       })
       .catch((err) => {
@@ -210,11 +224,11 @@ export default handleActions(
         draft.user = action.payload.user;
         draft.isLogin = true;
       }),
-    // [EDIT_TODAY_MOOD]: (state, action) =>
-    // produce(state, (draft) => {
-    //   draft.user = action.payload.user;
-    //   draft.isLogin = true;
-    // }),
+    [EDIT_PROFILE_IMG]: (state, action) =>
+      produce(state, (draft) => {
+        const { profileImg } = action.payload;
+        draft.user.user.profileImg = profileImg;
+      }),
   },
   initialState
 );

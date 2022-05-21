@@ -31,6 +31,7 @@ const GET_MY_MISSION_CHK = "GET_MY_MISSION_CHK";
 const GET_MISSION_STATUS = "GET_MISSION_STATUS";
 const ADD_MISSION = "ADD_MISSION";
 const ADD_MISSION_MEMBER = "ADD_MISSION_MEMBER";
+// const EDIT_MISSION_MEMBER_PROFILE_IMG = "EDIT_MISSION_MEMBER_PROFILE_IMG";
 const CHECK_MISSION = "CHECK_MISSION";
 const CHECK_MISSION_MEMBER = "CHECK_MISSION_MEMBER";
 const MISSION_STATUS_UPDATE = "MISSION_UPDATE";
@@ -71,6 +72,13 @@ const addMissionMember = createAction(
     selectedMemberIdList,
   })
 );
+// const editMissionMemberProfileImg = createAction(
+//   EDIT_MISSION_MEMBER_PROFILE_IMG,
+//   (profileImg, familyMemberId) => ({
+//     profileImg,
+//     familyMemberId,
+//   })
+// );
 const checkMission = createAction(CHECK_MISSION, (missionChkData) => ({
   missionChkData,
 }));
@@ -134,21 +142,6 @@ const getPastMissionDB = (familyId) => {
         console.log("지난 미션 데이터 안옴", err);
         // window.alert(err.response.data.msg);
       });
-    //     // await axios
-    //     //   .get(`${BASE_URL}/mission/${familyId}/pastmission`, { headers: config })
-    //     //   .then((res) => {
-    //     //     console.log(res);
-    //     //     const { familyList } = res.data;
-    //     //     console.log(familyList);
-    //     //     // dispatch(getFamily(familyList));
-    //     //   })
-    //     //   .catch((error) => {
-    //     //     console.log("패밀리 데이터 안옴", error);
-    //     //     console.log(error.response);
-    //     //   });
-    // const pastMissionList = DummyData.pastMissionList;
-    // console.log("지난 미션 데이터:", pastMissionList);
-    // dispatch(getPastMission(pastMissionList));
   };
 };
 
@@ -167,11 +160,6 @@ const getMissionMemberDB = (familyId) => {
         console.log("미션 멤버 데이터 안옴", err);
         // window.alert(err.response.data.msg);
       });
-
-    // const missionMemberData = DummyData.familyMemberList;
-
-    // console.log("현재 미션 멤버 데이터:", missionMemberData);
-    // dispatch(getMissionMember(missionMemberData));
   };
 };
 
@@ -209,8 +197,6 @@ const getMissionStatusDB = (familyId) => {
         console.log("미션 현황 데이터 안옴", err);
         // window.alert(err.response.data.msg);
       });
-    // const badgeList = DummyData.badgePage.badge;
-    // dispatch(getBadgeList(badgeList));
   };
 };
 
@@ -313,14 +299,6 @@ const deleteMissionDB = (familyId, missionId) => {
       })
       .then((res) => {
         console.log(res);
-        // window.alert(res.msg)
-        //     alert("삭제!");
-        // let missionStatus = {
-        //   totalMission: 10,
-        //   completedMission: 3,
-        //   completePercentage: "30",
-        //   totalBadge: 5,
-        // };
         dispatch(deleteMission(missionId));
         // dispatch(missionStatusUpdate(missionStatus));
         history.go(0);
@@ -370,6 +348,32 @@ export default handleActions(
         draft.selectedMemberList = action.payload.selectedMemberList;
         draft.selectedMemberIdList = action.payload.selectedMemberIdList;
       }),
+    // [EDIT_MISSION_MEMBER_PROFILE_IMG]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     const { profileImg, familyMemberId } = action.payload;
+    //     // 현재 가족
+    //     let nowThisMonthMissionList =
+    //       state.nowMissionData.thisMonthMissionList.map(
+    //         (f) =>
+    //           f.missionMemberList.filter(
+    //             (m) => m.familymemberId === familyMemberId
+    //           )
+    //         // .map((l) => (l.profileImg = profileImg))
+    //       );
+
+    //     console.log(nowThisMonthMissionList);
+    //     // // // 변경해야할 배열 인덱스
+    //     // let index = draft.familyMemberList.findIndex(
+    //     //   (l) => l.familyMemberId === familyMemberId
+    //     // );
+
+    //     // nowFamilyMember = {
+    //     //   ...nowFamilyMember,
+    //     //   profileImg: profileImg,
+    //     // };
+
+    //     draft.nowMissionData.thisMonthMissionList = nowThisMonthMissionList;
+    //   }),
     [CHECK_MISSION]: (state, action) =>
       produce(state, (draft) => {
         const { missionId, familyMissionChk, myMissionChk } =
@@ -469,6 +473,7 @@ export const missionActions = {
   getMissionStatusDB,
   addMissionDB,
   addMissionMember,
+  // editMissionMemberProfileImg,
   checkMissionDB,
   deleteMissionDB,
 };
