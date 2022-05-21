@@ -96,6 +96,15 @@ const Main = (props) => {
     history.push(`/family/${familyId}`);
   };
 
+  // 사이드바 매뉴 색상
+  const handleMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#6371F7");
+    localStorage.removeItem("missionMenuColor");
+    localStorage.removeItem("calendarMenuColor");
+    localStorage.removeItem("galleryMenuColor");
+    localStorage.removeItem("voiceMenuColor");
+  };
+
   const onClose = () => {
     setShowOptions(false);
   };
@@ -128,6 +137,7 @@ const Main = (props) => {
                 e.stopPropagation();
               }}
               className="res-selectBox"
+              on
             >
               {/* 가족 타이틀 수정시 label에 바로 적용 안되는 문제 있음 */}
               <Label className="res-label">
@@ -148,6 +158,7 @@ const Main = (props) => {
                 className="res-selectOptions"
                 show={showOptions}
                 id="optionList"
+                onClick={handleMenuColor}
               >
                 <div style={{ padding: "10px" }}>
                   {familyList.map((f, i) => {

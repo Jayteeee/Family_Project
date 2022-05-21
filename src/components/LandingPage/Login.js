@@ -21,6 +21,11 @@ const Login = ({ checkClient }) => {
     dispatch(userActions.loginDB(inputs));
   };
 
+  // 사이드바 매뉴 색상
+  const handleMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#6371F7");
+  };
+
   return (
     <LoginWrap>
       <Text S3>로그인</Text>
@@ -66,6 +71,7 @@ const Login = ({ checkClient }) => {
               return;
             }
             login();
+            handleMenuColor();
           }}
           color="#fff"
           borderColor="#fff"
@@ -81,7 +87,7 @@ const Login = ({ checkClient }) => {
       <Box>
         <div className="line">또는</div>
       </Box>
-      <Box>
+      <Box onClick={handleMenuColor}>
         <a href="https://doremilan.shop/auth/kakao">
           <img alt="카카오로그인" src={kakaoImg} />
         </a>

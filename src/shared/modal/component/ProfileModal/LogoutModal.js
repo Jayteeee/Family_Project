@@ -19,6 +19,15 @@ const LogoutModal = ({ onClose }) => {
     dispatch(userActions.userLogout());
   };
 
+  // 사이드바 매뉴 색상
+  const handleMenuColor = () => {
+    localStorage.removeItem("homeMenuColor");
+    localStorage.removeItem("missionMenuColor");
+    localStorage.removeItem("calendarMenuColor");
+    localStorage.removeItem("galleryMenuColor");
+    localStorage.removeItem("voiceMenuColor");
+  };
+
   return (
     <ModalPortal>
       <Background
@@ -40,6 +49,7 @@ const LogoutModal = ({ onClose }) => {
             M
             onClick={() => {
               logOut();
+              handleMenuColor();
             }}
           >
             로그아웃{" "}
