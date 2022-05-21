@@ -53,8 +53,9 @@ function App() {
   //   forceNew: true,
   // });
 
-  const ENDPOINT = "http://52.79.130.222/room";
+  const ENDPOINT = "http://52.79.130.222/";
   const userId = useSelector((state) => state?.user?.user?.user?.userId);
+  console.log(userId);
 
   // const [user, setUser] = useState("");
   const [socket, setSocket] = useState(
@@ -85,11 +86,20 @@ function App() {
     if (token) {
       // socket?.on('connection')
       socket?.emit("newUser", userId);
+      console.log(userId);
     }
   }, [socket, userId]);
 
   useEffect(() => {
     socket?.on("getNotification", (data) => {
+      dispatch(socketActions.setSocketDB(data));
+      console.log(data);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket?.on("newInviteDB", (data) => {
+      console.log("newInviteDB, ", data);
       dispatch(socketActions.setSocketDB(data));
     });
   }, [socket]);

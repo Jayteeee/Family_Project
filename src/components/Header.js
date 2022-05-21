@@ -3,21 +3,31 @@ import React, { useState } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import { IoMdNotifications } from "react-icons/io";
-import { MdClear } from "react-icons/md";
+import { MdClear, MdNotificationsNone } from "react-icons/md";
+import dayjs from "dayjs";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
+import { familyMemberActions } from "../redux/modules/familymember";
 
 // 엘리먼트
-import { CircleImage } from "../elements";
+import { CircleImage, RactangleImage } from "../elements";
+
+// 소켓
+import { io } from "socket.io-client";
 
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
 import { ProfileModal } from "../shared/modal/component/ProfileModal";
 
 // 이미지
-import profileImg from "../shared/images/profileImg.png";
-import { familyMemberActions } from "../redux/modules/familymember";
+// import profileImg from "../shared/images/profileImg.png";
+import homeRogo from "../shared/images/homeRogo.svg";
+import Profile01 from "../shared/images/Profile01.png";
+import Profile02 from "../shared/images/Profile02.png";
+import Profile03 from "../shared/images/Profile03.png";
+import Profile04 from "../shared/images/Profile04.png";
+import Profile05 from "../shared/images/Profile05.png";
 
 const Header = (props) => {
   const {
@@ -31,7 +41,7 @@ const Header = (props) => {
   console.log(bg);
   console.log("유저정보: ", user);
 
-  const sender = useSelector((state) => state?.socket.sender);
+  const sender = useSelector((state) => state?.socket?.sender?.newInviteDB);
 
   // const familyMemberNickname = familyMemberList.
 
@@ -58,18 +68,50 @@ const Header = (props) => {
     setNotiOn(!notiOn);
   };
 
+  const ENDPOINT = "http://52.79.130.222/";
+
+  // const [user, setUser] = useState("");
+  const [socket, setSocket] = useState(
+    io.connect(ENDPOINT, {
+      transports: ["websocket"],
+      forceNew: true,
+    })
+  );
+
+  const addFamilyMember = (
+    familyId,
+    familyMemberNickname,
+    selectEmail,
+    userId
+  ) => {
+    dispatch(
+      familyMemberActions.addFamilyMemberDB(
+        familyId,
+        familyMemberNickname,
+        selectEmail
+      )
+    );
+    console.log(userId, familyId, familyMemberNickname);
+    socket?.emit("inviteJoin", {
+      userId: userId,
+      familyId: familyId,
+      familyMemberNickname: familyMemberNickname,
+    });
+    setNotiOn(!notiOn);
+  };
+
   return (
     <>
       <div>
         <HeaderWarp>
-          <RogoBox>도란도란</RogoBox>
+          <RogoBox src={homeRogo} />
           <HeaderRightBox>
             <NotiBox>
-              <IoMdNotifications
+              <MdNotificationsNone
                 style={{
                   marginRight: "20px",
-                  fontSize: "25px",
-                  color: "#d6d6d6",
+                  fontSize: "20px",
+                  color: "#757575",
                   cursor: "pointer",
                 }}
                 onClick={handleNoti}
@@ -77,38 +119,82 @@ const Header = (props) => {
               {sender ? <NotiCount>{sender?.length}</NotiCount> : null}
             </NotiBox>
             {notiOn ? (
-              <NotiMsgBox>
-                <span className="triangle"></span>
-                {sender ? (
-                  <div>
-                    <NotiHead>
-                      <Category>{sender?.category}</Category>
-                      <MdClear onClick={handleNoti} />
-                    </NotiHead>
-                    <NotiMsg>
-                      {sender?.type === "좋아요"
-                        ? `${sender?.senderName} 님이 ${sender?.type}를 누르셨습니다.`
-                        : sender?.type === "댓글"
-                        ? `${sender?.senderName} 님이 ${sender?.type}을 등록하셨습니다.`
-                        : null}
-                    </NotiMsg>
-                    <NotiFooter>
-                      <div>7시간 전</div>
-                    </NotiFooter>
-                    <Line></Line>
-                  </div>
-                ) : (
-                  <div> 알림이 없습니다. </div>
-                )}
-              </NotiMsgBox>
+              <>
+                <NotiMsgBox>
+                  <span className="triangle"></span>
+                  {sender ? (
+                    sender.map((x) => {
+                      return (
+                        <div>
+                          <NotiHead>
+                            <Category>{x?.category}</Category>
+                            <MdClear onClick={handleNoti} />
+                          </NotiHead>
+                          <NotiMsg>
+                            {x?.type === "좋아요"
+                              ? `${x?.senderName} 님이 ${x?.type}를 누르셨습니다.`
+                              : x?.type === "댓글"
+                              ? `${x?.senderName} 님이 ${x?.type}을 등록하셨습니다.`
+                              : x?.type === "초대"
+                              ? `${x?.nickname} 님이 가족 구성원${x?.type}를 하셨습니다.`
+                              : null}
+                          </NotiMsg>
+                          {x?.type === "초대" ? (
+                            <ButtonBox>
+                              <button
+                                onClick={() => {
+                                  addFamilyMember(
+                                    x.familyId,
+                                    x.familyMemberNickname,
+                                    x.selectEmail,
+                                    x.userId
+                                  );
+                                }}
+                              >
+                                승낙
+                              </button>
+                              <button>거절</button>
+                            </ButtonBox>
+                          ) : null}
+                          <NotiFooter>
+                            <div>
+                              {dayjs(x.createdAt).format("MM-DD hh:mm")}
+                            </div>
+                          </NotiFooter>
+                          <Line></Line>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div> 알림이 없습니다. </div>
+                  )}
+                </NotiMsgBox>
+              </>
             ) : null}
 
             <ProfileBox onClick={handleModal}>
-              <CircleImage
-                XS
-                src={user?.profileImg ? user?.profileImg : profileImg}
+              <RactangleImage
+                S
+                size="24px"
+                borderRadius="8.4px"
+                // src={user?.profileImg ? user?.profileImg : profileImg}
+                className="headerProfileImg"
+                src={
+                  user?.profileImg === "Profile01"
+                    ? Profile01
+                    : user?.profileImg === "Profile02"
+                    ? Profile02
+                    : user?.profileImg === "Profile03"
+                    ? Profile03
+                    : user?.profileImg === "Profile04"
+                    ? Profile04
+                    : user?.profileImg === "Profile05"
+                    ? Profile05
+                    : user?.profileImg
+                    ? user?.profileImg
+                    : Profile01
+                }
               />
-              <span style={{ marginLeft: "10px" }}>{user?.nickname}</span>
             </ProfileBox>
           </HeaderRightBox>
         </HeaderWarp>
@@ -141,16 +227,31 @@ const HeaderWarp = styled.header`
 
 const RogoBox = styled.div`
   padding-left: 10px;
+  width: 87px;
+  height: 32px;
+  margin-left: 16px;
+  background-position: center;
+  background-size: cover;
+  ${({ src }) => `background-image: url(${src});`};
 `;
 
 const HeaderRightBox = styled.div`
   display: flex;
   align-items: center;
-  padding-right: 30px;
+  padding-right: 16px;
 `;
 
 const NotiBox = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    &:hover {
+      filter: brightness(50%);
+    }
+  }
 `;
 
 const NotiMsgBox = styled.div`
@@ -199,6 +300,12 @@ const NotiMsg = styled.div`
   margin-bottom: 8px;
 `;
 
+const ButtonBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const NotiFooter = styled.div`
   display: flex;
   align-items: center;
@@ -234,10 +341,12 @@ const ProfileBox = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  &:hover {
-    background: #d6d6d6;
+
+  .headerProfileImg {
+    &:hover {
+      filter: brightness(80%);
+    }
   }
-  padding: 10px;
 `;
 
 export default Header;

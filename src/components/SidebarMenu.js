@@ -111,10 +111,10 @@ const MenuBox = styled.div`
   align-items: center;
   text-align: center;
   width: 100%;
-  padding: 20px 40px;
+  padding: 20px 20px;
   font-size: 20px;
   font-weight: 500;
-  color: #8f8f8f;
+  color: #c2c2c2;
   cursor: pointer;
 
   &:hover {

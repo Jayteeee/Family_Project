@@ -31,15 +31,27 @@ import { ProfileModal } from "../shared/modal/component/ProfileModal";
 import { BadgeModal } from "../shared/modal/component/MissionModal";
 
 // 이미지
-import smilingEmoji from "../shared/images/smilingEmoji.png";
-import heartsSmileEmoji from "../shared/images/heartsSmileEmoji.png";
-import sunglassesEmoji from "../shared/images/sunglassesEmoji.png";
-import cryingEmoji from "../shared/images/cryingEmoji.png";
-import explodingEmoji from "../shared/images/explodingEmoji.png";
-import angryEmoji from "../shared/images/angryEmoji.png";
-import sleepingEmoji from "../shared/images/sleepingEmoji.png";
-import profileImg from "../shared/images/profileImg.png";
+// import smilingEmoji from "../shared/images/smilingEmoji.png";
+// import heartsSmileEmoji from "../shared/images/heartsSmileEmoji.png";
+// import sunglassesEmoji from "../shared/images/sunglassesEmoji.png";
+// import cryingEmoji from "../shared/images/cryingEmoji.png";
+// import explodingEmoji from "../shared/images/explodingEmoji.png";
+// import angryEmoji from "../shared/images/angryEmoji.png";
+// import sleepingEmoji from "../shared/images/sleepingEmoji.png";
+// import profileImg from "../shared/images/profileImg.png";
 import noImage from "../shared/images/noImage.png";
+import Profile01 from "../shared/images/Profile01.png";
+import Profile02 from "../shared/images/Profile02.png";
+import Profile03 from "../shared/images/Profile03.png";
+import Profile04 from "../shared/images/Profile04.png";
+import Profile05 from "../shared/images/Profile05.png";
+import smilingEmoji from "../shared/images/smile.svg";
+import heartsSmileEmoji from "../shared/images/lovely.svg";
+import sunglassesEmoji from "../shared/images/cool.svg";
+import cryingEmoji from "../shared/images/crying.svg";
+import explodingEmoji from "../shared/images/exploading.svg";
+import angryEmoji from "../shared/images/angry.svg";
+import sleepingEmoji from "../shared/images/sleeping.svg";
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
@@ -155,7 +167,22 @@ const HomePage = (props) => {
                             <Profile>
                               <RactangleImage
                                 S
-                                src={f.profileImg ? f.profileImg : profileImg}
+                                // src={f.profileImg ? f.profileImg : profileImg}
+                                src={
+                                  f.profileImg === "Profile01"
+                                    ? Profile01
+                                    : f.profileImg === "Profile02"
+                                    ? Profile02
+                                    : f.profileImg === "Profile03"
+                                    ? Profile03
+                                    : f.profileImg === "Profile04"
+                                    ? Profile04
+                                    : f.profileImg === "Profile05"
+                                    ? Profile05
+                                    : f.profileImg
+                                    ? f.profileImg
+                                    : Profile01
+                                }
                                 size="80px"
                                 borderRadius="28px"
                                 borderColor="none"
@@ -233,7 +260,7 @@ const HomePage = (props) => {
                     </ScheduleArea>
                   </TotalCalendar>
                 </MiddleRightCalendar>
-                {!open ? (
+                {/* {!open ? (
                   <div
                     onClick={() => {
                       openCalendar();
@@ -253,7 +280,7 @@ const HomePage = (props) => {
                   >
                     <Text className="calendarCloseBtn">닫기</Text>
                   </div>
-                )}
+                )} */}
               </MiddleRightBox>
             </MiddleBox>
             <div>
@@ -372,6 +399,17 @@ const HomePageWrap = styled.div`
   height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 30px 0;
+    /* height: 7%; */
+    & > p {
+      font-size: 30px;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const Header = styled.div`
@@ -409,7 +447,6 @@ const Header = styled.div`
       font-size: 23px;
     }
   }
-  }
 `;
 
 const ContentsWrap = styled.div`
@@ -436,6 +473,7 @@ const ContentsWrap = styled.div`
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     padding: 0;
+    height: auto;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -465,7 +503,8 @@ const MiddleBox = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    padding: 0 16px 10px 16px;
+    height: auto;
+    padding: 0 16px 0px 16px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -504,7 +543,7 @@ const MiddleLeftTopBox = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    height: 15rem;
+    /* height: 15rem; */
     /* overflow-x: scroll; */
   }
   // Medium (Tablet)
@@ -618,6 +657,7 @@ const TodayMood = styled.div`
   height: 27px;
   background-image: url("${(props) => props.src}");
   background-size: cover;
+  background-position: center;
 `;
 const MiddleLeftBottomBox = styled.div`
   width: 100%;
@@ -719,10 +759,10 @@ const MiddleRightBox = styled.div`
   @media screen and (max-width: 1199px) {
     width: 100%;
     padding-left: 0;
-    margin-top: 20px;
+    margin-top: 30px;
     /* display: block; */
     flex-wrap: wrap;
-    ${({ height }) => (height ? `height: ${height};` : "height: 50rem;")};
+    /* ${({ height }) => (height ? `height: ${height};` : "height: 50rem;")};
 
     .calendarOpenBtn {
       display: flex;
@@ -754,26 +794,24 @@ const MiddleRightBox = styled.div`
       padding: 24px;
       background: #fff;
       border-radius: 20px;
-    }
+    } */
   }
   // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
+  /* @media screen and (max-width: 1024px) {
     min-height: 60rem;
     ${({ height }) => (height ? `height: ${height};` : "max-height: 70rem;")};
-  }
+  } */
   // Small (Tablet)
-  @media screen and (max-width: 839px) {
+  /* @media screen and (max-width: 839px) {
     min-height: 40rem;
     ${({ height }) => (height ? `height: ${height};` : "max-height: 70rem;")};
-  }
+  } */
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    min-height: 30rem;
-    ${({ height }) => (height ? `height: ${height};` : "max-height: 45rem;")};
+    margin-top: 20px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    ${({ height }) => (height ? `height: ${height};` : "max-height: 40rem;")};
   }
 `;
 
@@ -825,21 +863,21 @@ const MiddleRightCalendar = styled.div`
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    margin-bottom: 5%;
+    /* margin-bottom: 5%; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    margin-bottom: 5%;
+    /* margin-bottom: 5%; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     padding: 16px;
-    margin: 0 0 20px 0;
+    /* margin: 0 0 20px 0; */
     /* overflow-y: scroll; */
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    margin: 0 0 300px 0;
+    /* margin: 0 0 300px 0; */
   }
 `;
 
@@ -904,32 +942,33 @@ const Container = styled.div`
   /* height: 30%; */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px 10px;
-  column-count: 4;
-  column-gap: 1.6%;
-  padding: 1% 20px;
+  /* gap: 0px 10px; */
+  /* column-count: 4; */
+  column-gap: 20px;
+  padding: 10px 20px;
+  /* background-color: red; */
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 2%;
+    column-gap: 20px;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 2%;
+    column-gap: 20px;
     /* padding: 24px; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 2%;
-    padding: 24px;
+    column-gap: 20px;
+    /* padding: 24px; */
     /* width: 74%; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    grid-template-columns: repeat(1, 1fr);
-    column-gap: 4%;
+    grid-template-columns: repeat(1, 100%);
+    column-gap: 20px;
     padding: 16px;
   }
   // XXSmall (Mobile)
@@ -939,8 +978,8 @@ const Container = styled.div`
 
 const Figure = styled.div`
   display: grid;
-  grid-template-columns: repeat(1, 2fr);
-  grid-template-rows: 1fr auto;
+  /* grid-template-columns: repeat(1, 2fr);
+  grid-template-rows: 1fr auto; */
   /* margin-bottom: 2%; */
   break-inside: avoid;
   width: 100%;
@@ -950,7 +989,7 @@ const Figure = styled.div`
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    margin: 0;
+    /* margin: 0; */
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -983,26 +1022,6 @@ const TitleBox = styled.div`
   & > svg {
     padding: 2px;
     color: #757575;
-    width: 24px;
-    height: 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    &:hover {
-      background: #f5f5f5;
-      color: black;
-    }
-  }
-`;
-
-const PhotoTitleBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 5%;
-  & > svg {
-    padding: 2px;
-    color: #fff;
     width: 24px;
     height: 24px;
     border-radius: 8px;
@@ -1064,6 +1083,7 @@ const BottomLeftBadge = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5% 0;
+
   /* justify-content: center; */
   align-items: center;
   background-color: #fff;
@@ -1102,6 +1122,7 @@ const BottomRightPhoto = styled.div`
   height: 100%;
   /* margin-left: 10px; */
   border-radius: 20px;
+
   display: flex;
   flex-direction: column;
   padding: 5% 0;
@@ -1128,14 +1149,14 @@ const BottomRightPhoto = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    /* margin-right: 0;
-    height: 95%; */
+    height: 95%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    height: 95%;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -1145,11 +1166,11 @@ const BottomRightPhoto = styled.div`
 const BottomRightVoice = styled.div`
   width: 100%;
   height: 100%;
-  /* margin-left: 10px; */
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   padding: 5% 0;
+  margin-bottom: 10px;
   /* justify-content: center; */
   align-items: center;
   background-color: #fff;
@@ -1170,7 +1191,7 @@ const BottomRightVoice = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    height: 100%;
+    height: 95%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {

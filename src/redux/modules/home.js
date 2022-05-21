@@ -14,22 +14,16 @@ const initialState = {
 // 액션
 const GET_HOME = "GET_HOME";
 const GET_RANDUM_MSG = "GET_RANDUM_MSG";
-// const GET_FAMILY_MEMBER_LIST = "GET_FAMILY_MEMBER_LIST";
 const HOME_MISSION_MEMBER_UPDATE = "HOME_MISSION_MEMBER_UPDATE";
 
 // 액션 생성함수
 const getHome = createAction(GET_HOME, (homeData) => ({
   homeData,
 }));
+
 const getRandomMsg = createAction(GET_RANDUM_MSG, (randomMsg) => ({
   randomMsg,
 }));
-// const getFamilyMemberList = createAction(
-//   GET_FAMILY_MEMBER_LIST,
-//   (familyMemberList) => ({
-//     familyMemberList,
-//   })
-// );
 
 const homeProfileUpdate = createAction(
   HOME_MISSION_MEMBER_UPDATE,
@@ -74,11 +68,6 @@ export default handleActions(
         draft.nowRandomMsg = action.payload.randomMsg;
         // console.log(state.homeData);
       }),
-    // [GET_FAMILY_MEMBER_LIST]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     draft.familyMemberList = action.payload.familyMemberList;
-    //     // console.log(state.homeData);
-    //   }),
     [HOME_MISSION_MEMBER_UPDATE]: (state, action) =>
       produce(state, (draft) => {
         const { familyMemberId, familyMemberNickname, userId } = action.payload;

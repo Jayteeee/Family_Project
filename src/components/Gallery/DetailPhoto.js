@@ -23,7 +23,12 @@ import { history } from "../../redux/configureStore";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
-import profileImg from "../../shared/images/profileImg.png";
+// import profileImg from "../../shared/images/profileImg.png";
+import Profile01 from "../../shared/images/Profile01.png";
+import Profile02 from "../../shared/images/Profile02.png";
+import Profile03 from "../../shared/images/Profile03.png";
+import Profile04 from "../../shared/images/Profile04.png";
+import Profile05 from "../../shared/images/Profile05.png";
 
 // 컴포넌트
 import PhotoHeader from "./PhotoHeader";
@@ -203,10 +208,25 @@ const DetailPhoto = ({
                 <div>
                   <CircleImage
                     XS
+                    // src={
+                    //   detailPhoto?.userInfo.profileImg
+                    //     ? detailPhoto?.userInfo.profileImg
+                    //     : profileImg
+                    // }
                     src={
-                      detailPhoto?.userInfo.profileImg
+                      detailPhoto?.userInfo.profileImg === "Profile01"
+                        ? Profile01
+                        : detailPhoto?.userInfo.profileImg === "Profile02"
+                        ? Profile02
+                        : detailPhoto?.userInfo.profileImg === "Profile03"
+                        ? Profile03
+                        : detailPhoto?.userInfo.profileImg === "Profile04"
+                        ? Profile04
+                        : detailPhoto?.userInfo.profileImg === "Profile05"
+                        ? Profile05
+                        : detailPhoto?.userInfo.profileImg
                         ? detailPhoto?.userInfo.profileImg
-                        : profileImg
+                        : Profile01
                     }
                   />
                 </div>
@@ -250,7 +270,22 @@ const DetailPhoto = ({
                         <div style={{ position: "relative" }} key={i}>
                           <CircleImage
                             XS
-                            src={l.profileImg ? l.profileImg : profileImg}
+                            // src={l.profileImg ? l.profileImg : profileImg}
+                            src={
+                              l.profileImg === "Profile01"
+                                ? Profile01
+                                : l.profileImg === "Profile02"
+                                ? Profile02
+                                : l.profileImg === "Profile03"
+                                ? Profile03
+                                : l.profileImg === "Profile04"
+                                ? Profile04
+                                : l.profileImg === "Profile05"
+                                ? Profile05
+                                : l.profileImg
+                                ? l.profileImg
+                                : Profile01
+                            }
                             margin="0 5px 0 0"
                           />
                           {/* {myMissionChk ?  */}
@@ -265,7 +300,25 @@ const DetailPhoto = ({
                   })}
               </LikeMemberBox>
               <CommentFooter>
-                <CircleImage XS margin="0 10px 0 0" />
+                <CircleImage
+                  XS
+                  margin="0 10px 0 0"
+                  src={
+                    detailPhoto?.userInfo.profileImg === "Profile01"
+                      ? Profile01
+                      : detailPhoto?.userInfo.profileImg === "Profile02"
+                      ? Profile02
+                      : detailPhoto?.userInfo.profileImg === "Profile03"
+                      ? Profile03
+                      : detailPhoto?.userInfo.profileImg === "Profile04"
+                      ? Profile04
+                      : detailPhoto?.userInfo.profileImg === "Profile05"
+                      ? Profile05
+                      : detailPhoto?.userInfo.profileImg
+                      ? detailPhoto?.userInfo.profileImg
+                      : Profile01
+                  }
+                />
                 <Comment>
                   {/* <Input
                     // type="textarea"
