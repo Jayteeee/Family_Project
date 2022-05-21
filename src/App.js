@@ -30,58 +30,58 @@ function App() {
     }
   }, []);
 
-  // 소켓
-  const ENDPOINT = "http://52.79.130.222/";
-  const userId = useSelector((state) => state?.user?.user?.user?.userId);
-  console.log(userId);
+  // // 소켓
+  // const ENDPOINT = "http://52.79.130.222/";
+  // const userId = useSelector((state) => state?.user?.user?.user?.userId);
+  // console.log(userId);
 
-  const socket = io.connect(ENDPOINT, {
-    transports: ["websocket"],
-    forceNew: true,
-  });
+  // const socket = io.connect(ENDPOINT, {
+  //   transports: ["websocket"],
+  //   forceNew: true,
+  // });
 
-  console.log("소켓연결, ", socket);
+  // console.log("소켓연결, ", socket);
 
-  useEffect(() => {
-    dispatch(socketActions.getSocketDB(socket));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(socketActions.getSocketDB(socket));
+  // }, []);
 
-  useEffect(() => {
-    if (token) {
-      socket?.emit("newUser", userId);
-      socket?.emit("join", userId);
-      console.log(userId);
-    }
-  }, [socket, userId]);
+  // useEffect(() => {
+  //   if (token) {
+  //     socket?.emit("newUser", userId);
+  //     socket?.emit("join", userId);
+  //     console.log(userId);
+  //   }
+  // }, [socket, userId]);
 
-  useEffect(() => {
-    if (token) {
-      socket?.on("getNotification", (data) => {
-        dispatch(socketActions.setSocketDB(data));
-        console.log(data);
-      });
-    }
-  }, [socket]);
+  // useEffect(() => {
+  //   if (token) {
+  //     socket?.on("getNotification", (data) => {
+  //       dispatch(socketActions.setSocketDB(data));
+  //       console.log(data);
+  //     });
+  //   }
+  // }, [socket]);
 
-  useEffect(() => {
-    if (token) {
-      socket?.emit("getMyAlert", { userId: userId, type: "초대" });
-      socket?.on("newInviteDB", (data) => {
-        console.log("newInviteDB, ", data);
-        dispatch(socketActions.setSocketDB(data));
-      });
-    }
-  }, [socket]);
+  // useEffect(() => {
+  //   if (token) {
+  //     socket?.emit("getMyAlert", { userId: userId, type: "초대" });
+  //     socket?.on("newInviteDB", (data) => {
+  //       console.log("newInviteDB, ", data);
+  //       dispatch(socketActions.setSocketDB(data));
+  //     });
+  //   }
+  // }, [socket]);
 
-  useEffect(() => {
-    if (token) {
-      socket?.emit("getFamilyNoti", { userId: userId });
-      socket?.on("getFamilyNoti", (data) => {
-        console.log("getFamilyNoti, ", data);
-        dispatch(socketActions.setSocketDB(data));
-      });
-    }
-  }, [socket]);
+  // useEffect(() => {
+  //   if (token) {
+  //     socket?.emit("getFamilyNoti", { userId: userId });
+  //     socket?.on("getFamilyNoti", (data) => {
+  //       console.log("getFamilyNoti, ", data);
+  //       dispatch(socketActions.setSocketDB(data));
+  //     });
+  //   }
+  // }, [socket]);
 
   return (
     <div className="App">
