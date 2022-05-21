@@ -8,9 +8,13 @@ import { FaPen } from "react-icons/fa";
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { userActions } from "../../../../redux/modules/user";
+import { familyMemberActions } from "../../../../redux/modules/familymember";
 
 // 모달
 import { ModalPortal } from "../../portals";
+import AlertModal from "../AlertModal";
+import LeaveFamilyModal from "./LeaveFamilyModal";
 import {
   AddFamilyModal,
   EditFamilyModal,
@@ -22,11 +26,11 @@ import {
 import { RactangleImage, Text, Input } from "../../../../elements";
 
 // 이미지
-import profileImg from "../../../images/profileImg.png";
-import { userActions } from "../../../../redux/modules/user";
-import { familyMemberActions } from "../../../../redux/modules/familymember";
-import AlertModal from "../AlertModal";
-import LeaveFamilyModal from "./LeaveFamilyModal";
+import Profile01 from "../../../images/Profile01.png";
+import Profile02 from "../../../images/Profile02.png";
+import Profile03 from "../../../images/Profile03.png";
+import Profile04 from "../../../images/Profile04.png";
+import Profile05 from "../../../images/Profile05.png";
 
 const ProfileModal = ({
   onClose,
@@ -66,7 +70,7 @@ const ProfileModal = ({
     (m) => m?.userId === user.userId
   )?.profileImg;
 
-  console.log("나의 프로필이미지:", myFamiyMemberId);
+  console.log("나의 프로필이미지:", myProfileImg);
 
   const myTodayMood = familyMemberList?.find(
     (m) => m?.userId === user.userId
@@ -202,7 +206,212 @@ const ProfileModal = ({
                 <ProfileArea>
                   <RactangleImage
                     S
-                    src={myProfileImg ? myProfileImg : profileImg}
+                    src={
+                      myProfileImg === "Profile01"
+                        ? Profile01
+                        : myProfileImg === "Profile02"
+                        ? Profile02
+                        : myProfileImg === "Profile03"
+                        ? Profile03
+                        : myProfileImg === "Profile04"
+                        ? Profile04
+                        : myProfileImg === "Profile05"
+                        ? Profile05
+                        : myProfileImg
+                        ? myProfileImg
+                        : Profile01
+                    }
+                    size="80px"
+                    borderRadius="28px"
+                  />
+                  <EditBtn
+                    className="input-file-button"
+                    htmlFor="input-profile-file"
+                  >
+                    <FaPen />
+                  </EditBtn>
+                  <input
+                    ref={profileImgInput}
+                    type="file"
+                    id="input-profile-file"
+                    accept="image/*"
+                    onChange={onImgInputBtnClick}
+                    style={{ display: "none" }}
+                  />
+                </ProfileArea>
+                <Usertitle>
+                  <UserNickname>
+                    {!editFamilyMembeNickname ? (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          margin: "8px 0",
+                        }}
+                      >
+                        {familyHost?.familyHost === user?.id ? (
+                          <HostSign>
+                            <RiVipCrownFill />
+                          </HostSign>
+                        ) : null}
+                        <Text size="18px" fontWeight="600">
+                          {myFamilyMemberNickname}
+                        </Text>
+                        <EditNicknameBtn onClick={hadleEditFamilyMembeNickname}>
+                          <FaPen />
+                        </EditNicknameBtn>
+                      </div>
+                    ) : (
+                      <InputWrap>
+                        {familyHost?.familyHost === user?.id ? (
+                          <HostSign>
+                            <RiVipCrownFill />
+                          </HostSign>
+                        ) : null}
+                        <Input
+                          id="changeTitle"
+                          className="myInput"
+                          padding="16px 10px"
+                          height="20px"
+                          width="100%"
+                          onChange={handleMemberNicknameChange}
+                          value={changeMemberNickname}
+                          style={{
+                            borderRadius: "12px",
+                            borderColor: "#E5E5E5",
+                          }}
+                        />
+                        <SaveBtn
+                          // onClick={hadleEditFamilyMembeNickname}
+                          onClick={EditFamilyMemberNickname}
+                        >
+                          저장
+                        </SaveBtn>
+                      </InputWrap>
+                    )}
+                  </UserNickname>
+                  <Text
+                    size="12px"
+                    fontWeight="400"
+                    color="#757575"
+                    margin="5px 0 0 0"
+                  >
+                    {user?.email}
+                  </Text>
+                  <UserMood>
+                    <TodayMood>
+                      <Text size="10px" fontWeight="600" color="#757575">
+                        오늘의 기분
+                      </Text>
+                    </TodayMood>
+                    <SelectBox>
+                      <SelectButton
+                        name="mood"
+                        id="selectList"
+                        onChange={editTodayMood}
+                      >
+                        <option value="default">
+                          {myTodayMood === "good" ? (
+                            <p>🙂&ensp;좋아요</p>
+                          ) : myTodayMood === "love" ? (
+                            <p>🥰&ensp;사랑해요</p>
+                          ) : myTodayMood === "nice" ? (
+                            <p>😎&ensp;멋져요</p>
+                          ) : myTodayMood === "sad" ? (
+                            <p>😥&ensp;슬퍼요</p>
+                          ) : myTodayMood === "head" ? (
+                            <p>🤯&ensp;머리아파요</p>
+                          ) : myTodayMood === "angry" ? (
+                            <p>😡&ensp;화나요</p>
+                          ) : myTodayMood === "sleepy" ? (
+                            <p>😴&ensp;졸려요</p>
+                          ) : (
+                            <p>🙂&ensp;좋아요</p>
+                          )}
+                        </option>
+                        <option value="good">🙂&ensp;좋아요</option>
+                        <option value="love">🥰&ensp;사랑해요</option>
+                        <option value="nice">😎&ensp;멋져요</option>
+                        <option value="sad">😥&ensp;슬퍼요</option>
+                        <option value="head">🤯&ensp;머리아파요</option>
+                        <option value="angry">😡&ensp;화나요</option>
+                        <option value="sleepy">😴&ensp;졸려요</option>
+                      </SelectButton>
+                    </SelectBox>
+                  </UserMood>
+                </Usertitle>
+              </UserInfo>
+              <Line />
+              <MenuBox onClick={handleAddFamilyModal}>
+                <Text size="15px" fontWeight="700">
+                  가족 생성하기
+                </Text>
+              </MenuBox>
+              {familyHost?.familyHost === user?.id && (
+                <>
+                  <MenuBox onClick={handleEditFamilyModal}>
+                    <Text size="15px" fontWeight="700">
+                      가족 수정하기
+                    </Text>
+                  </MenuBox>
+                  <MenuBox onClick={handleDeleteFamilyModal}>
+                    <Text size="15px" fontWeight="700">
+                      가족 제거하기
+                    </Text>
+                  </MenuBox>
+                </>
+              )}
+              {familyHost?.familyHost !== user?.id && (
+                <MenuBox onClick={handleLeaveFamilyModal}>
+                  <Text size="15px" fontWeight="700">
+                    가족 나가기
+                  </Text>
+                </MenuBox>
+              )}
+              <Line />
+              <LogoutBox onClick={handleLogoutModal}>
+                <p
+                  style={{ size: "15px", fontWeight: "700", color: "#8F8F8F" }}
+                >
+                  로그아웃
+                </p>
+              </LogoutBox>
+            </ContentBox>
+          </Content>
+        </Background>
+        <BackgroundMobile
+          // className="flex-row"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+        >
+          <ContentMobile
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            id="profileMenu"
+          >
+            <ContentBox>
+              <UserInfo>
+                <ProfileArea>
+                  <RactangleImage
+                    S
+                    src={
+                      myProfileImg === "Profile01"
+                        ? Profile01
+                        : myProfileImg === "Profile02"
+                        ? Profile02
+                        : myProfileImg === "Profile03"
+                        ? Profile03
+                        : myProfileImg === "Profile04"
+                        ? Profile04
+                        : myProfileImg === "Profile05"
+                        ? Profile05
+                        : myProfileImg
+                        ? myProfileImg
+                        : Profile01
+                    }
                     size="80px"
                     style={{ position: "relative" }}
                     borderRadius="28px"
@@ -294,21 +503,23 @@ const ProfileModal = ({
                         onChange={editTodayMood}
                       >
                         <option value="default">
-                          {myTodayMood === "good"
-                            ? "🙂 좋아요"
-                            : myTodayMood === "love"
-                            ? "🥰 사랑해요"
-                            : myTodayMood === "nice"
-                            ? "😎 멋져요"
-                            : myTodayMood === "sad"
-                            ? "😥 슬퍼요"
-                            : myTodayMood === "head"
-                            ? "🤯 머리아파요"
-                            : myTodayMood === "angry"
-                            ? "😡 화나요"
-                            : myTodayMood === "sleepy"
-                            ? "😴 졸려요"
-                            : "🙂 좋아요"}
+                          {myTodayMood === "good" ? (
+                            <p>🙂&ensp;좋아요</p>
+                          ) : myTodayMood === "love" ? (
+                            <p>🥰&ensp;사랑해요</p>
+                          ) : myTodayMood === "nice" ? (
+                            <p>😎&ensp;멋져요</p>
+                          ) : myTodayMood === "sad" ? (
+                            <p>😥&ensp;슬퍼요</p>
+                          ) : myTodayMood === "head" ? (
+                            <p>🤯&ensp;머리아파요</p>
+                          ) : myTodayMood === "angry" ? (
+                            <p>😡&ensp;화나요</p>
+                          ) : myTodayMood === "sleepy" ? (
+                            <p>😴&ensp;졸려요</p>
+                          ) : (
+                            <p>🙂&ensp;좋아요</p>
+                          )}
                         </option>
                         <option value="good">🙂&ensp;좋아요</option>
                         <option value="love">🥰&ensp;사랑해요</option>
@@ -358,8 +569,8 @@ const ProfileModal = ({
                 </p>
               </LogoutBox>
             </ContentBox>
-          </Content>
-        </Background>
+          </ContentMobile>
+        </BackgroundMobile>
         {/* 가족 구성원 호칭 수정 알림 */}
         <ModalPortal>
           {editAlertOn && (
@@ -421,6 +632,14 @@ const Background = styled.div`
   height: 100%;
   width: 100%;
   text-align: center;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    display: none;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const Content = styled.div`
@@ -439,6 +658,43 @@ const Content = styled.div`
   padding: 24px;
   display: flex;
   justify-content: center;
+`;
+
+const BackgroundMobile = styled.div`
+  z-index: 206;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  /* padding: 10px; */
+
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    display: flex;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
+`;
+
+const ContentMobile = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 205;
+  height: 400px;
+  max-width: 420px;
+  width: 100%;
+  border-radius: 0 0 24px 24px;
+  background-color: #fff;
+
+  position: relative;
+  overflow: scroll;
 `;
 
 const ContentBox = styled.div`
@@ -463,11 +719,26 @@ const InputWrap = styled.div`
   position: relative;
   margin: 0;
   width: 100%;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 38px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
   .myInput {
     :focus {
       box-shadow: none;
       outline: none !important;
       border-color: #6371f7 !important;
+    }
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+      height: 23px;
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
     }
   }
 `;
@@ -497,6 +768,7 @@ const ProfileArea = styled.div`
   display: flex;
   align-items: center;
   width: 35%;
+  position: relative;
 `;
 
 const EditBtn = styled.label`
@@ -505,8 +777,8 @@ const EditBtn = styled.label`
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  top: 93px;
-  left: 95px;
+  top: 55px;
+  left: 60px;
   background-color: white;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -517,6 +789,9 @@ const EditBtn = styled.label`
     color: #757575;
     padding: 7%;
     margin: 10% auto;
+  }
+  &:hover {
+    background: #dbdbdb;
   }
 `;
 
@@ -557,6 +832,10 @@ const EditNicknameBtn = styled.div`
     color: #757575;
     padding: 15%;
     margin: 10% auto;
+  }
+  cursor: pointer;
+  &:hover {
+    background: #dbdbdb;
   }
 `;
 

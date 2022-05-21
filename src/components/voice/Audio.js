@@ -9,7 +9,12 @@ import dayjs from "dayjs";
 import { Text } from "../../elements";
 
 // 이미지
-import noImage from "../../shared/images/noImage.png";
+// import noImage from "../../shared/images/noImage.png";
+import Profile01 from "../../shared/images/Profile01.png";
+import Profile02 from "../../shared/images/Profile02.png";
+import Profile03 from "../../shared/images/Profile03.png";
+import Profile04 from "../../shared/images/Profile04.png";
+import Profile05 from "../../shared/images/Profile05.png";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
@@ -84,7 +89,25 @@ const Audio = ({ voiceAlbumId, familyId, isEdit, PracticeEdit, voiceList }) => {
               <VoiceBox>
                 <NonePlayer>
                   <ProfileBox>
-                    <img alt="#" src={v.profileImg ? v.profileImg : noImage} />
+                    <img
+                      alt="#"
+                      // src={v.profileImg ? v.profileImg : noImage}
+                      src={
+                        v.profileImg === "Profile01"
+                          ? Profile01
+                          : v.profileImg === "Profile02"
+                          ? Profile02
+                          : v.profileImg === "Profile03"
+                          ? Profile03
+                          : v.profileImg === "Profile04"
+                          ? Profile04
+                          : v.profileImg === "Profile05"
+                          ? Profile05
+                          : v.profileImg
+                          ? v.profileImg
+                          : Profile01
+                      }
+                    />
                     <p>{v.familyMemberNickname}</p>
                   </ProfileBox>
                   <TitleBox>
@@ -198,7 +221,25 @@ const Audio = ({ voiceAlbumId, familyId, isEdit, PracticeEdit, voiceList }) => {
               </DeleteIcon>
               <NonePlayer>
                 <ProfileBox>
-                  <img alt="#" src={v.profileImg ? v.profileImg : noImage} />
+                  <img
+                    alt="#"
+                    // src={v.profileImg ? v.profileImg : noImage}
+                    src={
+                      v.profileImg === "Profile01"
+                        ? Profile01
+                        : v.profileImg === "Profile02"
+                        ? Profile02
+                        : v.profileImg === "Profile03"
+                        ? Profile03
+                        : v.profileImg === "Profile04"
+                        ? Profile04
+                        : v.profileImg === "Profile05"
+                        ? Profile05
+                        : v.profileImg
+                        ? v.profileImg
+                        : Profile01
+                    }
+                  />
                   <p>{v.familyMemberNickname}</p>
                 </ProfileBox>
                 <TitleBox>

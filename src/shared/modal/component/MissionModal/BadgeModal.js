@@ -15,6 +15,20 @@ import { userActions } from "../../../../redux/modules/user";
 import { RactangleImage, Text } from "../../../../elements";
 import { missionActions } from "../../../../redux/modules/mission";
 
+// 이미지
+import BadgeOff_01 from "../../../images/BadgeOff_01.svg";
+import BadgeOff_02 from "../../../images/BadgeOff_02.svg";
+import BadgeOff_03 from "../../../images/BadgeOff_03.svg";
+import BadgeOff_04 from "../../../images/BadgeOff_04.svg";
+import BadgeOff_05 from "../../../images/BadgeOff_05.svg";
+import BadgeOff_06 from "../../../images/BadgeOff_06.svg";
+import BadgeOn_01 from "../../../images/BadgeOn_01.svg";
+import BadgeOn_02 from "../../../images/BadgeOn_02.svg";
+import BadgeOn_03 from "../../../images/BadgeOn_03.svg";
+import BadgeOn_04 from "../../../images/BadgeOn_04.svg";
+import BadgeOn_05 from "../../../images/BadgeOn_05.svg";
+import BadgeOn_06 from "../../../images/BadgeOn_06.svg";
+
 const BadgeModal = ({ onClose, familyId }) => {
   const badgeList = useSelector((state) => state.mission?.badgeList);
   console.log("배지 리스트:", badgeList);
@@ -56,12 +70,23 @@ const BadgeModal = ({ onClose, familyId }) => {
             <BadgeListBox className="res-badgeListBox">
               <BadgRowBox className="res-badgeRowBox">
                 <BadgeBox>
-                  <RactangleImage
-                    M
-                    size="150px"
-                    borderRadius="0"
-                    className="badgeImg"
-                  />
+                  {!badgeList[0]?.badgeChk ? (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOff_01}
+                    />
+                  ) : (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOn_01}
+                    />
+                  )}
 
                   <BadgeTextBox className="res-badgeTestBox">
                     <Text
@@ -95,12 +120,23 @@ const BadgeModal = ({ onClose, familyId }) => {
                   </BadgeTextBox>
                 </BadgeBox>
                 <BadgeBox>
-                  <RactangleImage
-                    M
-                    size="150px"
-                    borderRadius="0"
-                    className="badgeImg"
-                  />
+                  {!badgeList[1]?.badgeChk ? (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOff_02}
+                    />
+                  ) : (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOn_02}
+                    />
+                  )}
                   <BadgeTextBox className="res-badgeTestBox">
                     <Text
                       size="20px"
@@ -129,12 +165,23 @@ const BadgeModal = ({ onClose, familyId }) => {
                   </BadgeTextBox>
                 </BadgeBox>
                 <BadgeBox>
-                  <RactangleImage
-                    M
-                    size="150px"
-                    borderRadius="0"
-                    className="badgeImg"
-                  />
+                  {!badgeList[2]?.badgeChk ? (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOff_03}
+                    />
+                  ) : (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOn_03}
+                    />
+                  )}
                   <BadgeTextBox className="res-badgeTestBox">
                     <Text
                       size="20px"
@@ -165,12 +212,23 @@ const BadgeModal = ({ onClose, familyId }) => {
               </BadgRowBox>
               <BadgRowBox className="res-badgeRowBox">
                 <BadgeBox>
-                  <RactangleImage
-                    M
-                    size="150px"
-                    borderRadius="0"
-                    className="badgeImg"
-                  />
+                  {!badgeList[3]?.badgeChk ? (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOff_04}
+                    />
+                  ) : (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOn_04}
+                    />
+                  )}
                   <BadgeTextBox className="res-badgeTestBox">
                     <Text
                       size="20px"
@@ -199,12 +257,23 @@ const BadgeModal = ({ onClose, familyId }) => {
                   </BadgeTextBox>
                 </BadgeBox>
                 <BadgeBox>
-                  <RactangleImage
-                    M
-                    size="150px"
-                    borderRadius="0"
-                    className="badgeImg"
-                  />
+                  {!badgeList[4]?.badgeChk ? (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOff_05}
+                    />
+                  ) : (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOn_05}
+                    />
+                  )}
                   <BadgeTextBox className="res-badgeTestBox">
                     <Text
                       size="20px"
@@ -236,12 +305,23 @@ const BadgeModal = ({ onClose, familyId }) => {
                   </BadgeTextBox>
                 </BadgeBox>
                 <BadgeBox>
-                  <RactangleImage
-                    M
-                    size="150px"
-                    borderRadius="0"
-                    className="badgeImg"
-                  />
+                  {!badgeList[5]?.badgeChk ? (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOff_06}
+                    />
+                  ) : (
+                    <RactangleImage
+                      M
+                      size="150px"
+                      borderRadius="0"
+                      className="badgeImg"
+                      src={BadgeOn_06}
+                    />
+                  )}
                   <BadgeTextBox className="res-badgeTestBox">
                     <Text
                       size="20px"

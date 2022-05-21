@@ -20,7 +20,14 @@ import EditScheduleModal from "./EditScheduleModal";
 
 // 엘리먼트
 import { Text, Button, CircleImage } from "../../../../elements";
-import noImg from "../../../../shared/images/profile_img.png";
+
+// 이미지
+// import noImg from "../../../../shared/images/profile_img.png";
+import Profile01 from "../../../../shared/images/Profile01.png";
+import Profile02 from "../../../../shared/images/Profile02.png";
+import Profile03 from "../../../../shared/images/Profile03.png";
+import Profile04 from "../../../../shared/images/Profile04.png";
+import Profile05 from "../../../../shared/images/Profile05.png";
 
 const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
   const dispatch = useDispatch();
@@ -124,7 +131,22 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
               <SUser>
                 <CircleImage
                   XS
-                  src={list?.profileImg ? list?.profileImg : noImg}
+                  // src={list?.profileImg ? list?.profileImg : noImg}
+                  src={
+                    list?.profileImg === "Profile01"
+                      ? Profile01
+                      : list?.profileImg === "Profile02"
+                      ? Profile02
+                      : list?.profileImg === "Profile03"
+                      ? Profile03
+                      : list?.profileImg === "Profile04"
+                      ? Profile04
+                      : list?.profileImg === "Profile05"
+                      ? Profile05
+                      : list?.profileImg
+                      ? list?.profileImg
+                      : Profile01
+                  }
                   margin="0px 8px 0px 0px"
                   alt="profileImage"
                 ></CircleImage>

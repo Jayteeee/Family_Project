@@ -225,7 +225,7 @@ const MainWrap = styled.div`
   /* flex-wrap: nowrap; */
   /* gap: 1em; */
   flex-direction: column !important;
-  height: 100%;
+  /* max-height: 200%; */
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
@@ -493,12 +493,12 @@ const PageWrap = styled.div`
 
 const SidebarBottom = styled.nav`
   width: 100%;
-  max-height: 7vh;
-  display: inline-flex;
+  max-height: 8vh;
+  position: fixed;
+  bottom: 0;
   flex-direction: column;
-  background: #fff;
   border: none;
-  /* background-color: gray; */
+  background-color: #fff;
   display: none;
   /* justify-content: end;
   align-items: flex-end; */
@@ -512,7 +512,7 @@ const SidebarBottom = styled.nav`
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    display: inline-flex;
+    /* display: inline-flex; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {

@@ -13,8 +13,13 @@ import { RactangleImage, Text } from "../../elements";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
-import profileImg from "../../shared/images/profileImg.png";
+// import profileImg from "../../shared/images/profileImg.png";
 import missionChkImg from "../../shared/images/missionChkImg.png";
+import Profile01 from "../../shared/images/Profile01.png";
+import Profile02 from "../../shared/images/Profile02.png";
+import Profile03 from "../../shared/images/Profile03.png";
+import Profile04 from "../../shared/images/Profile04.png";
+import Profile05 from "../../shared/images/Profile05.png";
 
 const HomeMission = ({
   recentMission,
@@ -51,7 +56,22 @@ const HomeMission = ({
                       <Profile>
                         <RactangleImage
                           S
-                          src={f.profileImg ? f.profileImg : profileImg}
+                          // src={f.profileImg ? f.profileImg : profileImg}
+                          src={
+                            f.profileImg === "Profile01"
+                              ? Profile01
+                              : f.profileImg === "Profile02"
+                              ? Profile02
+                              : f.profileImg === "Profile03"
+                              ? Profile03
+                              : f.profileImg === "Profile04"
+                              ? Profile04
+                              : f.profileImg === "Profile05"
+                              ? Profile05
+                              : f.profileImg
+                              ? f.profileImg
+                              : Profile01
+                          }
                           size="56px"
                           borderRadius="20px"
                           borderColor="none"
