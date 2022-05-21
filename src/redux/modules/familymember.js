@@ -283,9 +283,6 @@ export default handleActions(
           (l) => l.familyMemberId === familyMemberId
         );
 
-        // console.log(state,fam)
-
-        // let nowFamilMemberList = d
         // // 변경해야할 배열 인덱스
         let index = draft.familyMemberList.findIndex(
           (l) => l.familyMemberId === familyMemberId
@@ -307,9 +304,6 @@ export default handleActions(
           (l) => l.familyMemberId === familyMemberId
         );
 
-        // console.log(state,fam)
-
-        // let nowFamilMemberList = d
         // // 변경해야할 배열 인덱스
         let index = draft.familyMemberList.findIndex(
           (l) => l.familyMemberId === familyMemberId
@@ -331,9 +325,6 @@ export default handleActions(
           (l) => l.familyMemberId === familyMemberId
         );
 
-        // console.log(state,fam)
-
-        // let nowFamilMemberList = d
         // // 변경해야할 배열 인덱스
         let index = draft.familyMemberList.findIndex(
           (l) => l.familyMemberId === familyMemberId

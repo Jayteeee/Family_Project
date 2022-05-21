@@ -616,6 +616,7 @@ const CommentTextarea = styled.textarea`
   ${({ border }) => (border ? `border: ${border};` : "border: none")};
   border: 2px solid transparnt;
   border-radius: 4px;
+  resize: none;
 `;
 
 const EditFigure = styled.div`
