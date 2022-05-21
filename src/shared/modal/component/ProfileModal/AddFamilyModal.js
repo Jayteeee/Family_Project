@@ -55,7 +55,7 @@ const AddFamilyModal = ({ onClose }) => {
   // 가족 생성 함수
   const addFamily = () => {
     dispatch(familyActions.addFamilyDB(familyTitle));
-    socket?.emit("newRoom", familyTitle, userId);
+    socket?.emit("join", familyTitle, userId);
   };
 
   return (

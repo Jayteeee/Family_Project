@@ -34,7 +34,7 @@ const CreateFamily = (props) => {
       alert("가족 이름을 입력해주세요");
       return;
     }
-    socket?.emit("newRoom", familyTitle, userId);
+    socket?.emit("join", familyTitle, userId);
     dispatch(familyActions.addFamilyDB(familyTitle));
   };
 
