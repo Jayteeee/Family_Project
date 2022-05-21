@@ -13,9 +13,6 @@ import { familyMemberActions } from "../redux/modules/familymember";
 // 엘리먼트
 import { CircleImage, RactangleImage } from "../elements";
 
-// 소켓
-import { io } from "socket.io-client";
-
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
 import { ProfileModal } from "../shared/modal/component/ProfileModal";
@@ -41,7 +38,8 @@ const Header = (props) => {
   console.log(bg);
   console.log("유저정보: ", user);
 
-  const sender = useSelector((state) => state?.socket?.sender?.newInviteDB);
+  const sender = useSelector((state) => state?.socket?.sender?.findUserAlertDB);
+  const socket = useSelector((state) => state?.socket?.socket);
 
   // const familyMemberNickname = familyMemberList.
 
@@ -67,16 +65,6 @@ const Header = (props) => {
   const handleNoti = () => {
     setNotiOn(!notiOn);
   };
-
-  const ENDPOINT = "http://52.79.130.222/";
-
-  // const [user, setUser] = useState("");
-  const [socket, setSocket] = useState(
-    io.connect(ENDPOINT, {
-      transports: ["websocket"],
-      forceNew: true,
-    })
-  );
 
   const addFamilyMember = (
     familyId,

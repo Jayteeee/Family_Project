@@ -57,13 +57,10 @@ function App() {
   const userId = useSelector((state) => state?.user?.user?.user?.userId);
   console.log(userId);
 
-  // const [user, setUser] = useState("");
-  const [socket, setSocket] = useState(
-    io.connect(ENDPOINT, {
-      transports: ["websocket"],
-      forceNew: true,
-    })
-  );
+  const socket = io.connect(ENDPOINT, {
+    transports: ["websocket"],
+    forceNew: true,
+  });
 
   console.log("소켓연결, ", socket);
 
@@ -86,22 +83,37 @@ function App() {
     if (token) {
       // socket?.on('connection')
       socket?.emit("newUser", userId);
+      socket?.emit("join", userId);
       console.log(userId);
     }
   }, [socket, userId]);
 
   useEffect(() => {
-    socket?.on("getNotification", (data) => {
-      dispatch(socketActions.setSocketDB(data));
-      console.log(data);
-    });
+    if (token) {
+      socket?.on("getNotification", (data) => {
+        dispatch(socketActions.setSocketDB(data));
+        console.log(data);
+      });
+    }
   }, [socket]);
 
   useEffect(() => {
-    socket?.on("newInviteDB", (data) => {
-      console.log("newInviteDB, ", data);
-      dispatch(socketActions.setSocketDB(data));
-    });
+    if (token) {
+      socket?.emit("getMyAlert", { userId: userId, type: "초대" });
+      socket?.on("newInviteDB", (data) => {
+        console.log("newInviteDB, ", data);
+        dispatch(socketActions.setSocketDB(data));
+      });
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    if (token) {
+      socket?.on("getFamilyNoti", (data) => {
+        console.log("getFamilyNoti, ", data);
+        dispatch(socketActions.setSocketDB(data));
+      });
+    }
   }, [socket]);
 
   return (

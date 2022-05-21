@@ -8,7 +8,6 @@ import {
   CreateFamily,
 } from "../components/LandingPage";
 import { useHistory } from "react-router-dom";
-import { io } from "socket.io-client";
 
 const LandingPage = () => {
   const history = useHistory();

@@ -73,6 +73,15 @@ const Main = (props) => {
     // dispatch(familyMemberActions.getFamilyMemberDB(familyId));
   }, [familyId]);
 
+  // 소켓 부분
+
+  const socket = useSelector((state) => state.socket.socket);
+
+  const handleSocket = (e) => {
+    const familyId = e.target.getAttribute("id");
+    socket?.emit("movingRoom", { familyId });
+  };
+
   // div로 만든 Dropdown
   const [currentValue, setCurrentValue] = useState(NowFamilyTitle);
   const [showOptions, setShowOptions] = useState(false);
@@ -146,7 +155,10 @@ const Main = (props) => {
                         key={f.familyId}
                         id={f.familyId}
                         value={f.familyTitle}
-                        onClick={handleOnChangeSelectValue}
+                        onClick={(e) => {
+                          handleOnChangeSelectValue(e);
+                          handleSocket(e);
+                        }}
                       >
                         {f.familyTitle}
                       </Option>

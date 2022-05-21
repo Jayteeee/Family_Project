@@ -3,9 +3,10 @@ import React, { useRef, useState } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import dayjs from "dayjs";
+import { io } from "socket.io-client";
 
 // 리덕스
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { galleryActions } from "../../redux/modules/gallery";
 
 // 엘리먼트
@@ -31,6 +32,21 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };
 
+  // socket 부분
+  const socket = useSelector((state) => state.socket.socket);
+  const nowUserNickname = useSelector(
+    (state) => state?.user?.user?.user?.nickname
+  );
+
+  const handleNotification = (type) => {
+    socket.emit("sendFamilyNoti", {
+      senderName: nowUserNickname,
+      receiverFamily: NowFamilyId,
+      category: "갤러리",
+      type,
+    });
+  };
+
   return (
     <>
       <GalleryHeaderBox>
@@ -52,7 +68,10 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
             type="file"
             id="input-file"
             accept="image/*"
-            onChange={onImgInputBtnClick}
+            onChange={() => {
+              onImgInputBtnClick();
+              handleNotification("사진 등록");
+            }}
             style={{ display: "none" }}
           />
         </BtnWrap>

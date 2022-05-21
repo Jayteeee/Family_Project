@@ -2,7 +2,6 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 import jwt from "jwt-decode";
-import { io } from "socket.io-client";
 
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/Token";
@@ -82,13 +81,7 @@ const loginDB = (inputs) => {
 
         // 소켓 부분
 
-        const ENDPOINT = "http://52.79.130.222/";
-
-        const socket = io.connect(ENDPOINT, {
-          transports: ["websocket"],
-          forceNew: true,
-          path: "/socket.io",
-        });
+        const socket = getState().socket.socket;
 
         socket?.emit("join", res.data.userInfo.id);
 
