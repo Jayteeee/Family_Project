@@ -53,8 +53,9 @@ function App() {
   //   forceNew: true,
   // });
 
-  const ENDPOINT = "http://52.79.130.222";
-  const user = useSelector((state) => state?.user?.user?.user?.userId);
+  const ENDPOINT = "http://52.79.130.222/";
+  const userId = useSelector((state) => state?.user?.user?.user?.userId);
+  console.log(userId);
 
   // const [user, setUser] = useState("");
   const [socket, setSocket] = useState(
@@ -81,15 +82,27 @@ function App() {
   //   });
   // }, [socket]);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     socket?.emit("newUser", user);
-  //     socket?.emit("join", "hi");
-  //     socket?.on("getNotification", (data) => {
-  //       dispatch(socketActions.setSocketDB(data));
-  //     });
-  //   }
-  // }, [socket, user]);
+  useEffect(() => {
+    if (token) {
+      // socket?.on('connection')
+      socket?.emit("newUser", userId);
+      console.log(userId);
+    }
+  }, [socket, userId]);
+
+  useEffect(() => {
+    socket?.on("getNotification", (data) => {
+      dispatch(socketActions.setSocketDB(data));
+      console.log(data);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket?.on("newInviteDB", (data) => {
+      console.log("newInviteDB, ", data);
+      dispatch(socketActions.setSocketDB(data));
+    });
+  }, [socket]);
 
   return (
     <div className="App">

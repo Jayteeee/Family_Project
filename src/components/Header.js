@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IoMdNotifications } from "react-icons/io";
 import { MdClear, MdNotificationsNone } from "react-icons/md";
+import dayjs from "dayjs";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +12,9 @@ import { familyMemberActions } from "../redux/modules/familymember";
 
 // 엘리먼트
 import { CircleImage, RactangleImage } from "../elements";
+
+// 소켓
+import { io } from "socket.io-client";
 
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
@@ -37,7 +41,7 @@ const Header = (props) => {
   console.log(bg);
   console.log("유저정보: ", user);
 
-  const sender = useSelector((state) => state?.socket.sender);
+  const sender = useSelector((state) => state?.socket?.sender?.newInviteDB);
 
   // const familyMemberNickname = familyMemberList.
 
@@ -64,6 +68,38 @@ const Header = (props) => {
     setNotiOn(!notiOn);
   };
 
+  const ENDPOINT = "http://52.79.130.222/";
+
+  // const [user, setUser] = useState("");
+  const [socket, setSocket] = useState(
+    io.connect(ENDPOINT, {
+      transports: ["websocket"],
+      forceNew: true,
+    })
+  );
+
+  const addFamilyMember = (
+    familyId,
+    familyMemberNickname,
+    selectEmail,
+    userId
+  ) => {
+    dispatch(
+      familyMemberActions.addFamilyMemberDB(
+        familyId,
+        familyMemberNickname,
+        selectEmail
+      )
+    );
+    console.log(userId, familyId, familyMemberNickname);
+    socket?.emit("inviteJoin", {
+      userId: userId,
+      familyId: familyId,
+      familyMemberNickname: familyMemberNickname,
+    });
+    setNotiOn(!notiOn);
+  };
+
   return (
     <>
       <div>
@@ -83,30 +119,57 @@ const Header = (props) => {
               {sender ? <NotiCount>{sender?.length}</NotiCount> : null}
             </NotiBox>
             {notiOn ? (
-              <NotiMsgBox>
-                <span className="triangle"></span>
-                {sender ? (
-                  <div>
-                    <NotiHead>
-                      <Category>{sender?.category}</Category>
-                      <MdClear onClick={handleNoti} />
-                    </NotiHead>
-                    <NotiMsg>
-                      {sender?.type === "좋아요"
-                        ? `${sender?.senderName} 님이 ${sender?.type}를 누르셨습니다.`
-                        : sender?.type === "댓글"
-                        ? `${sender?.senderName} 님이 ${sender?.type}을 등록하셨습니다.`
-                        : null}
-                    </NotiMsg>
-                    <NotiFooter>
-                      <div>7시간 전</div>
-                    </NotiFooter>
-                    <Line></Line>
-                  </div>
-                ) : (
-                  <div> 알림이 없습니다. </div>
-                )}
-              </NotiMsgBox>
+              <>
+                <NotiMsgBox>
+                  <span className="triangle"></span>
+                  {sender ? (
+                    sender.map((x) => {
+                      return (
+                        <div>
+                          <NotiHead>
+                            <Category>{x?.category}</Category>
+                            <MdClear onClick={handleNoti} />
+                          </NotiHead>
+                          <NotiMsg>
+                            {x?.type === "좋아요"
+                              ? `${x?.senderName} 님이 ${x?.type}를 누르셨습니다.`
+                              : x?.type === "댓글"
+                              ? `${x?.senderName} 님이 ${x?.type}을 등록하셨습니다.`
+                              : x?.type === "초대"
+                              ? `${x?.nickname} 님이 가족 구성원${x?.type}를 하셨습니다.`
+                              : null}
+                          </NotiMsg>
+                          {x?.type === "초대" ? (
+                            <ButtonBox>
+                              <button
+                                onClick={() => {
+                                  addFamilyMember(
+                                    x.familyId,
+                                    x.familyMemberNickname,
+                                    x.selectEmail,
+                                    x.userId
+                                  );
+                                }}
+                              >
+                                승낙
+                              </button>
+                              <button>거절</button>
+                            </ButtonBox>
+                          ) : null}
+                          <NotiFooter>
+                            <div>
+                              {dayjs(x.createdAt).format("MM-DD hh:mm")}
+                            </div>
+                          </NotiFooter>
+                          <Line></Line>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div> 알림이 없습니다. </div>
+                  )}
+                </NotiMsgBox>
+              </>
             ) : null}
 
             <ProfileBox onClick={handleModal}>
@@ -235,6 +298,12 @@ const NotiMsg = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const NotiFooter = styled.div`

@@ -62,7 +62,7 @@ const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
 
   useEffect(() => {
     timer();
-  }, [count]);
+  }, []);
 
   return (
     <>

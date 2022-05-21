@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Input, Button, Text } from "../../elements";
 import { familyActions } from "../../redux/modules/family";
+import { io } from "socket.io-client";
 
 const CreateFamily = (props) => {
   const dispatch = useDispatch();
@@ -15,12 +16,25 @@ const CreateFamily = (props) => {
     setfamilyTitle(value);
   };
 
+  const ENDPOINT = "http://52.79.130.222/room";
+  const userId = useSelector((state) => state?.user?.user?.user?.userId);
+
+  // const [user, setUser] = useState("");
+  const [socket, setSocket] = useState(
+    io.connect(ENDPOINT, {
+      transports: ["websocket"],
+      forceNew: true,
+      path: "/socket.io",
+    })
+  );
+
   // 가족 생성 함수
   const addFamily = () => {
     if (familyTitle === "") {
       alert("가족 이름을 입력해주세요");
       return;
     }
+    socket?.emit("join", familyTitle, userId);
     dispatch(familyActions.addFamilyDB(familyTitle));
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../redux/modules/user";
 import { Button, Input, Text } from "../../elements";
 import kakaoImg from "../../shared/images/kakao_login_large_wide.png";

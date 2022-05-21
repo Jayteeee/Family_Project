@@ -3,6 +3,7 @@ import { MainContext } from "../../../../pages/Main";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import { io } from "socket.io-client";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +31,8 @@ const AddMemberModal = ({ onClose }) => {
     (state) => state?.familymember?.searchMember
   );
 
+  const myNickname = useSelector((state) => state?.user?.user?.user?.nickname);
+
   console.log("검색한 이메일:", searchEmail);
 
   console.log("검색한 맴버:", searchMember);
@@ -51,15 +54,33 @@ const AddMemberModal = ({ onClose }) => {
     const { value } = e.target;
     setfamilyMemberNickname(value);
   };
+
+  // 소켓 부분
+  const ENDPOINT = "http://52.79.130.222/";
+
+  const [socket, setSocket] = useState(
+    io.connect(ENDPOINT, {
+      transports: ["websocket"],
+      forceNew: true,
+    })
+  );
+
   // 가족 구성원 추가하기 함수
   const addFamilyMember = () => {
-    dispatch(
-      familyMemberActions.addFamilyMemberDB(
-        familyId,
-        familyMemberNickname,
-        selectEmail
-      )
-    );
+    // dispatch(
+    //   familyMemberActions.addFamilyMemberDB(
+    //     familyId,
+    //     familyMemberNickname,
+    //     selectEmail
+    //   )
+    // );
+    socket?.emit("inviteMember", {
+      familyId: familyId,
+      familyMemberNickname: familyMemberNickname,
+      selectEmail: selectEmail,
+      nickname: myNickname,
+    });
+    console.log("inviteMember ", familyId, familyMemberNickname, selectEmail);
     onClose();
   };
 

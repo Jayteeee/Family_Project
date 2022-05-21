@@ -3,9 +3,10 @@ import { MainContext } from "../../../../pages/Main";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import { io } from "socket.io-client";
 
 // 리덕스
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -38,9 +39,23 @@ const AddFamilyModal = ({ onClose }) => {
 
   console.log(familyTitle);
 
+  // 소켓 부분
+  const ENDPOINT = "http://52.79.130.222/room";
+  const userId = useSelector((state) => state?.user?.user?.user?.userId);
+
+  // const [user, setUser] = useState("");
+  const [socket, setSocket] = useState(
+    io.connect(ENDPOINT, {
+      transports: ["websocket"],
+      forceNew: true,
+      path: "/socket.io",
+    })
+  );
+
   // 가족 생성 함수
   const addFamily = () => {
     dispatch(familyActions.addFamilyDB(familyTitle));
+    socket?.emit("join", familyTitle, userId);
   };
 
   return (

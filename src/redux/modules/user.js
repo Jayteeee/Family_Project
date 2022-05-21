@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 import jwt from "jwt-decode";
+import { io } from "socket.io-client";
 
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/Token";
@@ -10,6 +11,7 @@ import { detailPhotoActions } from "./detailphoto";
 import { missionActions } from "./mission";
 
 const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   user: {},
@@ -77,6 +79,18 @@ const loginDB = (inputs) => {
         const familyId = res.data.familyList[0]?.familyId;
         insertToken(token);
         const { familyList } = res.data;
+
+        // 소켓 부분
+
+        const ENDPOINT = "http://52.79.130.222/";
+
+        const socket = io.connect(ENDPOINT, {
+          transports: ["websocket"],
+          forceNew: true,
+          path: "/socket.io",
+        });
+
+        socket?.emit("join", res.data.userInfo.id);
 
         // 로그인시 들어오는 데이터 GET_USER시 들어오는 데이터와 똑같이 맞추기 위함.
         let userData = { familyList, user: userInfo };
