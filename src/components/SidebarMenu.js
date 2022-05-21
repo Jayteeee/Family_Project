@@ -23,13 +23,7 @@ const SidebarMenu = (familyId) => {
   const { NowFamilyId } = familyId;
   console.log("사이드바에 적용할 Id값: ", NowFamilyId);
 
-  const [homeMenuColor, setHomeMenuColor] = useState("#familyId");
-  const [missionMenuColor, setMissionMenuColor] = useState("#c2c2c2");
-  const [calendarMenuColor, setCalendarMenuColor] = useState("#c2c2c2");
-  const [galleryMenuColor, setGalleryMenuColor] = useState("#c2c2c2");
-  const [voiceMenuColor, setVoiceMenuColor] = useState("#c2c2c2");
-  const [newfamilyId, setnewfamilyId] = useState("familyId");
-
+  // 사이드바 색상 변경
   const handleHomeMenuColor = () => {
     localStorage.setItem("homeMenuColor", "#6371F7");
     localStorage.setItem("missionMenuColor", "#c2c2c2");
@@ -37,8 +31,6 @@ const SidebarMenu = (familyId) => {
     localStorage.setItem("galleryMenuColor", "#c2c2c2");
     localStorage.setItem("voiceMenuColor", "#c2c2c2");
   };
-
-  console.log(localStorage.getItem("homeMenuColor"));
 
   const handleMissionMenuColor = () => {
     localStorage.setItem("homeMenuColor", "#c2c2c2");
