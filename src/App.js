@@ -54,14 +54,14 @@ function App() {
     }
   }, [socket, userId]);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     socket?.on("getNotification", (data) => {
-  //       dispatch(socketActions.setNotiDB(data));
-  //       console.log(data);
-  //     });
-  //   }
-  // }, [socket]);
+  useEffect(() => {
+    if (token) {
+      socket?.on("getNotification", (data) => {
+        dispatch(socketActions.setNotiDB(data));
+        console.log(data);
+      });
+    }
+  }, [socket]);
 
   useEffect(() => {
     if (token) {
