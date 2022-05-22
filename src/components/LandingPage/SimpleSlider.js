@@ -15,7 +15,7 @@ import { Text } from "../../elements";
 const SimpleSlider = () => {
   //전체값의 순서랑 게시물 하나의 번호 비교
   const settings = {
-    arrows: false, //화살표 x
+    arrows: true, //화살표 x
     dots: true, //이동 점
     infinite: false, //끝-처음 반복
     slidesToShow: 1, //한화면에 보이는 개수
@@ -58,6 +58,8 @@ const Styled_Slide = styled(Slider)`
     //얘로 크기조정
     max-width: 100%;
     max-height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     border-radius: 10px;
     align-items: center;

@@ -6,8 +6,8 @@ import dayjs from "dayjs";
 import { getToken } from "../../shared/Token";
 import { userActions } from "./user";
 
-// const BASE_URL = "https://doremilan.shop";
-const BASE_URL = "http://52.79.130.222";
+const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   familyList: [],
@@ -72,6 +72,7 @@ const addFamilyDB = (familyTitle) => {
       .catch((err) => {
         console.log(err);
         console.log(err.response);
+        alert(err.response.data.msg);
       });
   };
 };

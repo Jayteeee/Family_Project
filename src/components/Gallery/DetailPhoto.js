@@ -68,9 +68,16 @@ const DetailPhoto = ({
   const nowUserId = useSelector((state) => state.user.user.user?.userId);
   console.log("현재 userID:", nowUserId);
 
-  const nowUserNickname = useSelector(
-    (state) => state.user.user.user?.nickname
-  );
+  // 좋아요 버튼 클릭시 혹은 사진 게시할 때 기존 닉네임 말고 가족 내 호칭을 사용해야해서 useSelect로 가져오는 값 바꿈
+  // const nowUserNickname = useSelector(
+  //   (state) => state.user.user.user?.nickname
+  // );
+
+  const { familyMemberList } = useSelector((state) => state.familymember);
+  const nowUserNickname = familyMemberList?.find(
+    (m) => m?.userId === nowUserId
+  )?.familyMemberNickname;
+
   console.log("현재 userNickname:", nowUserNickname);
 
   const [comment, setComment] = useState("");
@@ -136,12 +143,26 @@ const DetailPhoto = ({
 
   let socket = useSelector((state) => state.socket.socket);
 
-  const handleNotification = (type) => {
-    socket.emit("sendNotification", {
+  const handleLikeNoti = (type) => {
+    console.log(detailPhoto.userId);
+    socket.emit("sendLikeNoti", {
       senderName: nowUserNickname,
-      receiverName: detailPhoto.userId,
+      receiverId: detailPhoto.userId,
       type,
       category: "갤러리",
+      likeChk: !detailPhotoData.likeChk,
+      photoId: photoId,
+    });
+  };
+
+  const handleCommentNoti = (type) => {
+    console.log(detailPhoto.userId);
+    socket.emit("sendCommentNoti", {
+      senderName: nowUserNickname,
+      receiverId: detailPhoto.userId,
+      type,
+      category: "갤러리",
+      photoId: photoId,
     });
   };
 
@@ -187,7 +208,7 @@ const DetailPhoto = ({
                   onClick={() => {
                     handleLike();
                     addlike();
-                    handleNotification("좋아요");
+                    handleLikeNoti("좋아요");
                   }}
                 >
                   <MdFavoriteBorder />
@@ -197,6 +218,7 @@ const DetailPhoto = ({
                   onClick={() => {
                     handleLike();
                     addlike();
+                    handleLikeNoti("좋아요");
                   }}
                 >
                   <MdOutlineFavorite />
@@ -272,18 +294,18 @@ const DetailPhoto = ({
                             XS
                             // src={l.profileImg ? l.profileImg : profileImg}
                             src={
-                              l.profileImg === "Profile01"
+                              l?.profileImg === "Profile01"
                                 ? Profile01
-                                : l.profileImg === "Profile02"
+                                : l?.profileImg === "Profile02"
                                 ? Profile02
-                                : l.profileImg === "Profile03"
+                                : l?.profileImg === "Profile03"
                                 ? Profile03
-                                : l.profileImg === "Profile04"
+                                : l?.profileImg === "Profile04"
                                 ? Profile04
-                                : l.profileImg === "Profile05"
+                                : l?.profileImg === "Profile05"
                                 ? Profile05
-                                : l.profileImg
-                                ? l.profileImg
+                                : l?.profileImg
+                                ? l?.profileImg
                                 : Profile01
                             }
                             margin="0 5px 0 0"
@@ -352,7 +374,7 @@ const DetailPhoto = ({
                     disabled={!comment}
                     onClick={() => {
                       submitComment();
-                      handleNotification("댓글");
+                      handleCommentNoti("댓글");
                     }}
                   />
                 </Comment>

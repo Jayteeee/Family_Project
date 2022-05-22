@@ -68,6 +68,10 @@ const Header = (props) => {
     setNotiOn(!notiOn);
   };
 
+  // const deleteAlert= (alertId) => {
+  //   socket.emit("", alertId)
+  // }
+
   const addFamilyMember = (
     familyId,
     familyMemberNickname,
@@ -81,12 +85,13 @@ const Header = (props) => {
         selectEmail
       )
     );
-    console.log(userId, familyId, familyMemberNickname);
-    socket?.emit("inviteJoin", {
-      userId: userId,
-      familyId: familyId,
-      familyMemberNickname: familyMemberNickname,
-    });
+
+    // 소켓 룸 부분
+    // socket?.emit("inviteJoin", {
+    //   userId: userId,
+    //   familyId: familyId,
+    //   familyMemberNickname: familyMemberNickname,
+    // });
     setNotiOn(!notiOn);
   };
 
@@ -106,19 +111,24 @@ const Header = (props) => {
                 }}
                 onClick={handleNoti}
               />
-              {alert ? <NotiCount>{alert?.length}</NotiCount> : null}
+              {alert.length !== 0 ? (
+                <NotiCount>{alert?.length}</NotiCount>
+              ) : null}
             </NotiBox>
             {notiOn ? (
               <>
                 <NotiMsgBox>
                   <span className="triangle"></span>
-                  {alert ? (
-                    alert.map((x) => {
+                  {alert.length !== 0 ? (
+                    alert.map((x, i) => {
                       return (
-                        <div>
+                        <div key={x.alertId}>
                           <NotiHead>
                             <Category>{x?.category}</Category>
-                            <MdClear onClick={handleNoti} />
+                            <MdClear
+                            // onClick={() =>
+                            //   {deleteAlert(x.alertId)}}
+                            />
                           </NotiHead>
                           <NotiMsg>
                             {x?.type === "좋아요"
@@ -131,7 +141,7 @@ const Header = (props) => {
                           </NotiMsg>
                           {x?.type === "초대" ? (
                             <ButtonBox>
-                              <button
+                              <SocketBtn
                                 onClick={() => {
                                   addFamilyMember(
                                     x.familyId,
@@ -142,16 +152,18 @@ const Header = (props) => {
                                 }}
                               >
                                 승낙
-                              </button>
-                              <button>거절</button>
+                              </SocketBtn>
+                              <SocketBtn
+                              // onClick={() => {deleteAlert(x.alertId)}}
+                              >
+                                거절
+                              </SocketBtn>
                             </ButtonBox>
                           ) : null}
                           <NotiFooter>
-                            <div>
-                              {dayjs(x.createdAt).format("MM-DD hh:mm")}
-                            </div>
+                            <div>{x.createdAt}</div>
                           </NotiFooter>
-                          <Line></Line>
+                          {alert.length - 1 === i ? null : <Line></Line>}
                         </div>
                       );
                     })
@@ -250,7 +262,7 @@ const NotiMsgBox = styled.div`
   flex-direction: column;
   z-index: 300;
   top: 50px;
-  right: 120px;
+  right: 50px;
   max-width: 282px;
   max-height: 405px;
   background-color: white;
@@ -288,13 +300,32 @@ const Category = styled.div`
 const NotiMsg = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  word-break: keep-all;
   margin-bottom: 8px;
 `;
 
 const ButtonBox = styled.div`
   display: flex;
   align-items: center;
+  justify-content: end;
+`;
+
+const SocketBtn = styled.div`
+  display: flex;
+  align-items: center;
   justify-content: center;
+  width: 34px;
+  height: 20px;
+  font-size: small;
+  color: white;
+  border-radius: 20%;
+  margin: 0 3px;
+  padding: 3px;
+  background-color: rgba(99, 113, 247, 1);
+  cursor: pointer;
 `;
 
 const NotiFooter = styled.div`

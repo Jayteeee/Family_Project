@@ -3,19 +3,20 @@ import { produce } from "immer";
 
 const initialState = {
   socket: {},
+  alert: [],
 };
 
 // 액션
 const GET_SOCKET = "GET_SOCKET";
-// const SET_NOTI = "SET_NOTI";
+const SET_NOTI = "SET_NOTI";
 const SET_ALERT = "SET_ALERT";
-const SET_FAMILY_NOTI = "SET_FAMILY_NOTI";
+// const SET_FAMILY_NOTI = "SET_FAMILY_NOTI";
 
 // 액션 생성함수
 const getsocket = createAction(GET_SOCKET, (inputs) => ({ inputs }));
-// const setnoti = createAction(SET_NOTI, (data) => ({ data }));
+const setnoti = createAction(SET_NOTI, (data) => ({ data }));
 const setalert = createAction(SET_ALERT, (data) => ({ data }));
-const setFamilyNoti = createAction(SET_FAMILY_NOTI, (data) => ({ data }));
+// const setFamilyNoti = createAction(SET_FAMILY_NOTI, (data) => ({ data }));
 
 // 미들웨어
 // const userLogout = () => {
@@ -32,15 +33,15 @@ const getSocketDB = (inputs) => {
   };
 };
 
-// const setNotiDB = (data) => {
-//   console.log(data);
-//   return async function (dispatch, getState, { history }) {
-//     // 데이터를 어떤 형식으로 주시는지에 따라 배열을 감싸거나 감싸지 않고 바로 사용하기
-//     // const list = [];
-//     // list.push(data);
-//     await dispatch(setnoti(data));
-//   };
-// };
+const setNotiDB = (data) => {
+  console.log(data);
+  return async function (dispatch, getState, { history }) {
+    // 데이터를 어떤 형식으로 주시는지에 따라 배열을 감싸거나 감싸지 않고 바로 사용하기
+    // const list = [];
+    // list.push(data);
+    await dispatch(setnoti(data));
+  };
+};
 
 const setAlertDB = (data) => {
   console.log(data);
@@ -49,12 +50,12 @@ const setAlertDB = (data) => {
   };
 };
 
-const setFamilyNotiDB = (data) => {
-  console.log(data);
-  return async function (dispatch, getState, { history }) {
-    await dispatch(setFamilyNoti(data));
-  };
-};
+// const setFamilyNotiDB = (data) => {
+//   console.log(data);
+//   return async function (dispatch, getState, { history }) {
+//     await dispatch(setFamilyNoti(data));
+//   };
+// };
 
 // 리듀서
 export default handleActions(
@@ -63,18 +64,18 @@ export default handleActions(
       produce(state, (draft) => {
         draft.socket = action.payload.inputs;
       }),
-    // [SET_NOTI]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     draft.alert = action.payload.data;
-    //   }),
+    [SET_NOTI]: (state, action) =>
+      produce(state, (draft) => {
+        draft.alert = action.payload.data.findAlertDB;
+      }),
     [SET_ALERT]: (state, action) =>
       produce(state, (draft) => {
-        draft.alert = action.payload.data.findUserAlertDB;
+        draft.alert.push(...action.payload.data.findUserAlertDB);
       }),
-    [SET_FAMILY_NOTI]: (state, action) =>
-      produce(state, (draft) => {
-        draft.alert.push(action.payload.data.findAlertDB);
-      }),
+    // [SET_FAMILY_NOTI]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     draft.alert.push(action.payload.data.findAlertDB);
+    //   }),
     // [GET_USER]: (state, action) =>
     //   produce(state, (draft) => {
     //     draft.user = action.payload.user;
@@ -87,8 +88,8 @@ export default handleActions(
 export const socketActions = {
   // signUpDB,
   getSocketDB,
-  // setNotiDB,
+  setNotiDB,
   setAlertDB,
-  setFamilyNotiDB,
+  // setFamilyNotiDB,
   // userLogout,
 };

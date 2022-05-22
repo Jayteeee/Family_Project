@@ -7,8 +7,8 @@ import { getToken } from "../../shared/Token";
 import { homeActions } from "./home";
 import { familyActions } from "./family";
 
-// const BASE_URL = "https://doremilan.shop";
-const BASE_URL = "http://52.79.130.222";
+const BASE_URL = "https://doremilan.shop";
+// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   familyMemberList: [],
@@ -142,7 +142,9 @@ const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
       .then((res) => {
         console.log(res);
         console.log(res.msg);
-        dispatch(addFamilyMember(res.data.familyMember));
+        // const addedFamily = getState().family.familyList.find((f) => f.familyId === familyId)
+        // dispatch(addFamilyMember(res.data.familyMember));
+        history.push(`/family/${familyId}`);
       })
       .catch((err) => {
         console.log(err);

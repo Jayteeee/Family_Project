@@ -67,11 +67,18 @@ const AddMemberModal = ({ onClose }) => {
     // );
     socket?.emit("inviteMember", {
       familyId: familyId,
-      familyMemberNickname: familyMemberNickname,
       selectEmail: selectEmail,
+      familyMemberNickname: familyMemberNickname,
       nickname: myNickname,
+      type: "초대",
     });
-    console.log("inviteMember ", familyId, familyMemberNickname, selectEmail);
+    socket.on("errorMsg", (data) => {
+      if (data) {
+        alert(data);
+      }
+    });
+
+    console.log("inviteMember ", familyId, selectEmail);
     onClose();
   };
 
