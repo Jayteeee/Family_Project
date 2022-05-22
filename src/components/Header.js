@@ -217,7 +217,7 @@ const RogoBox = styled.div`
   padding-left: 10px;
   width: 87px;
   height: 32px;
-  margin-left: 16px;
+  margin-left: 20px;
   background-position: center;
   background-size: cover;
   ${({ src }) => `background-image: url(${src});`};

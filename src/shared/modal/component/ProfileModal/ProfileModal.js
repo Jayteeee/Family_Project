@@ -440,15 +440,6 @@ const Background = styled.div`
   height: 100%;
   width: 100%;
   text-align: center;
-
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    /* display: none; */
-    /* background-color: rgba(0, 0, 0, 0.5); */
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-  }
 `;
 
 const Content = styled.div`

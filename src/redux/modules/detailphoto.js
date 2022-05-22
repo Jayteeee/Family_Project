@@ -20,6 +20,7 @@ const ADD_LIKE = "ADD_LIKE";
 const ADD_LIKE_MEMBER = "ADD_LIKE_MEMBER";
 const EDIT_DETAIL_PHOTO_PROFILE_IMG = "EDIT_DETAIL_PHOTO_PROFILE_IMG";
 const DELETE_COMMENT = "DELETE_COMMENT";
+const DELETE_LIKE = "DELETE_LIKE";
 
 // 액션 생성함수
 // 한울 추가: 언더바는 사용해보니 좋은걸 잘 모르겠어서 빼버렸습니다!
@@ -46,12 +47,16 @@ const editDetailPhotoProfileImg = createAction(
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
   commentId,
 }));
+const deleteLike = createAction(DELETE_LIKE, (newLikeChk, userId) => ({
+  newLikeChk,
+  userId,
+}));
 
-const getDetailPhotoDB = (photoId) => {
+const getDetailPhotoDB = (familyId, photoId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
-      .get(`${BASE_URL}/photo/detail/${photoId}`, { headers: config })
+      .get(`${BASE_URL}/photo/${familyId}/${photoId}`, { headers: config })
       .then((res) => {
         console.log(res);
         const detailPhoto = res.data;
@@ -111,7 +116,7 @@ const addCommentDB = (familyId, photoAlbumId, photoId, comment) => {
   };
 };
 
-const addLikeDB = (familyId, photoId, likeChk) => {
+const addLikeDB = (familyId, photoId, likeChk, userId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     // const { email } = getState().user.user;
@@ -130,8 +135,11 @@ const addLikeDB = (familyId, photoId, likeChk) => {
         //   userId: email,
         //   nickname: resData.userNickname,
         // };
-
-        dispatch(addLike(newLikeChk));
+        if (newLikeChk) {
+          dispatch(addLike(newLikeChk));
+        } else {
+          dispatch(deleteLike(newLikeChk, userId));
+        }
 
         // dispatch(channelActions.addComment(channelId, contentId, newDic));
       })
@@ -199,8 +207,8 @@ export default handleActions(
 
     [ADD_LIKE_MEMBER]: (state, action) =>
       produce(state, (draft) => {
-        const { likeMember } = action.payload;
-        draft.nowPhotoDetail.likeMemberList.push(likeMember);
+        const { likeChk } = action.payload;
+        draft.nowPhotoDetail.likeMemberList.push(likeChk);
       }),
 
     [EDIT_DETAIL_PHOTO_PROFILE_IMG]: (state, action) =>
@@ -233,6 +241,17 @@ export default handleActions(
           (c) => c.commentId !== commentId
         );
         draft.nowPhotoDetail.commentList = newArr;
+      }),
+
+    [DELETE_LIKE]: (state, action) =>
+      produce(state, (draft) => {
+        const { likeChk, userId } = action.payload;
+
+        let newArr = draft.nowPhotoDetail.likeMemberList.filter(
+          (l) => l.userId !== userId
+        );
+        draft.nowPhotoDetail.likeMemberList = newArr;
+        draft.nowPhotoDetail.likeChk = false;
       }),
   },
   initialState

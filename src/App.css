@@ -39,14 +39,7 @@ input {
 }
 /* 반응형CSS 태블릿 뷰 */
 @media only screen and (max-width: 839px) {
-  .res-missionStatusBox {
-    flex-direction: column !important;
-    margin: 0 14px !important;
-  }
-  .res-twoStatusBox {
-    display: flex;
-    /* margin; */
-  }
+
   .res-missionHeader {
     padding: 5px 0 0 0 !important;
   }
@@ -72,23 +65,16 @@ input {
   .res-missionTitle {
     margin-left: 25px !important;
   }
-  .res-missionMemberBox {
+  /* .res-missionMemberBox {
     padding: 0 0 20px 5px !important;
   }
   .res-missionCompletedAt {
     margin-right: 9% !important;
-  }
+  } */
 }
 /*  Medium (Tablet) */
 @media screen and (max-width: 1024px) {
-  .res-missionStatusBox {
-    flex-direction: column !important;
-    margin: 0 14px !important;
-  }
-  .res-twoStatusBox {
-    display: flex;
-    /* margin; */
-  }
+
   .res-missionHeader {
     padding: 5px 0 0 0 !important;
   }
@@ -110,11 +96,11 @@ input {
   .res-wepPastMissionList {
     display: none !important;
   }
-  .res-missionMember {
+  /* .res-missionMember {
     margin: 0 35px !important;
-  }
+  } */
   /* // 지난미션 용 */
-  .res-missionTitle {
+  /* .res-missionTitle {
     margin-left: 25px !important;
   }
   .res-missionMemberBox {
@@ -122,7 +108,7 @@ input {
   }
   .res-missionCompletedAt {
     margin-right: 9% !important;
-  }
+  } */
 }
 /* 반응형CSS 모바일 뷰 */
 @media only screen and (max-width: 599px) {
@@ -130,23 +116,19 @@ input {
     margin: 20px 20px 10px -15px !important;
     padding: 16px -5px !important;
   }
-  .res-missionStatusBox {
-    flex-direction: column !important;
-    margin: 0 6px !important;
-  }
-  .res-statusBox {
+  /* .res-statusBox {
     padding: 0px 20px !important;
     height: 8rem !important;
-  }
+  } */
   .res-stausMiddleBox {
     padding: 15px !important;
   }
   .res-selectBox.div.div {
     padding: 10px !important;
   }
-  .res-missionStatusTitle {
+  /* .res-missionStatusTitle {
     font-size: 15px !important;
-  }
+  } */
   .res-missionStatus {
     font-size: 24px !important;
   }
@@ -157,9 +139,9 @@ input {
     margin-top: 0px !important;
   }
 
-  .res-missionMember {
+  /* .res-missionMember {
     margin: 0 40px !important;
-  }
+  } */
   .res-pastMissionMember {
     margin: 0 25px !important;
   }

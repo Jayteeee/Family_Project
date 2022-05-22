@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import { history } from "../../redux/configureStore";
 
 // 엘리먼트
-import { RactangleImage, Text } from "../../elements";
+import { RactangleImage, Text, CircleImage } from "../../elements";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
@@ -20,6 +20,7 @@ import Profile02 from "../../shared/images/Profile02.svg";
 import Profile03 from "../../shared/images/Profile03.svg";
 import Profile04 from "../../shared/images/Profile04.svg";
 import Profile05 from "../../shared/images/Profile05.svg";
+import checkImg from "../../shared/images/checkImg.png";
 
 const HomeMission = ({
   recentMission,
@@ -79,7 +80,9 @@ const HomeMission = ({
                         />
 
                         {f.myMissionChk && (
-                          <MissionChkBox src={missionChkImg} />
+                          <CompletedCicle>
+                            <CircleImage S size="24px" src={checkImg} />
+                          </CompletedCicle>
                         )}
                       </Profile>
                     </ProfileBox>
@@ -96,6 +99,9 @@ const HomeMission = ({
 const Container = styled.div`
   width: 90%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media screen and (max-width: 1199px) {
   }
   // Small (Tablet)
@@ -113,8 +119,8 @@ const Figure = styled.div`
 
 const ContantBox = styled.div`
   width: 100%;
+  margin-bottom: 8%;
   background-color: #fff;
-  margin-top: 5%;
   .recentMissionTitle {
     font-size: 28px;
     font-weight: 600;
@@ -141,6 +147,30 @@ const Profile = styled.div`
     white-space: nowrap;
   }
   width: 100%;
+`;
+
+const CompletedCicle = styled.div`
+  width: 12px;
+  height: 13px;
+  border-radius: 12px;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 34px;
+  right: 6px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const MissionChkBox = styled.div`

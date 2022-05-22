@@ -29,7 +29,7 @@ const MissionHeader = (props) => {
       <MissionHeaderBox>
         <Text
           size="40px"
-          fontWeight="700"
+          fontWeight="600"
           margin="10px 0 0 0"
           className="res-missionHeaderBox"
         >
@@ -74,9 +74,9 @@ const MissionHeader = (props) => {
       <MissionLowerHeader>
         <Text
           size="24px"
-          fontWeight="700"
-          margin="5px 15px 0 15px"
-          className="res-missionMonth"
+          fontWeight="600"
+          margin="5px 0 0 0"
+          className="missionMonth"
         >
           {nowMonth}
         </Text>
@@ -98,7 +98,7 @@ const MissionHeaderBox = styled.div`
   padding: 16px 20px;
   // Medium (Desktop)
   @media only screen and (max-width: 1199px) {
-    margin: 20px 20px 10px 20px;
+    margin: 20px 10px 10px 10px;
   }
   // Small (Tablet)
   @media only screen and (max-width: 839px) {
@@ -131,6 +131,9 @@ const MissionLowerHeader = styled.div`
 
   // Medium (Desktop)
   @media only screen and (max-width: 1199px) {
+    margin: 10px;
+    .missionMonth {
+    }
     /* margin: 0px 0 15px 0px !important;
     display: flex !important;
     text-align: right !important;
@@ -139,14 +142,17 @@ const MissionLowerHeader = styled.div`
   }
   // Small (Tablet)
   @media only screen and (max-width: 839px) {
-    margin: 5px 0 25px 0px !important;
     display: flex !important;
     text-align: right !important;
     padding: 0px 10px;
+    .missionMonth {
+      font-size: 20px;
+    }
     /* justify-content: center !important; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    margin: 5px 10px 25px 10px !important;
   }
 `;
 

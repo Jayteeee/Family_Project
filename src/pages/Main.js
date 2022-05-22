@@ -290,12 +290,8 @@ const ContentWrap = styled.div`
 `;
 
 const SidbarWrap = styled.div`
-  /* border: none;
-  overflow-y: hidden; */
-  /* flex-basis: 160px; */
   flex-grow: 0;
   flex-shrink: 0;
-  /* background-color: #f0f0ff; */
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
@@ -377,18 +373,21 @@ const SelectBox = styled.div`
 const Label = styled.div`
   display: flex;
   /* font-size: 24px; */
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 600;
   width: 100%;
-  justify-content: center;
-  justify-items: center;
+  /* justify-content: center; */
+  /* justify-items: center; */
   align-items: center;
   cursor: pointer;
   &:hover {
     background-color: #d6d6d6;
   }
-  padding: 40px 40px 40px 10px;
+  padding: 55px 55px 55px 20px;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+    justify-content: center;
+    justify-items: center;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
@@ -411,15 +410,17 @@ const SelectOptions = styled.ul`
   position: absolute;
   list-style: none;
   text-align: left;
-  top: 80px;
+  top: 100px;
   left: 0;
   width: 100%;
   overflow: hidden;
   max-height: ${(props) => (props.show ? "none" : "0")};
   padding: 0;
-  background-color: #222222;
-  color: #fefefe;
+  background-color: #fff;
+  color: black;
+  border-radius: 16px;
   overflow-y: scroll;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   z-index: 30000;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
@@ -440,9 +441,10 @@ const SelectOptions = styled.ul`
 
 const Option = styled.li`
   font-size: 14px;
-  padding: 6px;
+  padding: 10px;
   height: 100%;
   transition: background-color 0.2s ease-in;
+  border-radius: 10px;
   &:hover {
     background-color: #d6d6d6;
   }
@@ -517,15 +519,13 @@ const PageWrap = styled.div`
 
 const SidebarBottom = styled.nav`
   width: 100%;
-  max-height: 8vh;
+  max-height: 8.2vh;
   position: fixed;
   bottom: 0;
   flex-direction: column;
   border: none;
   background-color: #fff;
   display: none;
-  /* justify-content: end;
-  align-items: flex-end; */
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {

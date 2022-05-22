@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, CircleImage, Text } from "../../elements";
 
 // 이미지
+import emptyContent from "../../shared/images/emptyContent.svg";
 // import profileImg from "../../shared/images/profileImg.png";
 // import Profile01 from "../../shared/images/Profile01.png";
 // import Profile02 from "../../shared/images/Profile02.png";
@@ -54,6 +55,7 @@ const MissionList = ({
       )
     );
   };
+  console.log(pastMissionList);
 
   // 미션 제거하기 모달
   const [deleteModalOn, setDeleteModalOn] = useState(false);
@@ -73,7 +75,11 @@ const MissionList = ({
         {status ? (
           <div
             className="res-selectMissionList-1"
-            style={{ width: "100%", textAlign: "left", display: "none" }}
+            style={{
+              width: "100%",
+              textAlign: "left",
+              display: "none",
+            }}
           >
             <Text
               id="fsadf"
@@ -85,37 +91,40 @@ const MissionList = ({
               이번 달 미션
             </Text>
             <MissionListBox className="res-missinoListBox">
-              <MissionSelect className="res-missionSelect">
-                <Option
-                  value={status}
-                  onClick={() => {
-                    setStatus(true);
+              <div style={{ display: "flex" }}>
+                <MissionSelect className="res-missionSelect">
+                  <Option
+                    value={status}
+                    onClick={() => {
+                      setStatus(true);
+                    }}
+                  >
+                    <Text size="15px">이번 달 미션</Text>
+                  </Option>
+                  <Option
+                    value={!status}
+                    onClick={() => {
+                      setStatus(false);
+                    }}
+                  >
+                    <Text size="15px">지난 미션</Text>
+                  </Option>
+                </MissionSelect>
+              </div>
+              {monthMissionList?.length !== 0 && (
+                <DayBox
+                  style={{
+                    textAlign: "left",
+                    marginBottom: "15px",
                   }}
                 >
-                  <Text size="15px">이번 달 미션</Text>
-                </Option>
-                <Option
-                  value={!status}
-                  onClick={() => {
-                    setStatus(false);
-                  }}
-                >
-                  <Text size="15px">지난 미션</Text>
-                </Option>
-              </MissionSelect>
-              <DayBox
-                style={{
-                  textAlign: "left",
-                  marginBottom: "15px",
-                  marginLeft: "25px",
-                }}
-              >
-                <Text size="24px" fontWeight="700">
-                  D-{nowDay}
-                </Text>
-              </DayBox>
+                  <Text size="16px" fontWeight="400">
+                    D-{nowDay}
+                  </Text>
+                </DayBox>
+              )}
               <div>
-                {monthMissionList ? (
+                {monthMissionList?.length !== 0 ? (
                   monthMissionList.map((m, i) => {
                     return (
                       <OneMission
@@ -128,7 +137,12 @@ const MissionList = ({
                     );
                   })
                 ) : (
-                  <Text margin="0 10px">리스트 없음.</Text>
+                  <NoneMissionWrap>
+                    <NoneMissionBox>
+                      <EmptyContentImg src={emptyContent} />
+                      <Text>아직 작성된 미션이 없네요! 만들러 가볼까요?</Text>
+                    </NoneMissionBox>
+                  </NoneMissionWrap>
                 )}
               </div>
             </MissionListBox>
@@ -139,25 +153,36 @@ const MissionList = ({
             className="res-pastMissionList"
           >
             <MissionListBox className="res-missinoListBox">
-              <MissionSelect className="res-missionSelect">
-                <Option
-                  value={status}
-                  onClick={() => {
-                    setStatus(true);
-                  }}
-                >
-                  <Text size="15px">이번 달 미션</Text>
-                </Option>
-                <Option
-                  value={!status}
-                  onClick={() => {
-                    setStatus(false);
-                  }}
-                >
-                  <Text size="15px">지난 미션</Text>
-                </Option>
-              </MissionSelect>
-              <PastMissionList pastMissionList={pastMissionList} />
+              <div style={{ display: "flex" }}>
+                <MissionSelect className="res-missionSelect">
+                  <Option
+                    value={status}
+                    onClick={() => {
+                      setStatus(true);
+                    }}
+                  >
+                    <Text size="15px">이번 달 미션</Text>
+                  </Option>
+                  <Option
+                    value={!status}
+                    onClick={() => {
+                      setStatus(false);
+                    }}
+                  >
+                    <Text size="15px">지난 미션</Text>
+                  </Option>
+                </MissionSelect>
+              </div>
+              {pastMissionList?.length !== 0 ? (
+                <PastMissionList pastMissionList={pastMissionList} />
+              ) : (
+                <NoneMissionWrap>
+                  <NoneMissionBox>
+                    <EmptyContentImg src={emptyContent} />
+                    <Text>아직 지난 미션이 없어요.</Text>
+                  </NoneMissionBox>
+                </NoneMissionWrap>
+              )}
             </MissionListBox>
           </div>
         )}
@@ -166,17 +191,19 @@ const MissionList = ({
           className="res-selectMissionList-2"
           style={{ width: "100%", textAlign: "left" }}
         >
-          <Text margin="0 25px" fontWeight="700" size="24px">
+          <Text margin="0 10px" fontWeight="600" size="24px">
             이번 달 미션
           </Text>
           <MissionListBox className="res-missinoListBox">
-            <DayBox style={{ textAlign: "left", marginBottom: "20px" }}>
-              <Text size="24px" fontWeight="700">
-                D-{nowDay}
-              </Text>
-            </DayBox>
+            {monthMissionList?.length !== 0 && (
+              <DayBox style={{ textAlign: "left", marginBottom: "20px" }}>
+                <Text size="16px" fontWeight="400">
+                  D-{nowDay}
+                </Text>
+              </DayBox>
+            )}
             <div>
-              {monthMissionList ? (
+              {monthMissionList?.length !== 0 ? (
                 monthMissionList.map((m, i) => {
                   return (
                     <OneMission
@@ -189,20 +216,34 @@ const MissionList = ({
                   );
                 })
               ) : (
-                <Text margin="0 10px">리스트 없음.</Text>
+                <NoneMissionWrap>
+                  <NoneMissionBox>
+                    <EmptyContentImg src={emptyContent} />
+                    <Text>아직 작성된 미션이 없네요! 만들러 가볼까요?</Text>
+                  </NoneMissionBox>
+                </NoneMissionWrap>
               )}
             </div>
           </MissionListBox>
         </div>
         <div
           className="res-wepPastMissionList"
-          style={{ width: "100%", textAlign: "left" }}
+          style={{ width: "100%", height: "100%", textAlign: "left" }}
         >
-          <Text margin="0 25px" fontWeight="700" size="24px">
+          <Text margin="0 10px" fontWeight="700" size="24px">
             지난 미션
           </Text>
           <MissionListBox>
-            <PastMissionList pastMissionList={pastMissionList} />
+            {pastMissionList?.length !== 0 ? (
+              <PastMissionList pastMissionList={pastMissionList} />
+            ) : (
+              <NoneMissionWrap>
+                <NoneMissionBox>
+                  <EmptyContentImg src={emptyContent} />
+                  <Text>아직 지난 미션이 없어요.</Text>
+                </NoneMissionBox>
+              </NoneMissionWrap>
+            )}
           </MissionListBox>
         </div>
       </MissionListWrap>
@@ -232,29 +273,31 @@ const MissionListWrap = styled.div`
 
 const MissionListBox = styled.div`
   background: #fff;
+  min-height: 480px;
   margin: 20px 10px;
-  padding: 45px 20px 45px 45px;
+  padding: 20px;
   border: none;
-  border-radius: 20px;
-  box-shadow: 0px 0px 3px 0px #d6d6d6;
+  border-radius: 12px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+    min-height: 680px;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin-top: 0px !important;
     padding-left: 20px !important;
-    padding-right: 0;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    margin: 20px 9px;
+    min-height: 480px;
+    padding: 16px;
+    /* margin: 20px 9px; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     margin-top: 0px !important;
-    padding-left: 10px !important;
   }
 `;
 
@@ -264,13 +307,92 @@ const DayBox = styled.div`
   }
 `;
 
+const NoneMissionWrap = styled.div`
+  width: 100%;
+  height: 380px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: 300px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+`;
+
+const NoneMissionBox = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 25% 15% 0 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  & > p {
+    font-size: 20px;
+    font-weight: 600;
+    position: absolute;
+    top: 90px;
+  }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    & > p {
+      font-size: 20px;
+      font-weight: 600;
+      position: absolute;
+      top: 55px;
+    }
+    padding: 20% 15% 0 15%;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    & > p {
+      font-size: 20px;
+      font-weight: 600;
+      position: absolute;
+      top: 50px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    & > p {
+      font-size: 15px;
+      font-weight: 600;
+      position: absolute;
+      top: 70px;
+    }
+    padding: 15% 15% 0 15%;
+  }
+`;
+
+const EmptyContentImg = styled.div`
+  width: 100%;
+
+  padding: 22.2%;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
+`;
+
 // 미션 토글용 CSS
 const MissionSelect = styled.div`
   align-items: center;
   text-align: center;
   justify-content: center;
   width: 200px;
-  padding: 1px;
+  padding-left: 1px;
   margin: 10px auto 30px auto;
   background-color: #a8a8a8;
   border-radius: 20px;

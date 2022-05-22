@@ -37,7 +37,7 @@ const MissionPage = (props) => {
   const { missionStatus } = useSelector((state) => state.mission);
   console.log("미션 현황:", missionStatus);
 
-  const { thisMonthMissionList } = MissionData?.nowMissionData;
+  const thisMonthMissionList = MissionData?.thisMonthMissionList;
   console.log("이번달 미션리스트:", thisMonthMissionList);
 
   const { pastMissionList } = MissionData;
