@@ -135,6 +135,39 @@ const HomePage = (props) => {
     setHeight(false);
   };
 
+  // 사이드바 색상 변경
+  const handleMissionMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#c2c2c2");
+    localStorage.setItem("missionMenuColor", "#6371F7");
+    localStorage.setItem("calendarMenuColor", "#c2c2c2");
+    localStorage.setItem("galleryMenuColor", "#c2c2c2");
+    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+  };
+
+  const handleCalendarMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#c2c2c2");
+    localStorage.setItem("missionMenuColor", "#c2c2c2");
+    localStorage.setItem("calendarMenuColor", "#6371F7");
+    localStorage.setItem("galleryMenuColor", "#c2c2c2");
+    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+  };
+
+  const handleGalleryMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#c2c2c2");
+    localStorage.setItem("missionMenuColor", "#c2c2c2");
+    localStorage.setItem("calendarMenuColor", "#c2c2c2");
+    localStorage.setItem("galleryMenuColor", "#6371F7");
+    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+  };
+
+  const handleVoiceMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "#c2c2c2");
+    localStorage.setItem("missionMenuColor", "#c2c2c2");
+    localStorage.setItem("calendarMenuColor", "#c2c2c2");
+    localStorage.setItem("galleryMenuColor", "#c2c2c2");
+    localStorage.setItem("voiceMenuColor", "#6371F7");
+  };
+
   useEffect(() => {
     dispatch(homeActions.getHomeDB(familyId));
     dispatch(familyMemberActions.getFamilyMemberDB(familyId));
@@ -232,6 +265,7 @@ const HomePage = (props) => {
                       <MdKeyboardArrowRight
                         onClick={() => {
                           history.push(`/family/${familyId}/mission/`);
+                          handleMissionMenuColor();
                         }}
                       />
                     </MiddleTitleBox>
@@ -248,6 +282,7 @@ const HomePage = (props) => {
                     <MdKeyboardArrowRight
                       onClick={() => {
                         history.push(`/family/${familyId}/calendar/`);
+                        handleCalendarMenuColor();
                       }}
                     />
                   </MiddleTitleBox>
@@ -295,6 +330,7 @@ const HomePage = (props) => {
                         <MdKeyboardArrowRight
                           onClick={() => {
                             history.push(`/family/${familyId}/mission/`);
+                            handleMissionMenuColor();
                           }}
                         />
                       </TitleBox>
@@ -343,6 +379,7 @@ const HomePage = (props) => {
                         <MdKeyboardArrowRight
                           onClick={() => {
                             history.push(`/family/${familyId}/gallery/`);
+                            handleGalleryMenuColor();
                           }}
                         />
                       </TitleBox>
@@ -360,6 +397,7 @@ const HomePage = (props) => {
                         <MdKeyboardArrowRight
                           onClick={() => {
                             history.push(`/family/${familyId}/voiceMsg/`);
+                            handleVoiceMenuColor();
                           }}
                         />
                       </TitleBox>
@@ -414,10 +452,12 @@ const HomePageWrap = styled.div`
 
 const Header = styled.div`
   width: 100%;
-  height: 17%;
+  height: 138px;
   display: flex;
   align-items: center;
   margin-left: 40px;
+  margin-bottom: 16px;
+  /* margin-top: 3px; */
   /* background-color: aqua; */
 
   // Medium (Desktop)
@@ -454,7 +494,7 @@ const ContentsWrap = styled.div`
   height: 93%;
   display: flex;
   flex-direction: column;
-  padding: 0 20px 20px 20px;
+  padding: 0 0 20px 0;
   /* background-color: aquamarine; */
 
   // Medium (Desktop)
@@ -562,7 +602,7 @@ const MiddleLeftTopBox = styled.div`
 const MiddleLeftTodayMood = styled.div`
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 2.5%;
   text-align: left;
   background-color: #fff;
@@ -645,7 +685,7 @@ const TodayMoodBox = styled.div`
   font-size: 17px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   /* padding: 0 4px 0 0; */
-  border-radius: 20px;
+  border-radius: 12px;
   border: none;
   background-color: #fff;
   position: absolute;
@@ -687,7 +727,7 @@ const MiddleLeftMission = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 2.5%;
   text-align: left;
   background-color: #fff;
@@ -819,7 +859,7 @@ const MiddleRightCalendar = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 2.5%;
   text-align: left;
   background-color: #fff;
@@ -856,7 +896,7 @@ const MiddleRightCalendar = styled.div`
   }
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    border-radius: 20px;
+    border-radius: 12px;
     padding-bottom: 0;
     flex-wrap: wrap;
     /* margin-bottom: 5%; */
@@ -1037,7 +1077,7 @@ const BottomLeftMission = styled.div`
   width: 100%;
   height: 100%;
   /* margin-left: 10px; */
-  border-radius: 20px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   padding: 5% 0;
@@ -1079,7 +1119,7 @@ const BottomLeftBadge = styled.div`
   width: 100%;
   height: 100%;
   /* margin-left: 10px; */
-  border-radius: 20px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   padding: 5% 0;
@@ -1121,7 +1161,7 @@ const BottomRightPhoto = styled.div`
   width: 100%;
   height: 100%;
   /* margin-left: 10px; */
-  border-radius: 20px;
+  border-radius: 12px;
 
   display: flex;
   flex-direction: column;
@@ -1166,7 +1206,7 @@ const BottomRightPhoto = styled.div`
 const BottomRightVoice = styled.div`
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   padding: 5% 0;

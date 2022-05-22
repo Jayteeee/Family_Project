@@ -44,17 +44,17 @@ const HomeBadge = ({ randomBadge, familyId }) => {
             >
               <BadgeImg
                 src={
-                  randomBadge?.badgeTitle == "단란한 시작"
+                  randomBadge?.badgeTitle === "단란한 시작"
                     ? BadgeOn_01
-                    : randomBadge?.badgeTitle == "추억의 발자국"
+                    : randomBadge?.badgeTitle === "추억의 발자국"
                     ? BadgeOn_02
-                    : randomBadge?.badgeTitle == "정겨운 목소리"
+                    : randomBadge?.badgeTitle === "정겨운 목소리"
                     ? BadgeOn_03
-                    : randomBadge?.badgeTitle == "협동의 즐거움"
+                    : randomBadge?.badgeTitle === "협동의 즐거움"
                     ? BadgeOn_04
-                    : randomBadge?.badgeTitle == "소통의 기쁨"
+                    : randomBadge?.badgeTitle === "소통의 기쁨"
                     ? BadgeOn_05
-                    : randomBadge?.badgeTitle == "함께하는 나날"
+                    : randomBadge?.badgeTitle === "함께하는 나날"
                     ? BadgeOn_06
                     : noImage
                 }
@@ -104,7 +104,6 @@ const ContantBox = styled.div`
   /* border-radius: 20px;
   border: 1px solid #c4c4c4; */
   .homeBadgeTitle {
-    margin-top: 5%;
     font-size: 16px;
     color: #757575;
   }

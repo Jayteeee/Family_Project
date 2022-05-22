@@ -49,20 +49,22 @@ const BadgeModal = ({ onClose, familyId }) => {
           }}
           className="res-badgeContent"
         >
+          <div className="titleBar" />
           <BadgeWrap className="res-badgeWrap">
             <BadgeHeaderBox className="res-badgeHeaderBox">
               <CancelBtn
-                className="flex-row"
+                // className="flex-row"
                 onClick={() => {
                   onClose();
                 }}
               >
-                <RiArrowLeftSLine size={24} />
+                <RiArrowLeftSLine size={30} />
               </CancelBtn>
               <Text size="28px" fontWeight="600" className="badgeTitle1">
-                우리 가족 배지
+                보유 배지
               </Text>
-              <Text size="20px" className="badgeTitle2">
+
+              <Text size="20px" className="badgeTitle2" margin="20px 0 0 0">
                 도란도란을 사용하다 보면 여러 배지를 획득 할 수 있어요!{"\n"}
                 배지의 획득 요건을 확인하고 도전해보세요.
               </Text>
@@ -370,6 +372,11 @@ const Background = styled.div`
   width: 100%;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.5);
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    background-color: transparent;
+  }
 `;
 
 const Content = styled.div`
@@ -386,8 +393,11 @@ const Content = styled.div`
   border-radius: 20px;
   background-color: #fff;
   position: relative;
-  overflow: scroll;
   padding: 30px;
+
+  .titleBar {
+    display: none;
+  }
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
@@ -404,12 +414,39 @@ const Content = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    height: 80% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 205;
+    max-width: 420px;
+    width: 100%;
+    border-radius: 0;
+    background-color: #fff;
+    /* margin: 0;
+    right: 0; */
+    height: 91.9% !important;
     padding: 20px;
+    position: absolute;
+    top: 0;
+    .titleBar {
+      width: 500px;
+      position: absolute;
+      top: 75px;
+      border-bottom: 1px solid #dbdbdb;
+      display: flex;
+    }
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
     padding: 15px;
+
+    .titleBar {
+      width: 500px;
+      position: absolute;
+      top: 60px;
+      border: 1px solid #dbdbdb;
+    }
   }
 `;
 
@@ -424,6 +461,7 @@ const BadgeWrap = styled.div`
   width: 100%;
   height: 100%;
   background-color: #fff;
+
   /* margin-top: 30px; // 모바일 반응형 */
 
   // Medium (Desktop)
@@ -437,25 +475,30 @@ const BadgeWrap = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    height: 80% !important;
+    height: 100% !important;
     /* margin-top: 30px; */
     /* display: ""; */
     .badgeTitle1 {
       margin-bottom: 30px !important;
+      padding-bottom: 10px;
+      font-size: 20px;
+      font-weight: 400;
     }
     .badgeTitle2 {
       font-size: 15px;
     }
-    margin-top: 40px;
+    /* margin-top: 40px; */
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
     .badgeTitle1 {
       margin-bottom: 30px !important;
       font-size: 20px;
+      font-weight: 400;
     }
     .badgeTitle2 {
       font-size: 12px;
+      margin: 0;
     }
   }
 `;
@@ -476,6 +519,15 @@ const CancelBtn = styled.div`
   &:hover {
     background: rgba(29, 28, 29, 0.1);
     color: rgba(29, 28, 29, 1);
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    top: 15px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    top: 0;
   }
 `;
 
@@ -513,12 +565,14 @@ const BadgeHeaderBox = styled.div`
   @media screen and (max-width: 599px) {
     height: 100%;
     /* display: flex; */
-    margin-top: 0px !important;
-    margin-bottom: 5px !important;
+    margin-top: 10px !important;
     display: block;
+    padding: 5px 0 0 !important;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
+    margin-top: 0px !important;
+    padding: 5px 0 0 !important;
   }
 `;
 
@@ -531,6 +585,7 @@ const BadgeListBox = styled.div`
   justify-content: center;
   width: 100%;
   height: 70%;
+
   /* height: 100%; // 모바이 반응형 */
   /* margin-bottom: 50px; */
 
@@ -547,6 +602,7 @@ const BadgeListBox = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    overflow-y: scroll;
     display: block !important;
     /* flex-direction: column !important; */
     height: 100% !important;
@@ -673,7 +729,7 @@ const BadgeBar = styled.div`
   background-color: #f5f5f5;
   margin-bottom: auto;
   border: none;
-  border-radius: 4px;
+  border-radius: 99px;
   font-size: 16px;
   position: relative;
   z-index: 1;
@@ -692,7 +748,7 @@ const BadgeBarPercentage = styled.div`
   height: 30px;
   background-color: #6371f7;
   border: none;
-  border-radius: 5px 0 0 5px;
+  border-radius: 99px 0 0 99px;
   font-size: 16px;
   position: absolute;
   top: 0px;
@@ -712,7 +768,7 @@ const BadghCnt = styled.div`
   background-color: transparent;
   margin-bottom: auto;
   border: none;
-  border-radius: 5px;
+  border-radius: 99px;
   font-size: 16px;
   /* position: absolute;
   top: 0px; */
@@ -732,9 +788,9 @@ const CompletedBadgeBar = styled.div`
   justify-content: center;
   width: 150px;
   height: 30px;
-  background-color: #f4cc4d;
+  background-color: #ffdc65;
   border: none;
-  border-radius: 4px;
+  border-radius: 99px;
   font-size: 16px;
   z-index: 5;
   color: white;

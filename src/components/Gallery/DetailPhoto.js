@@ -104,29 +104,32 @@ const DetailPhoto = ({
   console.log("좋아요", like);
   console.log(detailPhotoData.likeChk);
 
-  const nowLikeMember = {
-    familyMemberNickname: detailPhoto?.userInfo.familyMemberNickname,
-    profileImg: detailPhoto?.userInfo.profileImg,
-  };
+  const userId = useSelector((state) => state.user.user.user?.userId);
 
-  const [likeMember, setLikeMember] = useState(nowLikeMember);
+  // const nowLikeMember = {
+  //   familyMemberNickname: detailPhoto?.userInfo.familyMemberNickname,
+  //   profileImg: detailPhoto?.userInfo.profileImg,
+  // };
 
-  console.log("좋아요 누른 유저:", likeMember);
+  // const [likeMember, setLikeMember] = useState(nowLikeMember);
+
+  // console.log("좋아요 누른 유저:", likeMember);
 
   const addlike = () => {
     dispatch(
       detailPhotoActions.addLikeDB(
         NowFamilyId,
         photoId,
-        detailPhotoData.likeChk
+        detailPhotoData.likeChk,
+        userId
       )
     );
 
-    if (like) {
-      dispatch(detailPhotoActions.addLikeMember(likeMember));
-    } else {
-      dispatch(detailPhotoActions.addLikeMember(false));
-    }
+    // if (like) {
+    //   dispatch(detailPhotoActions.addLikeMember(likeMember));
+    // } else {
+    //   dispatch(detailPhotoActions.addLikeMember(false));
+    // }
   };
 
   const [modalOn, setModalOn] = useState(false);
@@ -136,8 +139,8 @@ const DetailPhoto = ({
   };
 
   useEffect(() => {
-    dispatch(detailPhotoActions.getDetailPhotoDB(photoId));
-  }, [detailPhotoData.likeChk === false]);
+    dispatch(detailPhotoActions.getDetailPhotoDB(NowFamilyId, photoId));
+  }, [detailPhotoData.likeChk]);
 
   // socket 부분
 
@@ -312,10 +315,6 @@ const DetailPhoto = ({
                           />
                           {/* {myMissionChk ?  */}
                           <MdOutlineFavorite />
-                          {/* : <UncompletedCicle />} */}
-                          <div>
-                            <MdOutlineFavorite />
-                          </div>
                         </div>
                       </>
                     );

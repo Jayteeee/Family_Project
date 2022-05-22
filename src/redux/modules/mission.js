@@ -12,7 +12,7 @@ const BASE_URL = "https://doremilan.shop";
 // const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
-  nowMissionData: [],
+  thisMonthMissionList: [],
   missionMemberList: [],
   pastMissionList: [],
   selectedMemberList: [],
@@ -38,8 +38,8 @@ const MISSION_STATUS_UPDATE = "MISSION_UPDATE";
 const DELETE_MISSION = "DELETE_MISSION";
 
 // 액션 생성함수
-const getMission = createAction(GET_MISSION, (nowMissionData) => ({
-  nowMissionData,
+const getMission = createAction(GET_MISSION, (thisMonthMissionList) => ({
+  thisMonthMissionList,
 }));
 const getPastMission = createAction(GET_PAST_MISSION, (pastMissionList) => ({
   pastMissionList,
@@ -107,10 +107,9 @@ const getMissionPage = (familyId) => {
       .get(`${BASE_URL}/mission/${familyId}`, { headers: config })
       .then((res) => {
         console.log("미션 데이터 GET:", res);
-        const nowMissionData = res.data;
-        console.log(nowMissionData);
-
-        dispatch(getMission(nowMissionData));
+        const { thisMonthMissionList } = res.data;
+        console.log(thisMonthMissionList);
+        dispatch(getMission(thisMonthMissionList));
       })
       .catch((err) => {
         console.log("미션 데이터 안옴", err);
@@ -321,7 +320,7 @@ export default handleActions(
   {
     [GET_MISSION]: (state, action) =>
       produce(state, (draft) => {
-        draft.nowMissionData = action.payload.nowMissionData;
+        draft.thisMonthMissionList = action.payload.thisMonthMissionList;
       }),
     [GET_PAST_MISSION]: (state, action) =>
       produce(state, (draft) => {
@@ -345,9 +344,7 @@ export default handleActions(
       }),
     [ADD_MISSION]: (state, action) =>
       produce(state, (draft) => {
-        draft.nowMissionData.thisMonthMissionList.unshift(
-          action.payload.newMission
-        );
+        draft.thisMonthMissionList.unshift(action.payload.newMission);
       }),
     [ADD_MISSION_MEMBER]: (state, action) =>
       produce(state, (draft) => {
@@ -387,12 +384,11 @@ export default handleActions(
 
         console.log(missionId, familyMissionChk);
 
-        let thisMonthMissionList =
-          draft.nowMissionData.thisMonthMissionList.filter(
-            (m) => m.missionId === missionId
-          )[0];
+        let thisMonthMissionList = draft.thisMonthMissionList.filter(
+          (m) => m.missionId === missionId
+        )[0];
 
-        let missionIdx = draft.nowMissionData.thisMonthMissionList.findIndex(
+        let missionIdx = draft.thisMonthMissionList.findIndex(
           (m) => m.missionId === missionId
         );
 
@@ -408,8 +404,7 @@ export default handleActions(
 
         console.log(thisMonthMissionList);
         // 선택한 미션 주입
-        draft.nowMissionData.thisMonthMissionList[missionIdx] =
-          thisMonthMissionList;
+        draft.thisMonthMissionList[missionIdx] = thisMonthMissionList;
       }),
     [CHECK_MISSION_MEMBER]: (state, action) =>
       produce(state, (draft) => {
@@ -418,12 +413,11 @@ export default handleActions(
 
         console.log(missionId, myMissionChk, familyMissionChk, userId);
 
-        let thisMonthMissionList =
-          state.nowMissionData.thisMonthMissionList.filter(
-            (m) => m.missionId === missionId
-          )[0];
+        let thisMonthMissionList = state.thisMonthMissionList.filter(
+          (m) => m.missionId === missionId
+        )[0];
 
-        let missionIdx = state.nowMissionData.thisMonthMissionList.findIndex(
+        let missionIdx = state.thisMonthMissionList.findIndex(
           (m) => m.missionId === missionId
         );
         let checkedMissionMember =
@@ -447,9 +441,8 @@ export default handleActions(
           myMissionChk: myMissionChk,
         };
         // 선택한 미션 멤버 주입
-        draft.nowMissionData.thisMonthMissionList[missionIdx].missionMemberList[
-          memberIdx
-        ] = checkedMissionMember;
+        draft.thisMonthMissionList[missionIdx].missionMemberList[memberIdx] =
+          checkedMissionMember;
       }),
     [MISSION_STATUS_UPDATE]: (state, action) =>
       produce(state, (draft) => {
@@ -461,12 +454,11 @@ export default handleActions(
       produce(state, (draft) => {
         const { missionId } = action.payload;
 
-        let thisMonthMissionList =
-          draft.nowMissionData.thisMonthMissionList.filter(
-            (m) => m.missionId !== missionId
-          );
+        let thisMonthMissionList = draft.thisMonthMissionList.filter(
+          (m) => m.missionId !== missionId
+        );
 
-        draft.nowMissionData.thisMonthMissionList = thisMonthMissionList;
+        draft.thisMonthMissionList = thisMonthMissionList;
       }),
   },
   initialState
