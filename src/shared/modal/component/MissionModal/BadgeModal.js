@@ -492,6 +492,7 @@ const BadgeWrap = styled.div`
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
     .badgeTitle1 {
+      margin-top: 2px;
       margin-bottom: 30px !important;
       font-size: 20px;
       font-weight: 400;
@@ -505,6 +506,8 @@ const BadgeWrap = styled.div`
 
 const CancelBtn = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: 36px;
   height: 36px;
@@ -523,11 +526,11 @@ const CancelBtn = styled.div`
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    top: 15px;
+    top: 12px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    top: 0;
+    top: 0px;
   }
 `;
 

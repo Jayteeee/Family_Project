@@ -41,18 +41,8 @@ const Header = (props) => {
   const sender = useSelector((state) => state?.socket?.sender?.findUserAlertDB);
   const socket = useSelector((state) => state?.socket?.socket);
 
-  // const familyMemberNickname = familyMemberList.
-
   // 프로필 수정 모달
   const [modalOn, setModalOn] = useState(false);
-
-  // const { familyMemberList } = useSelector((state) => state.familymember);
-
-  // const myFamilyMemberNickname = familyMemberList?.find(
-  //   (m) => m?.userId === user?.userId
-  // )?.familyMemberNickname;
-
-  // console.log("나의 가족구성원호칭", myFamilyMemberNickname);
 
   const handleModal = () => {
     setModalOn(!modalOn);
@@ -211,6 +201,11 @@ const HeaderWarp = styled.header`
   z-index: 203;
   text-align: center;
   border-bottom: 1px solid #dbdbdb;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    border: none;
+  }
 `;
 
 const RogoBox = styled.div`
@@ -221,6 +216,11 @@ const RogoBox = styled.div`
   background-position: center;
   background-size: cover;
   ${({ src }) => `background-image: url(${src});`};
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin-left: 15px;
+  }
 `;
 
 const HeaderRightBox = styled.div`

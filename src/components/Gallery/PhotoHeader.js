@@ -55,17 +55,60 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
       <GalleryHeaderBox>
         <Text
           size="40px"
-          fontWeight="700"
+          fontWeight="600"
           margin="10px 0 0 0"
           className="photoHeaderBox"
         >
           {photoAlbumName}
         </Text>
         <BtnWrap>
-          <AddPhotoBtn className="input-file-button" htmlFor="input-file">
-            <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
-            사진 추가
-          </AddPhotoBtn>
+          <PhotoBtn>
+            <label
+              style={{
+                width: "100%",
+                height: "100%",
+                background: "gray",
+              }}
+            >
+              <Button
+                M
+                borderRadius="8px"
+                borderColor="transparent"
+                bg="#6371F7"
+                color="#fff"
+                width="159px"
+                height="56px"
+                hover="#6971b2"
+                margin="10px 0 0 0"
+              >
+                <label
+                  style={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontWeight: "600",
+                    marginBottom: "1px",
+                    width: "100%",
+                    height: "99%",
+                    cursor: "pointer",
+                  }}
+                  className="input-file-button"
+                  htmlFor="input-file"
+                >
+                  <span
+                    style={{
+                      fontSize: "25px",
+                      margin: "0px 5px 3px 0",
+                    }}
+                  >
+                    +
+                  </span>
+                  사진 추가
+                </label>
+              </Button>
+            </label>
+          </PhotoBtn>
+
           <input
             ref={photoImgInput}
             type="file"
@@ -89,7 +132,7 @@ const GalleryHeaderBox = styled.div`
   justify-content: space-between;
   border: none;
   background: transparent;
-  margin: 19px 20px 10px 20px;
+  margin: 15px 20px 10px 20px;
   padding: 16px 20px;
 
   // Medium (Desktop)
@@ -104,7 +147,7 @@ const GalleryHeaderBox = styled.div`
       font-size: 30px;
     }
     padding: 0;
-    margin: 21px 16px;
+    margin: 22px 16px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -122,6 +165,11 @@ const BtnWrap = styled.div`
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
   }
+`;
+
+const PhotoBtn = styled.label`
+  text-align: right;
+  flex-grow: 1;
 `;
 
 const AddPhotoBtn = styled.label`

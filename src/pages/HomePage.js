@@ -31,14 +31,6 @@ import { ProfileModal } from "../shared/modal/component/ProfileModal";
 import { BadgeModal } from "../shared/modal/component/MissionModal";
 
 // 이미지
-// import smilingEmoji from "../shared/images/smilingEmoji.png";
-// import heartsSmileEmoji from "../shared/images/heartsSmileEmoji.png";
-// import sunglassesEmoji from "../shared/images/sunglassesEmoji.png";
-// import cryingEmoji from "../shared/images/cryingEmoji.png";
-// import explodingEmoji from "../shared/images/explodingEmoji.png";
-// import angryEmoji from "../shared/images/angryEmoji.png";
-// import sleepingEmoji from "../shared/images/sleepingEmoji.png";
-// import profileImg from "../shared/images/profileImg.png";
 import noImage from "../shared/images/noImage.png";
 import Profile01 from "../shared/images/Profile01.svg";
 import Profile02 from "../shared/images/Profile02.svg";
@@ -137,35 +129,35 @@ const HomePage = (props) => {
 
   // 사이드바 색상 변경
   const handleMissionMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "#c2c2c2");
-    localStorage.setItem("missionMenuColor", "#6371F7");
-    localStorage.setItem("calendarMenuColor", "#c2c2c2");
-    localStorage.setItem("galleryMenuColor", "#c2c2c2");
-    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+    localStorage.setItem("homeMenuColor", false);
+    localStorage.setItem("missionMenuColor", "true");
+    localStorage.setItem("calendarMenuColor", false);
+    localStorage.setItem("galleryMenuColor", false);
+    localStorage.setItem("voiceMenuColor", false);
   };
 
   const handleCalendarMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "#c2c2c2");
-    localStorage.setItem("missionMenuColor", "#c2c2c2");
-    localStorage.setItem("calendarMenuColor", "#6371F7");
-    localStorage.setItem("galleryMenuColor", "#c2c2c2");
-    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+    localStorage.setItem("homeMenuColor", false);
+    localStorage.setItem("missionMenuColor", false);
+    localStorage.setItem("calendarMenuColor", "true");
+    localStorage.setItem("galleryMenuColor", false);
+    localStorage.setItem("voiceMenuColor", false);
   };
 
   const handleGalleryMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "#c2c2c2");
-    localStorage.setItem("missionMenuColor", "#c2c2c2");
-    localStorage.setItem("calendarMenuColor", "#c2c2c2");
-    localStorage.setItem("galleryMenuColor", "#6371F7");
-    localStorage.setItem("voiceMenuColor", "#c2c2c2");
+    localStorage.setItem("homeMenuColor", false);
+    localStorage.setItem("missionMenuColor", false);
+    localStorage.setItem("calendarMenuColor", false);
+    localStorage.setItem("galleryMenuColor", "true");
+    localStorage.setItem("voiceMenuColor", false);
   };
 
   const handleVoiceMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "#c2c2c2");
-    localStorage.setItem("missionMenuColor", "#c2c2c2");
-    localStorage.setItem("calendarMenuColor", "#c2c2c2");
-    localStorage.setItem("galleryMenuColor", "#c2c2c2");
-    localStorage.setItem("voiceMenuColor", "#6371F7");
+    localStorage.setItem("homeMenuColor", false);
+    localStorage.setItem("missionMenuColor", false);
+    localStorage.setItem("calendarMenuColor", false);
+    localStorage.setItem("galleryMenuColor", false);
+    localStorage.setItem("voiceMenuColor", "true");
   };
 
   useEffect(() => {
@@ -455,6 +447,7 @@ const Header = styled.div`
   height: 138px;
   display: flex;
   align-items: center;
+  text-align: left;
   margin-left: 40px;
   margin-bottom: 16px;
   /* margin-top: 3px; */
@@ -463,7 +456,7 @@ const Header = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     padding: 15px;
-    margin: 24px 0;
+    margin: 40px 24px;
     height: 3%;
     & > p {
       font-size: 2rem;
@@ -474,7 +467,8 @@ const Header = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    margin: 30px 0;
+    padding: 24px;
+    margin: 0 0 24px 0;
     /* height: 7%; */
     & > p {
       font-size: 30px;
@@ -685,7 +679,7 @@ const TodayMoodBox = styled.div`
   font-size: 17px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   /* padding: 0 4px 0 0; */
-  border-radius: 12px;
+  border-radius: 30px;
   border: none;
   background-color: #fff;
   position: absolute;
