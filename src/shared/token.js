@@ -8,6 +8,7 @@ const insertToken = (token) => {
 
 const removeToken = () => {
   sessionStorage.removeItem("token");
+  sessionStorage.removeItem("isLogin");
 };
 
 export { getToken, insertToken, removeToken };
