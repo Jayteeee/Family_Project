@@ -119,7 +119,7 @@ const ScheduleCalendar = ({ familyId, list }) => {
 
             if (list) {
               newLongEvents = newnewList?.filter(
-                (x) => x.startDate1 === dayjs(date).format("YYYY-MM-DD")
+                (x) => x?.startDate1 === dayjs(date).format("YYYY-MM-DD")
               );
             }
 
