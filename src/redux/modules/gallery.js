@@ -289,7 +289,7 @@ export default handleActions(
           (l) => l.photoAlbumId === photoAlbumId
         );
 
-        nowPhotoAlbum = [{ ...nowPhotoAlbum, photoAlbumName: photoAlbumName }];
+        nowPhotoAlbum = { ...nowPhotoAlbum, photoAlbumName: photoAlbumName };
 
         draft.photoAlbumList[index] = nowPhotoAlbum;
       }),

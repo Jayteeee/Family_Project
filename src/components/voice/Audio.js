@@ -6,7 +6,7 @@ import { MdRemoveCircle, MdPlayArrow, MdOutlinePause } from "react-icons/md";
 import dayjs from "dayjs";
 
 // 엘리먼트
-import { Text } from "../../elements";
+import { RactangleImage, Text } from "../../elements";
 
 // 이미지
 // import noImage from "../../shared/images/noImage.png";
@@ -89,9 +89,9 @@ const Audio = ({ voiceAlbumId, familyId, isEdit, PracticeEdit, voiceList }) => {
               <VoiceBox>
                 <NonePlayer>
                   <ProfileBox>
-                    <img
+                    <RactangleImage
+                      S
                       alt="#"
-                      // src={v.profileImg ? v.profileImg : noImage}
                       src={
                         v.profileImg === "Profile01"
                           ? Profile01
@@ -107,6 +107,10 @@ const Audio = ({ voiceAlbumId, familyId, isEdit, PracticeEdit, voiceList }) => {
                           ? v.profileImg
                           : Profile01
                       }
+                      size="70px"
+                      borderRadius="26px"
+                      borderColor="none"
+                      className="proFileImage"
                     />
                     <p>{v.familyMemberNickname}</p>
                   </ProfileBox>
@@ -354,7 +358,8 @@ const VoiceWrap = styled.div`
   width: 100%;
   background-color: #fff;
   padding: 40px;
-  border-radius: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
@@ -426,6 +431,7 @@ const ProfileBox = styled.div`
   }
   & > p {
     white-space: nowrap;
+    margin-top: 10px;
   }
 
   // Medium (Desktop)

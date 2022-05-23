@@ -40,11 +40,28 @@ const PhotoListPage = (props) => {
 };
 
 const PhotoListPageWrap = styled.div`
-  width: 100%;
+  max-width: 100%;
   height: calc(100vh - 40px);
+  /* padding-bottom: 40px; */
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  border: none;
+
+  // Medium (Desktop)
+  @media only screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: 100%;
+  }
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+    height: 100%;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 export default PhotoListPage;

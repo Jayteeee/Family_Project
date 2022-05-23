@@ -3,6 +3,9 @@ import React, { useRef, useState } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import dayjs from "dayjs";
+import { FiPlus } from "react-icons/fi";
+import { FaPen } from "react-icons/fa";
+import { MdCheck } from "react-icons/md";
 
 // 리덕스
 import { useDispatch } from "react-redux";
@@ -21,8 +24,9 @@ const VoiceHeader = ({
   PracticeEdit,
   isEdit,
   voiceAlbumName,
+  CompletedEdit,
 }) => {
-  // 미션 추가하기 모달
+  // 음성 추가하기 모달
   const [modalOn, setModalOn] = useState(false);
 
   const handleModal = () => {
@@ -35,7 +39,7 @@ const VoiceHeader = ({
         {voiceAlbumId ? (
           <Text
             size="40px"
-            fontWeight="700"
+            fontWeight="600"
             margin="10px 0 0 0"
             className="voiceHeaderBox"
           >
@@ -44,57 +48,107 @@ const VoiceHeader = ({
         ) : (
           <Text
             size="40px"
-            fontWeight="700"
+            fontWeight="600"
             margin="10px 0 0 0"
-            className="res-galleryHeaderBox"
+            className="voiceHeaderBox"
           >
             음성 메시지
           </Text>
         )}
         {!isEdit ? (
           <BtnWrap>
-            <AddPhotoBtn
-              className="input-file-button"
-              htmlFor="input-file"
-              onClick={() => {
-                setModalOn(true);
-              }}
-            >
-              <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
-              추가
-            </AddPhotoBtn>
-            <PhotoAlbumBtn
-              onClick={PracticeEdit}
-              style={{
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
-              편집
-            </PhotoAlbumBtn>
+            <VoiceBtn className="addBtn">
+              <label
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  background: "gray",
+                }}
+              >
+                <Button
+                  M
+                  borderRadius="8px"
+                  borderColor="transparent"
+                  bg="#6371F7"
+                  color="#fff"
+                  width="159px"
+                  height="56px"
+                  hover="#3245F5"
+                  margin="10px 0 0 0"
+                  className="addPhotoBtn"
+                >
+                  <label
+                    style={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                      fontWeight: "600",
+                      marginBottom: "1px",
+                      width: "100%",
+                      height: "99%",
+                      cursor: "pointer",
+                    }}
+                    className="input-file-button"
+                    htmlFor="input-file"
+                    onClick={() => {
+                      setModalOn(true);
+                    }}
+                  >
+                    <FiPlus />
+                    음성 추가
+                  </label>
+                </Button>
+              </label>
+            </VoiceBtn>
+            <VoiceBtn>
+              <Button
+                M
+                borderRadius="8px"
+                borderColor="transparent"
+                bg="#6371F7"
+                color="#fff"
+                width="159px"
+                height="56px"
+                hover="#3245F5"
+                margin="10px 0 0 24px"
+                onClick={PracticeEdit}
+                className="editBtn"
+              >
+                <EditBtnText>
+                  <FaPen />
+                  음성 편집
+                </EditBtnText>
+              </Button>
+            </VoiceBtn>
           </BtnWrap>
         ) : (
           <BtnWrap>
-            <EditCompletedBtn
-              onClick={() => {
-                // EditPhotoAlbum();
-                PracticeEdit();
-              }}
-              style={{
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <span style={{ fontSize: "25px", margin: "0 5px 2px 0" }}>+</span>
-              편집 완료
-            </EditCompletedBtn>
+            <VoiceBtn>
+              <Button
+                M
+                borderRadius="8px"
+                borderColor="transparent"
+                bg="#6371F7"
+                color="#fff"
+                width="159px"
+                height="56px"
+                hover="#3245F5"
+                margin="10px 0 0 0"
+                onClick={() => {
+                  CompletedEdit();
+                }}
+                className="editBtn"
+              >
+                <CompletedEditBtnText>
+                  <MdCheck />
+                  편집 완료
+                </CompletedEditBtnText>
+              </Button>
+            </VoiceBtn>
           </BtnWrap>
         )}
       </VoiceHeaderBox>
-      {/* 앨범추가 모달 */}
+      {/* 음성추가 모달 */}
       <ModalPortal>
         {modalOn && (
           <AddVoiceModal
@@ -110,26 +164,32 @@ const VoiceHeader = ({
 
 const VoiceHeaderBox = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  display: flex;
+  align-items: center;
   border: none;
   background: transparent;
-  margin: 19px 20px 10px 20px;
+  margin: 15px 20px 10px 20px;
   padding: 16px 20px;
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 10px 10px 10px 10px;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
+    margin: 20px 10px 10px 10px;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    padding: 10px;
+    margin: 10px 6px 5px 6px;
     .voiceHeaderBox {
       font-size: 30px;
     }
-    padding: 0;
-    margin: 21px 16px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -140,12 +200,55 @@ const BtnWrap = styled.div`
   display: flex;
   flex-direction: row;
 
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    .addBtn {
+      display: none;
+    }
+  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    margin: 0;
+    .editBtn {
+      height: 35px;
+      width: 140px;
+    }
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
+  }
+`;
+
+const VoiceBtn = styled.label`
+  text-align: right;
+  flex-grow: 1;
+
+  svg {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+`;
+
+const EditBtnText = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  margin-bottom: 1px;
+  svg {
+    font-size: 15px;
+    margin-right: 7px;
+  }
+
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    font-size: 17px;
+    svg {
+      font-size: 13px;
+      margin-right: 7px;
+    }
   }
 `;
 
@@ -258,6 +361,30 @@ const EditCompletedBtn = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+  }
+`;
+
+const CompletedEditBtnText = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  margin-bottom: 1px;
+  svg {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    font-size: 17px;
+    svg {
+      font-size: 18px;
+      margin-right: 7px;
+    }
   }
 `;
 

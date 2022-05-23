@@ -23,7 +23,7 @@ import emptyContent from "../../shared/images/emptyContent.svg";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
-import { DeleteMissionModal } from "../../shared/modal/component/MissionModal";
+import { AddMissionModal } from "../../shared/modal/component/MissionModal";
 
 // 컴포넌트
 import PastMissionList from "./PastMissionList";
@@ -68,6 +68,13 @@ const MissionList = ({
   let endMonth = dayjs().daysInMonth();
 
   let nowDay = endMonth - dayjs(new Date()).format("D");
+
+  // 미션 추가하기 모달
+  const [modalOn, setModalOn] = useState(false);
+
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
 
   return (
     <>
@@ -145,6 +152,22 @@ const MissionList = ({
                   </NoneMissionWrap>
                 )}
               </div>
+              <FloatingButton onClick={handleModal}>
+                <div
+                  style={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    width: "100%",
+                    height: "99%",
+                    cursor: "pointer",
+                  }}
+                >
+                  +
+                </div>
+              </FloatingButton>
             </MissionListBox>
           </div>
         ) : (
@@ -247,6 +270,15 @@ const MissionList = ({
           </MissionListBox>
         </div>
       </MissionListWrap>
+      {/* 미션 추가 모달 */}
+      <ModalPortal>
+        {modalOn && (
+          <AddMissionModal
+            onClose={handleModal}
+            familyId={familyId}
+          ></AddMissionModal>
+        )}
+      </ModalPortal>
     </>
   );
 };
@@ -407,6 +439,89 @@ const Option = styled.div`
   cursor: pointer;
   ${({ value }) =>
     value ? "background-color: white;" : "background-color: transparent;"};
+`;
+
+// 플로팅 버튼
+const FloatingButton = styled.div`
+  display: none;
+  @media only screen and (max-width: 1199px) {
+    /* width: 52px;
+    height: 52px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 80px;
+    right: 20px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer; */
+  }
+  @media screen and (max-width: 1024px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 140px;
+    right: 30px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 120px;
+    right: 35px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 95px;
+    right: 25px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 80px;
+    right: 25px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
 `;
 
 export default MissionList;

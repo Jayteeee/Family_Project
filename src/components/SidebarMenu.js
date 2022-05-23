@@ -193,7 +193,7 @@ const SidebarMenu = (familyId) => {
             color="#6371F7"
           >
             <IconBox src={onVoiceIcon} />
-            <Menus className="Sidebarmenus">음성메시지</Menus>
+            <Menus className="Sidebarmenus">음성 메시지</Menus>
           </MenuBox>
         ) : (
           <MenuBox
@@ -205,7 +205,7 @@ const SidebarMenu = (familyId) => {
             color="#c2c2c2"
           >
             <IconBox src={offVoiceIcon} />
-            <Menus className="Sidebarmenus">음성메시지</Menus>
+            <Menus className="Sidebarmenus">음성 메시지</Menus>
           </MenuBox>
         )}
       </SidebarMenuWrap>

@@ -99,7 +99,7 @@ const MediumButton = styled.button`
       ? `&:hover {
     background: ${hover}};`
       : `&:hover {
-    background: black;
+    background: #3245F5;
   }`}
   ${({ width }) => (width ? `width: ${width};` : "width: 120px;")};
   ${({ height }) => (height ? `  height: ${height};` : "height: 4vh")};

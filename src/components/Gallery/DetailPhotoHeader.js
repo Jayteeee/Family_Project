@@ -54,6 +54,10 @@ const GalleryHeaderBox = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
   }

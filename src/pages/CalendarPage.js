@@ -136,7 +136,23 @@ const CalendarPage = (props) => {
               : null}
           </ScheduleArea>
         </FlexBox>
-        <CreateButton onClick={handleModal}>+</CreateButton>
+        <CreateButton onClick={handleModal}>
+          {" "}
+          <div
+            style={{
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "400",
+              marginBottom: "1px",
+              width: "100%",
+              height: "99%",
+              cursor: "pointer",
+            }}
+          >
+            +
+          </div>
+        </CreateButton>
         <ModalPortal>
           {modalOn && (
             <AddScheduleModal
@@ -444,8 +460,24 @@ const CreateButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    bottom: 110px;
+    bottom: 140px;
     right: 30px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 120px;
+    right: 35px;
     border-radius: 100%;
     background-color: #6371f7;
     font-size: 24px;
@@ -460,8 +492,8 @@ const CreateButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    bottom: 90px;
-    right: 30px;
+    bottom: 95px;
+    right: 25px;
     border-radius: 100%;
     background-color: #6371f7;
     font-size: 24px;
@@ -477,7 +509,7 @@ const CreateButton = styled.div`
     align-items: center;
     justify-content: center;
     bottom: 80px;
-    right: 30px;
+    right: 25px;
     border-radius: 100%;
     background-color: #6371f7;
     font-size: 24px;

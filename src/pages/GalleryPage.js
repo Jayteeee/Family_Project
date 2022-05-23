@@ -74,6 +74,7 @@ const GalleryPageWrap = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  border: none;
 
   // Medium (Desktop)
   @media only screen and (max-width: 1199px) {

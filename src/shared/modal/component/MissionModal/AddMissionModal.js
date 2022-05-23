@@ -26,12 +26,12 @@ import Profile03 from "../../../images/Profile03.svg";
 import Profile04 from "../../../images/Profile04.svg";
 import Profile05 from "../../../images/Profile05.svg";
 
-const AddMissionModal = ({ onClose }) => {
+const AddMissionModal = ({ onClose, familyId }) => {
   const dispatch = useDispatch();
 
   // 현재 familyId
-  const familyId = useContext(MissionContext);
-  console.log("현재 familyId:", familyId);
+  // const familyId = useContext(MissionContext);
+  // console.log("현재 familyId:", familyId);
 
   //  미션 제목 input
   const [missionTitle, setMissionTitle] = useState("");
@@ -48,6 +48,7 @@ const AddMissionModal = ({ onClose }) => {
 
   const handleMissionMemberModal = () => {
     setAddMissionMemberModal(!AddMissionMemberModal);
+    dispatch(familyMemberActions.getFamilyMemberDB(familyId));
   };
   // 가족 구성원 리스트
   const familyMemberList = useSelector(
@@ -101,7 +102,6 @@ const AddMissionModal = ({ onClose }) => {
   };
 
   useEffect(() => {
-    // dispatch(missionActions.getMissionMemberDB());
     dispatch(familyMemberActions.getFamilyMemberDB(familyId));
   }, []);
 

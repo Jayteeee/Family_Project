@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import dayjs from "dayjs";
-import { MdAdd } from "react-icons/md";
+import { FiPlus } from "react-icons/fi";
 
 // 엘리먼트
 import { Text, Button } from "../../elements/index";
@@ -12,8 +12,7 @@ import { Text, Button } from "../../elements/index";
 import { ModalPortal } from "../../shared/modal/portals";
 import { AddMissionModal } from "../../shared/modal/component/MissionModal";
 
-const MissionHeader = (props) => {
-  console.log(props);
+const MissionHeader = ({ familyId }) => {
   // 미션 추가하기 모달
   const [modalOn, setModalOn] = useState(false);
 
@@ -44,30 +43,15 @@ const MissionHeader = (props) => {
             color="#fff"
             width="159px"
             height="56px"
-            hover="#6971b2"
+            hover="#3245F5"
             margin="10px 0 0 0"
             onClick={handleModal}
-            className="res-missionBtn"
+            className="missionBtn"
           >
-            <div
-              style={{
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                fontWeight: "600",
-                marginBottom: "1px",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "25px",
-                  margin: "0px 5px 3px 0",
-                }}
-              >
-                +
-              </span>
+            <AddBtnText>
+              <FiPlus />
               미션 추가
-            </div>
+            </AddBtnText>
           </Button>
         </AddMissionBtn>
       </MissionHeaderBox>
@@ -83,7 +67,12 @@ const MissionHeader = (props) => {
       </MissionLowerHeader>
       {/* 미션 추가 모달 */}
       <ModalPortal>
-        {modalOn && <AddMissionModal onClose={handleModal}></AddMissionModal>}
+        {modalOn && (
+          <AddMissionModal
+            onClose={handleModal}
+            familyId={familyId}
+          ></AddMissionModal>
+        )}
       </ModalPortal>
     </>
   );
@@ -114,9 +103,8 @@ const MissionHeaderBox = styled.div`
     .res-missionHeaderBox {
       font-size: 30px;
     }
-    .res-missionBtn {
-      width: 130px;
-      height: 40px;
+    .missionBtn {
+      display: none;
     }
   }
 `;
@@ -124,6 +112,25 @@ const MissionHeaderBox = styled.div`
 const AddMissionBtn = styled.div`
   text-align: right;
   flex-grow: 1;
+`;
+
+const AddBtnText = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  margin-bottom: 1px;
+  svg {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
 `;
 
 const MissionLowerHeader = styled.div`
@@ -146,7 +153,8 @@ const MissionLowerHeader = styled.div`
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    margin: 10px;
+    padding: 0px;
+    /* margin: 10px; */
   }
   // Small (Tablet)
   @media only screen and (max-width: 839px) {

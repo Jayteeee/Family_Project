@@ -32,7 +32,7 @@ import Profile05 from "../../shared/images/Profile05.svg";
 const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
   const dispatch = useDispatch();
 
-  const userId = useSelector((state) => state.user.user);
+  const { userId } = useSelector((state) => state.user.user?.user);
 
   console.log(userId);
 
@@ -72,9 +72,11 @@ const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
             <Text size="15px" padding="0 10px 0 10px" fontWeight="600">
               {userInfo.familyMemberNickname}
             </Text>
-            <CancelBtn onClick={deleteComment.bind(this, commentId)}>
-              <MdClose />
-            </CancelBtn>
+            {userInfo?.userId === userId && (
+              <CancelBtn onClick={deleteComment.bind(this, commentId)}>
+                <MdClose />
+              </CancelBtn>
+            )}
           </CommentProfile>
 
           <CommentContent>
@@ -92,24 +94,19 @@ const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
 };
 
 const OneCommentBox = styled.div`
-  /* align-items: center; */
-
   padding: 10px;
-  border-bottom: 1px solid #dbdbdb;
+  /* border-bottom: 1px solid #dbdbdb; */
 `;
 
 const CommentContentWrap = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 `;
 
 const CommentProfile = styled.div`
   display: flex;
   align-items: center;
   text-align: left;
-  /* flex-basis: 0;
-  flex-grow: 1; */
   position: relative;
 `;
 
