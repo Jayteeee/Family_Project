@@ -42,7 +42,6 @@ const VoiceList = ({ voiceAlbumId, familyId, isEdit, PracticeEdit }) => {
             isEdit={isEdit}
             PracticeEdit={PracticeEdit}
             voiceList={v}
-            key={v.voiceFileId}
           ></Audio>
         );
       })}

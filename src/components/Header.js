@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 import { familyMemberActions } from "../redux/modules/familymember";
+import { socketActions } from "../redux/modules/socket";
 
 // 엘리먼트
 import { CircleImage, RactangleImage } from "../elements";
@@ -39,9 +40,11 @@ const Header = (props) => {
   console.log("유저정보: ", user);
 
   const socket = useSelector((state) => state?.socket?.socket);
+
   // const alert = useSelector((state) => state?.socket?.alert?.findUserAlertDB);
   // const familyNoti = useSelector((state) => state?.socket?.familyNoti?.findAlertDB);
   const alert = useSelector((state) => state?.socket?.alert);
+  console.log(alert);
 
   // const familyMemberNickname = familyMemberList.
 
@@ -68,9 +71,10 @@ const Header = (props) => {
     setNotiOn(!notiOn);
   };
 
-  // const deleteAlert= (alertId) => {
-  //   socket.emit("", alertId)
-  // }
+  const deleteAlert = (alertId) => {
+    socket.emit("deleteAlert", alertId);
+    dispatch(socketActions.deleteAlertDB(alertId));
+  };
 
   const addFamilyMember = (
     familyId,
@@ -126,8 +130,9 @@ const Header = (props) => {
                           <NotiHead>
                             <Category>{x?.category}</Category>
                             <MdClear
-                            // onClick={() =>
-                            //   {deleteAlert(x.alertId)}}
+                              onClick={() => {
+                                deleteAlert(x.alertId);
+                              }}
                             />
                           </NotiHead>
                           <NotiMsg>
@@ -154,7 +159,9 @@ const Header = (props) => {
                                 승낙
                               </SocketBtn>
                               <SocketBtn
-                              // onClick={() => {deleteAlert(x.alertId)}}
+                                onClick={() => {
+                                  deleteAlert(x.alertId);
+                                }}
                               >
                                 거절
                               </SocketBtn>

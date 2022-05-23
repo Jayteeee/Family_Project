@@ -2,7 +2,7 @@ import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -28,6 +28,16 @@ const LogoutModal = ({ onClose }) => {
     localStorage.removeItem("voiceMenuColor");
   };
 
+  //소켓부분
+  const socket = useSelector((state) => state.socket.socket);
+  const userId = useSelector((state) => state.user.user?.user?.userId);
+  console.log("유저아이디, ", userId);
+
+  const socketExit = () => {
+    socket.emit("imOut", { userId: userId });
+    socket.disconnect();
+  };
+
   return (
     <ModalPortal>
       <Background
@@ -50,6 +60,7 @@ const LogoutModal = ({ onClose }) => {
             onClick={() => {
               logOut();
               handleMenuColor();
+              socketExit();
             }}
           >
             로그아웃{" "}

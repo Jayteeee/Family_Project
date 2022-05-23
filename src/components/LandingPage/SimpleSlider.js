@@ -9,6 +9,8 @@ import landing2 from "../../shared/images/landing_page_2.png";
 import landing3 from "../../shared/images/landing_page_3.png";
 import landing4 from "../../shared/images/landing_page_4.png";
 import landing5 from "../../shared/images/landing_page_5.png";
+import left from "../../shared/images/arrow_back.svg";
+import right from "../../shared/images/arrow_forward.svg";
 
 import { Text } from "../../elements";
 
@@ -20,7 +22,56 @@ const SimpleSlider = () => {
     infinite: false, //끝-처음 반복
     slidesToShow: 1, //한화면에 보이는 개수
     slidesToScroll: 1, //넘어가는 화면 수
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
   };
+
+  function PrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <img
+        className={className}
+        alt="prevArrow"
+        src={left}
+        style={{
+          ...style,
+          zIndex: "2",
+          position: "absolute",
+          left: "20px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "30px",
+          height: "30px",
+        }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function NextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <img
+        className={className}
+        alt="nextArrow"
+        src={right}
+        style={{
+          ...style,
+          zIndex: "2",
+          position: "absolute",
+          right: "20px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "30px",
+          height: "30px",
+        }}
+        onClick={onClick}
+      />
+    );
+  }
+
   return (
     <>
       <Styled_Slide
@@ -87,6 +138,20 @@ const Styled_Slide = styled(Slider)`
       bottom: 0px;
       position: relative;
     }
+  }
+  .PrevArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+  }
+  .NextArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
   }
   .reset li {
     position: relative;

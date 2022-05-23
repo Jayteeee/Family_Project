@@ -4,6 +4,7 @@ import { produce } from "immer";
 const initialState = {
   socket: {},
   alert: [],
+  test: [],
 };
 
 // 액션
@@ -11,12 +12,14 @@ const GET_SOCKET = "GET_SOCKET";
 const SET_NOTI = "SET_NOTI";
 const SET_ALERT = "SET_ALERT";
 // const SET_FAMILY_NOTI = "SET_FAMILY_NOTI";
+const DELETE_ALERT = "DELETE_ALERT";
 
 // 액션 생성함수
 const getsocket = createAction(GET_SOCKET, (inputs) => ({ inputs }));
 const setnoti = createAction(SET_NOTI, (data) => ({ data }));
 const setalert = createAction(SET_ALERT, (data) => ({ data }));
 // const setFamilyNoti = createAction(SET_FAMILY_NOTI, (data) => ({ data }));
+const deletealert = createAction(DELETE_ALERT, (alertId) => ({ alertId }));
 
 // 미들웨어
 // const userLogout = () => {
@@ -50,12 +53,12 @@ const setAlertDB = (data) => {
   };
 };
 
-// const setFamilyNotiDB = (data) => {
-//   console.log(data);
-//   return async function (dispatch, getState, { history }) {
-//     await dispatch(setFamilyNoti(data));
-//   };
-// };
+const deleteAlertDB = (alertId) => {
+  console.log(alertId);
+  return async function (dispatch, getState, { history }) {
+    await dispatch(deletealert(alertId));
+  };
+};
 
 // 리듀서
 export default handleActions(
@@ -76,11 +79,13 @@ export default handleActions(
     //   produce(state, (draft) => {
     //     draft.alert.push(action.payload.data.findAlertDB);
     //   }),
-    // [GET_USER]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     draft.user = action.payload.user;
-    //     draft.isLogin = true;
-    //   }),
+    [DELETE_ALERT]: (state, action) =>
+      produce(state, (draft) => {
+        const { alertId } = action.payload;
+        let newArr = draft.alert.filter((l) => l.alertId !== alertId);
+        console.log(state.alert.filter((l) => l.alertId !== alertId));
+        draft.alert = newArr;
+      }),
   },
   initialState
 );
@@ -91,5 +96,5 @@ export const socketActions = {
   setNotiDB,
   setAlertDB,
   // setFamilyNotiDB,
-  // userLogout,
+  deleteAlertDB,
 };

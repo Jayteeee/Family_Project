@@ -31,54 +31,58 @@ function App() {
   }, []);
 
   // // 소켓
-  // const ENDPOINT = "http://52.79.130.222/";
-  // const userId = useSelector((state) => state?.user?.user?.user?.userId);
-  // console.log(userId);
+  const ENDPOINT = "http://52.79.130.222/";
+  const userId = useSelector((state) => state?.user?.user?.user?.userId);
+  console.log(userId);
 
-  // const socket = io.connect(ENDPOINT, {
-  //   transports: ["websocket"],
-  //   forceNew: true,
-  // });
+  const socket = io.connect(ENDPOINT, {
+    transports: ["websocket"],
+    forceNew: true,
+  });
 
-  // console.log("소켓연결, ", socket);
+  console.log("소켓연결, ", socket);
 
-  // useEffect(() => {
-  //   dispatch(socketActions.getSocketDB(socket));
-  // }, []);
+  useEffect(() => {
+    dispatch(socketActions.getSocketDB(socket));
+  }, []);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     socket?.emit("newUser", { userId: userId });
-  //     socket?.emit("join", userId);
-  //     console.log("유저아이디, ", userId);
-  //     // socket.on("connect", () => {
-  //     //   if (socket.disconnected) {
-  //     //     socket.emit("imOut", { userId: userId });
-  //     //   }
-  //     // });
-  //   }
-  // }, [socket, userId]);
+  useEffect(() => {
+    if (token) {
+      socket?.emit("newUser", { userId: userId });
+      socket?.emit("join", userId);
+      console.log("유저아이디, ", userId);
+      // socket.on("connect", () => {
+      //   if (socket.disconnected) {
+      //     socket.emit("imOut", { userId: userId });
+      //   }
+      // });
+    }
+  }, [socket, userId]);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     socket?.emit("getPhotoAlert", { receiverId: userId });
-  //     socket?.on("getNotification", (data) => {
-  //       dispatch(socketActions.setNotiDB(data));
-  //       console.log(data);
-  //     });
-  //   }
-  // }, [socket]);
+  useEffect(() => {
+    if (token) {
+      socket?.emit("getPhotoAlert", { receiverId: userId });
+      socket?.on("getNotification", (data) => {
+        console.log("처음,", data);
+        dispatch(socketActions.setNotiDB(data));
+        console.log(data);
+      });
+    }
+  }, [socket]);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     socket?.emit("getMyAlert", { userId: userId, type: "초대" });
-  //     console.log({ userId: userId, type: "초대" });
-  //     socket?.on("newInviteDB", (data) => {
-  //       console.log("newInviteDB, ", data);
-  //       dispatch(socketActions.setAlertDB(data));
-  //     });
-  //   }
-  // }, [socket]);
+  useEffect(() => {
+    if (token) {
+      socket?.emit("getMyAlert", { userId: userId, type: "초대" });
+      console.log({ userId: userId, type: "초대" });
+      socket?.on("newInviteDB", (data) => {
+        console.log("newInviteDB, ", data);
+        dispatch(socketActions.setAlertDB(data));
+
+        console.log("리턴,", data);
+        return;
+      });
+    }
+  }, [socket]);
 
   // 가족 모두에게 가는 알림 받는 부분, 아직 구현 전
   // useEffect(() => {

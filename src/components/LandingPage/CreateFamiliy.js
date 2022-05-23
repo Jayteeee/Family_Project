@@ -15,8 +15,8 @@ const CreateFamily = (props) => {
     setfamilyTitle(value);
   };
 
-  const socket = useSelector((state) => state.socket.socket);
-  const userId = useSelector((state) => state?.user?.user?.user?.userId);
+  // const socket = useSelector((state) => state.socket.socket);
+  // const userId = useSelector((state) => state?.user?.user?.user?.userId);
 
   // 가족 생성 함수
   const addFamily = () => {
@@ -24,7 +24,7 @@ const CreateFamily = (props) => {
       alert("가족 이름을 입력해주세요");
       return;
     }
-    socket?.emit("join", familyTitle, userId);
+    // socket?.emit("join", familyTitle, userId);
     dispatch(familyActions.addFamilyDB(familyTitle));
   };
 

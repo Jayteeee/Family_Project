@@ -7,16 +7,18 @@ import { getToken } from "../../shared/Token";
 import { homeActions } from "./home";
 import { familyActions } from "./family";
 
-const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
+// const BASE_URL = "https://doremilan.shop";
+const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   familyMemberList: [],
+  familyMemberStatusList: [],
   searchMember: [],
 };
 
 // 액션
 const GET_FAMILY_MEMBER = "GET_FAMILY_MEMBER";
+const GET_FAMILY_MEMBER_STATUS = "GET_FAMILY_MEMBER_STATUS";
 const GET_SEARCH_MEMBER = "GET_SEARCH_MEMBER";
 const ADD_FAMILY_MEMBER = "ADD_FAMILY_MEMBER";
 const EDIT_FAMILY_MEMBER_NICKNAME = "EDIT_FAMILY_MEMBER_NICKNAME";
@@ -30,6 +32,12 @@ const getFamilyMember = createAction(
   GET_FAMILY_MEMBER,
   (nowFamilyMemberList) => ({
     nowFamilyMemberList,
+  })
+);
+const getFamilyMemberStatus = createAction(
+  GET_FAMILY_MEMBER_STATUS,
+  (nowFamilyMemberStatusList) => ({
+    nowFamilyMemberStatusList,
   })
 );
 const getSearchMember = createAction(GET_SEARCH_MEMBER, (userEmail) => ({
@@ -94,6 +102,28 @@ const getFamilyMemberDB = (familyId) => {
     // const { nowFamilyMemberList } = DummyData;
     // console.log("현재 멤버 리스트:", nowFamilyMemberList);
     // dispatch(getFamilyMember(nowFamilyMemberList));
+  };
+};
+
+// 가족구성원 접속상태 받아오는 api
+const getFamilyMemberStatusDB = (familyId) => {
+  console.log("가족구성원GET용 fmailyId:", familyId);
+  return async function (dispatch, getState, { history }) {
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`${BASE_URL}/main/${familyId}/connect`, {
+        headers: config,
+      })
+      .then((res) => {
+        console.log("가족 구성원 GET:", res);
+        const { familyMemberStatusList } = res.data;
+        console.log(familyMemberStatusList);
+        dispatch(getFamilyMemberStatus(familyMemberStatusList));
+      })
+      .catch((error) => {
+        console.log("구성원 데이터 안옴", error);
+        console.log(error.response);
+      });
   };
 };
 
@@ -261,6 +291,12 @@ export default handleActions(
         // console.log(state.familyList);
       }),
 
+    [GET_FAMILY_MEMBER_STATUS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.familyMemberStatusList = action.payload.nowFamilyMemberStatusList;
+        // console.log(state.familyList);
+      }),
+
     [GET_SEARCH_MEMBER]: (state, action) =>
       produce(state, (draft) => {
         // 서버에서 받아온 맴버 리스트
@@ -378,6 +414,7 @@ export const familyMemberActions = {
   editFamilyMemberTodayMood,
   deleteFamilyMember,
   getFamilyMemberDB,
+  getFamilyMemberStatusDB,
   getSearchMemberDB,
   addFamilyMemberDB,
   editFamilyMemberNicknameDB,

@@ -149,23 +149,25 @@ const DetailPhoto = ({
   const handleLikeNoti = (type) => {
     console.log(detailPhoto.userId);
     socket.emit("sendLikeNoti", {
+      photoId: photoId,
       senderName: nowUserNickname,
+      senderId: nowUserId,
       receiverId: detailPhoto.userId,
       type,
       category: "갤러리",
       likeChk: !detailPhotoData.likeChk,
-      photoId: photoId,
     });
   };
 
   const handleCommentNoti = (type) => {
     console.log(detailPhoto.userId);
     socket.emit("sendCommentNoti", {
+      photoId: photoId,
       senderName: nowUserNickname,
+      senderId: nowUserId,
       receiverId: detailPhoto.userId,
       type,
       category: "갤러리",
-      photoId: photoId,
     });
   };
 

@@ -16,6 +16,7 @@ import {
   HomeMissionStatus,
   HomeSchedule,
   HomeVoice,
+  HomeMember,
 } from "../components/Home";
 
 // 리덕스
@@ -171,6 +172,9 @@ const HomePage = (props) => {
   useEffect(() => {
     dispatch(homeActions.getHomeDB(familyId));
     dispatch(familyMemberActions.getFamilyMemberDB(familyId));
+    // setTimeout(() => {
+    //   dispatch(familyMemberActions.getFamilyMemberStatusDB(familyId));
+    // }, 1000);
   }, [familyId]);
 
   return (
@@ -197,7 +201,8 @@ const HomePage = (props) => {
                       {familyMemberList.map((f) => {
                         return (
                           <ProfileBox key={f.familyMemberId}>
-                            <Profile>
+                            <HomeMember familyMemberList={f} />
+                            {/* <Profile>
                               <RactangleImage
                                 S
                                 // src={f.profileImg ? f.profileImg : profileImg}
@@ -249,7 +254,7 @@ const HomePage = (props) => {
                                   }
                                 />
                               </TodayMoodBox>
-                            </Profile>
+                            </Profile> */}
                           </ProfileBox>
                         );
                       })}
@@ -637,7 +642,7 @@ const MiddleTitleBox = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 2.5%;
+  /* margin-bottom: 2.5%; */
   /* padding: 0 5%; */
   & > svg {
     padding: 2px;
