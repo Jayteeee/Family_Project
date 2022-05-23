@@ -35,21 +35,39 @@ const ScheduleCalendar = ({ familyId, list }) => {
     let curDate = new Date(startDate);
 
     while (curDate <= new Date(endDate)) {
-      result.push({ startDate1: curDate.toISOString().split("T")[0] });
+      result.push({
+        startDate1: curDate.toISOString().split("T")[0],
+        endDate: endDate,
+      });
       curDate.setDate(curDate.getDate() + 1);
     }
 
+    console.log(result);
     const newEvent = list
       .filter((x, i) => {
         return x?.startDate !== x.endDate;
       })
-      .find((x) => x?.startDate === result[0]?.startDate1);
+      .filter(
+        (x) =>
+          x?.startDate === result[0]?.startDate1 &&
+          x?.endDate === result[result.length - 1]?.endDate
+      );
+    console.log(newEvent);
 
     if (newEvent) {
       for (let i = 0; i < result.length; i++) {
+        // result.push(...newEvent[i]);
         Object.assign(result[i], newEvent);
       }
     }
+    console.log(result);
+    // if (newEvent && newEvent.length > 1) {
+    //   for (let i = 0; i < result.length; i++) {
+    //     for (let x = 0; x < newEvent.length; x++) {
+    //       Object.assign(result[i], newEvent[x]);
+    //     }
+    //   }
+    // }
 
     return result;
   }
@@ -58,23 +76,21 @@ const ScheduleCalendar = ({ familyId, list }) => {
   if (list) {
     longEvents = list.filter((x) => x.startDate !== x.endDate);
   }
-  console.log(longEvents);
+  console.log("longEvents, ", longEvents);
 
   let longList = [];
 
   longEvents.filter((x) =>
     longList.push(getDatesStartToEnd(x?.startDate, x?.endDate))
   );
-  console.log(longList);
 
-  // function merge(...arr) {
-  //   return arr.reduce((acc, val) => {
-  //     return { ...acc, ...val };
-  //   }, {});
-  // }
+  console.log("longList, ", longList);
 
-  const newnewList = longList[0]?.concat(longList[1]);
-  console.log(newnewList);
+  let newList = [];
+  for (let i = 0; i < longList.length; i++) {
+    newList.push(...longList[i]);
+  }
+  console.log(newList);
 
   return (
     <div>
@@ -100,14 +116,6 @@ const ScheduleCalendar = ({ familyId, list }) => {
               setEvent(event);
               setSchedule(schedule);
             }
-
-            // if (
-            //   list.find((x) => x.startDate == dayjs(value).format("YYYY-MM-DD"))
-            // ) {
-            //   handleModal();
-            //   setDay(value);
-            //   setEvent(event);
-            // }
           }}
           tileContent={({ date, view }) => {
             // 날짜 타일에 컨텐츠 추가하기 (html 태그)
@@ -117,8 +125,8 @@ const ScheduleCalendar = ({ familyId, list }) => {
             let shortEvents = [];
             let newLongEvents = [];
 
-            if (list) {
-              newLongEvents = newnewList?.filter(
+            if (newList) {
+              newLongEvents = newList?.filter(
                 (x) => x?.startDate1 === dayjs(date).format("YYYY-MM-DD")
               );
             }
@@ -134,6 +142,8 @@ const ScheduleCalendar = ({ familyId, list }) => {
             if (longList.length !== 0) {
               html.push(
                 newLongEvents.map((x, i) => {
+                  console.log(x);
+                  console.log(x[0].event);
                   return (
                     <div className="long" key={i}>
                       <div className="division">
@@ -141,12 +151,12 @@ const ScheduleCalendar = ({ familyId, list }) => {
                           className="range"
                           date={dayjs(date).format("YYYY-MM-DD")}
                           style={{
-                            backgroundColor: x.color,
+                            backgroundColor: x[0].color,
                             width: "100%",
                             color: "#fff",
                           }}
                         >
-                          {x.event}
+                          {x[0].event}
                         </div>
                       </div>
                     </div>
@@ -178,42 +188,6 @@ const ScheduleCalendar = ({ familyId, list }) => {
                 })
               );
             }
-
-            // if (events.length !== 0) {
-            //   html.push(
-            //     events.map((x, i) => {
-            //       return x.startDate === x.endDate ? (
-            //         <div className="division" key={i}>
-            //           <div
-            //             className="dot"
-            //             date={dayjs(date).format("YYYY-MM-DD")}
-            //             style={{ backgroundColor: x.color }}
-            //           ></div>
-            //           <div
-            //             className="event"
-            //             date={dayjs(date).format("YYYY-MM-DD")}
-            //           >
-            //             {x.event}
-            //           </div>
-            //         </div>
-            //       ) : (
-            //         <div className="division">
-            //           <div
-            //             className="range"
-            //             date={dayjs(date).format("YYYY-MM-DD")}
-            //             style={{
-            //               backgroundColor: x.color,
-            //               width: "100%",
-            //               color: "#fff",
-            //             }}
-            //           >
-            //             {x.event}
-            //           </div>
-            //         </div>
-            //       );
-            //     })
-            //   );
-            // }
             // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
             return (
               <>
@@ -278,7 +252,6 @@ const Container = styled.div`
       left: unset;
       right: 0;
       height: 44px;
-      width: 207px;
       margin-right: 20px;
     }
     // Medium (Tablet)

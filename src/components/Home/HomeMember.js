@@ -101,8 +101,19 @@ const HomeMember = ({ familyMemberList }) => {
         </TodayMoodBox>
         {status ? (
           <StatusBox>
-            <Text C>
-              {status?.connected ? `🟢 접속중` : status?.connectedAt}
+            <Text
+              C
+              style={{
+                color: `rgba(117, 117, 117, 1)`,
+              }}
+            >
+              {status?.connected ? (
+                <Online>
+                  <Dot></Dot>접속중
+                </Online>
+              ) : (
+                status?.connectedAt
+              )}
             </Text>
           </StatusBox>
         ) : (
@@ -122,7 +133,21 @@ const Profile = styled.div`
 
 const TextBox = styled.div`
   white-space: nowrap;
-  margin-top: 20%;
+`;
+
+const Online = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+
+const Dot = styled.span`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #55ab67;
+  margin-right: 4px;
 `;
 const TodayMoodBox = styled.div`
   display: flex;
@@ -151,7 +176,7 @@ const StatusBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10%;
+  margin-top: 4px;
 `;
 
 export default HomeMember;

@@ -142,6 +142,7 @@ const Signup = ({ checkClient }) => {
               color="#fff"
               borderColor="#fff"
               borderRadius="12px"
+              height="6vh"
             >
               회원가입
             </Button>

@@ -3,9 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../redux/modules/user";
 import { Button, Input, Text } from "../../elements";
-import kakaoImg from "../../shared/images/kakao_login_large_wide.png";
-import { KakaoPath } from "../../shared/KakaoPath";
-import { familyMemberActions } from "../../redux/modules/familymember";
+import kakaoImg from "../../shared/images/카카오톡_심볼.svg";
 
 const Login = ({ checkClient }) => {
   const dispatch = useDispatch();
@@ -75,6 +73,7 @@ const Login = ({ checkClient }) => {
           color="#fff"
           borderColor="#fff"
           borderRadius="12px"
+          height="6vh"
         >
           로그인
         </Button>
@@ -86,9 +85,16 @@ const Login = ({ checkClient }) => {
         <div className="line">또는</div>
       </Box>
       <Box onClick={handleMenuColor}>
-        {/* <a href="https://doremilan.shop/auth/kakao">
-          <KButton>카카오 로그인</KButton>
-        </a> */}
+        <a href="https://doremilan.shop/auth/kakao">
+          <KButton>
+            <div>
+              <KSymbol>
+                <img alt="카카오톡 심볼" src={kakaoImg} />
+                카카오로그인
+              </KSymbol>
+            </div>
+          </KButton>
+        </a>
       </Box>
     </LoginWrap>
   );
@@ -143,7 +149,43 @@ const Box = styled.div`
   }
 `;
 
-const KButton = {};
+const KButton = styled.p`
+  margin: 24px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  height: 6vh;
+  padding: 0;
+  margin: 0;
+  background: white;
+  color: black;
+  font-weight: 500;
+  font-size: 18px;
+  border-radius: 12px;
+  background-color: #fee500;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+`;
+
+const KSymbol = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50%;
+  font-weight: 600;
+  img {
+    width: 10%;
+    height: 10%;
+    background-color: transparent;
+  }
+`;
 
 const InputBox = styled.div`
   margin-top: 11px;

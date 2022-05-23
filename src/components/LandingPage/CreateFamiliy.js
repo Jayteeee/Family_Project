@@ -52,37 +52,40 @@ const CreateFamily = (props) => {
           value={familyTitle}
         />
       </InputBox>
-
-      <Button
-        L
-        id="myBtn"
-        onClick={(e) => {
-          e.stopPropagation();
-          addFamily();
-        }}
-        color="#fff"
-        borderColor="#fff"
-        borderRadius="12px"
-        margin="24px 0 0 0"
-        style={{ backgroundColor: "#6371F7", opacity: "0.4" }}
-      >
-        저장
-      </Button>
+      <Box>
+        <Button
+          L
+          onClick={(e) => {
+            e.stopPropagation();
+            addFamily();
+          }}
+          color="#fff"
+          borderColor="#fff"
+          borderRadius="12px"
+          margin="24px 0 0 0"
+        >
+          저장
+        </Button>
+      </Box>
     </Container>
   );
 };
 
 const Container = styled.div`
-  #myBtn {
-    :hover {
-      opacity: 1 !important;
-    }
-  }
   .myInput {
     :focus {
       box-shadow: none;
       outline: none !important;
       border-color: #6371f7 !important;
+    }
+  }
+`;
+
+const Box = styled.div`
+  button {
+    background-color: rgba(99, 113, 247, 1);
+    :hover {
+      background: rgba(50, 69, 245, 1);
     }
   }
 `;

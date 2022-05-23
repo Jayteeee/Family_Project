@@ -12,7 +12,7 @@ import { familyMemberActions } from "../redux/modules/familymember";
 import { socketActions } from "../redux/modules/socket";
 
 // 엘리먼트
-import { CircleImage, RactangleImage } from "../elements";
+import { Text, CircleImage, RactangleImage } from "../elements";
 
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
@@ -94,6 +94,9 @@ const Header = (props) => {
           <RogoBox src={homeRogo} />
           <HeaderRightBox>
             <NotiBox>
+              <Research>
+                <Text BM> 설문 참여 </Text>
+              </Research>
               <MdNotificationsNone
                 style={{
                   marginRight: "20px",
@@ -145,9 +148,10 @@ const Header = (props) => {
                                     x.selectEmail,
                                     x.userId
                                   );
+                                  deleteAlert(x.alertId);
                                 }}
                               >
-                                승낙
+                                수락
                               </YesBtn>
                               <NoBtn
                                 onClick={() => {
@@ -249,6 +253,14 @@ const HeaderRightBox = styled.div`
   padding-right: 16px;
 `;
 
+const Research = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(117, 117, 117, 1);
+  margin-right: 20px;
+`;
+
 const NotiBox = styled.div`
   position: relative;
   display: flex;
@@ -323,13 +335,13 @@ const YesBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
+  width: 52px;
   height: 20px;
   font-size: 10px;
   color: white;
   border-radius: 4px;
   margin: 0 4px 0 0;
-  padding: 2px 16px;
+  padding: 1px 16px;
   background-color: rgba(99, 113, 247, 1);
   cursor: pointer;
 `;
@@ -338,12 +350,12 @@ const NoBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
+  width: 52px;
   height: 20px;
   font-size: 10px;
   border-radius: 4px;
   border: 1px solid rgba(194, 194, 194, 1);
-  padding: 2px 16px;
+  padding: 1px 16px;
   cursor: pointer;
 `;
 

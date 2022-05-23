@@ -84,6 +84,7 @@ const DefaultText = styled.p`
   ${({ padding }) => (padding ? `padding: ${padding};` : "padding: 0;")};
   ${({ fontWeight }) =>
     fontWeight ? `font-weight: ${fontWeight};` : `font-weight: false;`};
+  word-break: keep-all;
 `;
 
 const Headline1 = styled.h1`
@@ -93,6 +94,7 @@ const Headline1 = styled.h1`
   font-size: 40px;
   line-height: 48px;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
+  word-break: keep-all;
 `;
 const Headline2 = styled.h2`
   font-family: "Pretendard";
@@ -101,6 +103,7 @@ const Headline2 = styled.h2`
   font-size: 28px;
   line-height: 34px;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
+  word-break: keep-all;
 `;
 const Subtitle1 = styled.p`
   font-family: "Pretendard";
@@ -109,6 +112,7 @@ const Subtitle1 = styled.p`
   font-size: 24px;
   line-height: 30px;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
+  word-break: keep-all;
 `;
 const Subtitle15 = styled.p`
   font-family: "Pretendard";
@@ -117,6 +121,7 @@ const Subtitle15 = styled.p`
   font-size: 24px;
   line-height: 30px;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
+  word-break: keep-all;
 `;
 const Subtitle2 = styled.p`
   font-family: "Pretendard";
@@ -125,6 +130,7 @@ const Subtitle2 = styled.p`
   font-size: 20px;
   line-height: 30px;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
+  word-break: keep-all;
 `;
 const Subtitle3 = styled.p`
   font-family: "Pretendard";
@@ -132,6 +138,7 @@ const Subtitle3 = styled.p`
   font-weight: 400;
   font-size: 20px;
   line-height: 150%;
+  word-break: keep-all;
 `;
 const Body1 = styled.p`
   font-family: "Pretendard";
@@ -140,6 +147,7 @@ const Body1 = styled.p`
   font-size: 16px;
   line-height: 19px;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
+  word-break: keep-all;
 `;
 const Body2 = styled.p`
   font-family: "Pretendard";
@@ -148,6 +156,7 @@ const Body2 = styled.p`
   font-size: 14px;
   line-height: 18px;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
+  word-break: keep-all;
 `;
 const Body3 = styled.p`
   font-family: "Pretendard";
@@ -156,6 +165,7 @@ const Body3 = styled.p`
   font-size: 12px;
   line-height: 14px;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
+  word-break: keep-all;
 `;
 const ButtonL = styled.p`
   font-family: "Pretendard";
@@ -163,6 +173,7 @@ const ButtonL = styled.p`
   font-weight: 600;
   font-size: 18px;
   line-height: 24px;
+  word-break: keep-all;
   cursor: pointer;
 `;
 const ButtonM = styled.p`
@@ -171,6 +182,7 @@ const ButtonM = styled.p`
   font-weight: 600;
   font-size: 14px;
   line-height: 18px;
+  word-break: keep-all;
   cursor: pointer;
   ${({ color }) => (color ? `color: ${color};` : `color: none`)};
 `;
@@ -180,6 +192,7 @@ const ButtonS = styled.p`
   font-weight: 600;
   font-size: 10px;
   line-height: 16px;
+  word-break: keep-all;
   cursor: pointer;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
@@ -189,6 +202,7 @@ const Caption = styled.p`
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
+  word-break: keep-all;
   ${({ color }) => (color ? `color: ${color};` : `color: black`)};
 `;
 
