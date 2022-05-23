@@ -138,12 +138,10 @@ const Signup = ({ checkClient }) => {
           <Box>
             <Button
               L
-              id="myBtn"
               onClick={handleSubmit}
               color="#fff"
               borderColor="#fff"
               borderRadius="12px"
-              style={{ backgroundColor: "#6371F7", opacity: "0.4" }}
             >
               회원가입
             </Button>
@@ -162,11 +160,6 @@ const SignUpWrap = styled.div`
   flex-direction: column;
   width: 100%;
   margin: auto;
-  #myBtn {
-    :hover {
-      opacity: 1 !important;
-    }
-  }
   .myInput {
     :focus {
       box-shadow: none;
@@ -177,6 +170,12 @@ const SignUpWrap = styled.div`
 `;
 const Box = styled.div`
   margin: 24px 0 0;
+  button {
+    background-color: rgba(99, 113, 247, 1);
+    :hover {
+      background: rgba(50, 69, 245, 1);
+    }
+  }
 `;
 const InputBox = styled.div`
   margin-top: 11px;

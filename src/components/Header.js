@@ -132,9 +132,12 @@ const Header = (props) => {
                               ? `${x?.nickname} 님이 가족 구성원${x?.type}를 하셨습니다.`
                               : null}
                           </NotiMsg>
+                          <NotiFooter>
+                            <div>{x.createdAt}</div>
+                          </NotiFooter>
                           {x?.type === "초대" ? (
                             <ButtonBox>
-                              <SocketBtn
+                              <YesBtn
                                 onClick={() => {
                                   addFamilyMember(
                                     x.familyId,
@@ -145,19 +148,17 @@ const Header = (props) => {
                                 }}
                               >
                                 승낙
-                              </SocketBtn>
-                              <SocketBtn
+                              </YesBtn>
+                              <NoBtn
                                 onClick={() => {
                                   deleteAlert(x.alertId);
                                 }}
                               >
                                 거절
-                              </SocketBtn>
+                              </NoBtn>
                             </ButtonBox>
                           ) : null}
-                          <NotiFooter>
-                            <div>{x.createdAt}</div>
-                          </NotiFooter>
+
                           {alert.length - 1 === i ? null : <Line></Line>}
                         </div>
                       );
@@ -318,18 +319,31 @@ const ButtonBox = styled.div`
   justify-content: end;
 `;
 
-const SocketBtn = styled.div`
+const YesBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
+  width: 50px;
   height: 20px;
-  font-size: small;
+  font-size: 10px;
   color: white;
-  border-radius: 20%;
-  margin: 0 3px;
-  padding: 3px;
+  border-radius: 4px;
+  margin: 0 4px 0 0;
+  padding: 2px 16px;
   background-color: rgba(99, 113, 247, 1);
+  cursor: pointer;
+`;
+
+const NoBtn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 20px;
+  font-size: 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(194, 194, 194, 1);
+  padding: 2px 16px;
   cursor: pointer;
 `;
 
@@ -344,7 +358,7 @@ const NotiFooter = styled.div`
 
 const Line = styled.hr`
   margin: 16px 0;
-  background-color: #dbdbdb;
+  border: 1px solid #dbdbdb;
 `;
 
 const NotiCount = styled.div`

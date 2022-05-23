@@ -13,7 +13,7 @@ const Description = () => {
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  margin: 24px;
+  margin: 40px;
 `;
 
 export default Description;

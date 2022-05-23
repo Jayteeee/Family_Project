@@ -63,7 +63,6 @@ const Login = ({ checkClient }) => {
       </Box>
       <Box>
         <Button
-          id="myBtn"
           L
           onClick={() => {
             if (!inputs.email || !inputs.password) {
@@ -76,7 +75,6 @@ const Login = ({ checkClient }) => {
           color="#fff"
           borderColor="#fff"
           borderRadius="12px"
-          style={{ backgroundColor: "#6371F7", opacity: "0.4" }}
         >
           로그인
         </Button>
@@ -89,7 +87,7 @@ const Login = ({ checkClient }) => {
       </Box>
       <Box onClick={handleMenuColor}>
         <a href="https://doremilan.shop/auth/kakao">
-          <img alt="카카오로그인" src={kakaoImg} />
+          <KButton>카카오 로그인</KButton>
         </a>
       </Box>
     </LoginWrap>
@@ -100,11 +98,6 @@ const LoginWrap = styled.div`
   flex-direction: column;
   width: 100%;
   margin: auto;
-  #myBtn {
-    :hover {
-      opacity: 1 !important;
-    }
-  }
   .myInput {
     :focus {
       box-shadow: none;
@@ -116,6 +109,12 @@ const LoginWrap = styled.div`
 
 const Box = styled.div`
   margin: 24px 0 0;
+  button {
+    background-color: rgba(99, 113, 247, 1);
+    :hover {
+      background: rgba(50, 69, 245, 1);
+    }
+  }
   .line {
     display: flex;
     flex-basis: 100%;
@@ -142,12 +141,9 @@ const Box = styled.div`
     font-size: 0px;
     line-height: 0px;
   }
-  & > a {
-    & > img {
-      width: 100%;
-    }
-  }
 `;
+
+const KButton = {};
 
 const InputBox = styled.div`
   margin-top: 11px;
