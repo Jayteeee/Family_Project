@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -17,6 +17,8 @@ import noImage from "../../shared/images/noImage.png";
 
 // 컴포넌트
 import PhotoHeader from "./PhotoHeader";
+import emptyPhoto from "../../shared/images/emptyPhoto.svg";
+import emptyContent from "../../shared/images/emptyContent.svg";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
@@ -80,6 +82,21 @@ const PhotoList = ({
     });
   };
 
+  // 사진 추가
+  const photoImgInput = useRef();
+  console.log("포토앨범 이름:", photoAlbumName);
+
+  const onImgInputBtnClick = () => {
+    const file = photoImgInput.current.files[0];
+    const formData = new FormData();
+    if (file) {
+      formData.append("photoFile", file);
+    }
+    console.log("이미지파일", file);
+
+    dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
+  };
+
   return (
     <>
       <PhotoHeader
@@ -89,14 +106,14 @@ const PhotoList = ({
         photoAlbumName={photoAlbumName}
         isEdit={isEdit}
       />
-      {!isEdit ? (
+      {photoList.length !== 0 ? (
         <Container>
           {photoList.map((p) => {
             return (
               <Figure key={p?.photoId}>
                 <div>
                   <ImageBox
-                    src={p?.photoFile ? p?.photoFile : noImage}
+                    src={p?.photoFile ? p?.photoFile : emptyPhoto}
                     onClick={() => {
                       history.push(
                         `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
@@ -108,32 +125,74 @@ const PhotoList = ({
               </Figure>
             );
           })}
+          <FloatingButton>
+            <label
+              style={{
+                alignItems: "center",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "400",
+                marginBottom: "1px",
+                width: "100%",
+                height: "99%",
+                cursor: "pointer",
+              }}
+              className="input-file-button"
+              htmlFor="input-file"
+            >
+              +
+            </label>
+          </FloatingButton>
+          <input
+            ref={photoImgInput}
+            type="file"
+            id="input-file"
+            accept="image/*"
+            onChange={() => {
+              onImgInputBtnClick();
+              handleNotification("사진 등록");
+            }}
+            style={{ display: "none" }}
+          />
         </Container>
       ) : (
-        <Container>
-          {photoList.map((p) => {
-            return (
-              <EditFigure key={p?.photoId}>
-                <div>
-                  <EditImageBox
-                    src={p.photoFile ? p.photoFile : noImage}
-                    onClick={() => {
-                      // history.push(`/detail/${p._id}`);
-                    }}
-                  />
-                  <DeleteIcon
-                    onClick={() => {
-                      DeletePhoto.bind(this, p?.photoId)();
-                      handleNotification("사진 삭제");
-                    }}
-                  >
-                    <MdRemoveCircle />
-                  </DeleteIcon>
-                </div>
-              </EditFigure>
-            );
-          })}
-        </Container>
+        <NoneContentWrap>
+          <NoneContentBox>
+            <NoneContentItem>
+              <EmptyContentImg src={emptyContent} />
+              <Text>아직 사진이 없네요! 사진 등록하러 가볼까요?</Text>
+            </NoneContentItem>
+          </NoneContentBox>
+          <FloatingButton>
+            <label
+              style={{
+                alignItems: "center",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "400",
+                marginBottom: "1px",
+                width: "100%",
+                height: "99%",
+                cursor: "pointer",
+              }}
+              className="input-file-button"
+              htmlFor="input-file"
+            >
+              +
+            </label>
+          </FloatingButton>
+          <input
+            ref={photoImgInput}
+            type="file"
+            id="input-file"
+            accept="image/*"
+            onChange={() => {
+              onImgInputBtnClick();
+              handleNotification("사진 등록");
+            }}
+            style={{ display: "none" }}
+          />
+        </NoneContentWrap>
       )}
       <ModalPortal>
         {modalOn && (
@@ -181,6 +240,7 @@ const Figure = styled.div`
   grid-template-rows: 1fr auto;
   /* margin-bottom: 2%; */
   break-inside: avoid;
+
   &:hover {
     border-radius: 13px;
     cursor: pointer;
@@ -198,44 +258,202 @@ const ImageBox = styled.img`
   border-radius: 13px;
 `;
 
-const EditFigure = styled.div`
-  display: grid;
-  grid-template-rows: 1fr auto;
-  /* margin-bottom: 2%; */
-  break-inside: avoid;
-  filter: brightness(70%);
+const NoneContentWrap = styled.div`
+  background: #fff;
+  display: flex;
+  height: 100%;
+  /* min-height: 880px; */
+  justify-content: center;
+  align-items: center;
+  margin: 20px 40px 40px;
+  padding: 20px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 
-  &:hover {
-    border-radius: 13px;
-    cursor: pointer;
-    transform: scale(1.02);
-    transition: all 300ms ease-in;
-    filter: brightness(70%);
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    /* min-height: 680px; */
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 40px 24px;
+    /* margin-top: 0px !important; */
+    padding-left: 20px !important;
+    height: 100%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    /* min-height: 480px; */
+    padding: 16px;
+    margin: 28px 16px;
+    /* margin: 20px 9px; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin-top: 0px !important;
   }
 `;
 
-const EditImageBox = styled.img`
-  grid-row: 1 / -1;
-  grid-column: 1;
+const NoneContentBox = styled.div`
   width: 100%;
-  margin-top: 2%;
-  border-radius: 13px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  height: 90%;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: 50%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: 50%;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 55%;
+  }
 `;
 
-const DeleteIcon = styled.div`
-  position: absolute;
-  top: 0;
-  cursor: pointer;
-  svg {
-    width: 33.3px;
-    height: 33.3px;
-    margin: 14px 10px;
-    color: white;
+const NoneContentItem = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 10% 20% 0 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  & > p {
+    font-size: 24px;
+    font-weight: 600;
     position: absolute;
-    &:hover {
-      color: rgba(29, 28, 29, 1);
+    top: 100px;
+  }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    & > p {
+      font-size: 30px;
+      font-weight: 600;
+      position: absolute;
+      top: 55px;
     }
+    padding: 10% 15% 0 15%;
+  }
+
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    & > p {
+      font-size: 20px;
+      font-weight: 600;
+      position: absolute;
+      top: 50px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    & > p {
+      font-size: 15px;
+      font-weight: 600;
+      position: absolute;
+      top: 70px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    & > p {
+      font-size: 15px;
+      font-weight: 600;
+      position: absolute;
+      top: 50px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+`;
+
+const EmptyContentImg = styled.div`
+  width: 100%;
+
+  padding: 22.2%;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
+`;
+
+// 플로팅 버튼
+const FloatingButton = styled.div`
+  display: none;
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 140px;
+    right: 30px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 120px;
+    right: 35px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 95px;
+    right: 25px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 80px;
+    right: 25px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
   }
 `;
 

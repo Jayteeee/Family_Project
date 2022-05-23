@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import { io } from "socket.io-client";
+import { FiPlus } from "react-icons/fi";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -78,8 +79,9 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
                 color="#fff"
                 width="159px"
                 height="56px"
-                hover="#6971b2"
+                hover="#3245F5"
                 margin="10px 0 0 0"
+                className="addPhotoBtn"
               >
                 <label
                   style={{
@@ -95,20 +97,12 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
                   className="input-file-button"
                   htmlFor="input-file"
                 >
-                  <span
-                    style={{
-                      fontSize: "25px",
-                      margin: "0px 5px 3px 0",
-                    }}
-                  >
-                    +
-                  </span>
+                  <FiPlus />
                   사진 추가
                 </label>
               </Button>
             </label>
           </PhotoBtn>
-
           <input
             ref={photoImgInput}
             type="file"
@@ -138,16 +132,24 @@ const GalleryHeaderBox = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 10px 10px 10px 10px;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
+    margin: 20px 10px 10px 10px;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    padding: 10px;
+    margin: 10px 6px 5px 6px;
     .photoHeaderBox {
       font-size: 30px;
     }
-    padding: 0;
-    margin: 22px 16px;
+    .addPhotoBtn {
+      display: none;
+    }
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -170,43 +172,10 @@ const BtnWrap = styled.div`
 const PhotoBtn = styled.label`
   text-align: right;
   flex-grow: 1;
-`;
 
-const AddPhotoBtn = styled.label`
-  width: 143px;
-  height: 48px;
-  border-radius: 4px;
-  /* padding: 12px 24px; */
-  /* margin-left: 24px; */
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  cursor: pointer;
-  &:hover {
-    background: #6371f7;
-    color: #fff;
-    border: none;
-  }
-
-  // Medium (Desktop)
-  @media only screen and (max-width: 1199px) {
-    margin-top: 10px;
-    width: 160px;
-  }
-  // Small (Tablet)
-  @media only screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    width: 120px;
-    padding: 12px 12px;
-    margin-left: 16px;
-    height: 40px;
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
+  svg {
+    font-size: 20px;
+    margin-right: 5px;
   }
 `;
 

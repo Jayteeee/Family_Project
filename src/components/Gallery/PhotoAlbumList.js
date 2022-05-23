@@ -15,9 +15,10 @@ import { galleryActions } from "../../redux/modules/gallery";
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
 import { DeletePhotoAlbumModal } from "../../shared/modal/component/Gallery";
+import { AddPhotoAlbumModal } from "../../shared/modal/component/Gallery";
 
 // 이미지
-import noImage from "../../shared/images/noImage.png";
+import emptyPhoto from "../../shared/images/emptyPhoto.svg";
 import emptyContent from "../../shared/images/emptyContent.svg";
 
 // 컴포넌트
@@ -107,6 +108,13 @@ const PhotoAlbumList = ({
     });
   };
 
+  // 앨범 추가하기 모달
+  const [addAlbumModalOn, setAddAlbumModalOn] = useState(false);
+
+  const addAlbumHandleModal = () => {
+    setAddAlbumModalOn(!addAlbumModalOn);
+  };
+
   return (
     <>
       <GalleryHeader
@@ -121,17 +129,19 @@ const PhotoAlbumList = ({
           {photoAlbumList.length !== 0 ? (
             <Container>
               {photoAlbumList.length !== 0 &&
-                photoAlbumList.map((p) => {
+                photoAlbumList.map((p, i) => {
                   return (
                     <Figure
-                      key={p.photoAlbumId}
+                      key={i}
                       onClick={() => {
                         history.push(
                           `/family/${NowFamilyId}/gallery/${p.photoAlbumName}/${p.photoAlbumId}`
                         );
                       }}
                     >
-                      <ImageBox src={p.randomPhoto ? p.randomPhoto : noImage} />
+                      <ImageBox
+                        src={p.randomPhoto ? p.randomPhoto : emptyPhoto}
+                      />
                       <Text
                         size="24px"
                         fontWeight="600"
@@ -143,6 +153,22 @@ const PhotoAlbumList = ({
                     </Figure>
                   );
                 })}
+              <FloatingButton onClick={addAlbumHandleModal}>
+                <div
+                  style={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    width: "100%",
+                    height: "99%",
+                    cursor: "pointer",
+                  }}
+                >
+                  +
+                </div>
+              </FloatingButton>
             </Container>
           ) : (
             <NoneContentWrap>
@@ -152,6 +178,22 @@ const PhotoAlbumList = ({
                   <Text>아직 앨범이 없어요.</Text>
                 </NoneContentItem>
               </NoneContentBox>
+              <FloatingButton onClick={addAlbumHandleModal}>
+                <div
+                  style={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    width: "100%",
+                    height: "99%",
+                    cursor: "pointer",
+                  }}
+                >
+                  +
+                </div>
+              </FloatingButton>
             </NoneContentWrap>
           )}
         </>
@@ -165,7 +207,7 @@ const PhotoAlbumList = ({
                   <EditFigure>
                     <EditImageBox
                       // alt="#"
-                      src={p.randomPhoto ? p.randomPhoto : noImage}
+                      src={p.randomPhoto ? p.randomPhoto : emptyPhoto}
                       onClick={() => {
                         // history.push(`/detail/${p._id}`);
                       }}
@@ -207,19 +249,29 @@ const PhotoAlbumList = ({
           ></DeletePhotoAlbumModal>
         )}
       </ModalPortal>
+      {/* 앨범추가 모달 */}
+      <ModalPortal>
+        {addAlbumModalOn && (
+          <AddPhotoAlbumModal
+            onClose={addAlbumHandleModal}
+            familyId={NowFamilyId}
+          ></AddPhotoAlbumModal>
+        )}
+      </ModalPortal>
     </>
   );
 };
 
 const Container = styled.div`
-  /* display: grid; */
   display: grid;
-  /* grid-template-rows: repeat(2, 150px); */
   grid-template-columns: repeat(4, 1fr);
+  border: none;
   gap: 20px 10px;
   column-count: 4;
   column-gap: 1%;
   padding: 40px;
+  position: relative;
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     grid-template-columns: repeat(3, 1fr);
@@ -443,6 +495,17 @@ const NoneContentItem = styled.div`
     }
     padding: 10% 15% 0 15%;
   }
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    & > p {
+      font-size: 15px;
+      font-weight: 600;
+      position: absolute;
+      top: 50px;
+    }
+    padding: 10% 15% 0 15%;
+  }
 `;
 
 const EmptyContentImg = styled.div`
@@ -452,6 +515,76 @@ const EmptyContentImg = styled.div`
   ${({ src }) => `background-image: url(${src});`};
   background-position: center;
   background-size: cover;
+`;
+
+// 플로팅 버튼
+const FloatingButton = styled.div`
+  display: none;
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 140px;
+    right: 30px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 120px;
+    right: 35px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 95px;
+    right: 25px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 80px;
+    right: 25px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
 `;
 
 export default PhotoAlbumList;

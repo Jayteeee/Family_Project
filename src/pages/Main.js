@@ -529,7 +529,7 @@ const SidebarBottom = styled.nav`
   position: fixed;
   bottom: 0;
   flex-direction: column;
-  border: none;
+  border-top: 1px solid #dbdbdb;
   background-color: #fff;
   display: none;
 

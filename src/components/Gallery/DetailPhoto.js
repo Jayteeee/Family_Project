@@ -12,6 +12,7 @@ import {
 } from "react-icons/md";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { CgMoreVerticalAlt } from "react-icons/cg";
+import dayjs from "dayjs";
 
 // 엘리먼트
 import {
@@ -74,10 +75,10 @@ const DetailPhoto = ({
   const nowUserId = useSelector((state) => state.user.user.user?.userId);
   console.log("현재 userID:", nowUserId);
 
-  // 좋아요 버튼 클릭시 혹은 사진 게시할 때 기존 닉네임 말고 가족 내 호칭을 사용해야해서 useSelect로 가져오는 값 바꿈
-  // const nowUserNickname = useSelector(
-  //   (state) => state.user.user.user?.nickname
-  // );
+  let createdAt = dayjs(new Date(detailPhoto?.createdAt)).format(
+    "YYYY년 M월 DD일"
+  );
+  console.log(createdAt);
 
   const { familyMemberList } = useSelector((state) => state.familymember);
   const nowUserNickname = familyMemberList?.find(
@@ -177,15 +178,27 @@ const DetailPhoto = ({
     });
   };
 
+  // 스크롤
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [commentList]);
+
   return (
     <>
-      <DetailPhotoHeader
-        NowFamilyId={NowFamilyId}
-        photoAlbumId={photoAlbumId}
-        PracticeEdit={PracticeEdit}
-        photoAlbumName={PhotoAlbumName}
-        isEdit={isEdit}
-      />
+      <div className="detailPhotoHeader">
+        <DetailPhotoHeader
+          NowFamilyId={NowFamilyId}
+          photoAlbumId={photoAlbumId}
+          PracticeEdit={PracticeEdit}
+          photoAlbumName={PhotoAlbumName}
+          isEdit={isEdit}
+        />
+      </div>
       {!isEdit ? (
         <Container>
           <ContentBox>
@@ -242,7 +255,15 @@ const DetailPhoto = ({
             </ImageContentBox>
             <CommentBox>
               <CommentHeder>
-                <div>
+                <div
+                  style={{
+                    fontSize: "10px",
+                    color: "#757575",
+                    display: "flex",
+                    justifyContent: "left",
+                    alignItems: "center",
+                  }}
+                >
                   <RactangleImage
                     S
                     size="24px"
@@ -263,15 +284,27 @@ const DetailPhoto = ({
                         : Profile01
                     }
                   />
+
+                  <Text size="15px" padding="0 10px 0 10px" fontWeight="600">
+                    {detailPhoto?.userInfo.familyMemberNickname}
+                  </Text>
                 </div>
-                <Text size="15px" padding="0 10px 0 10px" fontWeight="600">
-                  {detailPhoto?.userInfo.familyMemberNickname}
-                </Text>
+                <p
+                  style={{
+                    fontSize: "10px",
+                    color: "#757575",
+                    marginRight: "10px",
+                  }}
+                  className="photoCreatedAt"
+                >
+                  {createdAt}
+                </p>
                 <PhotoDeleteBtn
                   onClick={() => {
                     // handleModalPosition(e);
                     handleModal();
                   }}
+                  className="photoDeleteBtn"
                 >
                   {nowUserId === detailPhoto?.userId && (
                     <CgMoreVerticalAlt style={{ fontSize: "30px" }} />
@@ -295,6 +328,7 @@ const DetailPhoto = ({
                     <Text size="15px">아직 작성된 댓글이 없어요.</Text>
                   </div>
                 )}
+                <div ref={messagesEndRef} />
               </CommentListBox>
               <LikeMemberBox>
                 {likeMemberList &&
@@ -322,9 +356,7 @@ const DetailPhoto = ({
                           }
                           margin="0 5px 0 0"
                         />
-                        {/* {myMissionChk ?  */}
                         <MdOutlineFavorite />
-                        {/* : <UncompletedCicle />} */}
                         <div>
                           <MdOutlineFavorite />
                         </div>
@@ -333,49 +365,68 @@ const DetailPhoto = ({
                   })}
               </LikeMemberBox>
               <CommentFooter>
-                <RactangleImage
-                  S
-                  size="24px"
-                  borderRadius="8.4px"
-                  src={
-                    detailPhoto?.userInfo.profileImg === "Profile01"
-                      ? Profile01
-                      : detailPhoto?.userInfo.profileImg === "Profile02"
-                      ? Profile02
-                      : detailPhoto?.userInfo.profileImg === "Profile03"
-                      ? Profile03
-                      : detailPhoto?.userInfo.profileImg === "Profile04"
-                      ? Profile04
-                      : detailPhoto?.userInfo.profileImg === "Profile05"
-                      ? Profile05
-                      : detailPhoto?.userInfo.profileImg
-                      ? detailPhoto?.userInfo.profileImg
-                      : Profile01
-                  }
-                />
-                <Comment>
-                  <CommentTextarea
-                    placeholder="댓글을 달아보세요."
-                    value={comment}
-                    onChange={(e) => {
-                      const { value } = e.target;
-                      setComment(value);
-                    }}
-                    onKeyPress={(e) => {
-                      if (e.key === "Enter") submitComment();
-                    }}
-                  ></CommentTextarea>
-                  <MdArrowUpward
-                    style={{
-                      background: `${comment ? "#6371F7" : ""}`,
-                      color: `${comment ? "#FFF" : ""}`,
-                    }}
-                    disabled={!comment}
-                    onClick={() => {
-                      submitComment();
-                      handleCommentNoti("댓글");
-                    }}
+                <div
+                  style={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    height: "30px",
+                  }}
+                >
+                  <RactangleImage
+                    S
+                    size="24px"
+                    borderRadius="8.4px"
+                    margin="0 10px 0 0"
+                    src={
+                      detailPhoto?.userInfo.profileImg === "Profile01"
+                        ? Profile01
+                        : detailPhoto?.userInfo.profileImg === "Profile02"
+                        ? Profile02
+                        : detailPhoto?.userInfo.profileImg === "Profile03"
+                        ? Profile03
+                        : detailPhoto?.userInfo.profileImg === "Profile04"
+                        ? Profile04
+                        : detailPhoto?.userInfo.profileImg === "Profile05"
+                        ? Profile05
+                        : detailPhoto?.userInfo.profileImg
+                        ? detailPhoto?.userInfo.profileImg
+                        : Profile01
+                    }
                   />
+                </div>
+                <Comment>
+                  <div
+                    style={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <CommentTextarea
+                      placeholder="댓글을 달아보세요."
+                      value={comment}
+                      onChange={(e) => {
+                        const { value } = e.target;
+                        setComment(value);
+                      }}
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") submitComment();
+                      }}
+                    ></CommentTextarea>
+                    <MdArrowUpward
+                      style={{
+                        background: `${comment ? "#6371F7" : ""}`,
+                        color: `${comment ? "#FFF" : ""}`,
+                      }}
+                      disabled={!comment}
+                      onClick={() => {
+                        submitComment();
+                        scrollToBottom();
+                        handleCommentNoti("댓글");
+                      }}
+                    />
+                  </div>
                 </Comment>
               </CommentFooter>
             </CommentBox>
@@ -418,6 +469,10 @@ const Container = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+  }
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
     padding: 0px;
   }
   // Small (Tablet)
@@ -425,7 +480,6 @@ const Container = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    padding: 0px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -444,6 +498,9 @@ const ContentBox = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
     border-radius: 0;
     box-shadow: none;
@@ -489,6 +546,12 @@ const ImageBox = styled.img`
   // Medium (Desktop)
   object-fit: cover;
   @media screen and (max-width: 1199px) {
+    /* flex-direction: column;
+    width: 100%; */
+  }
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
     width: 100%;
   }
@@ -505,8 +568,8 @@ const ContentBoxFooter = styled.div`
   height: 46px;
   border: none;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
     display: none;
   }
 `;
@@ -516,11 +579,18 @@ const CommentBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   margin-bottom: auto;
-  border-left: 1px solid #dbdbdb;
+  /* border-left: 1px solid #dbdbdb; */
   height: 100%;
   width: 35%;
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+    /* border: none;
+    flex-direction: column;
+    width: 100%; */
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
     border: none;
     flex-direction: column;
     width: 100%;
@@ -538,6 +608,7 @@ const CommentBox = styled.div`
 
 const CommentHeder = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 10%;
@@ -546,20 +617,29 @@ const CommentHeder = styled.div`
   padding-left: 10px;
   border-bottom: 1px solid #dbdbdb;
   position: relative;
+
+  &:hover {
+    .photoDeleteBtn {
+      display: flex;
+    }
+    .photoCreatedAt {
+      margin-right: 30px !important;
+    }
+  }
 `;
 
 const PhotoDeleteBtn = styled.div`
   cursor: pointer;
-  display: flex;
-  position: absolute;
   right: 0;
-  width: 30px;
-  height: 40px;
+  width: 20px;
+  height: 30px;
   align-items: center;
   border: none;
-  border-radius: 10px;
+  border-radius: 6px;
   margin-right: 5px;
   color: #757575;
+  display: none;
+  position: absolute;
   &:hover {
     background: #f5f5f5;
     color: black;
@@ -605,29 +685,16 @@ const LikeMemberBox = styled.div`
   }
 `;
 
-const UnLike = styled.div`
-  svg {
-    width: 12px;
-    height: 12px;
-    border-radius: 12px;
-    border: none;
-    background-color: #f4cc4d;
-    position: absolute;
-    top: 12px;
-    right: 2px;
-  }
-`;
-
 const CommentFooter = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   border-top: 1px solid #dbdbdb;
   width: 100%;
   height: 10%;
-  min-height: 45px;
-  max-height: 45px;
+  min-height: 50px;
+  max-height: 50px;
   padding: 10px;
   position: relative;
   svg {
@@ -645,6 +712,12 @@ const CommentFooter = styled.div`
       filter: brightness(70%);
     }
   }
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    min-height: 65px;
+    max-height: 65px;
+  }
 `;
 
 const Comment = styled.div`
@@ -653,7 +726,7 @@ const Comment = styled.div`
   align-items: center;
   background-color: #f5f5f5;
   height: 30px;
-  width: 95%;
+  width: 100%;
   padding: 10px 35px 10px 0;
   border-radius: 8px;
 `;

@@ -12,7 +12,7 @@ import { history } from "../../redux/configureStore";
 import { Text } from "../../elements";
 
 // 이미지
-import noImage from "../../shared/images/noImage.png";
+import emptyVoice from "../../shared/images/emptyVoice.svg";
 import albumCover1 from "../../shared/images/albumCover1.svg";
 import albumCover2 from "../../shared/images/albumCover2.svg";
 import albumCover3 from "../../shared/images/albumCover3.svg";
@@ -97,7 +97,7 @@ const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
                       ? albumCover3
                       : voiceAlbumCover === "albumCover4"
                       ? albumCover4
-                      : noImage
+                      : emptyVoice
                   }
                 />
                 <PlayBtn

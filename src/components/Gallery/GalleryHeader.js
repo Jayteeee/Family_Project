@@ -5,6 +5,7 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 import { FaPen } from "react-icons/fa";
 import { MdCheck } from "react-icons/md";
+import { FiPlus } from "react-icons/fi";
 
 // 리덕스
 import { useSelector } from "react-redux";
@@ -65,7 +66,7 @@ const GalleryHeader = ({
         </Text>
         {!isEdit ? (
           <BtnWrap>
-            <PhotoAlbumBtn>
+            <PhotoAlbumBtn className="addAlbumBtn">
               <Button
                 M
                 borderRadius="8px"
@@ -74,29 +75,14 @@ const GalleryHeader = ({
                 color="#fff"
                 width="159px"
                 height="56px"
-                hover="#6971b2"
+                hover="#3245F5"
                 margin="10px 0 0 0"
                 onClick={handleModal}
               >
-                <div
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "600",
-                    marginBottom: "1px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "25px",
-                      margin: "0px 5px 3px 0",
-                    }}
-                  >
-                    +
-                  </span>
+                <AddBtnText>
+                  <FiPlus />
                   앨범 추가
-                </div>
+                </AddBtnText>
               </Button>
             </PhotoAlbumBtn>
             <PhotoAlbumBtn>
@@ -108,32 +94,15 @@ const GalleryHeader = ({
                 color="#fff"
                 width="159px"
                 height="56px"
-                hover="#6971b2"
+                hover="#3245F5"
                 margin="10px 0 0 24px"
                 onClick={PracticeEdit}
+                className="editAlbumBtn"
               >
-                <div
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "600",
-                    marginBottom: "1px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "16px",
-                      margin: "0px 7px 0 0",
-                      alignItems: "center",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <FaPen />
-                  </span>
+                <EditBtnText>
+                  <FaPen />
                   앨범 편집
-                </div>
+                </EditBtnText>
               </Button>
             </PhotoAlbumBtn>
           </BtnWrap>
@@ -148,36 +117,19 @@ const GalleryHeader = ({
                 color="#fff"
                 width="159px"
                 height="56px"
-                hover="#6971b2"
+                hover="#3245F5"
                 margin="10px 0 0 0"
                 onClick={() => {
                   EditPhotoAlbum();
                   CompletedEdit();
                   handleNotification("앨범수정");
                 }}
+                className="editAlbumBtn"
               >
-                <div
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "600",
-                    marginBottom: "1px",
-                  }}
-                >
-                  <span
-                    style={{
-                      alignItems: "center",
-                      display: "flex",
-                      justifyContent: "center",
-                      fontSize: "25px",
-                      margin: "0px 5px 0 0",
-                    }}
-                  >
-                    <MdCheck />
-                  </span>
+                <CompletedEditBtnText>
+                  <MdCheck />
                   편집 완료
-                </div>
+                </CompletedEditBtnText>
               </Button>
             </PhotoAlbumBtn>
           </BtnWrap>
@@ -209,16 +161,21 @@ const GalleryHeaderBox = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 10px 10px 10px 10px;
+  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
+    margin: 20px 10px 10px 10px;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    padding: 10px;
+    margin: 10px 6px 5px 6px;
     .galleryHeaderBox {
       font-size: 30px;
     }
-    padding: 0;
-    margin: 22px 16px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -229,9 +186,18 @@ const BtnWrap = styled.div`
   display: flex;
   flex-direction: row;
 
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    .addAlbumBtn {
+      display: none;
+    }
+  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    margin: 0;
+    .editAlbumBtn {
+      height: 35px;
+      width: 140px;
+    }
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -243,32 +209,70 @@ const PhotoAlbumBtn = styled.div`
   flex-grow: 1;
 `;
 
-const EditCompletedBtn = styled.div`
-  max-width: 143px;
-  max-height: 48px;
-  border-radius: 4px;
-  padding: 12px 24px;
-  margin-left: 24px;
-  border: none;
-  background: #6371f7;
-  color: #fff;
+const AddBtnText = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
   font-weight: 600;
-  cursor: pointer;
-  &:hover {
-    background: black;
-    color: #fff;
-    border: none;
+  margin-bottom: 1px;
+  svg {
+    font-size: 20px;
+    margin-right: 5px;
   }
 
-  // Medium (Desktop)
-  @media only screen and (max-width: 1199px) {
-    width: 160px;
-  }
   // Small (Tablet)
   @media only screen and (max-width: 839px) {
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+  }
+`;
+
+const EditBtnText = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  margin-bottom: 1px;
+  svg {
+    font-size: 15px;
+    margin-right: 7px;
+  }
+
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    font-size: 17px;
+    svg {
+      font-size: 13px;
+      margin-right: 7px;
+    }
+  }
+`;
+
+const CompletedEditBtnText = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  margin-bottom: 1px;
+  svg {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+
+  // Small (Tablet)
+  @media only screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    font-size: 17px;
+    svg {
+      font-size: 18px;
+      margin-right: 7px;
+    }
   }
 `;
 

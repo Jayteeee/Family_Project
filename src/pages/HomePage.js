@@ -32,19 +32,7 @@ import { ProfileModal } from "../shared/modal/component/ProfileModal";
 import { BadgeModal } from "../shared/modal/component/MissionModal";
 
 // 이미지
-import noImage from "../shared/images/noImage.png";
-import Profile01 from "../shared/images/Profile01.svg";
-import Profile02 from "../shared/images/Profile02.svg";
-import Profile03 from "../shared/images/Profile03.svg";
-import Profile04 from "../shared/images/Profile04.svg";
-import Profile05 from "../shared/images/Profile05.svg";
-import smilingEmoji from "../shared/images/smile.svg";
-import heartsSmileEmoji from "../shared/images/lovely.svg";
-import sunglassesEmoji from "../shared/images/cool.svg";
-import cryingEmoji from "../shared/images/crying.svg";
-import explodingEmoji from "../shared/images/exploading.svg";
-import angryEmoji from "../shared/images/angry.svg";
-import sleepingEmoji from "../shared/images/sleeping.svg";
+import emptyPhotoSmall from "../shared/images/emptyPhotoSmall.svg";
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
@@ -194,59 +182,6 @@ const HomePage = (props) => {
                         return (
                           <ProfileBox key={f.familyMemberId}>
                             <HomeMember familyMemberList={f} />
-                            {/* <Profile>
-                              <RactangleImage
-                                S
-                                // src={f.profileImg ? f.profileImg : profileImg}
-                                src={
-                                  f.profileImg === "Profile01"
-                                    ? Profile01
-                                    : f.profileImg === "Profile02"
-                                    ? Profile02
-                                    : f.profileImg === "Profile03"
-                                    ? Profile03
-                                    : f.profileImg === "Profile04"
-                                    ? Profile04
-                                    : f.profileImg === "Profile05"
-                                    ? Profile05
-                                    : f.profileImg
-                                    ? f.profileImg
-                                    : Profile01
-                                }
-                                size="80px"
-                                borderRadius="28px"
-                                borderColor="none"
-                                className="proFileImage"
-                              />
-                              <Text
-                                margin="15px 0 0 0"
-                                size="15px"
-                                fontWeight="600"
-                              >
-                                {f.familyMemberNickname}
-                              </Text>
-                              <TodayMoodBox>
-                                <TodayMood
-                                  src={
-                                    f.todayMood === "good"
-                                      ? smilingEmoji
-                                      : f.todayMood === "love"
-                                      ? heartsSmileEmoji
-                                      : f.todayMood === "nice"
-                                      ? sunglassesEmoji
-                                      : f.todayMood === "sad"
-                                      ? cryingEmoji
-                                      : f.todayMood === "head"
-                                      ? explodingEmoji
-                                      : f.todayMood === "angry"
-                                      ? angryEmoji
-                                      : f.todayMood === "sleepy"
-                                      ? sleepingEmoji
-                                      : smilingEmoji
-                                  }
-                                />
-                              </TodayMoodBox>
-                            </Profile> */}
                           </ProfileBox>
                         );
                       })}
@@ -292,27 +227,6 @@ const HomePage = (props) => {
                     </ScheduleArea>
                   </TotalCalendar>
                 </MiddleRightCalendar>
-                {/* {!open ? (
-                  <div
-                    onClick={() => {
-                      openCalendar();
-                      handleOpen();
-                    }}
-                    className="calendarBtnBox"
-                  >
-                    <Text className="calendarOpenBtn">펼쳐보기</Text>
-                  </div>
-                ) : (
-                  <div
-                    onClick={() => {
-                      closeCalendar();
-                      handleOpen();
-                    }}
-                    className="calendarBtnBox"
-                  >
-                    <Text className="calendarCloseBtn">닫기</Text>
-                  </div>
-                )} */}
               </MiddleRightBox>
             </MiddleBox>
             <div>
@@ -366,7 +280,7 @@ const HomePage = (props) => {
                       src={
                         recentPhoto?.photoFile
                           ? recentPhoto?.photoFile
-                          : noImage
+                          : emptyPhotoSmall
                       }
                     >
                       <TitleBox>

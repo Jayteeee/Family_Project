@@ -21,7 +21,7 @@ const Login = ({ checkClient }) => {
 
   // 사이드바 매뉴 색상
   const handleMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "#6371F7");
+    localStorage.setItem("homeMenuColor", "true");
   };
 
   return (

@@ -4,17 +4,13 @@ import { VoiceList } from "../components/voice";
 import { useDispatch } from "react-redux";
 
 // 리덕스
+import { useSelector } from "react-redux";
 import { voiceActions } from "../redux/modules/voice";
 
 const VoiceMsgPage = (props) => {
   const dispatch = useDispatch();
   const voiceAlbumId = props.match.params.voiceAlbumId;
   const familyId = props.match.params.familyId;
-  const [isEdit, setIsEdit] = useState(false);
-
-  const PracticeEdit = () => {
-    setIsEdit(!isEdit);
-  };
 
   useEffect(() => {
     dispatch(voiceActions.getVoicePage(familyId));
@@ -23,12 +19,7 @@ const VoiceMsgPage = (props) => {
   return (
     <>
       <VoicePageWrap>
-        <VoiceList
-          voiceAlbumId={voiceAlbumId}
-          PracticeEdit={PracticeEdit}
-          isEdit={isEdit}
-          familyId={familyId}
-        ></VoiceList>
+        <VoiceList voiceAlbumId={voiceAlbumId} familyId={familyId}></VoiceList>
       </VoicePageWrap>
     </>
   );
