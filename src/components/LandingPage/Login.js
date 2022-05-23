@@ -86,9 +86,9 @@ const Login = ({ checkClient }) => {
         <div className="line">또는</div>
       </Box>
       <Box onClick={handleMenuColor}>
-        <a href="https://doremilan.shop/auth/kakao">
+        {/* <a href="https://doremilan.shop/auth/kakao">
           <KButton>카카오 로그인</KButton>
-        </a>
+        </a> */}
       </Box>
     </LoginWrap>
   );
