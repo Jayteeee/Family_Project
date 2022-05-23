@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   // // 소켓
-  const ENDPOINT = "http://52.79.130.222/";
+  const ENDPOINT = "https://doremilan.shop/";
   const userId = useSelector((state) => state?.user?.user?.user?.userId);
   console.log(userId);
 
