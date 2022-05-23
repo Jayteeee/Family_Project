@@ -31,23 +31,13 @@ const DetailPhotoHeader = ({
       <GalleryHeaderBox>
         <Text
           size="40px"
-          fontWeight="700"
+          fontWeight="600"
           margin="10px 0 0 0"
-          className="detailPhotoHeaderBox"
+          className="photoHeaderBox"
         >
           {photoAlbumName}
         </Text>
-        {!isEdit ? <BtnWrap></BtnWrap> : <BtnWrap></BtnWrap>}
       </GalleryHeaderBox>
-      {/* 앨범추가 모달 */}
-      {/* <ModalPortal>
-        {modalOn && (
-          <AddPhotoAlbumModal
-            onClose={handleModal}
-            familyId={NowFamilyId}
-          ></AddPhotoAlbumModal>
-        )}
-      </ModalPortal> */}
     </>
   );
 };

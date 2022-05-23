@@ -18,11 +18,17 @@ import { DeletePhotoAlbumModal } from "../../shared/modal/component/Gallery";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
+import emptyContent from "../../shared/images/emptyContent.svg";
 
 // 컴포넌트
 import GalleryHeader from "./GalleryHeader";
 
-const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
+const PhotoAlbumList = ({
+  NowFamilyId,
+  isEdit,
+  PracticeEdit,
+  CompletedEdit,
+}) => {
   const dispatch = useDispatch();
   console.log("현재 가족Id:", NowFamilyId);
 
@@ -108,33 +114,47 @@ const PhotoAlbumList = ({ NowFamilyId, isEdit, PracticeEdit }) => {
         PracticeEdit={PracticeEdit}
         isEdit={isEdit}
         EditPhotoAlbum={EditPhotoAlbum}
+        CompletedEdit={CompletedEdit}
       />
       {!isEdit ? (
-        <Container>
-          {photoAlbumList &&
-            photoAlbumList.map((p) => {
-              return (
-                <Figure
-                  key={p.photoAlbumId}
-                  onClick={() => {
-                    history.push(
-                      `/family/${NowFamilyId}/gallery/${p.photoAlbumName}/${p.photoAlbumId}`
-                    );
-                  }}
-                >
-                  <ImageBox src={p.randomPhoto ? p.randomPhoto : noImage} />
-                  <Text
-                    size="24px"
-                    fontWeight="600"
-                    margin="5% 0 0 0"
-                    className="albumName"
-                  >
-                    {p.photoAlbumName}
-                  </Text>
-                </Figure>
-              );
-            })}
-        </Container>
+        <>
+          {photoAlbumList.length !== 0 ? (
+            <Container>
+              {photoAlbumList.length !== 0 &&
+                photoAlbumList.map((p) => {
+                  return (
+                    <Figure
+                      key={p.photoAlbumId}
+                      onClick={() => {
+                        history.push(
+                          `/family/${NowFamilyId}/gallery/${p.photoAlbumName}/${p.photoAlbumId}`
+                        );
+                      }}
+                    >
+                      <ImageBox src={p.randomPhoto ? p.randomPhoto : noImage} />
+                      <Text
+                        size="24px"
+                        fontWeight="600"
+                        margin="5% 0 0 0"
+                        className="albumName"
+                      >
+                        {p.photoAlbumName}
+                      </Text>
+                    </Figure>
+                  );
+                })}
+            </Container>
+          ) : (
+            <NoneContentWrap>
+              <NoneContentBox>
+                <NoneContentItem>
+                  <EmptyContentImg src={emptyContent} />
+                  <Text>아직 앨범이 없어요.</Text>
+                </NoneContentItem>
+              </NoneContentBox>
+            </NoneContentWrap>
+          )}
+        </>
       ) : (
         <Container>
           {photoAlbumList &&
@@ -315,6 +335,123 @@ const DeleteIcon = styled.div`
       color: rgba(29, 28, 29, 1);
     }
   }
+`;
+
+const NoneContentWrap = styled.div`
+  background: #fff;
+  display: flex;
+  /* min-height: 880px; */
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 20px 40px 40px;
+  padding: 20px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    /* min-height: 680px; */
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 40px 24px;
+    /* margin-top: 0px !important; */
+    padding-left: 20px !important;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    /* min-height: 480px; */
+    padding: 16px;
+    margin: 28px 16px;
+    /* margin: 20px 9px; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin-top: 0px !important;
+  }
+`;
+
+const NoneContentBox = styled.div`
+  width: 100%;
+  height: 90%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: 50%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: 50%;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 55%;
+  }
+`;
+
+const NoneContentItem = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 10% 20% 0 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  & > p {
+    font-size: 24px;
+    font-weight: 600;
+    position: absolute;
+    top: 100px;
+  }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    & > p {
+      font-size: 30px;
+      font-weight: 600;
+      position: absolute;
+      top: 55px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    & > p {
+      font-size: 20px;
+      font-weight: 600;
+      position: absolute;
+      top: 50px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    & > p {
+      font-size: 15px;
+      font-weight: 600;
+      position: absolute;
+      top: 70px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+`;
+
+const EmptyContentImg = styled.div`
+  width: 100%;
+
+  padding: 22.2%;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
 `;
 
 export default PhotoAlbumList;

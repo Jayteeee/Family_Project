@@ -364,7 +364,7 @@ const MissionMemberBox = styled.div`
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
     width: 60px;
-    height: 60px;
+    height: 90px;
     border-radius: 21px;
   }
 `;

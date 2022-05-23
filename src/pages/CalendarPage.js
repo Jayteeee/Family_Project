@@ -299,13 +299,17 @@ const ScheduleArea = styled.div`
   width: 100%;
   max-height: 800px;
   overflow-y: scroll;
-  border-radius: 20px;
+  border-radius: 12px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
-  margin-top: 110px;
-  margin-right: 12px;
+  margin-top: 100px;
+  margin-left: 10px;
   padding: 24px;
   background-color: #fff;
   text-align: start;
+  .scheduleTitle {
+    font-size: 24px;
+    font-weight: 600;
+  }
   @media only screen and (max-width: 1199px) {
     margin: 24px 0 0 0;
   }
@@ -348,6 +352,7 @@ const FlexBox1 = styled.div`
 const FlexBox2 = styled.div`
   display: flex;
   align-items: center;
+
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     .scheduleText {
@@ -380,12 +385,12 @@ const SBox = styled.div`
   width: 100%;
   /* height: 890px; */
   height: 800px;
-  margin-top: 110px;
-  margin-right: 12px;
+  margin-top: 100px;
+  margin-right: 10px;
   background-color: #fff;
   color: #222;
   border: none;
-  border-radius: 20px;
+  border-radius: 12px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   @media only screen and (max-width: 1199px) {
     margin: 50px 0 0 0;

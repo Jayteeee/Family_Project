@@ -81,7 +81,7 @@ const ScheduleCalendar = ({ familyId, list }) => {
       <Container>
         <Calendar
           onChange={setValue} // useState로 포커스 변경 시 현재 날짜 받아오기
-          formatDay={(locale, date) => dayjs(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
+          formatDay={(locale, date) => dayjs(date).format("D")} // 날'일' 제외하고 숫자만 보이도록 설정
           value={value}
           minDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
           maxDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
@@ -268,8 +268,8 @@ const Container = styled.div`
   .react-calendar__navigation {
     position: absolute;
     display: flex;
-    top: 120px;
-    left: 25px;
+    top: 130px;
+    left: 0px;
     font-weight: 600;
     font-size: 15px;
     @media only screen and (max-width: 1199px) {
@@ -293,9 +293,9 @@ const Container = styled.div`
     }
     // XSmall (Mobile)
     @media screen and (max-width: 599px) {
-      top: 0px;
+      top: 5px;
       margin-right: 0;
-      width: 220px;
+      /* width: 220px; */
     }
     // XXSmall (Mobile)
     @media screen and (max-width: 375px) {
@@ -305,15 +305,19 @@ const Container = styled.div`
 
   .react-calendar__navigation button {
     color: #000;
-    min-width: 44px;
+    min-width: 90px;
     background: none;
     font-size: 24px;
+    font-weight: 600;
     // XSmall (Mobile)
     @media screen and (max-width: 599px) {
+      min-width: 40px;
+      font-size: 20px;
     }
     // XXSmall (Mobile)
     @media screen and (max-width: 375px) {
       font-size: 20px;
+      min-width: 30px;
     }
   }
   .react-calendar__navigation button:enabled:hover,
@@ -324,7 +328,9 @@ const Container = styled.div`
 
   abbr[title] {
     text-decoration: none;
-    font-size: 14px;
+    font-size: 20px;
+    color: #757575;
+    font-weight: 400;
   }
   abbr {
     padding: 8px;

@@ -14,7 +14,13 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import { CgMoreVerticalAlt } from "react-icons/cg";
 
 // 엘리먼트
-import { Button, CircleImage, Text, Input } from "../../elements";
+import {
+  Button,
+  CircleImage,
+  Text,
+  Input,
+  RactangleImage,
+} from "../../elements";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -183,63 +189,64 @@ const DetailPhoto = ({
       {!isEdit ? (
         <Container>
           <ContentBox>
-            <ImageWrap
-              style={{
-                // width: "100%",
-                // height: "100%",
-                position: "relative",
-              }}
-              img={noImage}
-            >
-              <ImageBox
-                id="image"
-                src={detailPhoto?.photoFile ? detailPhoto.photoFile : noImage}
-                onClick={() => {
-                  // history.push(`/detail/${p._id}`);
+            <ImageContentBox>
+              <ContentBoxHeader>
+                <BackBtn
+                  onClick={() => {
+                    history.push(
+                      `/family/${NowFamilyId}/gallery/${PhotoAlbumName}/${photoAlbumId}`
+                    );
+                  }}
+                >
+                  <RiArrowLeftSLine />
+                </BackBtn>
+                {!detailPhotoData.likeChk ? (
+                  <UnLikeBtn
+                    onClick={() => {
+                      handleLike();
+                      addlike();
+                      handleLikeNoti("좋아요");
+                    }}
+                  >
+                    <MdFavoriteBorder />
+                  </UnLikeBtn>
+                ) : (
+                  <LikeBtn
+                    onClick={() => {
+                      handleLike();
+                      addlike();
+                      handleLikeNoti("좋아요");
+                    }}
+                  >
+                    <MdOutlineFavorite />
+                  </LikeBtn>
+                )}
+              </ContentBoxHeader>
+              <ImageWrap
+                style={{
+                  // width: "100%",
+                  // height: "100%",
+                  position: "relative",
                 }}
-              />
-              <BackBtn
-                onClick={() => {
-                  history.push(
-                    `/family/${NowFamilyId}/gallery/${PhotoAlbumName}/${photoAlbumId}`
-                  );
-                }}
+                img={noImage}
               >
-                <RiArrowLeftSLine />
-              </BackBtn>
-
-              {!detailPhotoData.likeChk ? (
-                <UnLikeBtn
+                <ImageBox
+                  id="image"
+                  src={detailPhoto?.photoFile ? detailPhoto.photoFile : noImage}
                   onClick={() => {
-                    handleLike();
-                    addlike();
-                    handleLikeNoti("좋아요");
+                    // history.push(`/detail/${p._id}`);
                   }}
-                >
-                  <MdFavoriteBorder />
-                </UnLikeBtn>
-              ) : (
-                <LikeBtn
-                  onClick={() => {
-                    handleLike();
-                    addlike();
-                    handleLikeNoti("좋아요");
-                  }}
-                >
-                  <MdOutlineFavorite />
-                </LikeBtn>
-              )}
-            </ImageWrap>
+                />
+              </ImageWrap>
+              <ContentBoxFooter />
+            </ImageContentBox>
             <CommentBox>
               <CommentHeder>
                 <div>
-                  <CircleImage
-                    XS
-                    // src={
-                    //   detailPhoto?.userInfo.profileImg
-                    //     ? detailPhoto?.userInfo.profileImg
-                    //     : profileImg
-                    // }
+                  <RactangleImage
+                    S
+                    size="24px"
+                    borderRadius="8.4px"
                     src={
                       detailPhoto?.userInfo.profileImg === "Profile01"
                         ? Profile01
@@ -293,39 +300,43 @@ const DetailPhoto = ({
                 {likeMemberList &&
                   likeMemberList.map((l, i) => {
                     return (
-                      <>
-                        <div style={{ position: "relative" }} key={i}>
-                          <CircleImage
-                            XS
-                            // src={l.profileImg ? l.profileImg : profileImg}
-                            src={
-                              l?.profileImg === "Profile01"
-                                ? Profile01
-                                : l?.profileImg === "Profile02"
-                                ? Profile02
-                                : l?.profileImg === "Profile03"
-                                ? Profile03
-                                : l?.profileImg === "Profile04"
-                                ? Profile04
-                                : l?.profileImg === "Profile05"
-                                ? Profile05
-                                : l?.profileImg
-                                ? l?.profileImg
-                                : Profile01
-                            }
-                            margin="0 5px 0 0"
-                          />
-                          {/* {myMissionChk ?  */}
+                      <div style={{ position: "relative" }} key={i}>
+                        <RactangleImage
+                          S
+                          size="24px"
+                          borderRadius="8.4px"
+                          src={
+                            l.profileImg === "Profile01"
+                              ? Profile01
+                              : l.profileImg === "Profile02"
+                              ? Profile02
+                              : l.profileImg === "Profile03"
+                              ? Profile03
+                              : l.profileImg === "Profile04"
+                              ? Profile04
+                              : l.profileImg === "Profile05"
+                              ? Profile05
+                              : l.profileImg
+                              ? l.profileImg
+                              : Profile01
+                          }
+                          margin="0 5px 0 0"
+                        />
+                        {/* {myMissionChk ?  */}
+                        <MdOutlineFavorite />
+                        {/* : <UncompletedCicle />} */}
+                        <div>
                           <MdOutlineFavorite />
                         </div>
-                      </>
+                      </div>
                     );
                   })}
               </LikeMemberBox>
               <CommentFooter>
-                <CircleImage
-                  XS
-                  margin="0 10px 0 0"
+                <RactangleImage
+                  S
+                  size="24px"
+                  borderRadius="8.4px"
                   src={
                     detailPhoto?.userInfo.profileImg === "Profile01"
                       ? Profile01
@@ -343,21 +354,8 @@ const DetailPhoto = ({
                   }
                 />
                 <Comment>
-                  {/* <Input
-                    // type="textarea"
-                    text_align="left"
-                    size="12px"
-                    height="24px"
-                    placeholder="댓글을 달아보세요"
-                    bg="#F5F5F5"
-                    borderColor="transparnt"
-                    margin="10px 0"
-                    padding="0 0 0 10px"
-                    // onChange={handleAlbumName}
-                    // id={p.photoAlbumId}
-                  /> */}
                   <CommentTextarea
-                    placeholder="댓글을 달아보세요"
+                    placeholder="댓글을 달아보세요."
                     value={comment}
                     onChange={(e) => {
                       const { value } = e.target;
@@ -415,17 +413,19 @@ const DetailPhoto = ({
 
 const Container = styled.div`
   /* width: 100%; */
-  padding: 24px;
+  padding: 40px;
   /* height: 100%; */
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+    padding: 0px;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    padding: 16px;
+    padding: 0px;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -438,11 +438,15 @@ const ContentBox = styled.div`
   height: 100%;
   width: 100%;
   align-items: center;
+  border-radius: 12px;
   background-color: #fff;
-  /* position: relative; */
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     flex-direction: column;
+    border-radius: 0;
+    box-shadow: none;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -453,6 +457,25 @@ const ContentBox = styled.div`
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
   }
+`;
+
+const ImageContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* position: relative; */
+  height: 100%;
+  width: 100%;
+`;
+
+const ContentBoxHeader = styled.div`
+  width: 100%;
+  height: 46px;
+  padding: 10px;
+  /* border-bottom: 1px solid black; */
+  /* position: absolute; */
+  position: relative;
+  top: 0;
 `;
 
 const ImageWrap = styled.div`
@@ -477,16 +500,28 @@ const ImageBox = styled.img`
   }
 `;
 
+const ContentBoxFooter = styled.div`
+  width: 100%;
+  height: 46px;
+  border: none;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    display: none;
+  }
+`;
+
 const CommentBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-bottom: auto;
-  border: 1px solid #dbdbdb;
+  border-left: 1px solid #dbdbdb;
   height: 100%;
   width: 35%;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+    border: none;
     flex-direction: column;
     width: 100%;
   }
@@ -532,7 +567,7 @@ const PhotoDeleteBtn = styled.div`
 `;
 
 const CommentListBox = styled.div`
-  height: 60vh;
+  height: 100%;
   overflow-y: scroll;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
@@ -543,7 +578,7 @@ const CommentListBox = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    height: 20vh;
+    height: 30vh;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -695,8 +730,7 @@ const UnLikeBtn = styled.div`
   top: 0;
   align-items: center;
   color: #5c5c5c;
-  margin: 10px;
-  padding: 2px;
+  margin: 13px;
   &:hover {
     background: rgba(29, 28, 29, 0.1);
     color: rgba(29, 28, 29, 1);
@@ -720,8 +754,7 @@ const LikeBtn = styled.div`
   top: 0;
   align-items: center;
   color: #5c5c5c;
-  margin: 10px;
-  padding: 2px;
+  margin: 13px;
   &:hover {
     background: rgba(29, 28, 29, 0.1);
     color: rgba(29, 28, 29, 1);
@@ -736,14 +769,14 @@ const LikeBtn = styled.div`
 const BackBtn = styled.div`
   display: flex;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 4px;
   text-align: left;
   position: absolute;
   left: 0;
   top: 0;
-  margin: 10px;
+  margin: 7px;
   align-items: center;
   color: #5c5c5c;
   &:hover {
@@ -751,8 +784,8 @@ const BackBtn = styled.div`
     color: rgba(29, 28, 29, 1);
   }
   svg {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     color: black;
   }
 `;

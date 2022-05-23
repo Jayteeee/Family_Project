@@ -215,7 +215,7 @@ const CompletedBadgeBar = styled.div`
   color: white;
   font-weight: 600;
   @media screen and (max-width: 375px) {
-    width: 130px;
+    /* width: 130px; */
     height: 20px;
   }
 `;

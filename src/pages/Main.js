@@ -98,7 +98,7 @@ const Main = (props) => {
 
   // 사이드바 매뉴 색상
   const handleMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "#6371F7");
+    localStorage.setItem("homeMenuColor", "true");
     localStorage.removeItem("missionMenuColor");
     localStorage.removeItem("calendarMenuColor");
     localStorage.removeItem("galleryMenuColor");
@@ -386,23 +386,29 @@ const Label = styled.div`
   padding: 55px 55px 55px 20px;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    justify-content: center;
-    justify-items: center;
+    /* justify-content: center;
+    justify-items: center; */
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
+    /* justify-content: center;
+    justify-items: center; */
+    /* margin-left: 5px; */
+    border-bottom: 1px solid #dbdbdb;
+    font-weight: 400;
+
     font-size: 20px !important;
-    padding: 10px !important;
+    padding: 10px 0 10px 20px !important;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     font-size: 20px !important;
-    padding: 10px !important;
+    padding: 10px 0 10px 20px !important;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     font-size: 15px !important;
-    padding: 10px !important;
+    padding: 10px 0 10px 15px !important;
   }
 `;
 
