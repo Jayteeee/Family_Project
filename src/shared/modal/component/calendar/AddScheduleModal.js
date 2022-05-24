@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // 모달
 import { ModalPortal } from "../../portals";
+import { ScheduleAlertModal } from "./index";
 
 // 엘리먼트
 import { Input, Button, Text } from "../../../../elements";
@@ -33,7 +34,26 @@ const AddScheduleModal = ({ onClose, familyId }) => {
     setEvent(value);
   };
 
+  // 일정 추가하기 알람 모달
+  const [scheduleModalOn, setScheduleModalOn] = useState(false);
+
+  const scheduleHandleModal = () => {
+    setScheduleModalOn(!scheduleModalOn);
+  };
+
   const addSchedule = () => {
+    // 제목 유효성 검사
+    const nameCheck = (event) => {
+      let _reg = /^[가-힣ㄱ-ㅎa-zA-Z0-9._ -]{1,8}$/;
+
+      return _reg.test(event);
+    };
+
+    if (!nameCheck(event)) {
+      scheduleHandleModal();
+      return;
+    }
+    onClose();
     dispatch(scheduleActions.addScheduleDB(familyId, event, myPic, date));
   };
 
@@ -43,22 +63,22 @@ const AddScheduleModal = ({ onClose, familyId }) => {
 
   // socket 부분
 
-  let socket = useSelector((state) => state.socket?.socket);
+  // let socket = useSelector((state) => state.socket?.socket);
 
-  const nowUserNickname = useSelector(
-    (state) => state.user.user.user?.nickname
-  );
-  const nowUserId = useSelector((state) => state.user.user.user?.userId);
+  // const nowUserNickname = useSelector(
+  //   (state) => state.user.user.user?.nickname
+  // );
+  // const nowUserId = useSelector((state) => state.user.user.user?.userId);
 
-  const handleNotification = (type) => {
-    socket.emit("sendFamilyNoti", {
-      userId: nowUserId,
-      senderName: nowUserNickname,
-      receiverFamily: familyId,
-      category: "캘린더",
-      type,
-    });
-  };
+  // const handleNotification = (type) => {
+  //   socket.emit("sendFamilyNoti", {
+  //     userId: nowUserId,
+  //     senderName: nowUserNickname,
+  //     receiverFamily: familyId,
+  //     category: "캘린더",
+  //     type,
+  //   });
+  // };
 
   return (
     <ModalPortal>
@@ -308,9 +328,9 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onClose();
+                  // onClose();
                   addSchedule();
-                  handleNotification("일정추가");
+                  // handleNotification("일정추가");
                 }}
               >
                 저장
@@ -319,6 +339,13 @@ const AddScheduleModal = ({ onClose, familyId }) => {
           </ContentBox>
         </Content>
       </Background>
+      <ModalPortal>
+        {scheduleModalOn && (
+          <ScheduleAlertModal
+            onClose={scheduleHandleModal}
+          ></ScheduleAlertModal>
+        )}
+      </ModalPortal>
     </ModalPortal>
   );
 };

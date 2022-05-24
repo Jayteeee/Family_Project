@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -12,6 +12,10 @@ import { useSelector } from "react-redux";
 
 // 리덕스
 import { useDispatch } from "react-redux";
+
+// 모달
+import { ModalPortal } from "../../portals";
+import { ScheduleAlertModal } from "./index";
 
 // 엘리먼트
 import { Input, Button, Text } from "../../../../elements";
@@ -45,7 +49,25 @@ const EditScheduleModal = ({ onClose, eventId }) => {
     setEvent(value);
   };
 
+  const [scheduleModalOn, setScheduleModalOn] = useState(false);
+
+  const scheduleHandleModal = () => {
+    setScheduleModalOn(!scheduleModalOn);
+  };
+
   const editSchedule = () => {
+    // 제목 유효성 검사
+    const nameCheck = (event) => {
+      let _reg = /^[가-힣ㄱ-ㅎa-zA-Z0-9._ -]{1,8}$/;
+
+      return _reg.test(event);
+    };
+
+    if (!nameCheck(event)) {
+      scheduleHandleModal();
+      return;
+    }
+    onClose();
     dispatch(scheduleActions.editScheduleDB(event, myPic, date, eventId));
   };
 
@@ -275,14 +297,21 @@ const EditScheduleModal = ({ onClose, eventId }) => {
           }}
           onClick={(e) => {
             e.stopPropagation();
-            onClose();
+            // onClose();
             editSchedule();
-            handleNotification("일정수정");
+            // handleNotification("일정수정");
           }}
         >
           저장
         </Text>
       </ButtonBox>
+      <ModalPortal>
+        {scheduleModalOn && (
+          <ScheduleAlertModal
+            onClose={scheduleHandleModal}
+          ></ScheduleAlertModal>
+        )}
+      </ModalPortal>
     </ContentBox>
   );
 };

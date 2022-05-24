@@ -133,7 +133,7 @@ const Header = (props) => {
                 }}
                 onClick={handleNoti}
                 onBlur={() => {
-                  setNotiOn(false);
+                  handleNoti();
                 }}
               />
               {alert.length !== 0 ? (
