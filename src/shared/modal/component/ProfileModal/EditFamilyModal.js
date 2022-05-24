@@ -115,6 +115,7 @@ const EditFamilyModal = ({ onClose }) => {
                         size="18px"
                         onChange={handleTitleChange}
                         value={changeTitle}
+                        maxLength="8"
                         style={{
                           border: "none",
                         }}
@@ -333,7 +334,7 @@ const SaveBtn = styled.div`
   margin-top: 24px;
   cursor: pointer;
   &:hover {
-    filter: brightness(70%);
+    background-color: #3245f5;
   }
 `;
 

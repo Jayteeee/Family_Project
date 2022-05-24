@@ -115,7 +115,7 @@ const AddMemberModal = ({ onClose }) => {
           <SettingWrap>
             <AddMemberBox>
               <TitleBox>
-                <Text S3>구성원 추가하기</Text>
+                <Text S3>구성원 초대하기</Text>
               </TitleBox>
               <Main>
                 <form autoComplete="off">
@@ -164,7 +164,7 @@ const AddMemberModal = ({ onClose }) => {
                 borderRadius="12px"
                 style={{ backgroundColor: "#6371F7", opacity: "0.4" }}
               >
-                추가
+                초대
               </Button>
             </AddMemberBox>
           </SettingWrap>

@@ -274,6 +274,7 @@ const ProfileModal = ({
                           padding="16px 10px"
                           height="20px"
                           width="100%"
+                          maxLength="8"
                           onChange={handleMemberNicknameChange}
                           value={changeMemberNickname}
                           style={{
@@ -351,12 +352,12 @@ const ProfileModal = ({
                 <>
                   <MenuBox onClick={handleEditFamilyModal}>
                     <Text size="15px" fontWeight="700">
-                      가족 수정하기
+                      가족 추가하기
                     </Text>
                   </MenuBox>
                   <MenuBox onClick={handleDeleteFamilyModal}>
                     <Text size="15px" fontWeight="700">
-                      가족 제거하기
+                      가족 삭제하기
                     </Text>
                   </MenuBox>
                 </>

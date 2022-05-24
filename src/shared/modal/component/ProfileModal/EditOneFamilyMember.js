@@ -126,6 +126,7 @@ const EditOneFamilyMember = ({
             padding="16px"
             height="44px"
             width="100%"
+            maxLength="8"
             onChange={handleMemberNicknameChange}
             value={changeMemberNickname}
             style={{
