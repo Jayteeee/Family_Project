@@ -82,7 +82,79 @@ const VoiceList = ({ voiceAlbumId, familyId }) => {
         isEdit={isEdit}
         voiceAlbumName={voiceAlbumName}
       />
-      {voiceList.length !== 0 ? (
+      {!isEdit ? (
+        <>
+          {voiceList.length !== 0 ? (
+            <div>
+              {voiceList?.map((v) => {
+                return (
+                  <Audio
+                    key={v.voiceFileId}
+                    voiceAlbumId={voiceAlbumId}
+                    familyId={familyId}
+                    isEdit={isEdit}
+                    PracticeEdit={PracticeEdit}
+                    voiceList={v}
+                  ></Audio>
+                );
+              })}
+              <FloatingButton>
+                <label
+                  style={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    width: "100%",
+                    height: "99%",
+                    cursor: "pointer",
+                  }}
+                  className="input-file-button"
+                  htmlFor="input-file"
+                  onClick={() => {
+                    setModalOn(true);
+                  }}
+                >
+                  +
+                </label>
+              </FloatingButton>
+            </div>
+          ) : (
+            <NoneContentWrap>
+              <NoneContentBox>
+                <NoneContentItem>
+                  <EmptyContentImg src={emptyContent} />
+                  <Text>
+                    아직 음성 메시지가 없네요! 음성 메시지 등록하러 가볼까요?
+                  </Text>
+                </NoneContentItem>
+              </NoneContentBox>
+              <FloatingButton>
+                <label
+                  style={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    width: "100%",
+                    height: "99%",
+                    cursor: "pointer",
+                  }}
+                  className="input-file-button"
+                  htmlFor="input-file"
+                  onClick={() => {
+                    setModalOn(true);
+                  }}
+                >
+                  +
+                </label>
+              </FloatingButton>
+            </NoneContentWrap>
+          )}
+        </>
+      ) : (
         <div>
           {voiceList?.map((v) => {
             return (
@@ -118,38 +190,6 @@ const VoiceList = ({ voiceAlbumId, familyId }) => {
             </label>
           </FloatingButton>
         </div>
-      ) : (
-        <NoneContentWrap>
-          <NoneContentBox>
-            <NoneContentItem>
-              <EmptyContentImg src={emptyContent} />
-              <Text>
-                아직 음성 메시지가 없네요! 음성 메시지 등록하러 가볼까요?
-              </Text>
-            </NoneContentItem>
-          </NoneContentBox>
-          <FloatingButton>
-            <label
-              style={{
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                fontWeight: "400",
-                marginBottom: "1px",
-                width: "100%",
-                height: "99%",
-                cursor: "pointer",
-              }}
-              className="input-file-button"
-              htmlFor="input-file"
-              onClick={() => {
-                setModalOn(true);
-              }}
-            >
-              +
-            </label>
-          </FloatingButton>
-        </NoneContentWrap>
       )}
       {/* 앨범 편집 알람 */}
       <ModalPortal>
