@@ -105,6 +105,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <BadgeBarPercentage
                           badgeCnt={(badgeList[0]?.badgeCnt / 1) * 100}
                         ></BadgeBarPercentage>
+                        <BadgeBarBox />
                       </BadgeBar>
                     ) : (
                       <CompletedBadgeBar>
@@ -153,6 +154,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <BadgeBarPercentage
                           badgeCnt={(badgeList[1]?.badgeCnt / 15) * 100}
                         ></BadgeBarPercentage>
+                        <BadgeBarBox />
                       </BadgeBar>
                     ) : (
                       <CompletedBadgeBar>
@@ -198,6 +200,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <BadgeBarPercentage
                           badgeCnt={(badgeList[2]?.badgeCnt / 10) * 100}
                         ></BadgeBarPercentage>
+                        <BadgeBarBox />
                       </BadgeBar>
                     ) : (
                       <CompletedBadgeBar>
@@ -245,6 +248,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <BadgeBarPercentage
                           badgeCnt={(badgeList[3]?.badgeCnt / 20) * 100}
                         ></BadgeBarPercentage>
+                        <BadgeBarBox />
                       </BadgeBar>
                     ) : (
                       <CompletedBadgeBar>
@@ -290,6 +294,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <BadgeBarPercentage
                           badgeCnt={(badgeList[4]?.badgeCnt / 50) * 100}
                         ></BadgeBarPercentage>
+                        <BadgeBarBox />
                       </BadgeBar>
                     ) : (
                       <CompletedBadgeBar>
@@ -338,6 +343,7 @@ const BadgeModal = ({ onClose, familyId }) => {
                         <BadgeBarPercentage
                           badgeCnt={(badgeList[5]?.badgeCnt / 5) * 100}
                         ></BadgeBarPercentage>
+                        <BadgeBarBox />
                       </BadgeBar>
                     ) : (
                       <CompletedBadgeBar>
@@ -757,6 +763,7 @@ const BadgeBarPercentage = styled.div`
   top: 0px;
   left: 0;
   z-index: 2;
+
   @media screen and (max-width: 375px) {
     height: 20px;
   }
@@ -798,6 +805,28 @@ const CompletedBadgeBar = styled.div`
   z-index: 5;
   color: white;
   font-weight: 600;
+  @media screen and (max-width: 375px) {
+    width: 130px;
+    height: 20px;
+  }
+`;
+
+const BadgeBarBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  border-radius: 99px;
+  font-size: 16px;
+  z-index: 5;
+  color: white;
+  font-weight: 600;
+  /* over border: 3px solid #fff; */
+  outline: 3px solid #fff;
+  outline-width: 10px;
   @media screen and (max-width: 375px) {
     width: 130px;
     height: 20px;

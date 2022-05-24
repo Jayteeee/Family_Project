@@ -57,6 +57,7 @@ const HomeMissionStatus = ({ familyId }) => {
             {!(percenTage === 100) ? (
               <BadgeBar>
                 <BadgeBarPercentage badgeCnt={percenTage}></BadgeBarPercentage>
+                <BadgeBarBox />
               </BadgeBar>
             ) : (
               <CompletedBadgeBar>
@@ -174,7 +175,6 @@ const BadgeBar = styled.div`
   border-radius: 50px;
   font-size: 16px;
   position: relative;
-  z-index: 1;
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
     width: 100%;
@@ -195,7 +195,6 @@ const BadgeBarPercentage = styled.div`
   position: absolute;
   top: 0px;
   left: 0;
-  z-index: 2;
   @media screen and (max-width: 375px) {
     height: 20px;
   }
@@ -211,13 +210,33 @@ const CompletedBadgeBar = styled.div`
   border: none;
   border-radius: 999px;
   font-size: 16px;
-  z-index: 5;
   color: white;
   font-weight: 600;
   @media screen and (max-width: 375px) {
     /* width: 130px; */
     height: 20px;
   }
+`;
+
+const BadgeBarBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  border-radius: 999px;
+  font-size: 16px;
+  color: white;
+  font-weight: 600;
+  outline: 3px solid #fff;
+  outline-width: 10px;
+  @media screen and (max-width: 375px) {
+    /* width: 130px; */
+    height: 20px;
+  }
+  /* over border: 3px solid #fff; */
 `;
 
 export default HomeMissionStatus;

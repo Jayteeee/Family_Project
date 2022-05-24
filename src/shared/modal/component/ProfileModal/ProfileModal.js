@@ -31,6 +31,7 @@ import Profile02 from "../../../images/Profile02.svg";
 import Profile03 from "../../../images/Profile03.svg";
 import Profile04 from "../../../images/Profile04.svg";
 import Profile05 from "../../../images/Profile05.svg";
+import Smile from "../../../images/smile.svg";
 
 const ProfileModal = ({
   onClose,

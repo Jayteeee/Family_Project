@@ -8,6 +8,7 @@ import { MdClear, MdNotificationsNone } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { familyMemberActions } from "../redux/modules/familymember";
 import { socketActions } from "../redux/modules/socket";
+import { history } from "../redux/configureStore";
 
 // 엘리먼트
 import { Text, CircleImage, RactangleImage } from "../elements";
@@ -90,7 +91,12 @@ const Header = (props) => {
     <>
       <div>
         <HeaderWarp>
-          <RogoBox src={homeRogo} />
+          <RogoBox
+            src={homeRogo}
+            onClick={() => {
+              history.push(`/family/${familyId}/`);
+            }}
+          />
           <HeaderRightBox>
             <NotiBox>
               <Research
@@ -264,6 +270,7 @@ const RogoBox = styled.div`
   margin-left: 20px;
   background-position: center;
   background-size: cover;
+  cursor: pointer;
   ${({ src }) => `background-image: url(${src});`};
 
   // XSmall (Mobile)

@@ -94,7 +94,7 @@ const AddFamilyModal = ({ onClose }) => {
               color="#fff"
               borderRadius="12px"
               margin="24px 0 0 0"
-              className="editFamilyBtn"
+              className="addFamilyBtn"
             >
               저장
             </Button>
@@ -147,7 +147,7 @@ const AddFamilyInput = styled.input`
 
 const Container = styled.div`
   margin: 24px;
-  .editFamilyBtn {
+  .addFamilyBtn {
     background: #6371f7;
     border: none;
     :hover {

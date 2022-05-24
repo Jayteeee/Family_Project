@@ -11,7 +11,7 @@ import { ModalPortal } from "../../portals";
 import { userActions } from "../../../../redux/modules/user";
 
 // 엘리먼트
-import { Button } from "../../../../elements";
+import { Button, Text } from "../../../../elements";
 
 const LogoutModal = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -19,13 +19,9 @@ const LogoutModal = ({ onClose }) => {
     dispatch(userActions.userLogout());
   };
 
-  // 사이드바 매뉴 색상
-  const handleMenuColor = () => {
-    localStorage.removeItem("homeMenuColor");
-    localStorage.removeItem("missionMenuColor");
-    localStorage.removeItem("calendarMenuColor");
-    localStorage.removeItem("galleryMenuColor");
-    localStorage.removeItem("voiceMenuColor");
+  // 로그아웃 시 localgost 정리
+  const DeleteLocalhost = () => {
+    localStorage.clear();
   };
 
   //소켓부분
@@ -53,17 +49,18 @@ const LogoutModal = ({ onClose }) => {
             e.stopPropagation();
           }}
         >
-          <h1>정말 로그아웃 하시겠습니까?</h1>
+          <Text>정말 로그아웃 하시겠습니까?</Text>
           <br />
           <Button
-            M
+            L
             onClick={() => {
               logOut();
-              handleMenuColor();
+              DeleteLocalhost();
               socketExit();
             }}
+            className="logOutBtn"
           >
-            로그아웃{" "}
+            로그아웃
           </Button>
         </Content>
       </Background>
@@ -88,14 +85,25 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 280px;
+  height: 200px;
   max-width: 420px;
   width: 100%;
   border-radius: 8px;
   background-color: #fff;
+  padding: 24px;
 
   position: relative;
   overflow: scroll;
+  .logOutBtn {
+    color: #fff;
+    width: 100%;
+    border-radius: 12px;
+    border: none;
+    background: #6371f7;
+    :hover {
+      background: #3245f5;
+    }
+  }
 `;
 
 export default LogoutModal;

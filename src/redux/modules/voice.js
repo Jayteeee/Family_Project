@@ -302,7 +302,6 @@ export default handleActions(
         let newVoiceFileList = draft.voiceList.voiceFileList.filter(
           (v) => v.voiceFileId !== voiceFileId
         );
-
         draft.voiceFileList = newVoiceFileList;
       }),
   },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
@@ -17,6 +17,10 @@ import logo from "../shared/images/Footer_logo.svg";
 import mail from "../shared/images/Footer_mail.svg";
 import insta from "../shared/images/Footer_insta.svg";
 import help from "../shared/images/Footer_help.svg";
+
+// 모달
+import { ModalPortal } from "../shared/modal/portals";
+import EventModal from "../shared/modal/component/EventModal";
 
 const LandingPage = () => {
   const history = useHistory();
@@ -38,6 +42,16 @@ const LandingPage = () => {
   if (isLogin && isMember?.length !== 0) {
     history.replace(`/family/${isMember[0]?.familyId}`);
   }
+
+  const [modalOn, setModalOn] = useState(false);
+
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
+
+  useEffect(() => {
+    handleModal();
+  }, []);
 
   return (
     <Container>
@@ -99,6 +113,10 @@ const LandingPage = () => {
           </a>
         </IconBox>
       </LowerBox>
+      {/* 이벤트 모달 */}
+      <ModalPortal>
+        {modalOn && <EventModal onClose={handleModal}></EventModal>}
+      </ModalPortal>
     </Container>
   );
 };
