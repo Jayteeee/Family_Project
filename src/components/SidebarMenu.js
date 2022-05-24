@@ -37,7 +37,7 @@ const SidebarMenu = (familyId) => {
 
   // 사이드바 색상 변경
   const handleHomeMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "true");
+    localStorage.setItem("homeMenuColor", "colorChage");
     localStorage.setItem("missionMenuColor", false);
     localStorage.setItem("calendarMenuColor", false);
     localStorage.setItem("galleryMenuColor", false);
@@ -46,7 +46,7 @@ const SidebarMenu = (familyId) => {
 
   const handleMissionMenuColor = () => {
     localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", "true");
+    localStorage.setItem("missionMenuColor", "colorChage");
     localStorage.setItem("calendarMenuColor", false);
     localStorage.setItem("galleryMenuColor", false);
     localStorage.setItem("voiceMenuColor", false);
@@ -55,7 +55,7 @@ const SidebarMenu = (familyId) => {
   const handleCalendarMenuColor = () => {
     localStorage.setItem("homeMenuColor", false);
     localStorage.setItem("missionMenuColor", false);
-    localStorage.setItem("calendarMenuColor", "true");
+    localStorage.setItem("calendarMenuColor", "colorChage");
     localStorage.setItem("galleryMenuColor", false);
     localStorage.setItem("voiceMenuColor", false);
   };
@@ -64,7 +64,7 @@ const SidebarMenu = (familyId) => {
     localStorage.setItem("homeMenuColor", false);
     localStorage.setItem("missionMenuColor", false);
     localStorage.setItem("calendarMenuColor", false);
-    localStorage.setItem("galleryMenuColor", "true");
+    localStorage.setItem("galleryMenuColor", "colorChage");
     localStorage.setItem("voiceMenuColor", false);
   };
 
@@ -73,7 +73,7 @@ const SidebarMenu = (familyId) => {
     localStorage.setItem("missionMenuColor", false);
     localStorage.setItem("calendarMenuColor", false);
     localStorage.setItem("galleryMenuColor", false);
-    localStorage.setItem("voiceMenuColor", "true");
+    localStorage.setItem("voiceMenuColor", "colorChage");
   };
 
   console.log(localStorage.getItem("homeMenuColor"));
@@ -81,7 +81,7 @@ const SidebarMenu = (familyId) => {
   return (
     <>
       <SidebarMenuWrap className="res-menuWrap">
-        {localStorage.getItem("homeMenuColor") === "true" ? (
+        {localStorage.getItem("homeMenuColor") === "colorChage" ? (
           <MenuBox
             className="homeMenu"
             onClick={() => {
@@ -108,7 +108,7 @@ const SidebarMenu = (familyId) => {
             <Menus className="Sidebarmenus">홈</Menus>
           </MenuBox>
         )}
-        {localStorage.getItem("missionMenuColor") === "true" ? (
+        {localStorage.getItem("missionMenuColor") === "colorChage" ? (
           <MenuBox
             className="res-menuBox"
             onClick={() => {
@@ -133,7 +133,7 @@ const SidebarMenu = (familyId) => {
             <Menus className="Sidebarmenus"> 미션</Menus>
           </MenuBox>
         )}
-        {localStorage.getItem("calendarMenuColor") === "true" ? (
+        {localStorage.getItem("calendarMenuColor") === "colorChage" ? (
           <MenuBox
             className="res-menuBox"
             onClick={() => {
@@ -158,7 +158,7 @@ const SidebarMenu = (familyId) => {
             <Menus className="Sidebarmenus">캘린더</Menus>
           </MenuBox>
         )}
-        {localStorage.getItem("galleryMenuColor") === "true" ? (
+        {localStorage.getItem("galleryMenuColor") === "colorChage" ? (
           <MenuBox
             className="res-menuBox"
             onClick={() => {
@@ -183,7 +183,7 @@ const SidebarMenu = (familyId) => {
             <Menus className="Sidebarmenus">갤러리</Menus>
           </MenuBox>
         )}
-        {localStorage.getItem("voiceMenuColor") === "true" ? (
+        {localStorage.getItem("voiceMenuColor") === "colorChage" ? (
           <MenuBox
             className="res-menuBox"
             onClick={() => {

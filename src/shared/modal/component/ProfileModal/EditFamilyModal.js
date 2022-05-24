@@ -95,7 +95,7 @@ const EditFamilyModal = ({ onClose }) => {
           >
             <SettingWrap>
               <TitleBox>
-                <Text S3>가족 수정하기</Text>
+                <Text S3>가족 추가하기</Text>
               </TitleBox>
               <SettingBox>
                 <Text C color="#757575">

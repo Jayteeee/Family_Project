@@ -267,7 +267,7 @@ export default handleActions(
       }),
     [ADD_VOICE]: (state, action) =>
       produce(state, (draft) => {
-        draft.voiceList.voiceFileList.push(action.payload.newVoice);
+        draft.voiceFileList.push(action.payload.newVoice);
       }),
     [EDIT_VOICE_ALBUM]: (state, action) =>
       produce(state, (draft) => {
@@ -302,7 +302,6 @@ export default handleActions(
         let newVoiceFileList = draft.voiceList.voiceFileList.filter(
           (v) => v.voiceFileId !== voiceFileId
         );
-
         draft.voiceFileList = newVoiceFileList;
       }),
   },

@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 // 모달
 import { ModalPortal } from "../../portals";
+import AlertModal from "../AlertModal";
+import AddMemberAlertModal from "./AddMemberAlertModal";
 
 // 엘리먼트
 import { Button, Input, Text } from "../../../../elements";
@@ -31,6 +33,12 @@ const AddMemberModal = ({ onClose }) => {
 
   const myNickname = useSelector((state) => state?.user?.user?.user?.nickname);
 
+  const familyMemberList = useSelector(
+    (state) => state.familymember.familyMemberList
+  );
+
+  console.log("가족 맴버 리스트:", familyMemberList);
+
   console.log("검색한 이메일:", searchEmail);
 
   console.log("검색한 맴버:", searchMember);
@@ -38,6 +46,7 @@ const AddMemberModal = ({ onClose }) => {
 
   // 검색한 userId 주입
   const handleSearchEmail = (e) => {
+    setSelectEmail(e.target.value);
     setsearchEmail(e.target.value);
     dispatch(familyMemberActions.getSearchMemberDB(e.target.value));
   };
@@ -53,18 +62,42 @@ const AddMemberModal = ({ onClose }) => {
     setfamilyMemberNickname(value);
   };
 
+  // 동알한 가족구성원 있는지 체크
+  const familyMemberChk = familyMemberList.find((f) => f.email === selectEmail);
+  console.log("가족구성원 체크:", familyMemberChk);
+
+  // 동알한 가족구성원이름 있는지 체크
+  const familyMemberNicknameChk = familyMemberList.find(
+    (f) => f.familyMemberNickname === familyMemberNickname
+  );
+  console.log("가족구성원이름 체크:", familyMemberNicknameChk);
+
   // 소켓 부분
   const socket = useSelector((state) => state.socket.socket);
 
-  // 가족 구성원 추가하기 함수
-  const addFamilyMember = () => {
-    // dispatch(
-    //   familyMemberActions.addFamilyMemberDB(
-    //     familyId,
-    //     familyMemberNickname,
-    //     selectEmail
-    //   )
-    // );
+  // 가족 초대하기 알람 모달
+  const [addMemberModalOn, setAddMemberModalOn] = useState(false);
+
+  const addMemberHandleModal = () => {
+    setAddMemberModalOn(!addMemberModalOn);
+  };
+
+  // 가족 초대하기 중복 알람 모달
+  const [checkMemberModalOn, setCheckMemberModalOn] = useState(false);
+
+  const checkMemberHandleModal = () => {
+    setCheckMemberModalOn(!checkMemberModalOn);
+  };
+
+  // 가족 초대하기 이름중복 알람 모달
+  const [checkMemberNicknameModalOn, setCheckMemberNicknameModalOn] =
+    useState(false);
+
+  const checkMemberNicknameHandleModal = () => {
+    setCheckMemberNicknameModalOn(!checkMemberNicknameModalOn);
+  };
+
+  const addFamilyMemberSocket = () => {
     socket?.emit("inviteMember", {
       familyId: familyId,
       selectEmail: selectEmail,
@@ -72,21 +105,28 @@ const AddMemberModal = ({ onClose }) => {
       nickname: myNickname,
       type: "초대",
     });
-    socket.on("errorMsg", (data) => {
-      if (data) {
-        alert(data);
-      }
-    });
-
-    console.log("inviteMember ", familyId, selectEmail);
-    onClose();
+    addMemberHandleModal();
   };
 
-  const familyMemberList = useSelector(
-    (state) => state.familymember.familyMemberList
-  );
+  // 가족 구성원 추가하기 함수
+  const addFamilyMember = () => {
+    familyMemberChk !== undefined
+      ? checkMemberHandleModal()
+      : familyMemberNicknameChk !== undefined
+      ? checkMemberNicknameHandleModal()
+      : addFamilyMemberSocket();
 
-  console.log("가족 맴버 리스트:", familyMemberList);
+    // if (    familyMemberChk !== undefined) {
+    //   checkMemberHandleModal()
+    // } else { if(familyMemberNicknameChk !== undefined) {(socket?.emit("inviteMember", {
+    //   familyId: familyId,
+    //   selectEmail: selectEmail,
+    //   familyMemberNickname: familyMemberNickname,
+    //   nickname: myNickname,
+    //   type: "초대",
+    // })
+    // addMemberHandleModal()}}
+  };
 
   useEffect(
     () => {
@@ -158,11 +198,12 @@ const AddMemberModal = ({ onClose }) => {
               <Button
                 L
                 id="myBtn"
+                className="addMemberBtn"
                 onClick={addFamilyMember}
                 color="#fff"
                 borderColor="#fff"
                 borderRadius="12px"
-                style={{ backgroundColor: "#6371F7", opacity: "0.4" }}
+                style={{ backgroundColor: "#6371F7" }}
               >
                 초대
               </Button>
@@ -170,6 +211,34 @@ const AddMemberModal = ({ onClose }) => {
           </SettingWrap>
         </Content>
       </Background>
+      {/* 가족 구성원 초대 모달 */}
+      <ModalPortal>
+        {addMemberModalOn && (
+          <AddMemberAlertModal
+            onClose={addMemberHandleModal}
+            onCloseAddMember={onClose}
+            content={`${familyMemberNickname}님에게 초대 메시지를 보냈어요!`}
+          ></AddMemberAlertModal>
+        )}
+      </ModalPortal>
+      {/* 가족 구성원 초대 중복 체크 모달 */}
+      <ModalPortal>
+        {checkMemberModalOn && (
+          <AlertModal
+            onClose={checkMemberHandleModal}
+            content={"동일한 가족 구성원이 있어요!"}
+          ></AlertModal>
+        )}
+      </ModalPortal>
+      {/* 가족 구성원 초대 이름중복 체크 모달 */}
+      <ModalPortal>
+        {checkMemberNicknameModalOn && (
+          <AlertModal
+            onClose={checkMemberNicknameHandleModal}
+            content={"동일한 가족 구성원 이름이 있어요!"}
+          ></AlertModal>
+        )}
+      </ModalPortal>
     </ModalPortal>
   );
 };
@@ -196,9 +265,9 @@ const Content = styled.div`
   max-width: 376px;
   width: 100%;
   /* overflow: scroll; */
-  #myBtn {
+  .addMemberBtn {
     :hover {
-      opacity: 1 !important;
+      background: #3245f5 !important;
     }
   }
   .myInput {

@@ -98,7 +98,7 @@ const Main = (props) => {
 
   // 사이드바 매뉴 색상
   const handleMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "true");
+    localStorage.setItem("homeMenuColor", "colorChage");
     localStorage.removeItem("missionMenuColor");
     localStorage.removeItem("calendarMenuColor");
     localStorage.removeItem("galleryMenuColor");
@@ -108,6 +108,12 @@ const Main = (props) => {
   const onClose = () => {
     setShowOptions(false);
   };
+
+  // 토큰 없을 시 홈으로
+  if (!sessionStorage.getItem("token")) {
+    history.replace("/");
+    localStorage.clear();
+  }
 
   return (
     <>
