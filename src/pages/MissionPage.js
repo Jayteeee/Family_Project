@@ -6,6 +6,7 @@ import styled from "styled-components";
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 import { missionActions } from "../redux/modules/mission";
+import { history } from "../redux/configureStore";
 
 // 컴포넌트
 import MissionHeader from "../components/Mission/MissionHeader";
@@ -48,6 +49,12 @@ const MissionPage = (props) => {
     dispatch(missionActions.getPastMissionDB(familyId));
     dispatch(missionActions.getMissionStatusDB(familyId));
   }, []);
+
+  // 토큰 없을 시 랜딩페이지로
+  if (!sessionStorage.getItem("token")) {
+    history.replace("/");
+    localStorage.clear();
+  }
 
   return (
     <>

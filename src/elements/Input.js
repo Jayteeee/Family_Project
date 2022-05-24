@@ -38,7 +38,6 @@ const Input = (props) => {
         placeholder={placeholder}
         id={id}
         onChange={onChange}
-        maxlength={maxlength}
         oninput={oninput}
         {...styles}
       />

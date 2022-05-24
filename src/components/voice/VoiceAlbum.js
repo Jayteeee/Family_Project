@@ -388,18 +388,18 @@ const EditFigure = styled.div`
   grid-template-rows: 1fr auto;
   /* margin-bottom: 2%; */
   break-inside: avoid;
-  filter: brightness(70%);
 
   &:hover {
     border-radius: 13px;
     cursor: pointer;
     transform: scale(1.02);
     transition: all 300ms ease-in;
-    filter: brightness(70%);
   }
+  position: relative;
 `;
 
 const EditImageBox = styled.div`
+  filter: brightness(60%);
   grid-row: 1 / -1;
   grid-column: 1;
   display: flex;

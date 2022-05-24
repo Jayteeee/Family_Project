@@ -25,6 +25,13 @@ input {
   user-select: text; /* Standard syntax */
 }
 
+textarea {
+  -webkit-user-select: text; /* Chrome, Opera, Safari */
+  -moz-user-select: text; /* Firefox 2+ */
+  -ms-user-select: text; /* IE 10+ */
+  user-select: text; /* Standard syntax */
+}
+
 .App {
   text-align: center;
   width: 100vw;

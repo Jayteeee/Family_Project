@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 // 리덕스
 import { voiceActions } from "../redux/modules/voice";
+import { history } from "../redux/configureStore";
 
 const VoiceMsgPage = (props) => {
   const dispatch = useDispatch();
@@ -19,6 +20,12 @@ const VoiceMsgPage = (props) => {
   useEffect(() => {
     dispatch(voiceActions.getVoicePage(familyId));
   }, []);
+
+  // 토큰 없을 시 랜딩페이지로
+  if (!sessionStorage.getItem("token")) {
+    history.replace("/");
+    localStorage.clear();
+  }
 
   return (
     <>

@@ -203,14 +203,9 @@ const PhotoAlbumList = ({
             photoAlbumList.map((p) => {
               return (
                 <div key={p.photoAlbumId}>
-                  {/* <OnePhotoAlbum {...p} /> */}
                   <EditFigure>
                     <EditImageBox
-                      // alt="#"
                       src={p.randomPhoto ? p.randomPhoto : emptyPhoto}
-                      onClick={() => {
-                        // history.push(`/detail/${p._id}`);
-                      }}
                     />
                     <DeleteIcon
                       onClick={() => {
@@ -270,7 +265,7 @@ const Container = styled.div`
   column-count: 4;
   column-gap: 1%;
   padding: 40px;
-  position: relative;
+  /* position: relative; */
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
@@ -348,15 +343,14 @@ const EditFigure = styled.div`
   grid-template-rows: 1fr auto;
   /* margin-bottom: 2%; */
   break-inside: avoid;
-  filter: brightness(70%);
 
   &:hover {
     border-radius: 13px;
     cursor: pointer;
     transform: scale(1.02);
     transition: all 300ms ease-in;
-    filter: brightness(70%);
   }
+  position: relative;
 `;
 
 const EditImageBox = styled.div`
@@ -365,6 +359,7 @@ const EditImageBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  filter: brightness(60%);
   width: 100%;
   padding-bottom: 100%;
   border-radius: 13px;
@@ -381,7 +376,7 @@ const DeleteIcon = styled.div`
     width: 33.3px;
     height: 33.3px;
     margin: 14px 10px;
-    color: white;
+    color: #fff;
     position: absolute;
     &:hover {
       color: rgba(29, 28, 29, 1);

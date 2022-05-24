@@ -243,8 +243,7 @@ const deletePhotoDB = (photoId, NowFamilyId, PhotoAlbumName, photoAlbumId) => {
       })
       .then((res) => {
         console.log(res);
-        // window.alert(res.msg)
-        alert("삭제!");
+        window.alert(res.data.msg);
         dispatch(deletePhoto(photoId));
         history.push(
           `/family/${NowFamilyId}/gallery/${PhotoAlbumName}/${photoAlbumId}`

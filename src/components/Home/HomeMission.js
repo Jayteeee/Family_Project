@@ -27,6 +27,7 @@ const HomeMission = ({
   recentMissionUser,
   recentMissionMembers,
 }) => {
+  console.log("최근 미션 등록맴버:", recentMissionUser);
   return (
     <>
       <Container>
