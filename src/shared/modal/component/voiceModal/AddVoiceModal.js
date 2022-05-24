@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdCancel, MdPlayArrow, MdOutlinePause } from "react-icons/md";
 import { ReactMic } from "react-mic";
+import lamejs from "lamejs";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -122,15 +123,42 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
     end();
 
     // dataavailable 이벤트로 Blob 데이터에 대한 응답을 받을 수 있음
-    media.ondataavailable = function (e) {
-      console.log(e);
+    media.ondataavailable = async function (e) {
       setAudioUrl(e.data);
       setOnRec(true);
       setSound(URL.createObjectURL(e.data)); // File 정보 출력
       setVoiceFile(new File([e.data], "file", { type: e.data.type }));
     };
 
-    console.log(sound);
+    // -------------------------------- 테스트
+    // let channels = 1; //1 for mono or 2 for stereo
+    // let sampleRate = 44100; //44.1khz (normal mp3 samplerate)
+    // let kbps = 128; //encode 128kbps mp3
+    // let mp3encoder = new lamejs.Mp3Encoder(channels, sampleRate, kbps);
+    // var mp3Data = [];
+
+    // let samples = new Int16Array(44100); //one second of silence (get your data from the source you have)
+    // let sampleBlockSize = 1152; //can be anything but make it a multiple of 576 to make encoders life easier
+
+    // for (var i = 0; i < samples.length; i += sampleBlockSize) {
+    //   let sampleChunk = samples.subarray(i, i + sampleBlockSize);
+    //   var mp3buf = mp3encoder.encodeBuffer(sampleChunk);
+    //   if (mp3buf.length > 0) {
+    //     mp3Data.push(mp3buf);
+    //   }
+    // }
+    // mp3buf = mp3encoder.flush(); //finish writing mp3
+
+    // if (mp3buf.length > 0) {
+    //   mp3Data.push(new Int8Array(mp3buf));
+    // }
+
+    // var blob = new Blob(mp3Data, { type: "audio/mp3" });
+    // var url = window.URL.createObjectURL(blob);
+    // console.log("MP3 URl: ", url);
+
+    // ----------------------------------------------------
+
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
     stream.getAudioTracks().forEach(function (track) {
       track.stop();
@@ -149,12 +177,15 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
   const myRef = useRef();
 
   const play = () => {
+    // howler.play();
     myRef.current.play();
     console.log(myRef.current);
     setDisabled(true);
   };
 
   const pause = async () => {
+    // howler.pause();
+
     await myRef.current.pause();
     setDisabled(false);
   };
@@ -177,7 +208,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
   };
 
   const timer = () => {
-    const checkMinutes = Math.floor(count / 60);
+    const checkMinutes = Math.ceil(count / 60);
     const minutes = checkMinutes & 60;
     const seconds = count % 60;
 

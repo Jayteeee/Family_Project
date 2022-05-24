@@ -128,7 +128,7 @@ const Header = (props) => {
               <NotiBox
                 onClick={handleNoti}
                 onBlur={() => {
-                  setNotiOn(false);
+                  handleNoti();
                 }}
               >
                 <MdNotificationsNone />
