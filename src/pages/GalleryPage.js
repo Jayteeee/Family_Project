@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 // 리덕스
 import { useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 
 // 컴포넌트
 import GalleryHeader from "../components/Gallery/GalleryHeader";
@@ -43,6 +44,12 @@ const GalleryPage = (props) => {
   const handleAlert = () => {
     setAlertOn(!alertOn);
   };
+
+  // 토큰 없을 시 랜딩페이지로
+  if (!sessionStorage.getItem("token")) {
+    history.replace("/");
+    localStorage.clear();
+  }
 
   return (
     <>

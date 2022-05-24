@@ -179,13 +179,6 @@ const editProfileImgDB = (formData, myFamiyMemberId) => {
         );
 
         dispatch(editProfileImg(newProfileImg));
-
-        dispatch(
-          detailPhotoActions.editDetailPhotoProfileImg(
-            newProfileImg,
-            myFamiyMemberId
-          )
-        );
         // dispatch(
         //   missionActions.editMissionMemberProfileImg(
         //     newProfileImg,

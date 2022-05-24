@@ -18,7 +18,6 @@ const GET_DETAIL_PHOTO = "GET_DETAIL_PHOTO";
 const ADD_COMMENT = "ADD_COMMENT";
 const ADD_LIKE = "ADD_LIKE";
 const ADD_LIKE_MEMBER = "ADD_LIKE_MEMBER";
-const EDIT_DETAIL_PHOTO_PROFILE_IMG = "EDIT_DETAIL_PHOTO_PROFILE_IMG";
 const DELETE_COMMENT = "DELETE_COMMENT";
 const DELETE_LIKE = "DELETE_LIKE";
 
@@ -37,13 +36,6 @@ const addLike = createAction(ADD_LIKE, (likeChk) => ({
 const addLikeMember = createAction(ADD_LIKE_MEMBER, (likeMember) => ({
   likeMember,
 }));
-const editDetailPhotoProfileImg = createAction(
-  EDIT_DETAIL_PHOTO_PROFILE_IMG,
-  (profileImg, familyMemberId) => ({
-    profileImg,
-    familyMemberId,
-  })
-);
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
   commentId,
 }));
@@ -211,28 +203,6 @@ export default handleActions(
         draft.nowPhotoDetail.likeMemberList.push(likeChk);
       }),
 
-    [EDIT_DETAIL_PHOTO_PROFILE_IMG]: (state, action) =>
-      produce(state, (draft) => {
-        const { profileImg, familyMemberId } = action.payload;
-        // 현재 가족
-        let nowLikeMember = draft.nowPhotoDetail.likeMemberList.find(
-          (l) => l.familyMemberId === familyMemberId
-        );
-
-        // // 변경해야할 배열 인덱스
-        let index = draft.nowPhotoDetail.likeMemberList.findIndex(
-          (l) => l.familyMemberId === familyMemberId
-        );
-
-        nowLikeMember = {
-          ...nowLikeMember,
-          profileImg: profileImg,
-        };
-
-        draft.nowPhotoDetail.likeMemberList[index] = nowLikeMember;
-        draft.nowPhotoDetail.detailPhoto.userInfo.profileImg = profileImg;
-      }),
-
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         const { commentId } = action.payload;
@@ -262,6 +232,5 @@ export const detailPhotoActions = {
   addCommentDB,
   addLikeDB,
   addLikeMember,
-  editDetailPhotoProfileImg,
   deleteCommentDB,
 };

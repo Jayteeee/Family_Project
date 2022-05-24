@@ -9,6 +9,7 @@ import { FiPlus } from "react-icons/fi";
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import { scheduleActions } from "../redux/modules/calendar";
+import { history } from "../redux/configureStore";
 
 // 이미지
 import emptyPhoto from "../shared/images/emptyPhoto.svg";
@@ -60,6 +61,12 @@ const CalendarPage = (props) => {
   React.useEffect(() => {
     dispatch(scheduleActions.getScheduleDB(familyId, date));
   }, [list.length, thisMonth]);
+
+  // 토큰 없을 시 랜딩페이지로
+  if (!sessionStorage.getItem("token")) {
+    history.replace("/");
+    localStorage.clear();
+  }
 
   return (
     <Container>

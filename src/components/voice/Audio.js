@@ -227,18 +227,7 @@ const Audio = ({ voiceAlbumId, familyId, isEdit, PracticeEdit, voiceList }) => {
         <Container>
           <EditFigure>
             <EditVoiceWrap>
-              <VoiceBox
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <DeleteIcon
-                  onClick={() => {
-                    handleModal();
-                  }}
-                >
-                  <MdRemoveCircle />
-                </DeleteIcon>
+              <VoiceBox>
                 <NonePlayer>
                   <ProfileBox>
                     <RactangleImage
@@ -309,26 +298,30 @@ const Audio = ({ voiceAlbumId, familyId, isEdit, PracticeEdit, voiceList }) => {
                     </Text>
                   </RunTime>
                 </PlayBox>
-                <PlayBtn
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // setRun(!run);
+                <BtnBox>
+                  <PlayBtn>
+                    {run ? (
+                      <RiPlayFill
+                        onClick={() => {
+                          // play();
+                        }}
+                      />
+                    ) : (
+                      <BsFillPauseFill
+                        onClick={() => {
+                          // pause();
+                        }}
+                      />
+                    )}
+                  </PlayBtn>
+                </BtnBox>
+                <DeleteIcon
+                  onClick={() => {
+                    handleModal();
                   }}
                 >
-                  {run ? (
-                    <RiPlayFill
-                      onClick={() => {
-                        // play();
-                      }}
-                    />
-                  ) : (
-                    <BsFillPauseFill
-                      onClick={() => {
-                        // pause();
-                      }}
-                    />
-                  )}
-                </PlayBtn>
+                  <MdRemoveCircle />
+                </DeleteIcon>
               </VoiceBox>
               <MobilePlayBox>
                 <ProgressBar>
@@ -403,7 +396,7 @@ const Figure = styled.div`
   &:hover {
     border-radius: 13px;
     transition: all 300ms ease-in;
-    filter: brightness(70%);
+    /* filter: brightness(70%); */
   }
 `;
 
@@ -870,6 +863,7 @@ const EditFigure = styled.div`
     transition: all 300ms ease-in;
     filter: brightness(70%);
   }
+  position: relative;
 `;
 
 const DeleteIcon = styled.div`

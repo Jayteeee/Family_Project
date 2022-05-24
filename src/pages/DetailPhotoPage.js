@@ -5,6 +5,9 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import DetailPhoto from "../components/Gallery/DetailPhoto";
 
+// 리덕스
+import { history } from "../redux/configureStore";
+
 // 컴포넌트
 import PhotoHeader from "../components/Gallery/PhotoHeader";
 import PhotoList from "../components/Gallery/PhotoList";
@@ -35,6 +38,13 @@ const PhotoDetalilPage = (props) => {
   const PracticeEdit = () => {
     setIsEdit(!isEdit);
   };
+
+  // 토큰 없을 시 랜딩페이지로
+  if (!sessionStorage.getItem("token")) {
+    history.replace("/");
+    localStorage.clear();
+  }
+
   return (
     <>
       <PhotoDetailPageWrap className="res-pageWrap">

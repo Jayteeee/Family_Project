@@ -16,6 +16,7 @@ import { Text, CircleImage, RactangleImage } from "../elements";
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
 import { ProfileModal } from "../shared/modal/component/ProfileModal";
+import NotiModal from "../shared/modal/component/NotiModal";
 
 // 이미지
 // import profileImg from "../shared/images/profileImg.png";
@@ -98,7 +99,7 @@ const Header = (props) => {
             }}
           />
           <HeaderRightBox>
-            <NotiBox>
+            <NotiWrap>
               <Research
                 onMouseOver={() => {
                   setToolTipOn(true);
@@ -124,25 +125,27 @@ const Header = (props) => {
                   </ToolTip>
                 ) : null}
               </Research>
-              <MdNotificationsNone
-                style={{
-                  marginRight: "20px",
-                  fontSize: "20px",
-                  color: "#757575",
-                  cursor: "pointer",
-                }}
+              <NotiBox
                 onClick={handleNoti}
                 onBlur={() => {
                   handleNoti();
                 }}
-              />
+              >
+                <MdNotificationsNone />
+              </NotiBox>
               {alert.length !== 0 ? (
                 <NotiCount>{alert?.length}</NotiCount>
               ) : null}
-            </NotiBox>
+            </NotiWrap>
             {notiOn ? (
               <>
-                <NotiMsgBox>
+                <NotiModal
+                  alert={alert}
+                  onClose={handleNoti}
+                  deleteAlert={deleteAlert}
+                  addFamilyMember={addFamilyMember}
+                />
+                {/* <NotiMsgBox>
                   <span className="triangle"></span>
                   {alert.length !== 0 ? (
                     alert.map((x, i) => {
@@ -200,7 +203,7 @@ const Header = (props) => {
                   ) : (
                     <div> 알림이 없습니다. </div>
                   )}
-                </NotiMsgBox>
+                </NotiMsgBox> */}
               </>
             ) : null}
 
@@ -289,7 +292,7 @@ const Research = styled.div`
   align-items: center;
   justify-content: center;
   color: rgba(117, 117, 117, 1);
-  margin-right: 20px;
+  margin-right: 10px;
   a {
     text-decoration: none;
     color: rgba(117, 117, 117, 1);
@@ -326,16 +329,30 @@ const ToolTip = styled.div`
   }
 `;
 
-const NotiBox = styled.div`
+const NotiWrap = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
 
-  svg {
-    &:hover {
+const NotiBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  background: #fff;
+  &:hover {
+    svg {
       filter: brightness(50%);
     }
+  }
+  cursor: pointer;
+  svg {
+    font-size: 21px;
+    color: #757575;
   }
 `;
 
@@ -439,8 +456,8 @@ const Line = styled.hr`
 `;
 
 const NotiCount = styled.div`
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   background-color: red;
   border-radius: 50%;
   padding: 5px;
@@ -450,8 +467,8 @@ const NotiCount = styled.div`
   justify-content: center;
   color: white;
   position: absolute;
-  top: -3px;
-  right: 16px;
+  top: 5px;
+  right: 12px;
 `;
 
 const ProfileBox = styled.div`

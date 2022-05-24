@@ -92,6 +92,7 @@ const SignupModal = () => {
         onChange={handleChange}
         value={inputs.nickname || ""}
         margin="10px auto"
+        maxLength="8"
       />
       <Input
         M

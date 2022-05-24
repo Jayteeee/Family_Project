@@ -113,14 +113,7 @@ const DetailPhoto = ({
 
   const userId = useSelector((state) => state.user.user.user?.userId);
 
-  // const nowLikeMember = {
-  //   familyMemberNickname: detailPhoto?.userInfo.familyMemberNickname,
-  //   profileImg: detailPhoto?.userInfo.profileImg,
-  // };
-
-  // const [likeMember, setLikeMember] = useState(nowLikeMember);
-
-  // console.log("좋아요 누른 유저:", likeMember);
+  const userProfile = useSelector((state) => state.user.user.user?.profileImg);
 
   const addlike = () => {
     dispatch(
@@ -131,12 +124,6 @@ const DetailPhoto = ({
         userId
       )
     );
-
-    // if (like) {
-    //   dispatch(detailPhotoActions.addLikeMember(likeMember));
-    // } else {
-    //   dispatch(detailPhotoActions.addLikeMember(false));
-    // }
   };
 
   const [modalOn, setModalOn] = useState(false);
@@ -147,7 +134,7 @@ const DetailPhoto = ({
 
   useEffect(() => {
     dispatch(detailPhotoActions.getDetailPhotoDB(NowFamilyId, photoId));
-  }, [detailPhotoData.likeChk]);
+  }, [detailPhotoData.likeChk, userProfile]);
 
   // socket 부분
 
@@ -379,18 +366,18 @@ const DetailPhoto = ({
                     borderRadius="8.4px"
                     margin="0 10px 0 0"
                     src={
-                      detailPhoto?.userInfo.profileImg === "Profile01"
+                      userProfile === "Profile01"
                         ? Profile01
-                        : detailPhoto?.userInfo.profileImg === "Profile02"
+                        : userProfile === "Profile02"
                         ? Profile02
-                        : detailPhoto?.userInfo.profileImg === "Profile03"
+                        : userProfile === "Profile03"
                         ? Profile03
-                        : detailPhoto?.userInfo.profileImg === "Profile04"
+                        : userProfile === "Profile04"
                         ? Profile04
-                        : detailPhoto?.userInfo.profileImg === "Profile05"
+                        : userProfile === "Profile05"
                         ? Profile05
-                        : detailPhoto?.userInfo.profileImg
-                        ? detailPhoto?.userInfo.profileImg
+                        : userProfile
+                        ? userProfile
                         : Profile01
                     }
                   />
@@ -401,6 +388,7 @@ const DetailPhoto = ({
                       alignItems: "center",
                       display: "flex",
                       justifyContent: "center",
+                      width: "100%",
                     }}
                   >
                     <CommentTextarea
@@ -737,7 +725,7 @@ const CommentTextarea = styled.textarea`
     outline: none !important;
     border-color: #6371f7 !important;
   }
-  width: ${({ width }) => (width ? `${width};` : "100%;")};
+  width: 100%;
   height: 24px;
   padding: 5px 0 0 10px;
   margin: 10px 0;

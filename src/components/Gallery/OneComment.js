@@ -13,7 +13,7 @@ import {
 import dayjs from "dayjs";
 
 // 엘리먼트
-import { Button, CircleImage, Text, Input } from "../../elements";
+import { Button, RactangleImage, Text, Input } from "../../elements";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -49,9 +49,10 @@ const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
         <CommentContentWrap>
           <CommentProfile>
             <div>
-              <CircleImage
-                XS
-                // src={userInfo?.profileImg ? userInfo?.profileImg : profileImg}
+              <RactangleImage
+                S
+                size="24px"
+                borderRadius="8.4px"
                 src={
                   userInfo?.profileImg === "Profile01"
                     ? Profile01
@@ -78,7 +79,6 @@ const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
               </CancelBtn>
             )}
           </CommentProfile>
-
           <CommentContent>
             <Text size="15px">{comment}</Text>
           </CommentContent>
@@ -114,12 +114,12 @@ const CommentContent = styled.div`
   display: flex;
   text-align: left;
   width: 100%;
-  padding: 5px 10px 10px 32px;
+  padding: 5px 10px 10px 35px;
 `;
 
 const CommentTime = styled.div`
   text-align: left;
-  padding-left: 32px;
+  padding-left: 35px;
 `;
 
 const CancelBtn = styled.div`

@@ -119,7 +119,7 @@ const HomePage = (props) => {
   // 사이드바 색상 변경
   const handleMissionMenuColor = () => {
     localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", "true");
+    localStorage.setItem("missionMenuColor", "colorChage");
     localStorage.setItem("calendarMenuColor", false);
     localStorage.setItem("galleryMenuColor", false);
     localStorage.setItem("voiceMenuColor", false);
@@ -128,7 +128,7 @@ const HomePage = (props) => {
   const handleCalendarMenuColor = () => {
     localStorage.setItem("homeMenuColor", false);
     localStorage.setItem("missionMenuColor", false);
-    localStorage.setItem("calendarMenuColor", "true");
+    localStorage.setItem("calendarMenuColor", "colorChage");
     localStorage.setItem("galleryMenuColor", false);
     localStorage.setItem("voiceMenuColor", false);
   };
@@ -137,7 +137,7 @@ const HomePage = (props) => {
     localStorage.setItem("homeMenuColor", false);
     localStorage.setItem("missionMenuColor", false);
     localStorage.setItem("calendarMenuColor", false);
-    localStorage.setItem("galleryMenuColor", "true");
+    localStorage.setItem("galleryMenuColor", "colorChage");
     localStorage.setItem("voiceMenuColor", false);
   };
 
@@ -146,7 +146,7 @@ const HomePage = (props) => {
     localStorage.setItem("missionMenuColor", false);
     localStorage.setItem("calendarMenuColor", false);
     localStorage.setItem("galleryMenuColor", false);
-    localStorage.setItem("voiceMenuColor", "true");
+    localStorage.setItem("voiceMenuColor", "colorChage");
   };
 
   useEffect(() => {
@@ -156,6 +156,12 @@ const HomePage = (props) => {
     //   dispatch(familyMemberActions.getFamilyMemberStatusDB(familyId));
     // }, 1000);
   }, [familyId]);
+
+  // 토큰 없을 시 랜딩페이지로
+  if (!sessionStorage.getItem("token")) {
+    history.replace("/");
+    localStorage.clear();
+  }
 
   return (
     <>
@@ -348,6 +354,11 @@ const HomePageWrap = styled.div`
   height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     margin: 30px 0;
@@ -362,7 +373,7 @@ const HomePageWrap = styled.div`
 `;
 
 const Header = styled.div`
-  width: 100%;
+  /* width: 100%; */
   height: 138px;
   display: flex;
   align-items: center;
@@ -581,37 +592,7 @@ const ProfileBox = styled.div`
   text-align: center;
   margin-right: 30px;
 `;
-const Profile = styled.div`
-  position: relative;
-  /* width: 80px; */
-  & > p {
-    white-space: nowrap;
-  }
-  width: 100%;
-`;
-const TodayMoodBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 37px;
-  height: 37px;
-  font-size: 17px;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
-  /* padding: 0 4px 0 0; */
-  border-radius: 30px;
-  border: none;
-  background-color: #fff;
-  position: absolute;
-  bottom: 32px;
-  right: -10px;
-`;
-const TodayMood = styled.div`
-  width: 27px;
-  height: 27px;
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
-  background-position: center;
-`;
+
 const MiddleLeftBottomBox = styled.div`
   width: 100%;
   height: 50%;
@@ -715,50 +696,7 @@ const MiddleRightBox = styled.div`
     margin-top: 30px;
     /* display: block; */
     flex-wrap: wrap;
-    /* ${({ height }) => (height ? `height: ${height};` : "height: 50rem;")};
-
-    .calendarOpenBtn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      background: #fff;
-      font-size: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      border: 1px solid #dbdbdb;
-    }
-    .calendarCloseBtn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      background: #fff;
-      font-size: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      border: 1px solid #dbdbdb;
-    }
-    .calendarBtnBox {
-      display: flex;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 24px;
-      background: #fff;
-      border-radius: 20px;
-    } */
   }
-  // Medium (Tablet)
-  /* @media screen and (max-width: 1024px) {
-    min-height: 60rem;
-    ${({ height }) => (height ? `height: ${height};` : "max-height: 70rem;")};
-  } */
-  // Small (Tablet)
-  /* @media screen and (max-width: 839px) {
-    min-height: 40rem;
-    ${({ height }) => (height ? `height: ${height};` : "max-height: 70rem;")};
-  } */
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     margin-top: 20px;
@@ -933,14 +871,8 @@ const Container = styled.div`
 
 const Figure = styled.div`
   display: grid;
-  /* grid-template-columns: repeat(1, 2fr);
-  grid-template-rows: 1fr auto; */
-  /* margin-bottom: 2%; */
   break-inside: avoid;
   width: 100%;
-  /* height: 100%; */
-  /* width: 300px;
-  min-height: 300px; */
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {

@@ -366,6 +366,7 @@ const MissionMemberWrap = styled.div`
 
 const MissionMemberBox = styled.div`
   display: flex;
+  overflow-x: scroll;
 
   /* margin: 0 6.5%; */
   @media screen and (max-width: 1199px) {
@@ -388,6 +389,7 @@ const MissionMemberBox = styled.div`
 
 const ProfileBox = styled.div`
   position: relative;
+
   /* width: 100%; */
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {

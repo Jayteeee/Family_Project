@@ -109,12 +109,6 @@ const Main = (props) => {
     setShowOptions(false);
   };
 
-  // // 토큰 없을 시 홈으로
-  // if (!sessionStorage.getItem("token")) {
-  //   history.replace("/");
-  //   localStorage.clear();
-  // }
-
   return (
     <>
       {/* <MainContext.Provider value={NowFamily}>
@@ -245,17 +239,10 @@ const Main = (props) => {
 };
 
 const MainWrap = styled.div`
-  /* display: flex; */
-  /* height: calc(100vh - 44px); */
-  /* color: #282828;
-  background: #f9f9ff; */
   max-width: 100%;
-  /* padding: 20px; */
   display: flex;
-  /* flex-wrap: nowrap; */
-  /* gap: 1em; */
   flex-direction: column !important;
-  /* max-height: 200%; */
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
@@ -485,6 +472,7 @@ const PageWrap = styled.div`
   flex-shrink: 1;
   background-color: #f5f6fe;
   overflow-y: scroll;
+  width: 100%;
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
