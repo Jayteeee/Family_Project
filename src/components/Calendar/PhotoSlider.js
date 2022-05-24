@@ -118,11 +118,11 @@ const PhotoBox = styled.div`
   top: 50%;
   right: 50%;
   max-height: 800px;
-  height: 800px;
+  height: 700px;
   max-width: 800px;
-  width: 800px;
+  width: 700px;
 
-  overflow: auto;
+  overflow: scroll;
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     max-width: 600px;
@@ -144,8 +144,6 @@ const Photo = styled.img`
   object-fit: cover;
   object-position: center;
   margin: auto;
-
-  overflow: auto;
 `;
 
 const PagingAnchor = styled.a`
