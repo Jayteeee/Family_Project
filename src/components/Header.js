@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { IoMdNotifications } from "react-icons/io";
 import { MdClear, MdNotificationsNone } from "react-icons/md";
-import dayjs from "dayjs";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -86,6 +84,7 @@ const Header = (props) => {
     // });
     setNotiOn(!notiOn);
   };
+  const [toolTipOn, setToolTipOn] = useState(true);
 
   return (
     <>
@@ -94,8 +93,34 @@ const Header = (props) => {
           <RogoBox src={homeRogo} />
           <HeaderRightBox>
             <NotiBox>
-              <Research>
-                <Text BM> 설문 참여 </Text>
+              <Research
+                onMouseOver={() => {
+                  setToolTipOn(true);
+                }}
+                onMouseOut={() => {
+                  setToolTipOn(false);
+                }}
+              >
+                <a
+                  href="https://forms.gle/cKtMucXktf7et7hs9"
+                  data-for="research"
+                  data-tip
+                >
+                  <Text BM> 설문 참여 </Text>
+                </a>
+                {toolTipOn ? (
+                  <ToolTip>
+                    <Text C>
+                      지금 설문조사 참여하면 추첨을 통해 배민 상품권을 드려요.
+                    </Text>
+                    <MdClear
+                      onClick={() => {
+                        setToolTipOn(false);
+                      }}
+                    />
+                    <div className="triangle" />
+                  </ToolTip>
+                ) : null}
               </Research>
               <MdNotificationsNone
                 style={{
@@ -259,6 +284,40 @@ const Research = styled.div`
   justify-content: center;
   color: rgba(117, 117, 117, 1);
   margin-right: 20px;
+  a {
+    text-decoration: none;
+    color: rgba(117, 117, 117, 1);
+  }
+`;
+const ToolTip = styled.div`
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 40px;
+  right: 40px;
+  color: rgba(117, 117, 117, 1);
+  margin-right: 20px;
+  background-color: rgba(99, 113, 247, 1);
+  border-radius: 2px;
+  padding: 10px 20px;
+  z-index: 999;
+  P {
+    color: white;
+  }
+  svg {
+    margin-left: 18px;
+    color: white;
+    cursor: pointer;
+  }
+  .triangle {
+    border-bottom: 8px solid rgba(99, 113, 247, 1);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    position: absolute;
+    right: 20%;
+    top: -7px;
+  }
 `;
 
 const NotiBox = styled.div`
@@ -386,7 +445,7 @@ const NotiCount = styled.div`
   color: white;
   position: absolute;
   top: -3px;
-  left: 12px;
+  right: 16px;
 `;
 
 const ProfileBox = styled.div`

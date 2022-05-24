@@ -94,7 +94,7 @@ const LandingPage = () => {
           <a href="https://www.instagram.com/dorandoran.official/">
             <img alt="인스타그램" src={insta} />
           </a>
-          <a href="">
+          <a href="https://forms.gle/cKtMucXktf7et7hs9">
             <img alt="설문조사" src={help} />
           </a>
         </IconBox>
