@@ -131,31 +131,31 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
     };
 
     // -------------------------------- 테스트
-    let channels = 1; //1 for mono or 2 for stereo
-    let sampleRate = 44100; //44.1khz (normal mp3 samplerate)
-    let kbps = 128; //encode 128kbps mp3
-    let mp3encoder = new lamejs.Mp3Encoder(channels, sampleRate, kbps);
-    var mp3Data = [];
+    // let channels = 1; //1 for mono or 2 for stereo
+    // let sampleRate = 44100; //44.1khz (normal mp3 samplerate)
+    // let kbps = 128; //encode 128kbps mp3
+    // let mp3encoder = new lamejs.Mp3Encoder(channels, sampleRate, kbps);
+    // var mp3Data = [];
 
-    let samples = new Int16Array(44100); //one second of silence (get your data from the source you have)
-    let sampleBlockSize = 1152; //can be anything but make it a multiple of 576 to make encoders life easier
+    // let samples = new Int16Array(44100); //one second of silence (get your data from the source you have)
+    // let sampleBlockSize = 1152; //can be anything but make it a multiple of 576 to make encoders life easier
 
-    for (var i = 0; i < samples.length; i += sampleBlockSize) {
-      let sampleChunk = samples.subarray(i, i + sampleBlockSize);
-      var mp3buf = mp3encoder.encodeBuffer(sampleChunk);
-      if (mp3buf.length > 0) {
-        mp3Data.push(mp3buf);
-      }
-    }
-    mp3buf = mp3encoder.flush(); //finish writing mp3
+    // for (var i = 0; i < samples.length; i += sampleBlockSize) {
+    //   let sampleChunk = samples.subarray(i, i + sampleBlockSize);
+    //   var mp3buf = mp3encoder.encodeBuffer(sampleChunk);
+    //   if (mp3buf.length > 0) {
+    //     mp3Data.push(mp3buf);
+    //   }
+    // }
+    // mp3buf = mp3encoder.flush(); //finish writing mp3
 
-    if (mp3buf.length > 0) {
-      mp3Data.push(new Int8Array(mp3buf));
-    }
+    // if (mp3buf.length > 0) {
+    //   mp3Data.push(new Int8Array(mp3buf));
+    // }
 
-    var blob = new Blob(mp3Data, { type: "audio/mp3" });
-    var url = window.URL.createObjectURL(blob);
-    console.log("MP3 URl: ", url);
+    // var blob = new Blob(mp3Data, { type: "audio/mp3" });
+    // var url = window.URL.createObjectURL(blob);
+    // console.log("MP3 URl: ", url);
 
     // ----------------------------------------------------
 
