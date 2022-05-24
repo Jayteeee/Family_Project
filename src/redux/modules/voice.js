@@ -38,10 +38,7 @@ const initialState = {
       ],
     },
   ],
-  missionMemberList: [],
-  pastMissionList: [],
-  selectedMemberList: [],
-  selectedMemberIdList: [],
+  voiceFileList: [],
 };
 
 // 액션
@@ -57,9 +54,13 @@ const DELETE_VOICE = "DELETE_VOICE";
 const getVoice = createAction(GET_VOICE, (nowVoiceData) => ({
   nowVoiceData,
 }));
-const getVoiceList = createAction(GET_VOICE_LIST, (voiceList) => ({
-  voiceList,
-}));
+const getVoiceList = createAction(
+  GET_VOICE_LIST,
+  (voiceList, voiceFileList) => ({
+    voiceList,
+    voiceFileList,
+  })
+);
 const addVoiceAlbum = createAction(ADD_VOICE_ALBUM, (newVoiceAlbum) => ({
   newVoiceAlbum,
 }));
@@ -105,7 +106,9 @@ const getVoiceListDB = (voiceAlbumId) => {
         console.log(res);
         const voiceList = res.data;
         console.log(voiceList);
-        dispatch(getVoiceList(voiceList));
+        const { voiceFileList } = res.data;
+        console.log(voiceFileList);
+        dispatch(getVoiceList(voiceList, voiceFileList));
       })
       .catch((error) => {
         console.log("음성 파일 데이터 안옴", error);
@@ -256,6 +259,7 @@ export default handleActions(
     [GET_VOICE_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.voiceList = action.payload.voiceList;
+        draft.voiceFileList = action.payload.voiceFileList;
       }),
     [ADD_VOICE_ALBUM]: (state, action) =>
       produce(state, (draft) => {
@@ -299,7 +303,7 @@ export default handleActions(
           (v) => v.voiceFileId !== voiceFileId
         );
 
-        draft.voiceList.voiceFileList = newVoiceFileList;
+        draft.voiceFileList = newVoiceFileList;
       }),
   },
   initialState

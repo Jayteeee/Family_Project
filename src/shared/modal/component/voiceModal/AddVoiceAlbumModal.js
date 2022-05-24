@@ -405,6 +405,21 @@ const Preview = styled.div`
   & > img {
     width: 100%;
   }
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 172px;
+    height: 172px;
+    margin-right: 5px;
+    & > img {
+      width: 100%;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 320px) {
+    width: 152px;
+    height: 152px;
+  }
 `;
 
 const ImageBox = styled.div`
@@ -419,6 +434,16 @@ const ImageBox = styled.div`
     width: 55px;
     margin: auto;
     cursor: pointer;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 320px) {
+    width: 100px;
+    height: 100px;
+    & > img {
+      width: 45px;
+      margin: auto;
+      cursor: pointer;
+    }
   }
 `;
 

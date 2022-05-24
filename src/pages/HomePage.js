@@ -32,7 +32,7 @@ import { ProfileModal } from "../shared/modal/component/ProfileModal";
 import { BadgeModal } from "../shared/modal/component/MissionModal";
 
 // 이미지
-import emptyPhotoSmall from "../shared/images/emptyPhotoSmall.svg";
+import emptyPhoto from "../shared/images/emptyPhoto.svg";
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
@@ -280,7 +280,7 @@ const HomePage = (props) => {
                       src={
                         recentPhoto?.photoFile
                           ? recentPhoto?.photoFile
-                          : emptyPhotoSmall
+                          : emptyPhoto
                       }
                     >
                       <TitleBox>
