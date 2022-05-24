@@ -73,34 +73,28 @@ const AddFamilyModal = ({ onClose }) => {
               </Text>
             </Explanation>
             <InputBox>
-              <Input
+              <AddFamilyInput
                 type="text"
                 id="changeName"
                 className="myInput"
                 placeholder="가족 이름을 입력해주세요"
-                margin="0 0 8px 0"
-                padding="16px"
-                height="56px"
-                style={{ borderRadius: "12px", borderColor: "#DBDBDB" }}
                 onChange={handleAddFamily}
-                maxlength="8"
-                oninput="handleAddFamily(this, 8)"
+                maxLength="8"
                 value={familyTitle}
               />
             </InputBox>
             <Button
               L
-              id="myBtn"
               onClick={(e) => {
                 e.stopPropagation();
                 onClose();
                 addFamily();
               }}
+              hover="#3245F5"
               color="#fff"
-              borderColor="#fff"
               borderRadius="12px"
               margin="24px 0 0 0"
-              style={{ backgroundColor: "#6371F7", opacity: "0.4" }}
+              className="editFamilyBtn"
             >
               저장
             </Button>
@@ -134,18 +128,30 @@ const Content = styled.div`
   overflow: scroll;
 `;
 
+const AddFamilyInput = styled.input`
+  &:focus {
+    box-shadow: none;
+    outline: none !important;
+    border-color: #6371f7 !important;
+    /* box-shadow: 0 0 0 0px #6371f7, 0 0 0 2px #6371f7; */
+  }
+
+  width: 100%;
+  height: 56px;
+  padding: 16px;
+  margin: 0 0 8px 0;
+  background-color: #fff;
+  border: 2px solid #dbdbdb;
+  border-radius: 12px;
+`;
+
 const Container = styled.div`
   margin: 24px;
-  #myBtn {
+  .editFamilyBtn {
+    background: #6371f7;
+    border: none;
     :hover {
-      opacity: 1 !important;
-    }
-  }
-  .myInput {
-    :focus {
-      box-shadow: none;
-      outline: none !important;
-      border-color: #6371f7 !important;
+      background: #3245f5;
     }
   }
 `;
