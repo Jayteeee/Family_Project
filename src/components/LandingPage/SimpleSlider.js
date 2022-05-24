@@ -221,7 +221,7 @@ const SimpleSlider = () => {
               </Title>
               <SubTitle>
                 <Text B1 className="res-ss">
-                  우리 가족의 일정을 한 눈에 파악할 수 있어요.
+                  차곡차곡 앨범별로 정리하고 댓글도 남겨보세요.
                 </Text>
               </SubTitle>
             </TextBox>

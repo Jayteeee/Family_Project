@@ -109,11 +109,11 @@ const Main = (props) => {
     setShowOptions(false);
   };
 
-  // 토큰 없을 시 홈으로
-  if (!sessionStorage.getItem("token")) {
-    history.replace("/");
-    localStorage.clear();
-  }
+  // // 토큰 없을 시 홈으로
+  // if (!sessionStorage.getItem("token")) {
+  //   history.replace("/");
+  //   localStorage.clear();
+  // }
 
   return (
     <>
