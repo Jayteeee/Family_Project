@@ -589,6 +589,7 @@ const UserNickname = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 0;
+  height: 37px;
 `;
 
 const HostSign = styled.div`
@@ -604,6 +605,9 @@ const HostSign = styled.div`
 `;
 
 const EditNicknameBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -613,10 +617,8 @@ const EditNicknameBtn = styled.div`
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
   margin-left: 5px;
   & > svg {
-    display: flex;
     color: #757575;
-    padding: 15%;
-    margin: 10% auto;
+    font-size: 10px;
   }
   cursor: pointer;
   &:hover {
@@ -626,6 +628,7 @@ const EditNicknameBtn = styled.div`
 
 const UserMood = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
   margin-top: 4px;
@@ -633,7 +636,9 @@ const UserMood = styled.div`
 `;
 const TodayMood = styled.div`
   display: flex;
+  justify-content: flex-start;
   align-items: center;
+
   width: 50%;
 `;
 
@@ -643,9 +648,11 @@ const Line = styled.hr`
 `;
 
 const SelectBox = styled.div`
+  display: flex;
+  align-items: center;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 30px;
 `;
 const SelectButton = styled.select`
   width: 100%;
