@@ -141,34 +141,10 @@ const ScheduleCalendar = ({ familyId, list }) => {
             if (newLongEvents.length >= 1 && shortEvents.length >= 1) {
               html.push(
                 newLongEvents.map((x, i) => {
-                  console.log(x[0][0]);
+                  console.log(x);
                   return (
                     // <div className="long" key={i}>
-                    <div className="division" key={i}>
-                      <div
-                        className="range"
-                        date={dayjs(date).format("YYYY-MM-DD")}
-                        style={{
-                          backgroundColor: x[0][0]?.color,
-                          width: "100%",
-                          color: "#fff",
-                        }}
-                      >
-                        {x[0].event}
-                      </div>
-                    </div>
-                    // </div>
-                  );
-                })
-              );
-            }
-            if (newLongEvents.length >= 1 && shortEvents.length === 0) {
-              html.push(
-                newLongEvents.map((x, i) => {
-                  console.log(x[0]);
-                  return (
-                    // <div className="long" key={i}>
-                    <div className="division" key={i}>
+                    <div className="division" key={`long1_${i}`}>
                       <div
                         className="range"
                         date={dayjs(date).format("YYYY-MM-DD")}
@@ -178,12 +154,67 @@ const ScheduleCalendar = ({ familyId, list }) => {
                           color: "#fff",
                         }}
                       >
-                        {x[0]?.event}
+                        <span>{x[0].event}</span>
                       </div>
                     </div>
                     // </div>
                   );
                 })
+              );
+            }
+            if (newLongEvents.length === 1 && shortEvents.length === 0) {
+              html.push(
+                // newLongEvents
+                // .map((x, i) => {
+                //   console.log(newLongEvents);
+                //   console.log(x);
+                //   return (
+                //     // <div className="long" key={i}>
+                <div className="division">
+                  <div
+                    className="range"
+                    date={dayjs(date).format("YYYY-MM-DD")}
+                    style={{
+                      backgroundColor: newLongEvents[0][0]?.color,
+                      width: "100%",
+                      color: "#fff",
+                    }}
+                  >
+                    <span>{newLongEvents[0][0]?.event}</span>
+                  </div>
+                </div>
+                // </div>
+                //   );
+                // })
+              );
+            }
+            if (newLongEvents.length >= 2 && shortEvents.length === 0) {
+              html.push(
+                // newLongEvents
+                // .map((x, i) => {
+                //   console.log(newLongEvents);
+                //   console.log(x);
+                //   return (
+                //     // <div className="long" key={i}>
+                <div className="longDivision">
+                  <div
+                    className="range"
+                    date={dayjs(date).format("YYYY-MM-DD")}
+                    style={{
+                      backgroundColor: newLongEvents[0][0]?.color,
+                      width: "100%",
+                      color: "#fff",
+                    }}
+                  >
+                    <span>{newLongEvents[0][0]?.event}</span>
+                  </div>
+                  <p style={{ display: "block", marginTop: "10px" }}>
+                    <span>{`+ ${newLongEvents.length - 1}개 더보기`}</span>
+                  </p>
+                </div>
+                // </div>
+                //   );
+                // })
               );
             }
 
@@ -201,7 +232,7 @@ const ScheduleCalendar = ({ familyId, list }) => {
                         className="event"
                         date={dayjs(date).format("YYYY-MM-DD")}
                       >
-                        {x.event}
+                        <span>{x.event}</span>
                       </div>
                     </div>
                   );
@@ -211,9 +242,13 @@ const ScheduleCalendar = ({ familyId, list }) => {
 
             if (newLongEvents.length !== 0 && shortEvents.length !== 0) {
               html.push(
-                <div className="showList">{`+ ${
-                  newLongEvents.length + shortEvents.length - 1
-                }개 더보기`}</div>
+                <div className="showList">
+                  <span>
+                    {`+ ${
+                      newLongEvents.length + shortEvents.length - 1
+                    }개 더보기`}
+                  </span>
+                </div>
               );
             }
             // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
@@ -242,10 +277,11 @@ const ScheduleCalendar = ({ familyId, list }) => {
 };
 
 const Container = styled.div`
+  overflow: scroll;
   .react-calendar {
     width: 100%;
     max-width: 100%;
-    background-color: #fff;
+    background-color: transparent;
     color: #222;
     border: none;
     padding: 24px;
@@ -267,6 +303,16 @@ const Container = styled.div`
     }
   }
 
+  .react-calendar__month-view__days {
+    margin-top: 36px;
+    @media screen and (max-width: 599px) {
+      margin-top: 19px;
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
+    }
+  }
+
   .react-calendar__navigation {
     position: absolute;
     display: flex;
@@ -276,7 +322,7 @@ const Container = styled.div`
     font-size: 15px;
     @media only screen and (max-width: 1199px) {
       padding: 35px 0;
-      top: 40px;
+      top: 20px;
       left: unset;
       right: 0;
       height: 44px;
@@ -284,23 +330,22 @@ const Container = styled.div`
     }
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
-      top: 20px;
+      top: 16px;
       right: 0;
     }
     // Small (Tablet)
     @media only screen and (max-width: 839px) {
-      top: 20px;
+      top: 26px;
       right: 0;
     }
     // XSmall (Mobile)
     @media screen and (max-width: 599px) {
-      top: 5px;
+      top: 7px;
       margin-right: 0;
       /* width: 220px; */
     }
     // XXSmall (Mobile)
     @media screen and (max-width: 375px) {
-      top: 4px;
     }
   }
 
@@ -391,6 +436,26 @@ const Container = styled.div`
 
   .showList {
     margin-top: 10px;
+
+    @media screen and (max-width: 599px) {
+      display: flex !important;
+      margin: 10px auto 0;
+      width: 8px;
+      height: 8px;
+      background-color: rgba(255, 220, 101, 1);
+      border-radius: 50%;
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
+    }
+    span {
+      @media screen and (max-width: 599px) {
+        display: none;
+      }
+      // XXSmall (Mobile)
+      @media screen and (max-width: 375px) {
+      }
+    }
   }
   /* .long {
     display: flex;
@@ -416,12 +481,51 @@ const Container = styled.div`
     width: 100%;
     margin: 2px 0;
   }
+  .longDivision {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin: 2px 0;
+    p {
+      @media screen and (max-width: 599px) {
+        display: flex !important;
+        margin: auto;
+        width: 8px;
+        height: 8px;
+        background-color: rgba(255, 220, 101, 1);
+        border-radius: 50%;
+      }
+      // XXSmall (Mobile)
+      @media screen and (max-width: 375px) {
+      }
+      span {
+        @media screen and (max-width: 599px) {
+          display: none;
+        }
+        // XXSmall (Mobile)
+        @media screen and (max-width: 375px) {
+        }
+      }
+    }
+  }
   .range {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
+    @media screen and (max-width: 599px) {
+      width: 100%;
+      height: 5px;
+      span {
+        display: none;
+      }
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
+    }
   }
   .dot {
     height: 14px;

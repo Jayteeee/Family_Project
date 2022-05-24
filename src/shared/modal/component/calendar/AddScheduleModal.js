@@ -285,6 +285,8 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                     formatDay={(locale, date) => dayjs(date).format("DD")}
                     selectRange={true}
                     returnValue="range"
+                    next2Label={null}
+                    prev2Label={null}
                     onChange={onChange}
                   ></Calendar>
                 </CalendarBox>
@@ -426,6 +428,13 @@ const Preview = styled.div`
   ${({ value }) =>
     value ? `background-color: ${value};` : "background-color: gray;"}
   cursor: pointer;
+  @media screen and (max-width: 599px) {
+    width: 24px;
+    height: 24px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const Color = styled.li`
@@ -526,6 +535,24 @@ const Box = styled.div`
   padding: 8px 16px;
   background-color: #f5f5f5;
   border-radius: 8px;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .startDate {
+      font-size: 16px;
+    }
+    .endDate {
+      font-size: 16px;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .startDate {
+      font-size: 0.8rem;
+    }
+    .endDate {
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 const XButton = styled.div`
@@ -555,24 +582,6 @@ const CommonBox = styled.div`
   border: 1px solid gray;
   border: none;
   border-radius: 8px;
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    .startDate {
-      font-size: 16px;
-    }
-    .endDate {
-      font-size: 16px;
-    }
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-    .startDate {
-      font-size: 0.8rem;
-    }
-    .endDate {
-      font-size: 0.8rem;
-    }
-  }
 `;
 
 const CalendarBox = styled.div`
@@ -580,12 +589,12 @@ const CalendarBox = styled.div`
   margin: 16px 8px;
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
     margin: 0px auto;
     width: 300px;
     top: 250px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
     /* right: auto; */
   }
 `;

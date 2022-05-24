@@ -78,6 +78,8 @@ const EditScheduleModal = ({ onClose, eventId }) => {
       onClick={(e) => {
         e.stopPropagation();
         setShowBorder(false);
+        setSelec(false);
+        setShowOptions(false);
       }}
     >
       <XButton>
@@ -93,7 +95,8 @@ const EditScheduleModal = ({ onClose, eventId }) => {
       <InnerBox>
         <TitleBox>
           <SelectBox
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               setShowOptions((prev) => !prev);
               setSelec(false);
             }}
@@ -105,7 +108,8 @@ const EditScheduleModal = ({ onClose, eventId }) => {
           </SelectBox>
           <SelectOptions
             show={showOptions}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               setShowOptions((prev) => !prev);
             }}
           >
@@ -215,6 +219,7 @@ const EditScheduleModal = ({ onClose, eventId }) => {
         <CommonBox>
           <Box
             onClick={(e) => {
+              e.stopPropagation();
               setSelec(!selec);
               setShowOptions(false);
             }}
@@ -222,7 +227,7 @@ const EditScheduleModal = ({ onClose, eventId }) => {
             <Text B2 style={{ marginBottom: "6px" }}>
               시작일{" "}
             </Text>
-            <Text S15>
+            <Text S15 className="startDate">
               {dayjs(date[0]).locale("ko").format(`MM월DD일 dddd`)}
             </Text>
           </Box>
@@ -231,7 +236,7 @@ const EditScheduleModal = ({ onClose, eventId }) => {
             <Text B2 style={{ marginBottom: "6px" }}>
               종료일{" "}
             </Text>
-            <Text S15>
+            <Text S15 className="endDate">
               {dayjs(date[1]).locale("ko").format(`MM월DD일 dddd`)}
             </Text>
           </Box>
@@ -244,6 +249,8 @@ const EditScheduleModal = ({ onClose, eventId }) => {
               selectRange={true}
               returnValue="range"
               onChange={onChange}
+              next2Label={null}
+              prev2Label={null}
               defaultValue={[
                 new Date(`${sYear},${sMonth},${Number(sDay)}`),
                 new Date(`${eYear},${eMonth},${Number(eDay) + 1}`),
@@ -448,6 +455,24 @@ const Box = styled.div`
   padding: 8px 16px;
   background-color: #f5f5f5;
   border-radius: 8px;
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    .startDate {
+      font-size: 16px;
+    }
+    .endDate {
+      font-size: 16px;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .startDate {
+      font-size: 0.8rem;
+    }
+    .endDate {
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 const XButton = styled.div`
@@ -482,6 +507,15 @@ const CommonBox = styled.div`
 const CalendarBox = styled.div`
   position: fixed;
   margin: 16px 8px;
+  @media screen and (max-width: 599px) {
+    margin: 0px auto;
+    width: 300px;
+    top: 250px;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    /* right: auto; */
+  }
 `;
 
 const TitleBox = styled.div`

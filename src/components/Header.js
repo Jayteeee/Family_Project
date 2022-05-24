@@ -101,11 +101,7 @@ const Header = (props) => {
                   setToolTipOn(false);
                 }}
               >
-                <a
-                  href="https://forms.gle/cKtMucXktf7et7hs9"
-                  data-for="research"
-                  data-tip
-                >
+                <a href="https://forms.gle/cKtMucXktf7et7hs9" target="_blank">
                   <Text BM> 설문 참여 </Text>
                 </a>
                 {toolTipOn ? (
@@ -130,6 +126,9 @@ const Header = (props) => {
                   cursor: "pointer",
                 }}
                 onClick={handleNoti}
+                onBlur={() => {
+                  setNotiOn(false);
+                }}
               />
               {alert.length !== 0 ? (
                 <NotiCount>{alert?.length}</NotiCount>

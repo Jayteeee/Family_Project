@@ -32,6 +32,7 @@ const HomeCalendar = ({ thisMonthEventList, familyId }) => {
               }
               // console.log(events);
               if (events.length !== 0) {
+                console.log("이벤트, ", events);
                 html.push(
                   events.map((x) => {
                     return (
@@ -70,7 +71,7 @@ const Container = styled.div`
     background-color: #fff;
     color: #222;
     border: none;
-    padding: 24px 24px 12px 24px;
+    padding: 12px 40px;
     overflow-y: scroll;
     border-radius: 16px;
     border: 1px solid #dbdbdb;
@@ -78,14 +79,15 @@ const Container = styled.div`
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
       padding: 24px 24px 12px 24px;
+      height: 50vh;
     }
     // Small (Tablet)
     @media only screen and (max-width: 839px) {
       padding: 24px 24px 12px 24px;
-      height: 40vh;
     }
     // XSmall (Mobile)
     @media screen and (max-width: 599px) {
+      height: 45vh;
       padding: 20px 10px;
       abbr {
         padding: 4px;
@@ -93,6 +95,10 @@ const Container = styled.div`
     }
     // XXSmall (Mobile)
     @media screen and (max-width: 375px) {
+      padding: 10px 10px;
+      abbr {
+        padding: 4px;
+      }
     }
   }
   .react-calendar {
@@ -133,10 +139,18 @@ const Container = styled.div`
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
       margin: 0px;
-      height: 60px;
+      height: 75px;
     }
     @media only screen and (max-width: 839px) {
       margin: 0px;
+    }
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+      height: 55px;
+    }
+    // XXSmall (Mobile)
+    @media screen and (max-width: 375px) {
+      height: 45px;
     }
   }
   .react-calendar__tile:enabled:hover,
@@ -171,6 +185,15 @@ const Container = styled.div`
     width: 10px;
     top: 3px;
     border-radius: 50%;
+    // Medium (Tablet)
+    @media screen and (max-width: 1024px) {
+      /* margin: 0px;
+      height: 60px; */
+    }
+    @media only screen and (max-width: 839px) {
+      height: 6px;
+      width: 6px;
+    }
   }
 `;
 

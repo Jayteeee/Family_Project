@@ -131,7 +131,7 @@ const Container = styled.div`
     font-size: 15px;
     @media only screen and (max-width: 1199px) {
       padding: 35px 0;
-      top: 40px;
+      top: 20px;
       left: unset;
       right: 0;
       height: 44px;
@@ -149,13 +149,13 @@ const Container = styled.div`
     }
     // XSmall (Mobile)
     @media screen and (max-width: 599px) {
-      top: 5px;
+      top: 10px;
       margin-right: 0;
       /* width: 220px; */
     }
     // XXSmall (Mobile)
     @media screen and (max-width: 375px) {
-      top: 4px;
+      top: 10px;
     }
   }
 

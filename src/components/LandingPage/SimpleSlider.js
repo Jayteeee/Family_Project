@@ -258,7 +258,7 @@ const Styled_Slide = styled(Slider)`
     //얘로 크기조정
     max-width: 100%;
     max-height: 100%;
-    width: 70%;
+    width: 60%;
     height: 100%;
     object-fit: contain;
     border-radius: 10px;

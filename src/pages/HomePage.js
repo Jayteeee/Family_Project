@@ -836,7 +836,9 @@ const MiddleRightCalendar = styled.div`
 
 const TotalCalendar = styled.div`
   display: flex;
+
   justify-content: center;
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     flex-wrap: wrap;

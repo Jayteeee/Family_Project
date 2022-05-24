@@ -4,11 +4,15 @@ import React from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
-import { MdAdd } from "react-icons/md";
+import { FiPlus } from "react-icons/fi";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import { scheduleActions } from "../redux/modules/calendar";
+
+// 이미지
+import emptyPhoto from "../shared/images/emptyPhoto.svg";
+import emptyContent from "../shared/images/emptyContent.svg";
 
 // 컴포넌트
 import ScheduleCalendar from "../components/Calendar/ScheduleCalendar";
@@ -64,16 +68,10 @@ const CalendarPage = (props) => {
           캘린더
         </Text>
         <AddButton onClick={handleModal}>
-          <span
-            style={{
-              fontSize: "25px",
-              margin: "0px 5px 4px 0",
-              fontWeight: "600",
-            }}
-          >
-            +
-          </span>
-          <Text BL>일정 추가</Text>
+          <Text BL>
+            <FiPlus />
+            일정 추가
+          </Text>
         </AddButton>
       </Title>
       <div>
@@ -115,25 +113,32 @@ const CalendarPage = (props) => {
             <Text S1 className="scheduleTitle">
               이번 달 일정
             </Text>
-            {scheduleList
-              ? scheduleList.map((x, i) => (
-                  <FlexBox1 key={i}>
-                    <TextBox>
-                      <Text BM>
-                        {`${dayjs(x?.startDate)
-                          .locale("ko")
-                          .format("MM월 DD일, dd")}`}
-                      </Text>
-                    </TextBox>
-                    <FlexBox2>
-                      <DateColor color={x?.color}></DateColor>
-                      <Text S3 className="scheduleText">
-                        {x?.event}
-                      </Text>
-                    </FlexBox2>
-                  </FlexBox1>
-                ))
-              : null}
+            {scheduleList?.length !== 0 ? (
+              scheduleList.map((x, i) => (
+                <FlexBox1 key={i}>
+                  <TextBox>
+                    <Text BM>
+                      {`${dayjs(x?.startDate)
+                        .locale("ko")
+                        .format("MM월 DD일, dd")}`}
+                    </Text>
+                  </TextBox>
+                  <FlexBox2>
+                    <DateColor color={x?.color}></DateColor>
+                    <Text S3 className="scheduleText">
+                      {x?.event}
+                    </Text>
+                  </FlexBox2>
+                </FlexBox1>
+              ))
+            ) : (
+              <NoneContentBox>
+                <NoneContentItem>
+                  <EmptyContentImg src={emptyContent} />
+                  <Text>아직 앨범이 없어요.</Text>
+                </NoneContentItem>
+              </NoneContentBox>
+            )}
           </ScheduleArea>
         </FlexBox>
         <CreateButton onClick={handleModal}>
@@ -176,7 +181,6 @@ const Container = styled.div`
 
   // Medium (Desktop)
   @media only screen and (max-width: 1199px) {
-    padding: 40px;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
@@ -196,26 +200,25 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1px;
+  /* margin-top: 5px; */
 
   // Medium (Desktop)
-  @media only screen and (max-width: 1199px) {
-    padding: 40px;
+  @media screen and (max-width: 1199px) {
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    padding: 23px 16px;
+    margin: 16px 7px;
   }
   // Small (Tablet)
-  @media only screen and (max-width: 839px) {
-    padding: 23px 16px;
+  @media screen and (max-width: 839px) {
+    margin: 26px 6px;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    margin: 7px 0;
     .calendarTitle {
       font-size: 30px;
     }
-    padding: 10px 0;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -230,9 +233,18 @@ const AddButton = styled.button`
   border-color: transparent;
   color: white;
   border-radius: 8px;
-  padding: 16px 32px;
   width: 159px;
   height: 56px;
+  margin-top: 1px;
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  svg {
+    font-size: 20px;
+    margin-right: 5px;
+  }
   @media only screen and (max-width: 1199px) {
     display: none;
   }
@@ -300,7 +312,7 @@ const Option2 = styled.div`
   border-radius: 21px;
   ${({ value }) =>
     value === "memory"
-      ? "background-color: #F4CC4D;"
+      ? "background-color: #ffdc65;"
       : "background-color: transparent;"};
   ${({ value }) => (value === "memory" ? "color: white;" : "color: #757575")};
   & > div {
@@ -358,7 +370,7 @@ const FlexBox1 = styled.div`
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    margin: 24px 16px;
+    margin: 12px 0;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -367,12 +379,14 @@ const FlexBox1 = styled.div`
 
 const FlexBox2 = styled.div`
   display: flex;
+  width: 70%;
   align-items: center;
+  justify-content: flex-start;
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     .scheduleText {
-      font-size: 15px;
+      font-size: 12px;
     }
   }
   // XXSmall (Mobile)
@@ -385,16 +399,21 @@ const TextBox = styled.div`
   width: 88px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 0 24px 0 0;
   color: #757575;
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    margin: 0 20px 0 0;
+    margin: 0 16px 0 0;
+    width: 20%;
+    p {
+      font-size: 10px;
+    }
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
+    width: 30%;
   }
 `;
 
@@ -525,6 +544,204 @@ const DateColor = styled.div`
   border-radius: 2px;
   background-color: ${(props) => props.color};
   margin-right: 8px;
+`;
+
+const NoneContentWrap = styled.div`
+  background: #fff;
+  display: flex;
+  /* min-height: 880px; */
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 20px 40px 40px;
+  padding: 20px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    /* min-height: 680px; */
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    margin: 40px 24px;
+    /* margin-top: 0px !important; */
+    padding-left: 20px !important;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    /* min-height: 480px; */
+    padding: 16px;
+    margin: 28px 16px;
+    /* margin: 20px 9px; */
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin-top: 0px !important;
+  }
+`;
+
+const NoneContentBox = styled.div`
+  width: 100%;
+  height: 100%;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: 50%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: 50%;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 55%;
+  }
+`;
+
+const NoneContentItem = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 10% 20% 0 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  & > p {
+    font-size: 24px;
+    font-weight: 600;
+    position: absolute;
+    top: 100px;
+  }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    & > p {
+      font-size: 30px;
+      font-weight: 600;
+      position: absolute;
+      top: 55px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    & > p {
+      font-size: 20px;
+      font-weight: 600;
+      position: absolute;
+      top: 50px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    & > p {
+      font-size: 15px;
+      font-weight: 600;
+      position: absolute;
+      top: 70px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    & > p {
+      font-size: 15px;
+      font-weight: 600;
+      position: absolute;
+      top: 50px;
+    }
+    padding: 10% 15% 0 15%;
+  }
+`;
+
+const EmptyContentImg = styled.div`
+  width: 100%;
+
+  padding: 22.2%;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
+`;
+
+// 플로팅 버튼
+const FloatingButton = styled.div`
+  display: none;
+
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 140px;
+    right: 30px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 120px;
+    right: 35px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 95px;
+    right: 25px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 80px;
+    right: 25px;
+    border-radius: 100%;
+    background-color: #6371f7;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
 `;
 
 export default CalendarPage;
