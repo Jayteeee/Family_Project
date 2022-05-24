@@ -382,6 +382,7 @@ const FlexBox2 = styled.div`
 
 const TextBox = styled.div`
   height: 18px;
+  width: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
