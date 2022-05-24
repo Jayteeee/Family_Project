@@ -134,8 +134,8 @@ const CalendarPage = (props) => {
             ) : (
               <NoneContentBox>
                 <NoneContentItem>
+                  <Text>아직 일정이 없어요.</Text>
                   <EmptyContentImg src={emptyContent} />
-                  <Text>아직 앨범이 없어요.</Text>
                 </NoneContentItem>
               </NoneContentBox>
             )}
@@ -608,13 +608,14 @@ const NoneContentItem = styled.div`
   height: 100%;
   padding: 10% 20% 0 20%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
+  /* position: relative; */
   & > p {
     font-size: 24px;
     font-weight: 600;
-    position: absolute;
+    /* position: absolute; */
     top: 100px;
   }
 
@@ -667,81 +668,11 @@ const NoneContentItem = styled.div`
 
 const EmptyContentImg = styled.div`
   width: 100%;
-
+  margin-top: 20%;
   padding: 22.2%;
   ${({ src }) => `background-image: url(${src});`};
   background-position: center;
   background-size: cover;
-`;
-
-// 플로팅 버튼
-const FloatingButton = styled.div`
-  display: none;
-
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-    width: 70px;
-    height: 70px;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    bottom: 140px;
-    right: 30px;
-    border-radius: 100%;
-    background-color: #6371f7;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-    width: 70px;
-    height: 70px;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    bottom: 120px;
-    right: 35px;
-    border-radius: 100%;
-    background-color: #6371f7;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    width: 60px;
-    height: 60px;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    bottom: 95px;
-    right: 25px;
-    border-radius: 100%;
-    background-color: #6371f7;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-    width: 50px;
-    height: 50px;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    bottom: 80px;
-    right: 25px;
-    border-radius: 100%;
-    background-color: #6371f7;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
 `;
 
 export default CalendarPage;
