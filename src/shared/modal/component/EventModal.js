@@ -79,9 +79,6 @@ const Content = styled.div`
     min-height: 300px;
     max-width: 300px;
   }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-  }
 `;
 
 const ImgBox = styled.div`
@@ -97,7 +94,7 @@ const ImgBox = styled.div`
     height: 200px;
   }
   // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
+  @media screen and (max-width: 414px) {
     width: 150px;
     height: 150px;
   }
