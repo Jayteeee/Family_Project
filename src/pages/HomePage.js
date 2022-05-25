@@ -102,35 +102,35 @@ const HomePage = (props) => {
 
   // 사이드바 색상 변경
   const handleMissionMenuColor = () => {
-    localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", "colorChage");
-    localStorage.setItem("calendarMenuColor", false);
-    localStorage.setItem("galleryMenuColor", false);
-    localStorage.setItem("voiceMenuColor", false);
+    sessionStorage.setItem("homeMenuColor", false);
+    sessionStorage.setItem("missionMenuColor", "colorChage");
+    sessionStorage.setItem("calendarMenuColor", false);
+    sessionStorage.setItem("galleryMenuColor", false);
+    sessionStorage.setItem("voiceMenuColor", false);
   };
 
   const handleCalendarMenuColor = () => {
-    localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", false);
-    localStorage.setItem("calendarMenuColor", "colorChage");
-    localStorage.setItem("galleryMenuColor", false);
-    localStorage.setItem("voiceMenuColor", false);
+    sessionStorage.setItem("homeMenuColor", false);
+    sessionStorage.setItem("missionMenuColor", false);
+    sessionStorage.setItem("calendarMenuColor", "colorChage");
+    sessionStorage.setItem("galleryMenuColor", false);
+    sessionStorage.setItem("voiceMenuColor", false);
   };
 
   const handleGalleryMenuColor = () => {
-    localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", false);
-    localStorage.setItem("calendarMenuColor", false);
-    localStorage.setItem("galleryMenuColor", "colorChage");
-    localStorage.setItem("voiceMenuColor", false);
+    sessionStorage.setItem("homeMenuColor", false);
+    sessionStorage.setItem("missionMenuColor", false);
+    sessionStorage.setItem("calendarMenuColor", false);
+    sessionStorage.setItem("galleryMenuColor", "colorChage");
+    sessionStorage.setItem("voiceMenuColor", false);
   };
 
   const handleVoiceMenuColor = () => {
-    localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", false);
-    localStorage.setItem("calendarMenuColor", false);
-    localStorage.setItem("galleryMenuColor", false);
-    localStorage.setItem("voiceMenuColor", "colorChage");
+    sessionStorage.setItem("homeMenuColor", false);
+    sessionStorage.setItem("missionMenuColor", false);
+    sessionStorage.setItem("calendarMenuColor", false);
+    sessionStorage.setItem("galleryMenuColor", false);
+    sessionStorage.setItem("voiceMenuColor", "colorChage");
   };
 
   useEffect(() => {

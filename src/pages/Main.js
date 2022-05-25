@@ -93,11 +93,11 @@ const Main = (props) => {
 
   // 사이드바 매뉴 색상
   const handleMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "colorChage");
-    localStorage.removeItem("missionMenuColor");
-    localStorage.removeItem("calendarMenuColor");
-    localStorage.removeItem("galleryMenuColor");
-    localStorage.removeItem("voiceMenuColor");
+    sessionStorage.setItem("homeMenuColor", "colorChage");
+    sessionStorage.removeItem("missionMenuColor");
+    sessionStorage.removeItem("calendarMenuColor");
+    sessionStorage.removeItem("galleryMenuColor");
+    sessionStorage.removeItem("voiceMenuColor");
   };
 
   const onClose = () => {
@@ -369,7 +369,7 @@ const Label = styled.div`
   align-items: center;
   cursor: pointer;
   &:hover {
-    background-color: #d6d6d6;
+    background-color: #f6f6f6;
   }
   padding: 55px 55px 55px 20px;
   // Medium (Desktop)
