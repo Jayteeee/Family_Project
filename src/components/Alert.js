@@ -17,9 +17,6 @@ const Alert = (props) => {
   } = props;
   const dispatch = useDispatch();
 
-  console.log(bg);
-  console.log("유저정보: ", user);
-
   const socket = useSelector((state) => state?.socket?.socket);
   const alert = useSelector((state) => state?.socket?.alert);
 
@@ -57,7 +54,6 @@ const Alert = (props) => {
         selectEmail
       )
     );
-    console.log(userId, familyId, familyMemberNickname);
     socket?.emit("inviteJoin", {
       userId: userId,
       familyId: familyId,
