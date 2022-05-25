@@ -21,7 +21,7 @@ const LogoutModal = ({ onClose }) => {
 
   // 로그아웃 시 localgost 정리
   const DeleteLocalhost = () => {
-    localStorage.clear();
+    sessionStorage.clear();
   };
 
   //소켓부분

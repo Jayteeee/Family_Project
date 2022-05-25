@@ -38,49 +38,49 @@ const SidebarMenu = (familyId) => {
 
   // 사이드바 색상 변경
   const handleHomeMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "colorChage");
-    localStorage.setItem("missionMenuColor", false);
-    localStorage.setItem("calendarMenuColor", false);
-    localStorage.setItem("galleryMenuColor", false);
-    localStorage.setItem("voiceMenuColor", false);
+    sessionStorage.setItem("homeMenuColor", "colorChage");
+    sessionStorage.setItem("missionMenuColor", false);
+    sessionStorage.setItem("calendarMenuColor", false);
+    sessionStorage.setItem("galleryMenuColor", false);
+    sessionStorage.setItem("voiceMenuColor", false);
   };
 
   const handleMissionMenuColor = () => {
-    localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", "colorChage");
-    localStorage.setItem("calendarMenuColor", false);
-    localStorage.setItem("galleryMenuColor", false);
-    localStorage.setItem("voiceMenuColor", false);
+    sessionStorage.setItem("homeMenuColor", false);
+    sessionStorage.setItem("missionMenuColor", "colorChage");
+    sessionStorage.setItem("calendarMenuColor", false);
+    sessionStorage.setItem("galleryMenuColor", false);
+    sessionStorage.setItem("voiceMenuColor", false);
   };
 
   const handleCalendarMenuColor = () => {
-    localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", false);
-    localStorage.setItem("calendarMenuColor", "colorChage");
-    localStorage.setItem("galleryMenuColor", false);
-    localStorage.setItem("voiceMenuColor", false);
+    sessionStorage.setItem("homeMenuColor", false);
+    sessionStorage.setItem("missionMenuColor", false);
+    sessionStorage.setItem("calendarMenuColor", "colorChage");
+    sessionStorage.setItem("galleryMenuColor", false);
+    sessionStorage.setItem("voiceMenuColor", false);
   };
 
   const handleGalleryMenuColor = () => {
-    localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", false);
-    localStorage.setItem("calendarMenuColor", false);
-    localStorage.setItem("galleryMenuColor", "colorChage");
-    localStorage.setItem("voiceMenuColor", false);
+    sessionStorage.setItem("homeMenuColor", false);
+    sessionStorage.setItem("missionMenuColor", false);
+    sessionStorage.setItem("calendarMenuColor", false);
+    sessionStorage.setItem("galleryMenuColor", "colorChage");
+    sessionStorage.setItem("voiceMenuColor", false);
   };
 
   const handleVoiceMenuColor = () => {
-    localStorage.setItem("homeMenuColor", false);
-    localStorage.setItem("missionMenuColor", false);
-    localStorage.setItem("calendarMenuColor", false);
-    localStorage.setItem("galleryMenuColor", false);
-    localStorage.setItem("voiceMenuColor", "colorChage");
+    sessionStorage.setItem("homeMenuColor", false);
+    sessionStorage.setItem("missionMenuColor", false);
+    sessionStorage.setItem("calendarMenuColor", false);
+    sessionStorage.setItem("galleryMenuColor", false);
+    sessionStorage.setItem("voiceMenuColor", "colorChage");
   };
 
   return (
     <>
       <SidebarMenuWrap className="res-menuWrap">
-        {localStorage.getItem("homeMenuColor") === "colorChage" ? (
+        {sessionStorage.getItem("homeMenuColor") === "colorChage" ? (
           <MenuBox
             className="homeMenu"
             onClick={() => {
@@ -107,7 +107,7 @@ const SidebarMenu = (familyId) => {
             <Menus className="Sidebarmenus">홈</Menus>
           </MenuBox>
         )}
-        {localStorage.getItem("missionMenuColor") === "colorChage" ? (
+        {sessionStorage.getItem("missionMenuColor") === "colorChage" ? (
           <MenuBox
             className="res-menuBox"
             onClick={() => {
@@ -132,7 +132,7 @@ const SidebarMenu = (familyId) => {
             <Menus className="Sidebarmenus"> 미션</Menus>
           </MenuBox>
         )}
-        {localStorage.getItem("calendarMenuColor") === "colorChage" ? (
+        {sessionStorage.getItem("calendarMenuColor") === "colorChage" ? (
           <MenuBox
             className="res-menuBox"
             onClick={() => {
@@ -157,7 +157,7 @@ const SidebarMenu = (familyId) => {
             <Menus className="Sidebarmenus">캘린더</Menus>
           </MenuBox>
         )}
-        {localStorage.getItem("galleryMenuColor") === "colorChage" ? (
+        {sessionStorage.getItem("galleryMenuColor") === "colorChage" ? (
           <MenuBox
             className="res-menuBox"
             onClick={() => {
@@ -182,7 +182,7 @@ const SidebarMenu = (familyId) => {
             <Menus className="Sidebarmenus">갤러리</Menus>
           </MenuBox>
         )}
-        {localStorage.getItem("voiceMenuColor") === "colorChage" ? (
+        {sessionStorage.getItem("voiceMenuColor") === "colorChage" ? (
           <MenuBox
             className="res-menuBox"
             onClick={() => {
@@ -259,7 +259,7 @@ const MenuBox = styled.div`
   }
 
   &:hover {
-    background: #d6d6d6;
+    background: #f6f6f6;
   }
 
   // Medium (Desktop)

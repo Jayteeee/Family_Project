@@ -92,11 +92,11 @@ const Main = (props) => {
 
   // 사이드바 매뉴 색상
   const handleMenuColor = () => {
-    localStorage.setItem("homeMenuColor", "colorChage");
-    localStorage.removeItem("missionMenuColor");
-    localStorage.removeItem("calendarMenuColor");
-    localStorage.removeItem("galleryMenuColor");
-    localStorage.removeItem("voiceMenuColor");
+    sessionStorage.setItem("homeMenuColor", "colorChage");
+    sessionStorage.removeItem("missionMenuColor");
+    sessionStorage.removeItem("calendarMenuColor");
+    sessionStorage.removeItem("galleryMenuColor");
+    sessionStorage.removeItem("voiceMenuColor");
   };
 
   const onClose = () => {
@@ -135,11 +135,7 @@ const Main = (props) => {
             >
               {/* 가족 타이틀 수정시 label에 바로 적용 안되는 문제 있음 */}
               <Label className="res-label">
-                {currentValue
-                  ? currentValue
-                  : NowFamilyTitle
-                  ? NowFamilyTitle
-                  : "Family Title"}
+                {NowFamilyTitle ? NowFamilyTitle : "Family Title"}
                 <TiArrowSortedDown
                 // style={{
                 //   margin: "0 15px",
@@ -368,7 +364,7 @@ const Label = styled.div`
   align-items: center;
   cursor: pointer;
   &:hover {
-    background-color: #d6d6d6;
+    background-color: #f6f6f6;
   }
   padding: 55px 55px 55px 20px;
   // Medium (Desktop)

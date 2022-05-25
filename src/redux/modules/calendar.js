@@ -141,7 +141,9 @@ const getOneScheduleDB = (date, familyId, eventId) => {
         const scheduleOneList = res.data.event;
         dispatch(getOneSchedule(scheduleOneList));
       })
-      .catch((error) => {});
+      .catch((error) => {
+        // console.log(error.response);
+      });
   };
 };
 const getOnePhotoDB = (date, familyId) => {

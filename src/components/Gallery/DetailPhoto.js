@@ -45,6 +45,7 @@ import OneComment from "./OneComment";
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
 import { DeletePhotoModal } from "../../shared/modal/component/Gallery";
+import { familyMemberActions } from "../../redux/modules/familymember";
 
 const DetailPhoto = ({
   photoAlbumId,
@@ -121,6 +122,7 @@ const DetailPhoto = ({
 
   useEffect(() => {
     dispatch(detailPhotoActions.getDetailPhotoDB(NowFamilyId, photoId));
+    dispatch(familyMemberActions.getFamilyMemberDB(NowFamilyId));
   }, [detailPhotoData.likeChk, userProfile]);
 
   // socket 부분
