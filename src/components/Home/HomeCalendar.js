@@ -66,7 +66,6 @@ const Container = styled.div`
   .homeCalendar {
     width: 100%;
     max-width: 100%;
-    height: 42vh;
     background-color: #fff;
     color: #222;
     border: none;

@@ -58,7 +58,8 @@ const ScheduleArea = styled.div`
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    /* height: 30vh; */
+    margin: 0;
+    height: 30vh;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -129,12 +130,13 @@ const DateColor = styled.div`
   margin-right: 8px;
 `;
 const NoneContentBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
-  margin: auto;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    height: 30vh;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
@@ -144,19 +146,13 @@ const NoneContentBox = styled.div`
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    /* margin: 10px; */
-    height: 20vh;
-    width: 100%;
   }
 `;
 
 const EmptyContentImg = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10%;
-  width: 100%;
-  height: 100%;
+  width: 70%;
+  height: 70%;
+  margin: auto;
   ${({ src }) => `background-image: url(${src});`};
   background-position: center;
   background-size: cover;
@@ -165,9 +161,6 @@ const EmptyContentImg = styled.div`
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    width: 50%;
-    height: 100%;
-    margin: auto;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {

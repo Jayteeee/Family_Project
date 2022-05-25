@@ -758,7 +758,6 @@ const MiddleRightCalendar = styled.div`
 
 const TotalCalendar = styled.div`
   display: flex;
-
   justify-content: center;
 
   // Medium (Desktop)
@@ -778,11 +777,13 @@ const TotalCalendar = styled.div`
 
 const CalendarArea = styled.div`
   width: 55%;
+  height: 100%;
   /* overflow-y: scroll; */
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     width: 100%;
+    height: 100%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -802,6 +803,7 @@ const ScheduleArea = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     width: 100%;
+    padding: 15%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
