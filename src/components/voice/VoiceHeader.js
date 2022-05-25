@@ -38,7 +38,13 @@ const VoiceHeader = ({
   return (
     <>
       <VoiceHeaderBox>
-        <div style={{ position: "relative" }}>
+        <div
+          style={{
+            position: "relative",
+
+            padding: "0 22px 0 0",
+          }}
+        >
           {voiceAlbumId ? (
             <Text
               size="40px"
@@ -58,19 +64,20 @@ const VoiceHeader = ({
               음성 메시지
             </Text>
           )}
+          <InfoBox
+            onMouseOver={() => setToolTipOn(true)}
+            onMouseOut={() => setToolTipOn(false)}
+          >
+            <MdErrorOutline />
+            {toolTipOn ? (
+              <ToolTip>
+                <Text C>현재 애플제품에서 서비스가 지원되지 않아요!</Text>
+                <div className="triangle" />
+              </ToolTip>
+            ) : null}
+          </InfoBox>
         </div>
-        <InfoBox
-          onMouseOver={() => setToolTipOn(true)}
-          onMouseOut={() => setToolTipOn(false)}
-        >
-          <MdErrorOutline />
-        </InfoBox>
-        {toolTipOn ? (
-          <ToolTip>
-            <Text C>현재 애플제품은 서비스가 지원되지 않아요!</Text>
-            <div className="triangle" />
-          </ToolTip>
-        ) : null}
+
         {!isEdit ? (
           <BtnWrap>
             <VoiceBtn className="addBtn">
@@ -179,7 +186,6 @@ const VoiceHeader = ({
 };
 
 const VoiceHeaderBox = styled.div`
-  position: relative;
   justify-content: space-between;
   display: flex;
   align-items: center;
@@ -408,8 +414,8 @@ const InfoBox = styled.div`
   position: absolute;
   width: 20px;
   height: 20px;
-  left: 12%;
-  top: 30%;
+  right: 0;
+  top: 5px;
   svg {
     width: 100%;
     height: 100%;
@@ -425,8 +431,9 @@ const ToolTip = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  left: 14%;
-  top: 38%;
+  white-space: nowrap;
+  left: 22px;
+  top: 12px;
   color: rgba(117, 117, 117, 1);
   background-color: rgba(99, 113, 247, 1);
   border-radius: 2px;
