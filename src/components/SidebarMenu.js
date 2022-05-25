@@ -8,6 +8,7 @@ import {
   MdEvent,
   MdPhotoLibrary,
   MdOutlineVoicemail,
+  MdClear,
 } from "react-icons/md";
 
 // 리덕스
@@ -16,7 +17,8 @@ import { useDispatch } from "react-redux";
 import { scheduleActions } from "../redux/modules/calendar";
 
 // 엘리먼트
-import { RactangleImage } from "../elements/index";
+// 엘리먼트
+import { Text, CircleImage, RactangleImage } from "../elements";
 
 // 이미지
 import onHomeIcon from "../shared/images/onHomeIcon.svg";
@@ -77,6 +79,8 @@ const SidebarMenu = (familyId) => {
   };
 
   console.log(localStorage.getItem("homeMenuColor"));
+
+  const [toolTipOn, setToolTipOn] = useState(false);
 
   return (
     <>
@@ -190,6 +194,8 @@ const SidebarMenu = (familyId) => {
               history.push(`/family/${NowFamilyId}/voiceMsg/`);
               handleVoiceMenuColor();
             }}
+            onMouseOver={() => setToolTipOn(true)}
+            onMouseOut={() => setToolTipOn(false)}
             color="#6371F7"
           >
             <IconBox src={onVoiceIcon} />
@@ -202,12 +208,20 @@ const SidebarMenu = (familyId) => {
               history.push(`/family/${NowFamilyId}/voiceMsg/`);
               handleVoiceMenuColor();
             }}
+            onMouseOver={() => setToolTipOn(true)}
+            onMouseOut={() => setToolTipOn(false)}
             color="#c2c2c2"
           >
             <IconBox src={offVoiceIcon} />
             <Menus className="Sidebarmenus">음성 메시지</Menus>
           </MenuBox>
         )}
+        {toolTipOn ? (
+          <ToolTip>
+            <Text C>현재 애플제품은 서비스가 지원되지 않아요!</Text>
+            <div className="triangle" />
+          </ToolTip>
+        ) : null}
       </SidebarMenuWrap>
     </>
   );
@@ -306,6 +320,57 @@ const Menus = styled.span`
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     margin: 2px 0 !important;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+  }
+`;
+
+const ToolTip = styled.div`
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 10px;
+  color: rgba(117, 117, 117, 1);
+  background-color: rgba(99, 113, 247, 1);
+  border-radius: 2px;
+  padding: 10px 20px;
+  z-index: 999;
+  P {
+    color: white;
+  }
+  svg {
+    margin-left: 18px;
+    color: white;
+    cursor: pointer;
+  }
+  .triangle {
+    border-bottom: 8px solid rgba(99, 113, 247, 1);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    position: absolute;
+    left: 20%;
+    top: -7px;
+  }
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    bottom: 90px;
+    left: unset;
+    right: 10px;
+    .triangle {
+      border-bottom: unset;
+      border-top: 8px solid rgba(99, 113, 247, 1);
+      left: unset;
+      right: 20%;
+      top: 95%;
+    }
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {

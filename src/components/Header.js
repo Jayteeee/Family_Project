@@ -88,6 +88,14 @@ const Header = (props) => {
   };
   const [toolTipOn, setToolTipOn] = useState(true);
 
+  // 사이드바 매뉴 색상
+  const handleMenuColor = () => {
+    localStorage.setItem("homeMenuColor", "colorChage");
+    localStorage.removeItem("missionMenuColor");
+    localStorage.removeItem("calendarMenuColor");
+    localStorage.removeItem("galleryMenuColor");
+    localStorage.removeItem("voiceMenuColor");
+  };
   return (
     <>
       <div>
@@ -95,6 +103,7 @@ const Header = (props) => {
           <RogoBox
             src={homeRogo}
             onClick={() => {
+              handleMenuColor();
               history.push(`/family/${familyId}/`);
             }}
           />

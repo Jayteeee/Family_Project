@@ -13,7 +13,7 @@ import { history } from "../redux/configureStore";
 
 // 이미지
 import emptyPhoto from "../shared/images/emptyPhoto.svg";
-import emptyContent from "../shared/images/emptyContent.svg";
+import emptyContent from "../shared/images/M_calendar.svg";
 
 // 컴포넌트
 import ScheduleCalendar from "../components/Calendar/ScheduleCalendar";
@@ -141,7 +141,6 @@ const CalendarPage = (props) => {
             ) : (
               <NoneContentBox>
                 <NoneContentItem>
-                  <Text>아직 일정이 없어요.</Text>
                   <EmptyContentImg src={emptyContent} />
                 </NoneContentItem>
               </NoneContentBox>
@@ -552,43 +551,6 @@ const DateColor = styled.div`
   background-color: ${(props) => props.color};
   margin-right: 8px;
 `;
-
-const NoneContentWrap = styled.div`
-  background: #fff;
-  display: flex;
-  /* min-height: 880px; */
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  margin: 20px 40px 40px;
-  padding: 20px;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-    /* min-height: 680px; */
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-    margin: 40px 24px;
-    /* margin-top: 0px !important; */
-    padding-left: 20px !important;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-    /* min-height: 480px; */
-    padding: 16px;
-    margin: 28px 16px;
-    /* margin: 20px 9px; */
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    margin-top: 0px !important;
-  }
-`;
-
 const NoneContentBox = styled.div`
   width: 100%;
   height: 100%;
@@ -598,88 +560,36 @@ const NoneContentBox = styled.div`
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    height: 50%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    height: 50%;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    height: 55%;
   }
 `;
 
 const NoneContentItem = styled.div`
   width: 100%;
   height: 100%;
-  padding: 10% 20% 0 20%;
+  padding: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* position: relative; */
-  & > p {
-    font-size: 24px;
-    font-weight: 600;
-    /* position: absolute; */
-    top: 100px;
-  }
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-    & > p {
-      font-size: 30px;
-      font-weight: 600;
-      position: absolute;
-      top: 55px;
-    }
-    padding: 10% 15% 0 15%;
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-    & > p {
-      font-size: 20px;
-      font-weight: 600;
-      position: absolute;
-      top: 50px;
-    }
-    padding: 10% 15% 0 15%;
-  }
-
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    & > p {
-      font-size: 15px;
-      font-weight: 600;
-      position: absolute;
-      top: 70px;
-    }
-    padding: 10% 15% 0 15%;
-  }
-
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-    & > p {
-      font-size: 15px;
-      font-weight: 600;
-      position: absolute;
-      top: 50px;
-    }
-    padding: 10% 15% 0 15%;
-  }
 `;
 
 const EmptyContentImg = styled.div`
   width: 100%;
-  margin-top: 20%;
-  padding: 22.2%;
+  height: 100%;
+  padding: 40%;
   ${({ src }) => `background-image: url(${src});`};
   background-position: center;
   background-size: cover;
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    padding: 35%;
+  }
 `;
 
 export default CalendarPage;
