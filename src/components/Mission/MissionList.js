@@ -13,13 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, CircleImage, Text } from "../../elements";
 
 // 이미지
-import emptyContent from "../../shared/images/emptyContent.svg";
-// import profileImg from "../../shared/images/profileImg.png";
-// import Profile01 from "../../shared/images/Profile01.png";
-// import Profile02 from "../../shared/images/Profile02.png";
-// import Profile03 from "../../shared/images/Profile03.png";
-// import Profile04 from "../../shared/images/Profile04.png";
-// import Profile05 from "../../shared/images/Profile05.png";
+import L_Mission_previous from "../../shared/images/L_Mission_previous.svg";
+import L_Mission from "../../shared/images/L_Mission.svg";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
@@ -146,8 +141,7 @@ const MissionList = ({
                 ) : (
                   <NoneMissionWrap>
                     <NoneMissionBox>
-                      <EmptyContentImg src={emptyContent} />
-                      <Text>아직 작성된 미션이 없네요! 만들러 가볼까요?</Text>
+                      <EmptyContentImg src={L_Mission} />
                     </NoneMissionBox>
                   </NoneMissionWrap>
                 )}
@@ -201,8 +195,7 @@ const MissionList = ({
               ) : (
                 <NoneMissionWrap>
                   <NoneMissionBox>
-                    <EmptyContentImg src={emptyContent} />
-                    <Text>아직 지난 미션이 없어요.</Text>
+                    <EmptyContentImg src={L_Mission_previous} />
                   </NoneMissionBox>
                 </NoneMissionWrap>
               )}
@@ -241,8 +234,7 @@ const MissionList = ({
               ) : (
                 <NoneMissionWrap>
                   <NoneMissionBox>
-                    <EmptyContentImg src={emptyContent} />
-                    <Text>아직 작성된 미션이 없네요! 만들러 가볼까요?</Text>
+                    <EmptyContentImg src={L_Mission} />
                   </NoneMissionBox>
                 </NoneMissionWrap>
               )}
@@ -262,8 +254,7 @@ const MissionList = ({
             ) : (
               <NoneMissionWrap>
                 <NoneMissionBox>
-                  <EmptyContentImg src={emptyContent} />
-                  <Text>아직 지난 미션이 없어요.</Text>
+                  <EmptyContentImg src={L_Mission_previous} />
                 </NoneMissionBox>
               </NoneMissionWrap>
             )}
@@ -314,7 +305,6 @@ const MissionListBox = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    min-height: 680px;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
@@ -340,82 +330,90 @@ const DayBox = styled.div`
 `;
 
 const NoneMissionWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 380px;
+  margin-top: 5%;
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
+    margin-top: 5%;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
+    margin-top: 7%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    height: 300px;
+    margin-top: 0;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    height: 350px;
   }
 `;
 
 const NoneMissionBox = styled.div`
   width: 100%;
   height: 100%;
-  padding: 25% 15% 0 15%;
+  padding: 1rem 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  & > p {
-    font-size: 20px;
-    font-weight: 600;
-    position: absolute;
-    top: 90px;
-  }
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    & > p {
-      font-size: 20px;
-      font-weight: 600;
-      position: absolute;
-      top: 55px;
-    }
-    padding: 20% 15% 0 15%;
+    padding: 1rem 1rem;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
+    padding: 1rem 12rem;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    & > p {
-      font-size: 20px;
-      font-weight: 600;
-      position: absolute;
-      top: 50px;
-    }
-    padding: 10% 15% 0 15%;
   }
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    & > p {
-      font-size: 15px;
-      font-weight: 600;
-      position: absolute;
-      top: 70px;
-    }
-    padding: 15% 15% 0 15%;
+    padding: 1rem 4rem;
+  }
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    padding: 1rem 3.5rem;
   }
 `;
 
 const EmptyContentImg = styled.div`
   width: 100%;
-
-  padding: 22.2%;
+  padding: 30%;
   ${({ src }) => `background-image: url(${src});`};
   background-position: center;
   background-size: cover;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    padding: 70%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    padding: 80%;
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    padding: 100%;
+  }
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    padding: 100%;
+  }
 `;
 
 // 미션 토글용 CSS
@@ -445,19 +443,6 @@ const Option = styled.div`
 const FloatingButton = styled.div`
   display: none;
   @media only screen and (max-width: 1199px) {
-    /* width: 52px;
-    height: 52px;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    bottom: 80px;
-    right: 20px;
-    border-radius: 100%;
-    background-color: #6371f7;
-    font-size: 24px;
-    color: white;
-    cursor: pointer; */
   }
   @media screen and (max-width: 1024px) {
     width: 70px;
