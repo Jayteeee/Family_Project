@@ -37,7 +37,6 @@ const getSocketDB = (inputs) => {
 };
 
 const setNotiDB = (data) => {
-  console.log(data);
   return async function (dispatch, getState, { history }) {
     // 데이터를 어떤 형식으로 주시는지에 따라 배열을 감싸거나 감싸지 않고 바로 사용하기
     // const list = [];
@@ -47,14 +46,12 @@ const setNotiDB = (data) => {
 };
 
 const setAlertDB = (data) => {
-  console.log(data);
   return async function (dispatch, getState, { history }) {
     await dispatch(setalert(data));
   };
 };
 
 const deleteAlertDB = (alertId) => {
-  console.log(alertId);
   return async function (dispatch, getState, { history }) {
     await dispatch(deletealert(alertId));
   };
@@ -83,7 +80,6 @@ export default handleActions(
       produce(state, (draft) => {
         const { alertId } = action.payload;
         let newArr = draft.alert.filter((l) => l.alertId !== alertId);
-        console.log(state.alert.filter((l) => l.alertId !== alertId));
         draft.alert = newArr;
       }),
   },

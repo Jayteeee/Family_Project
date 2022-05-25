@@ -15,14 +15,9 @@ const ScheduleCalendar = ({ familyId, list }) => {
   const [modalOn, setModalOn] = React.useState(false);
   const [day, setDay] = React.useState("");
 
-  console.log("list:", list);
-  console.log("일정:", schedule);
-  console.log("day,", day);
-
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
-    console.log("모달 온오프:", modalOn);
   };
 
   // 시작날짜와 마지막 날짜 받아서 배열 안에 모든 날짜 넣어주는 함수
@@ -42,7 +37,6 @@ const ScheduleCalendar = ({ familyId, list }) => {
       curDate.setDate(curDate.getDate() + 1);
     }
 
-    console.log(result);
     const newEvent = list
       .filter((x, i) => {
         return x?.startDate !== x.endDate;
@@ -52,7 +46,6 @@ const ScheduleCalendar = ({ familyId, list }) => {
           x?.startDate === result[0]?.startDate1 &&
           x?.endDate === result[result.length - 1]?.endDate
       );
-    console.log(newEvent);
 
     if (newEvent) {
       for (let i = 0; i < result.length; i++) {
@@ -60,7 +53,6 @@ const ScheduleCalendar = ({ familyId, list }) => {
         Object.assign(result[i], newEvent);
       }
     }
-    console.log(result);
     // if (newEvent && newEvent.length > 1) {
     //   for (let i = 0; i < result.length; i++) {
     //     for (let x = 0; x < newEvent.length; x++) {
@@ -76,7 +68,6 @@ const ScheduleCalendar = ({ familyId, list }) => {
   if (list) {
     longEvents = list.filter((x) => x.startDate !== x.endDate);
   }
-  console.log("longEvents, ", longEvents);
 
   let longList = [];
 
@@ -84,13 +75,10 @@ const ScheduleCalendar = ({ familyId, list }) => {
     longList.push(getDatesStartToEnd(x?.startDate, x?.endDate))
   );
 
-  console.log("longList, ", longList);
-
   let newList = [];
   for (let i = 0; i < longList.length; i++) {
     newList.push(...longList[i]);
   }
-  console.log(newList);
 
   return (
     <div>
@@ -141,7 +129,6 @@ const ScheduleCalendar = ({ familyId, list }) => {
             if (newLongEvents.length >= 1 && shortEvents.length >= 1) {
               html.push(
                 newLongEvents.map((x, i) => {
-                  console.log(x);
                   return (
                     // <div className="long" key={i}>
                     <div className="division" key={`long1_${i}`}>

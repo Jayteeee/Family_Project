@@ -46,7 +46,6 @@ const OneMission = (props) => {
     myMissionChk,
     missionStatus,
   } = props;
-  console.log(props);
 
   // console.log("받아온 나의미션리스트:", monthMissionList);
 
@@ -57,7 +56,6 @@ const OneMission = (props) => {
   // console.log(props);
 
   // console.log("미션 달성여부:", familyMissionChk);
-  console.log(completedAt);
 
   const newCompletedAt = dayjs(completedAt).format("MM월 DD일");
   // console.log("달성 날짜:", newCompletedAt);
@@ -77,8 +75,6 @@ const OneMission = (props) => {
 
   const checkedItemHandler = (missionId, missionChk) => {
     if (!familyMissionChk) {
-      console.log(missionChk);
-
       let completedAt = dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss");
 
       dispatch(

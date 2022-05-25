@@ -34,13 +34,10 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
   const [normal, setNormal] = React.useState(false);
 
   const list = useSelector((state) => state.calendar.scheduleOneList);
-  console.log(list);
 
   const deleteSchedule = () => {
     dispatch(scheduleActions.deleteScheduleDB(list.eventId));
   };
-
-  console.log("props로 받는 값:", date, event, familyId, eventId);
 
   // socket 부분
 

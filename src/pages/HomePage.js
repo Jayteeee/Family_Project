@@ -37,43 +37,29 @@ import emptyPhoto from "../shared/images/emptyPhoto.svg";
 const HomePage = (props) => {
   const dispatch = useDispatch();
 
-  console.log(props);
-
   const { familyId } = props.match.params;
-  console.log("홈페이지 familyId:", familyId);
 
   const { homeData } = useSelector((state) => state?.home);
-  console.log("홈페이지 데이터:", homeData);
 
   const { nowRandomMsg } = useSelector((state) => state?.home);
-  console.log("현재 랜덤메시지:", nowRandomMsg);
 
   const { familyMemberList } = useSelector((state) => state?.familymember);
-  console.log("가족구성원 리스트:", familyMemberList);
 
   const { randomBadge } = homeData;
-  console.log("랜덤 배지:", randomBadge);
 
   const { recentPhoto } = homeData;
-  console.log("최근 사진:", recentPhoto);
 
   const { recentVoiceFile } = homeData;
-  console.log("최근 음성메시지:", recentVoiceFile);
 
   const { voiceAlbumInfo } = homeData;
-  console.log("음성 메시지 앨범 정보", voiceAlbumInfo);
 
   const { thisMonthEventList } = homeData;
-  console.log("현재 일정:", thisMonthEventList);
 
   const { recentMission } = homeData;
-  console.log("최근 미션:", recentMission);
 
   const { recentMissionUser } = homeData;
-  console.log("최근 미션등록 유저:", recentMissionUser);
 
   const { recentMissionMembers } = homeData;
-  console.log("최근 미션 맴버리스트:", recentMissionMembers);
 
   // const { completePercentage } = homeData;
   // console.log("미션 달성률:", completePercentage);
@@ -86,8 +72,6 @@ const HomePage = (props) => {
   };
 
   const { user } = useSelector((state) => state?.user?.user);
-  console.log("홈유저정보: ", user);
-
   // 배지 목록 모달
   const [badgemodalOn, setBadgeModalOn] = useState(false);
 
@@ -110,7 +94,6 @@ const HomePage = (props) => {
   const openCalendar = () => {
     setHeight("100%");
   };
-  console.log(height);
 
   const closeCalendar = () => {
     setHeight(false);

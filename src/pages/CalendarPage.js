@@ -51,8 +51,6 @@ const CalendarPage = (props) => {
   const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
   const date = `${MM < 10 ? `${YYYY}-0${MM}` : `${YYYY}-${MM}`}`;
 
-  console.log("보내는 날짜:", date);
-
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);

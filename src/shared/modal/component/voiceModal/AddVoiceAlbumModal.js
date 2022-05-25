@@ -21,10 +21,6 @@ import albumCover4 from "../../../images/albumCover4.svg";
 const AddVoiceAlbumModal = ({ onClose, familyId }) => {
   const dispatch = useDispatch();
 
-  // 현재 familyId
-  console.log("현재 familyId:", familyId);
-  console.log(familyId);
-
   //  앨범 제목 input
   const [voiceAlbumName, setVoiceAlbumName] = useState("");
   const [showBorder, setShowBorder] = useState(false);
@@ -36,8 +32,6 @@ const AddVoiceAlbumModal = ({ onClose, familyId }) => {
     const { value } = e.target;
     setVoiceAlbumName(value);
   };
-
-  console.log("앨범 이름:", voiceAlbumName);
 
   const resetAlbunName = () => {
     setVoiceAlbumName("");

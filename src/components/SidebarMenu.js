@@ -35,7 +35,6 @@ import offVoiceIcon from "../shared/images/offVoiceIcon.svg";
 const SidebarMenu = (familyId) => {
   const dispatch = useDispatch();
   const { NowFamilyId } = familyId;
-  console.log("사이드바에 적용할 Id값: ", NowFamilyId);
 
   // 사이드바 색상 변경
   const handleHomeMenuColor = () => {
@@ -77,8 +76,6 @@ const SidebarMenu = (familyId) => {
     localStorage.setItem("galleryMenuColor", false);
     localStorage.setItem("voiceMenuColor", "colorChage");
   };
-
-  console.log(localStorage.getItem("homeMenuColor"));
 
   return (
     <>

@@ -32,7 +32,6 @@ const HomeCalendar = ({ thisMonthEventList, familyId }) => {
               }
               // console.log(events);
               if (events.length !== 0) {
-                console.log("이벤트, ", events);
                 html.push(
                   events.map((x) => {
                     return (

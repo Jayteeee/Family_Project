@@ -35,8 +35,6 @@ const DeletePhotoModal = ({
     onClose();
   };
 
-  console.log("사진ID", photoId);
-
   return (
     <>
       <ModalPortal>

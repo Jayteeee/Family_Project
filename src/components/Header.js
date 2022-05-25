@@ -36,13 +36,9 @@ const Header = (props) => {
   } = props;
   const dispatch = useDispatch();
 
-  console.log(bg);
-  console.log("유저정보: ", user);
-
   const socket = useSelector((state) => state?.socket?.socket);
   const alert = useSelector((state) => state?.socket?.alert);
   // const familyNoti = useSelector((state) => state?.socket?.familyNoti?.findAlertDB);
-  console.log(alert);
 
   // 프로필 수정 모달
   const [modalOn, setModalOn] = useState(false);

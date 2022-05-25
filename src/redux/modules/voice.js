@@ -87,13 +87,10 @@ const getVoicePage = (familyId) => {
     await axios
       .get(`${BASE_URL}/voiceAlbum/${familyId}`, { headers: config })
       .then((res) => {
-        console.log(res);
         const nowVoiceData = res.data.voiceAlbumList;
         dispatch(getVoice(nowVoiceData));
       })
-      .catch((error) => {
-        console.log("음성 데이터 안옴", error);
-      });
+      .catch((error) => {});
   };
 };
 
@@ -103,23 +100,16 @@ const getVoiceListDB = (voiceAlbumId) => {
     await axios
       .get(`${BASE_URL}/voiceFile/${voiceAlbumId}`, { headers: config })
       .then((res) => {
-        console.log(res);
         const voiceList = res.data;
-        console.log(voiceList);
         const { voiceFileList } = res.data;
-        console.log(voiceFileList);
         dispatch(getVoiceList(voiceList, voiceFileList));
       })
-      .catch((error) => {
-        console.log("음성 파일 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 };
 
 const addVoiceAlbumDB = (familyId, voiceAlbumName, voiceAlbumCover) => {
   return async function (dispatch, getState, { history }) {
-    console.log(familyId);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .post(
@@ -136,10 +126,7 @@ const addVoiceAlbumDB = (familyId, voiceAlbumName, voiceAlbumCover) => {
         };
         dispatch(addVoiceAlbum(newVoiceAlbum));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -165,7 +152,6 @@ const addVoiceDB = (
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         const userInfo = getState().user.user.user;
         const newVoice = {
           familyId: familyId,
@@ -177,13 +163,9 @@ const addVoiceDB = (
           profileImg: userInfo.profileImg,
           createdAt: Date.now(),
         };
-        console.log("새로운 음성메시지:", newVoice);
         dispatch(addVoice(newVoice));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -199,13 +181,9 @@ const editVoiceAlbumDB = (familyId, voiceAlbumId, voiceAlbumName) => {
         }
       )
       .then((res) => {
-        console.log(res);
         dispatch(editVoiceAlbum(voiceAlbumId, voiceAlbumName));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -217,19 +195,14 @@ const deleteVoiceAlbumDB = (voiceAlbumId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         alert("앨범삭제완료되었습니다.");
         dispatch(deleteVoiceAlbum(voiceAlbumId));
         // history.go(0);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 const deleteVoiceDB = (voiceFileId) => {
-  console.log(voiceFileId);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -237,15 +210,11 @@ const deleteVoiceDB = (voiceFileId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         alert("삭제완료되었습니다.");
         dispatch(deleteVoice(voiceFileId));
         // history.go(0);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 

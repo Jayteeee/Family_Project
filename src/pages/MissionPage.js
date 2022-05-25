@@ -22,27 +22,20 @@ const MissionPage = (props) => {
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.user.user.user?.userId);
-  console.log("나의 userId:", userId);
 
   const familyMemberList = useSelector(
     (state) => state.familymember?.familyMemberList
   );
-  console.log("가족 구성원:", familyMemberList);
 
   const { familyId } = props.match?.params;
-  console.log("현재 미션페이지 패밀리 아이디:", familyId);
 
   const MissionData = useSelector((state) => state.mission);
-  console.log("현재 미션 데이터: ", MissionData);
 
   const { missionStatus } = useSelector((state) => state.mission);
-  console.log("미션 현황:", missionStatus);
 
   const thisMonthMissionList = MissionData?.thisMonthMissionList;
-  console.log("이번달 미션리스트:", thisMonthMissionList);
 
   const { pastMissionList } = MissionData;
-  console.log("이전 미션리스트:", pastMissionList);
 
   useEffect(() => {
     dispatch(missionActions.getMissionPage(familyId));

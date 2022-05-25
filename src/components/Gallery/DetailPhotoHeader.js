@@ -24,7 +24,6 @@ const DetailPhotoHeader = ({
   const dispatch = useDispatch();
 
   const photoImgInput = useRef();
-  console.log("포토앨범 이름:", photoAlbumName);
 
   return (
     <>

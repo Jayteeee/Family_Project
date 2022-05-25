@@ -60,20 +60,14 @@ const deletePhoto = createAction(DELETE_PHOTO, (photoId) => ({
 // api 응답 받는 미들웨어
 const getPhotoAlbumDB = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    console.log("갤러리 앨범용 패밀리ID:", familyId);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .get(`${BASE_URL}/photoAlbum/${familyId}`, { headers: config })
       .then((res) => {
-        console.log("갤러리 앨범 데이터 GET:", res);
         const { photoAlbumList } = res.data;
-        console.log(photoAlbumList);
         dispatch(getPhotoAlbum(photoAlbumList));
       })
-      .catch((error) => {
-        console.log("갤러리 앨범 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
 
     // dispatch(getPhotoAlbum(DummyData.photoAlbumList));
   };
@@ -85,22 +79,16 @@ const getPhotoDB = (photoAlbumId) => {
     await axios
       .get(`${BASE_URL}/photo/${photoAlbumId}`, { headers: config })
       .then((res) => {
-        console.log("갤러리 사진 데이터 GET", res);
         const { photoList } = res.data;
-        console.log(photoList);
         dispatch(getPhoto(photoList));
       })
-      .catch((error) => {
-        console.log("사진 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
     // dispatch(getPhoto(DummyData.photoList));
   };
 };
 
 const addPhotoAlbumDB = (familyId, photoAlbumName) => {
   return async function (dispatch, getState, { history }) {
-    console.log(photoAlbumName);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .post(
@@ -109,9 +97,7 @@ const addPhotoAlbumDB = (familyId, photoAlbumName) => {
         { headers: config }
       )
       .then((res) => {
-        console.log(res);
         const { photoAlbumId } = res.data;
-        console.log(res.msg);
         const newPhotoAlbum = {
           photoAlbumId: `${photoAlbumId}`,
           photoAlbumName: `${photoAlbumName}`,
@@ -119,10 +105,7 @@ const addPhotoAlbumDB = (familyId, photoAlbumName) => {
 
         dispatch(addPhotoAlbum(newPhotoAlbum));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
 
     // const newPhotoAlbum = {
     //   photoAlbumId: `${familyId}`,
@@ -135,29 +118,16 @@ const addPhotoAlbumDB = (familyId, photoAlbumName) => {
 
 const addPhotoDB = (familyId, photoAlbumId, formData) => {
   return async function (dispatch, getState, { history }) {
-    console.log(
-      "familyId:",
-      familyId,
-      "photoAlbumId:",
-      photoAlbumId,
-      "formData:",
-      formData
-    );
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .post(`${BASE_URL}/photo/${familyId}/${photoAlbumId}`, formData, {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.msg);
         const newPhoto = res.photoFile;
         dispatch(addPhoto(newPhoto));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -178,12 +148,9 @@ const editPhotoAlbumDB = (
         }
       )
       .then((res) => {
-        console.log(res);
         dispatch(editPhotoAlbum(photoAlbumId, photoAlbumName));
       })
       .catch((err) => {
-        console.log(err);
-        console.log(err.response);
         PracticeEdit(false);
       });
     // dispatch(editPhotoAlbum(photoAlbumId, photoAlbumName));
@@ -215,22 +182,17 @@ const editPhotoDB = (familyId, familyTitle) => {
 
 const deletePhotoAlbumDB = (photoAlbumId) => {
   return async function (dispatch, getState, { history }) {
-    console.log("photoAlbumId:", photoAlbumId);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .delete(`${BASE_URL}/photoALbum/${photoAlbumId}`, {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         dispatch(deletePhotoAlbum(photoAlbumId));
         window.alert(res.data.msg);
         // alert("삭제!");
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -242,7 +204,6 @@ const deletePhotoDB = (photoId, NowFamilyId, PhotoAlbumName, photoAlbumId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         window.alert(res.data.msg);
         dispatch(deletePhoto(photoId));
         history.push(
@@ -250,10 +211,7 @@ const deletePhotoDB = (photoId, NowFamilyId, PhotoAlbumName, photoAlbumId) => {
         );
         // history.go(0);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -310,16 +268,12 @@ export default handleActions(
         let newArr = draft.photoAlbumList.filter(
           (l) => l.photoAlbumId !== photoAlbumId
         );
-        console.log(
-          state.photoAlbumList.filter((l) => l.photoAlbumId !== photoAlbumId)
-        );
         draft.photoAlbumList = newArr;
       }),
     [DELETE_PHOTO]: (state, action) =>
       produce(state, (draft) => {
         const { photoId } = action.payload;
         let newArr = draft.photoList.filter((l) => l.photoId !== photoId);
-        console.log(state.photoList.filter((l) => l.photoId !== photoId));
         draft.photoList = newArr;
       }),
   },

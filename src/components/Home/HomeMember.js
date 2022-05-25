@@ -26,7 +26,6 @@ import sleepingEmoji from "../../shared/images/sleeping.svg";
 
 const HomeMember = ({ familyMemberList }) => {
   const dispatch = useDispatch();
-  console.log(familyMemberList);
   const f = familyMemberList;
   const userId = f.userId;
 
@@ -37,10 +36,6 @@ const HomeMember = ({ familyMemberList }) => {
   const status = familyMemberStatusList.find((x) => {
     return x.userId === userId;
   });
-
-  console.log(status);
-
-  console.log("가족구성원 리스트:", familyMemberStatusList);
 
   useEffect(() => {
     setTimeout(() => {

@@ -258,7 +258,7 @@ const Styled_Slide = styled(Slider)`
     //얘로 크기조정
     max-width: 100%;
     max-height: 100%;
-    width: 60%;
+    width: 100%;
     height: 100%;
     object-fit: contain;
     border-radius: 10px;
@@ -278,8 +278,8 @@ const Styled_Slide = styled(Slider)`
     }
   }
   img {
-    height: 100%;
-    width: 100%;
+    height: 70%;
+    width: 70%;
     margin: auto;
     display: flex;
     align-items: center;

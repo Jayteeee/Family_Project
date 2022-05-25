@@ -23,8 +23,6 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
 
   // const list = useSelector((state) => state.calendar.scheduleOneList);
 
-  console.log("props로 받는 값:", date, event, familyId, schedule);
-
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);

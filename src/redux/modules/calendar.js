@@ -106,15 +106,10 @@ const getScheduleDB = (familyId, date) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         const scheduleList = res.data.eventCalendarList;
-        console.log(scheduleList);
         dispatch(getSchedule(scheduleList));
       })
-      .catch((error) => {
-        console.log("패밀리 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 };
 const getPhotoCalendarDB = (familyId, date) => {
@@ -125,15 +120,10 @@ const getPhotoCalendarDB = (familyId, date) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         const photoCalendar = res.data.photoCalendarList;
-        console.log(photoCalendar);
         dispatch(getPhotoCalendar(photoCalendar));
       })
-      .catch((error) => {
-        console.log("패밀리 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 };
 
@@ -148,19 +138,13 @@ const getOneScheduleDB = (date, familyId, eventId) => {
         }
       )
       .then((res) => {
-        console.log(res);
         const scheduleOneList = res.data.event;
-        console.log(scheduleOneList);
         dispatch(getOneSchedule(scheduleOneList));
       })
-      .catch((error) => {
-        console.log("패밀리 데이터 안옴", error);
-        // console.log(error.response);
-      });
+      .catch((error) => {});
   };
 };
 const getOnePhotoDB = (date, familyId) => {
-  console.log(date);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -168,22 +152,16 @@ const getOnePhotoDB = (date, familyId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         const photoOneList = res.data.photoModalList;
-        console.log(photoOneList);
         dispatch(getOnePhoto(photoOneList));
       })
-      .catch((error) => {
-        console.log("패밀리 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 };
 
 const addScheduleDB = (familyId, event, myPic, date) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
-    console.log(familyId, event, dayjs(date[0]).format("YYYY-MM-DD"), myPic);
     // const dataList = {
     //   event: event,
     //   startDate: dayjs(date[0]).format("YYYY-MM-DD"),
@@ -204,7 +182,6 @@ const addScheduleDB = (familyId, event, myPic, date) => {
         { headers: config }
       )
       .then((res) => {
-        console.log(res);
         const newSchedule = {
           event: event, // 일정명
           startDate: date[0], // 시작 날짜
@@ -212,12 +189,8 @@ const addScheduleDB = (familyId, event, myPic, date) => {
           color: myPic, // 색깔,
         };
         dispatch(addSchedule(newSchedule));
-        console.log(newSchedule);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -240,7 +213,6 @@ const editScheduleDB = (event, myPic, date, eventId) => {
         }
       )
       .then((res) => {
-        console.log(res);
         const newSchedule = {
           event: res.data.event, // 일정명
           startDate: res.data.startDate, // 시작 날짜
@@ -250,10 +222,7 @@ const editScheduleDB = (event, myPic, date, eventId) => {
         };
         dispatch(editSchedule(newSchedule));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 const deleteScheduleDB = (eventId) => {
@@ -264,16 +233,12 @@ const deleteScheduleDB = (eventId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         // window.alert(res.msg)
         alert("삭제!");
         dispatch(deleteSchedule(eventId));
         history.go(0);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -283,22 +248,18 @@ export default handleActions(
     [GET_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
         draft.scheduleList = action.payload.scheduleList;
-        console.log(state.scheduleList);
       }),
     [GET_PHOTO_CALENDAR]: (state, action) =>
       produce(state, (draft) => {
         draft.photoCalendar = action.payload.photoCalendar;
-        console.log(state.photoCalendar);
       }),
     [GET_ONE_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
         draft.scheduleOneList = action.payload.scheduleOneList;
-        console.log(state.scheduleOneList);
       }),
     [GET_ONE_PHOTO]: (state, action) =>
       produce(state, (draft) => {
         draft.photoOneList = action.payload.photoOneList;
-        console.log(state.photoOneList);
       }),
     [ADD_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
@@ -316,7 +277,6 @@ export default handleActions(
       produce(state, (draft) => {
         const { eventId } = action.payload;
         let newArr = draft.scheduleList.filter((l) => l.eventId !== eventId);
-        console.log(state.scheduleList.filter((l) => l.eventId !== eventId));
         draft.scheduleList = newArr;
       }),
   },

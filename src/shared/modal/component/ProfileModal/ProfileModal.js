@@ -38,52 +38,38 @@ const ProfileModal = ({
   user,
   // myFamilyMemberNickname
 }) => {
-  console.log(user);
   const dispatch = useDispatch();
 
   const params = useParams();
 
   const { familyList } = useSelector((state) => state.family);
-  console.log("패밀리 리스트: ", familyList);
 
   const { familyMemberList } = useSelector((state) => state.familymember);
 
   const NowFamilyId = params.familyId;
-  console.log("현재 가족: ", NowFamilyId);
 
   const familyHost = familyList?.find((h) => h?.familyId === NowFamilyId);
-
-  console.log(onClose);
 
   const myFamilyMemberNickname = familyMemberList?.find(
     (m) => m?.userId === user.userId
   )?.familyMemberNickname;
 
-  console.log("나의 가족구성원호칭:", myFamilyMemberNickname);
-
   const myFamiyMemberId = familyMemberList?.find(
     (m) => m?.userId === user.userId
   )?.familyMemberId;
-
-  console.log("나의 가족구성원Id:", myFamiyMemberId);
 
   const myProfileImg = familyMemberList?.find(
     (m) => m?.userId === user.userId
   )?.profileImg;
 
-  console.log("나의 프로필이미지:", myProfileImg);
-
   const myTodayMood = familyMemberList?.find(
     (m) => m?.userId === user.userId
   )?.todayMood;
-
-  console.log("나의 오늘의 기분:", myTodayMood);
 
   // 오늘의 기분 수정
   const editTodayMood = () => {
     const selectBox = document.getElementById("selectList");
     const selectTodayMood = selectBox.options[selectBox.selectedIndex].value;
-    console.log(selectTodayMood); // option의 value 값
     dispatch(userActions.editTodayMoodDB(selectTodayMood, myFamiyMemberId));
   };
 
@@ -95,8 +81,6 @@ const ProfileModal = ({
     if (file) {
       formData.append("photoFile", file);
     }
-    console.log("프로필이미지파일", file);
-    console.log("formData:", formData);
 
     dispatch(userActions.editProfileImgDB(formData, myFamiyMemberId));
   };

@@ -17,14 +17,9 @@ import AlertModal from "../shared/modal/component/AlertModal";
 
 const GalleryPage = (props) => {
   const { familyId } = props.match?.params;
-  console.log("현재 갤러리페이지 패밀리 아이디:", familyId);
 
   const { photoAlbumList } = useSelector((state) => state.gallery);
-  console.log("갤러리 앨범 리스트:", photoAlbumList);
-
   const [isEdit, setIsEdit] = useState(false);
-
-  console.log("앨범편집모드:", isEdit);
 
   const PracticeEdit = () => {
     if (photoAlbumList.length !== 0) {

@@ -20,7 +20,6 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
   const dispatch = useDispatch();
 
   const photoImgInput = useRef();
-  console.log("포토앨범 이름:", photoAlbumName);
 
   const onImgInputBtnClick = () => {
     const file = photoImgInput.current.files[0];
@@ -28,7 +27,6 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
     if (file) {
       formData.append("photoFile", file);
     }
-    console.log("이미지파일", file);
 
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };

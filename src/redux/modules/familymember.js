@@ -82,7 +82,6 @@ const leaveFamily = createAction(LEAVE_FAMILY, (familyId, familyMemberId) => ({
 
 // api 응답 받는 미들웨어
 const getFamilyMemberDB = (familyId) => {
-  console.log("가족구성원GET용 fmailyId:", familyId);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -90,15 +89,10 @@ const getFamilyMemberDB = (familyId) => {
         headers: config,
       })
       .then((res) => {
-        console.log("가족 구성원 GET:", res);
         const { familyMemberList } = res.data;
-        console.log(familyMemberList);
         dispatch(getFamilyMember(familyMemberList));
       })
-      .catch((error) => {
-        console.log("구성원 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
     // const { nowFamilyMemberList } = DummyData;
     // console.log("현재 멤버 리스트:", nowFamilyMemberList);
     // dispatch(getFamilyMember(nowFamilyMemberList));
@@ -107,7 +101,6 @@ const getFamilyMemberDB = (familyId) => {
 
 // 가족구성원 접속상태 받아오는 api
 const getFamilyMemberStatusDB = (familyId) => {
-  console.log("가족구성원GET용 fmailyId:", familyId);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -115,35 +108,25 @@ const getFamilyMemberStatusDB = (familyId) => {
         headers: config,
       })
       .then((res) => {
-        console.log("가족 구성원 GET:", res);
         const { familyMemberStatusList } = res.data;
-        console.log(familyMemberStatusList);
         dispatch(getFamilyMemberStatus(familyMemberStatusList));
       })
-      .catch((error) => {
-        console.log("구성원 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 };
 
 const getSearchMemberDB = (email) => {
   return function (dispatch, getState, { history }) {
-    console.log("입력한 email :", email);
     const config = { Authorization: `Bearer ${getToken()}` };
     axios
       .get(`${BASE_URL}/family/search?search=${email}`, {
         headers: config,
       })
       .then((res) => {
-        console.log("가족 구성원 검색 GET:", res);
         const { userEmail } = res.data;
-        console.log(userEmail);
         dispatch(getSearchMember(userEmail));
       })
       .catch((error) => {
-        console.log("구성원 검색 데이터 안옴", error);
-        console.log(error.response.data.msg);
         dispatch(getSearchMember(error.response.data.msg));
       });
 
@@ -158,7 +141,6 @@ const getSearchMemberDB = (email) => {
 };
 
 const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
-  console.log("가족멤버닉네임:", familyMemberNickname, "이메일:", selectuserId);
   return async function (dispatch, getState, { history }) {
     const newFamilyMember = {
       email: `${selectuserId}`,
@@ -170,15 +152,11 @@ const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.msg);
         // const addedFamily = getState().family.familyList.find((f) => f.familyId === familyId)
         // dispatch(addFamilyMember(res.data.familyMember));
         history.push(`/family/${familyId}`);
       })
       .catch((err) => {
-        console.log(err);
-        console.log(err.response);
         window.alert(err.response.data.msg);
       });
   };
@@ -190,16 +168,6 @@ const editFamilyMemberNicknameDB = (
   familyMemberNickname,
   userId
 ) => {
-  console.log(
-    "가족아이디:",
-    familyId,
-    "가족맴버아이디:",
-    familyMemberId,
-    "가족맴버호칭:",
-    familyMemberNickname,
-    "userId",
-    userId
-  );
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -211,7 +179,6 @@ const editFamilyMemberNicknameDB = (
         }
       )
       .then((res) => {
-        console.log(res);
         dispatch(
           editFamilyMembeNickname(
             familyId,
@@ -227,15 +194,11 @@ const editFamilyMemberNicknameDB = (
           )
         );
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
 const deleteFamilyMemberDB = (familyId, familyMemberId) => {
-  console.log(familyId, familyMemberId);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -243,20 +206,15 @@ const deleteFamilyMemberDB = (familyId, familyMemberId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         // dispatch(familyActions.deleteFamily(familyId));
         dispatch(deleteFamilyMember(familyId, familyMemberId));
         // history.go(0);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
 const leaveFamilyDB = (familyId, familyMemberId, otherFamilyId) => {
-  console.log(familyId, familyMemberId);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -264,8 +222,6 @@ const leaveFamilyDB = (familyId, familyMemberId, otherFamilyId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
-
         dispatch(deleteFamilyMember(familyId, familyMemberId));
         dispatch(familyActions.deleteFamily(familyId));
         if (otherFamilyId !== undefined) {
@@ -275,10 +231,7 @@ const leaveFamilyDB = (familyId, familyMemberId, otherFamilyId) => {
         }
         // history.go(0);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -380,11 +333,6 @@ export default handleActions(
         let newArr = draft.familyMemberList.filter(
           (l) => l.familyMemberId !== familyMemberId
         );
-        console.log(
-          state.familyMemberList.filter(
-            (l) => l.familyMemberId !== familyMemberId
-          )
-        );
         draft.familyMemberList = newArr;
       }),
 
@@ -393,11 +341,6 @@ export default handleActions(
         const { familyId, familyMemberId } = action.payload;
         let newArr = draft.familyMemberList.filter(
           (l) => l.familyMemberId !== familyMemberId
-        );
-        console.log(
-          state.familyMemberList.filter(
-            (l) => l.familyMemberId !== familyMemberId
-          )
         );
         draft.familyMemberList = newArr;
       }),

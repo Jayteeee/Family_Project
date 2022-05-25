@@ -41,23 +41,13 @@ const MissionMemberModal = ({ onClose, familyMemberList }) => {
     }),
   ];
 
-  console.log("체크된 가족구성원Id:", selectedMemberId);
-  console.log("가족구성원리스트:", familyMemberList);
-  console.log(
-    "체크된 가족구성원Id 리스트(딕셔너리 형태):",
-    selectedMemberIdList
-  );
-
   let selectedMemberList = familyMemberList.filter((l) =>
     selectedMemberIdList.some((f) => l.familyMemberId === f.familyMemberId)
   );
 
-  console.log("체크된 가족구성원정보:", selectedMemberList);
-
   const checkHandler = ({ target }) => {
     setIsChecked(!isChecked);
     checkedItemHandler(target.parentNode, target.value, target.checked);
-    console.log(target.parentNode, target.value, target.checked, target.id);
   };
 
   const checkedItemHandler = (box, familyMemberId, isChecked) => {

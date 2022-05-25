@@ -31,7 +31,6 @@ import BadgeOn_06 from "../../../images/BadgeOn_06.svg";
 
 const BadgeModal = ({ onClose, familyId }) => {
   const badgeList = useSelector((state) => state.mission?.badgeList);
-  console.log("배지 리스트:", badgeList);
   //   console.log((badgeList[0].badgeCnt / 1) * 100);
   return (
     <ModalPortal>

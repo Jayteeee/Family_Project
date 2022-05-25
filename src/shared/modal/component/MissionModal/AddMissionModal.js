@@ -63,9 +63,6 @@ const AddMissionModal = ({ onClose, familyId }) => {
     (state) => state.mission.selectedMemberIdList
   );
 
-  console.log("선택한 미션 구성원 리스트:", selectedMemberList);
-  console.log("선택된 미션 구성원 Id 리스트", selectedMemeberIdList);
-
   const AddMission = () => {
     if (missionTitle) {
       dispatch(

@@ -18,7 +18,6 @@ const AddPhotoAlbumModal = ({ onClose, familyId }) => {
   const dispatch = useDispatch();
 
   // 현재 familyId
-  console.log("현재 familyId:", familyId);
 
   //  앨범 제목 input
   const [photoAlbumName, setPhotoAlbumName] = useState("");
@@ -28,8 +27,6 @@ const AddPhotoAlbumModal = ({ onClose, familyId }) => {
     const { value } = e.target;
     setPhotoAlbumName(value);
   };
-
-  console.log("앨범 이름:", photoAlbumName);
 
   const resetAlbunName = () => {
     setPhotoAlbumName("");

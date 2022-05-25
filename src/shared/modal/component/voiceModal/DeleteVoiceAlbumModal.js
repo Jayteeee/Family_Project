@@ -16,7 +16,6 @@ import { voiceActions } from "../../../../redux/modules/voice";
 
 const DeleteVoiceAlbumModal = ({ onClose, voiceAlbumId }) => {
   const dispatch = useDispatch();
-  console.log("선택한 음성앨범ID:", voiceAlbumId);
   const deleteVoiceAlbum = () => {
     dispatch(voiceActions.deleteVoiceAlbumDB(voiceAlbumId));
     onClose();

@@ -14,26 +14,18 @@ import PhotoList from "../components/Gallery/PhotoList";
 
 const PhotoDetalilPage = (props) => {
   const { photoId } = props.match.params;
-  console.log("선택한 사진Id:", photoId);
 
   const { photoAlbumId } = props.match.params;
-  console.log("선택한 앨범Id:", photoAlbumId);
 
   const { familyId } = props.match?.params;
-  console.log("현재 사진페이지 패밀리 아이디:", familyId);
 
   const { photoAlbumList } = useSelector((state) => state.gallery);
-
-  console.log(photoAlbumList);
 
   const photoAlbumName = photoAlbumList.filter(
     (p) => p.photoAlbumId === photoAlbumId
   );
-  console.log("선택한 앨범이름:", photoAlbumName);
 
   const [isEdit, setIsEdit] = useState(false);
-
-  console.log("사진편집모드:", isEdit);
 
   const PracticeEdit = () => {
     setIsEdit(!isEdit);

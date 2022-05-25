@@ -18,8 +18,6 @@ import PhotoSlider from "../../../../components/Calendar/PhotoSlider";
 const GetPhotoModal = ({ onClose, date, familyId }) => {
   const dispatch = useDispatch();
 
-  console.log("보내는 날짜:", date);
-
   React.useEffect(() => {
     dispatch(
       scheduleActions.getOnePhotoDB(dayjs(date).format("YYYY-MM-DD"), familyId)
@@ -27,8 +25,6 @@ const GetPhotoModal = ({ onClose, date, familyId }) => {
   }, []);
 
   const list = useSelector((state) => state.calendar.photoOneList[0]);
-  console.log(list);
-
   return (
     <ModalPortal>
       <Background

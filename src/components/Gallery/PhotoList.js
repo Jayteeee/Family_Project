@@ -36,13 +36,7 @@ const PhotoList = ({
 
   const userId = useSelector((state) => state.user);
 
-  console.log("접속한Id", userId);
-
-  console.log("선택한 앨범Id:", photoAlbumId);
-
   const { photoList } = useSelector((state) => state.gallery);
-
-  console.log("선택한 앨범 사진리스트:", photoList);
 
   // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
@@ -51,10 +45,7 @@ const PhotoList = ({
   const DeletePhoto = (photoId) => {
     setModalOn(!modalOn);
     setPhotoId(photoId);
-    console.log(photoAlbumId);
   };
-
-  console.log("사진ID:", photoId);
 
   const handleModal = () => {
     setModalOn(!modalOn);
@@ -85,7 +76,6 @@ const PhotoList = ({
 
   // 사진 추가
   const photoImgInput = useRef();
-  console.log("포토앨범 이름:", photoAlbumName);
 
   const onImgInputBtnClick = () => {
     const file = photoImgInput.current.files[0];
@@ -93,7 +83,6 @@ const PhotoList = ({
     if (file) {
       formData.append("photoFile", file);
     }
-    console.log("이미지파일", file);
 
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };

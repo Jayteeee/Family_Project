@@ -26,14 +26,11 @@ import S_voicemail from "../../shared/images/S_voicemail.svg";
 const VoiceList = ({ voiceAlbumId, familyId }) => {
   const dispatch = useDispatch();
 
-  console.log("선택한 앨범Id:", voiceAlbumId);
   const voiceAlbumName = useSelector(
     (state) => state.voice.voiceList.voiceAlbumName
   );
 
   const voiceList = useSelector((state) => state.voice?.voiceFileList);
-
-  console.log("선택한 음성리스트:", voiceList);
 
   const [isEdit, setIsEdit] = useState(false);
 

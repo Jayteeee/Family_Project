@@ -24,8 +24,6 @@ const GalleryHeader = ({
   EditPhotoAlbum,
   CompletedEdit,
 }) => {
-  console.log("현재 가족Id:", NowFamilyId);
-
   // 앨범 추가하기 모달
   const [modalOn, setModalOn] = useState(false);
 
