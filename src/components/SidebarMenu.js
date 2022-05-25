@@ -8,6 +8,7 @@ import {
   MdEvent,
   MdPhotoLibrary,
   MdOutlineVoicemail,
+  MdClear,
 } from "react-icons/md";
 
 // 리덕스
@@ -16,7 +17,8 @@ import { useDispatch } from "react-redux";
 import { scheduleActions } from "../redux/modules/calendar";
 
 // 엘리먼트
-import { RactangleImage } from "../elements/index";
+// 엘리먼트
+import { Text, CircleImage, RactangleImage } from "../elements";
 
 // 이미지
 import onHomeIcon from "../shared/images/onHomeIcon.svg";

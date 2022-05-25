@@ -96,7 +96,6 @@ const Header = (props) => {
     localStorage.removeItem("galleryMenuColor");
     localStorage.removeItem("voiceMenuColor");
   };
-
   return (
     <>
       <div>

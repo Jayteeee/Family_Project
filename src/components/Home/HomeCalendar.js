@@ -63,11 +63,11 @@ const HomeCalendar = ({ thisMonthEventList, familyId }) => {
 const Container = styled.div`
   margin-top: 15px;
   width: 100%;
-  /* height: 80%; */
+  height: 100%;
   .homeCalendar {
     width: 100%;
     max-width: 100%;
-    height: 40vh;
+    height: 42vh;
     background-color: #fff;
     color: #222;
     border: none;
@@ -79,7 +79,7 @@ const Container = styled.div`
     // Medium (Tablet)
     @media screen and (max-width: 1024px) {
       padding: 24px 24px 12px 24px;
-      height: 50vh;
+      height: 100%;
     }
     // Small (Tablet)
     @media only screen and (max-width: 839px) {
@@ -87,7 +87,7 @@ const Container = styled.div`
     }
     // XSmall (Mobile)
     @media screen and (max-width: 599px) {
-      height: 45vh;
+      height: 100%;
       padding: 20px 10px;
       abbr {
         padding: 4px;

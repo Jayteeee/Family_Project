@@ -5,7 +5,6 @@ import App from "./App";
 import store from "./redux/configureStore";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
@@ -16,7 +15,6 @@ root.render(
   </Provider>
 );
 
-serviceWorkerRegistration.register();
 // ReactDOM.render(
 //   <Provider store={store}>
 //     <App />

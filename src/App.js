@@ -36,7 +36,7 @@ function App() {
   console.log(userId);
 
   const socket = io.connect(ENDPOINT, {
-    // transports: ["websocket"],
+    transports: ["websocket"],
     // forceNew: true,
   });
 

@@ -12,35 +12,40 @@ import { scheduleActions } from "../../redux/modules/calendar";
 //엘리먼트
 import { Text, Button } from "../../elements";
 
+//이미지
+import M_calendar from "../../shared/images/M_calendar.svg";
+
 const HomeSchedule = ({ thisMonthEventList }) => {
   return (
     <ScheduleArea>
-      {thisMonthEventList
-        ? thisMonthEventList.map((x) => (
-            <FlexBox1 key={x?.eventId}>
-              <TextBox>
-                <Text BM className="homeScheduleDate">
-                  {`${dayjs(x?.startDate)
-                    .locale("ko")
-                    .format("MM월 DD일, dd")}`}
-                </Text>
-              </TextBox>
-              <FlexBox2>
-                <DateColor color={x?.color}></DateColor>
-                <Text fontWeight="400" size="15px" className="homeScheduleText">
-                  {x?.event}
-                </Text>
-              </FlexBox2>
-            </FlexBox1>
-          ))
-        : null}
+      {thisMonthEventList?.length !== 0 ? (
+        thisMonthEventList?.map((x) => (
+          <FlexBox1 key={x?.eventId}>
+            <TextBox>
+              <Text BM className="homeScheduleDate">
+                {`${dayjs(x?.startDate).locale("ko").format("MM월 DD일, dd")}`}
+              </Text>
+            </TextBox>
+            <FlexBox2>
+              <DateColor color={x?.color}></DateColor>
+              <Text fontWeight="400" size="15px" className="homeScheduleText">
+                {x?.event}
+              </Text>
+            </FlexBox2>
+          </FlexBox1>
+        ))
+      ) : (
+        <NoneContentBox>
+          <EmptyContentImg src={M_calendar} />
+        </NoneContentBox>
+      )}
     </ScheduleArea>
   );
 };
 
 const ScheduleArea = styled.div`
   width: 100%;
-  height: 40vh;
+  height: 100%;
   background-color: transparent;
   text-align: start;
   border: none;
@@ -50,19 +55,16 @@ const ScheduleArea = styled.div`
   // Medium (Desktop)
   @media only screen and (max-width: 1199px) {
     margin: 24px 0 50px 0;
-    height: 100%;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    height: 100%;
+    /* height: 30vh; */
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    margin: 10px 0 50px 0;
-    height: 100%;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
@@ -77,6 +79,7 @@ const ScheduleArea = styled.div`
 
 const FlexBox1 = styled.div`
   display: flex;
+  width: 100%;
   /* flex-wrap: wrap; */
   /* display: flex; */
   align-items: flex-start;
@@ -94,6 +97,7 @@ const FlexBox1 = styled.div`
 
 const FlexBox2 = styled.div`
   display: flex;
+  width: 80%;
   align-items: center;
 `;
 
@@ -123,6 +127,56 @@ const DateColor = styled.div`
   border-radius: 2px;
   background-color: ${(props) => props.color};
   margin-right: 8px;
+`;
+const NoneContentBox = styled.div`
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    height: 30vh;
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    /* margin: 10px; */
+    height: 20vh;
+    width: 100%;
+  }
+`;
+
+const EmptyContentImg = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+  width: 100%;
+  height: 100%;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    width: 50%;
+    height: 100%;
+    margin: auto;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export default HomeSchedule;

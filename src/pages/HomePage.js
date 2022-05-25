@@ -692,6 +692,7 @@ const MiddleRightBox = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     width: 100%;
+    height: 100%;
     padding-left: 0;
     margin-top: 30px;
     /* display: block; */
