@@ -136,11 +136,7 @@ const Main = (props) => {
             >
               {/* 가족 타이틀 수정시 label에 바로 적용 안되는 문제 있음 */}
               <Label className="res-label">
-                {currentValue
-                  ? currentValue
-                  : NowFamilyTitle
-                  ? NowFamilyTitle
-                  : "Family Title"}
+                {NowFamilyTitle ? NowFamilyTitle : "Family Title"}
                 <TiArrowSortedDown
                 // style={{
                 //   margin: "0 15px",
