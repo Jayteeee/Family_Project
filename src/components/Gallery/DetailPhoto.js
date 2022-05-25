@@ -59,38 +59,28 @@ const DetailPhoto = ({
   const detailPhotoData = useSelector(
     (state) => state.detailPhoto.nowPhotoDetail
   );
-  console.log("상세 이미지 데이터:", detailPhotoData);
 
   const { detailPhoto } = detailPhotoData;
-  console.log("상세 이미지:", detailPhoto);
 
   const { commentList } = detailPhotoData;
-  console.log("코멘트리스트:", commentList);
 
   const { likeMemberList } = detailPhotoData;
-  console.log("좋아요 맴버:", likeMemberList);
 
   const { PhotoAlbumName } = detailPhotoData;
-  console.log("포토앨범이름:", PhotoAlbumName);
 
   const nowUserId = useSelector((state) => state.user.user.user?.userId);
-  console.log("현재 userID:", nowUserId);
 
   let createdAt = dayjs(new Date(detailPhoto?.createdAt)).format(
     "YYYY년 M월 DD일"
   );
-  console.log(createdAt);
 
   const { familyMemberList } = useSelector((state) => state.familymember);
   const nowUserNickname = familyMemberList?.find(
     (m) => m?.userId === nowUserId
   )?.familyMemberNickname;
 
-  console.log("현재 userNickname:", nowUserNickname);
-
   const [comment, setComment] = useState("");
 
-  console.log("댓글내용:", comment);
   const submitComment = () => {
     dispatch(
       detailPhotoActions.addCommentDB(
@@ -108,9 +98,6 @@ const DetailPhoto = ({
   const handleLike = () => {
     setLike(!like);
   };
-
-  console.log("좋아요", like);
-  console.log(detailPhotoData.likeChk);
 
   const userId = useSelector((state) => state.user.user.user?.userId);
 
@@ -143,7 +130,6 @@ const DetailPhoto = ({
   let socket = useSelector((state) => state.socket.socket);
 
   const handleLikeNoti = (type) => {
-    console.log(detailPhoto.userId);
     socket.emit("sendLikeNoti", {
       photoId: photoId,
       senderName: nowUserNickname,
@@ -156,7 +142,6 @@ const DetailPhoto = ({
   };
 
   const handleCommentNoti = (type) => {
-    console.log(detailPhoto.userId);
     socket.emit("sendCommentNoti", {
       photoId: photoId,
       senderName: nowUserNickname,

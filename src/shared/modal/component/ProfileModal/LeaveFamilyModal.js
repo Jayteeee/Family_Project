@@ -22,7 +22,6 @@ const LeaveFamilyModal = (props) => {
     // familyList
   } = props;
   const dispatch = useDispatch();
-  console.log(familyId, familyMemberId);
 
   const familyList = useSelector((state) => state?.familyList);
 
@@ -41,7 +40,6 @@ const LeaveFamilyModal = (props) => {
     // }
   };
 
-  console.log(familyMemberId);
   return (
     <ModalPortal>
       <Background

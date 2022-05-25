@@ -102,17 +102,13 @@ const getMissionPage = (familyId) => {
   return async function (dispatch, getState, { history }) {
     const pastMissionList = getState().mission.pastMissionList;
     const config = { Authorization: `Bearer ${getToken()}` };
-    console.log("미션페이지 get familyId", familyId);
     await axios
       .get(`${BASE_URL}/mission/${familyId}`, { headers: config })
       .then((res) => {
-        console.log("미션 데이터 GET:", res);
         const { thisMonthMissionList } = res.data;
-        console.log(thisMonthMissionList);
         dispatch(getMission(thisMonthMissionList));
       })
       .catch((err) => {
-        console.log("미션 데이터 안옴", err);
         // window.alert(err.response.data.msg);
       });
 
@@ -133,13 +129,10 @@ const getPastMissionDB = (familyId) => {
     await axios
       .get(`${BASE_URL}/mission/${familyId}/pastmission`, { headers: config })
       .then((res) => {
-        console.log("지난 미션 데이터 GET:", res);
         const { familyList } = res.data;
-        console.log(familyList);
         // dispatch(getFamily(familyList));
       })
       .catch((err) => {
-        console.log("지난 미션 데이터 안옴", err);
         // window.alert(err.response.data.msg);
       });
   };
@@ -151,13 +144,11 @@ const getMissionMemberDB = (familyId) => {
     await axios
       .get(`${BASE_URL}/mission/${familyId}/familymember`, { headers: config })
       .then((res) => {
-        console.log("미션 멤버 GET:", res);
         // const {familyList} = res.data
         // console.log(familyList);
         // dispatch(getMissionMember(familyList));
       })
       .catch((err) => {
-        console.log("미션 멤버 데이터 안옴", err);
         // window.alert(err.response.data.msg);
       });
   };
@@ -169,13 +160,11 @@ const getBadgeListDB = (familyId) => {
     await axios
       .get(`${BASE_URL}/badge/${familyId}`, { headers: config })
       .then((res) => {
-        console.log("배지 데이터 GET:", res);
         const { badge } = res.data.badgeList;
         // console.log(familyList);
         dispatch(getBadgeList(badge));
       })
       .catch((err) => {
-        console.log("배지 데이터 안옴", err);
         // window.alert(err.response.data.msg);
       });
     // const badgeList = DummyData.badgePage.badge;
@@ -189,12 +178,10 @@ const getMissionStatusDB = (familyId) => {
     await axios
       .get(`${BASE_URL}/mission/dashboard/${familyId}`, { headers: config })
       .then((res) => {
-        console.log("미션 현황 GET:", res);
         const missionStatusData = res.data;
         dispatch(getMissionStatus(missionStatusData));
       })
       .catch((err) => {
-        console.log("미션 현황 데이터 안옴", err);
         // window.alert(err.response.data.msg);
       });
   };
@@ -206,7 +193,6 @@ const addMissionDB = (
   familyMemberId,
   selectedMemberList
 ) => {
-  console.log(missionTitle);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -216,9 +202,7 @@ const addMissionDB = (
         { headers: config }
       )
       .then((res) => {
-        console.log("ADD 미션 데이터 ", res);
         const { createdMember } = res.data;
-        console.log(createdMember);
         const { missionId } = res.data;
 
         const newMission = {
@@ -232,7 +216,6 @@ const addMissionDB = (
         dispatch(getMissionStatusDB(familyId));
       })
       .catch((err) => {
-        console.log(err);
         window.alert(err.response.data.msg);
       });
   };
@@ -253,17 +236,12 @@ const checkMissionDB = (
       familyMissionChk,
       completedAt,
     };
-    console.log(familyId);
-    console.log(missionId);
-    console.log(missionChkData);
-    console.log(userId);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .post(`${BASE_URL}/mission/${familyId}/${missionId}`, missionChkData, {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         const { data } = res;
         let { myMissionChk } = data;
         const { completedAt } = data;
@@ -286,8 +264,6 @@ const checkMissionDB = (
         // history.go(0);
       })
       .catch((err) => {
-        console.log(err);
-        console.log(err.response);
         window.alert(err.response.data.msg);
       });
   };
@@ -295,23 +271,18 @@ const checkMissionDB = (
 
 const deleteMissionDB = (familyId, missionId) => {
   return async function (dispatch, getState, { history }) {
-    console.log(missionId);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .delete(`${BASE_URL}/mission/${missionId}`, {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         dispatch(deleteMission(missionId));
         dispatch(getMissionStatusDB(familyId));
         // dispatch(missionStatusUpdate(missionStatus));
         // history.go(0);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -382,8 +353,6 @@ export default handleActions(
         const { missionId, familyMissionChk, myMissionChk, completedAt } =
           action.payload.missionChkData;
 
-        console.log(missionId, familyMissionChk);
-
         let thisMonthMissionList = draft.thisMonthMissionList.filter(
           (m) => m.missionId === missionId
         )[0];
@@ -392,9 +361,6 @@ export default handleActions(
           (m) => m.missionId === missionId
         );
 
-        console.log(missionIdx);
-        console.log("선택한 미션:", thisMonthMissionList);
-
         thisMonthMissionList = {
           ...thisMonthMissionList,
           familyMissionChk: familyMissionChk,
@@ -402,7 +368,6 @@ export default handleActions(
           completedAt: completedAt,
         };
 
-        console.log(thisMonthMissionList);
         // 선택한 미션 주입
         draft.thisMonthMissionList[missionIdx] = thisMonthMissionList;
       }),
@@ -410,8 +375,6 @@ export default handleActions(
       produce(state, (draft) => {
         const { missionId, myMissionChk, familyMissionChk, userId } =
           action.payload.checkedMissionMember;
-
-        console.log(missionId, myMissionChk, familyMissionChk, userId);
 
         let thisMonthMissionList = state.thisMonthMissionList.filter(
           (m) => m.missionId === missionId
@@ -426,14 +389,6 @@ export default handleActions(
           )[0];
         let memberIdx = thisMonthMissionList.missionMemberList.findIndex(
           (f) => f.userId === userId
-        );
-
-        console.log(missionIdx, memberIdx);
-        console.log(
-          "선택한 미션:",
-          thisMonthMissionList,
-          "선택한 미션멤버:",
-          checkedMissionMember
         );
 
         checkedMissionMember = {

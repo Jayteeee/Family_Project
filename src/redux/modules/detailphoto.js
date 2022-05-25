@@ -50,15 +50,10 @@ const getDetailPhotoDB = (familyId, photoId) => {
     await axios
       .get(`${BASE_URL}/photo/${familyId}/${photoId}`, { headers: config })
       .then((res) => {
-        console.log(res);
         const detailPhoto = res.data;
-        console.log(detailPhoto);
         dispatch(getDetailPhoto(detailPhoto));
       })
-      .catch((error) => {
-        console.log("사진 상세보기 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
     // dispatch(getDetailPhoto(DummyData.detailPhotoPage));
   };
 };
@@ -66,7 +61,6 @@ const getDetailPhotoDB = (familyId, photoId) => {
 const addCommentDB = (familyId, photoAlbumId, photoId, comment) => {
   return async function (dispatch, getState, { history }) {
     const userInfo = getState().user.user;
-    console.log("댓글 유저정보", userInfo);
     if (!comment) return;
     const config = { Authorization: `Bearer ${getToken()}` };
     // const { email } = getState().user.user;
@@ -77,9 +71,7 @@ const addCommentDB = (familyId, photoAlbumId, photoId, comment) => {
         { headers: config }
       )
       .then((res) => {
-        console.log(res);
         let { createdComment } = res.data;
-        console.log(createdComment);
 
         // let newDic = {
         //   ...resData,
@@ -89,10 +81,7 @@ const addCommentDB = (familyId, photoAlbumId, photoId, comment) => {
         dispatch(addComment(createdComment));
         // dispatch(channelActions.addComment(channelId, contentId, newDic));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
     // let fakeResponseData = {
     //   comment: comment,
     //   commentId: new Date().getTime() + "",
@@ -119,9 +108,7 @@ const addLikeDB = (familyId, photoId, likeChk, userId) => {
         { headers: config }
       )
       .then((res) => {
-        console.log(res);
         let newLikeChk = res.data.likeChk;
-        console.log(likeChk);
         // let newDic = {
         //   ...resData,
         //   userId: email,
@@ -135,10 +122,7 @@ const addLikeDB = (familyId, photoId, likeChk, userId) => {
 
         // dispatch(channelActions.addComment(channelId, contentId, newDic));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
     // let fakeResponseData = {
     //   comment: comment,
     //   commentId: new Date().getTime() + "",
@@ -163,13 +147,9 @@ const deleteCommentDB = (commentId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
         dispatch(deleteComment(commentId));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 

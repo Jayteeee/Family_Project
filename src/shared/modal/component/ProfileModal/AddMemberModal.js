@@ -20,8 +20,6 @@ const AddMemberModal = ({ onClose }) => {
 
   const { familyTitle, familyId } = useContext(MainContext)[0];
 
-  console.log("현재 가족 이름:", familyTitle, "현재 가족 아이디:", familyId);
-
   // 가족 구성원 추가하기 관련 코드
   const [searchEmail, setsearchEmail] = useState(""); // 검색한 userId
   const [selectEmail, setSelectEmail] = useState("");
@@ -37,13 +35,6 @@ const AddMemberModal = ({ onClose }) => {
     (state) => state.familymember.familyMemberList
   );
 
-  console.log("가족 맴버 리스트:", familyMemberList);
-
-  console.log("검색한 이메일:", searchEmail);
-
-  console.log("검색한 맴버:", searchMember);
-  console.log("선택한 맴버:", selectEmail);
-
   // 검색한 userId 주입
   const handleSearchEmail = (e) => {
     setSelectEmail(e.target.value);
@@ -52,7 +43,6 @@ const AddMemberModal = ({ onClose }) => {
   };
   // 선택한 userId input value에 주입
   const handleSelectEmail = (e) => {
-    console.log(e.target.getAttribute("value"));
     document.getElementById("addMember").value = e.target.getAttribute("value");
     setSelectEmail(e.target.getAttribute("value"));
   };
@@ -64,13 +54,11 @@ const AddMemberModal = ({ onClose }) => {
 
   // 동알한 가족구성원 있는지 체크
   const familyMemberChk = familyMemberList.find((f) => f.email === selectEmail);
-  console.log("가족구성원 체크:", familyMemberChk);
 
   // 동알한 가족구성원이름 있는지 체크
   const familyMemberNicknameChk = familyMemberList.find(
     (f) => f.familyMemberNickname === familyMemberNickname
   );
-  console.log("가족구성원이름 체크:", familyMemberNicknameChk);
 
   // 소켓 부분
   const socket = useSelector((state) => state.socket.socket);

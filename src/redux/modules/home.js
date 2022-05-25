@@ -41,17 +41,12 @@ const getHomeDB = (familyId) => {
     await axios
       .get(`${BASE_URL}/main/${familyId}`, { headers: config })
       .then((res) => {
-        console.log("홈페이지 데이터 GET:", res);
         const homeData = res.data;
-        console.log(homeData);
         dispatch(getHome(homeData));
         dispatch(getRandomMsg(homeData.randomMsg[0]));
         // dispatch(getFamilyMemberList(homeData.familyMemberList));
       })
-      .catch((err) => {
-        console.log("홈페이지 데이터 안옴", err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 

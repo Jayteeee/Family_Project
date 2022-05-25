@@ -31,11 +31,9 @@ const PhotoAlbumList = ({
   CompletedEdit,
 }) => {
   const dispatch = useDispatch();
-  console.log("현재 가족Id:", NowFamilyId);
 
   // 갤러리 앨범 리스트
   const { photoAlbumList } = useSelector((state) => state.gallery);
-  console.log("갤러리 앨범 리스트:", photoAlbumList);
 
   // const nowPhotoAlbum = `${({ AlbumName }) => `${AlbumName};`}`;
 
@@ -50,13 +48,6 @@ const PhotoAlbumList = ({
     setPhotoAlbumName(value);
     setPhotoAlbumId(id);
   };
-
-  console.log(
-    "선택한 앨범이름:",
-    photoAlbumName,
-    "선택한 앨범Id:",
-    photoAlbumId
-  );
 
   const EditPhotoAlbum = () => {
     // if (photoAlbumName) {
@@ -74,15 +65,13 @@ const PhotoAlbumList = ({
     // setModalOn(!modalOn);
     setPhotoAlbumId(photoAlbumId);
     setPhotoAlbumName(photoAlbumName);
-    console.log(photoAlbumId);
+
     handleModal();
   };
   const handleModal = (e) => {
     setModalOn(!modalOn);
     const deleteBtn = document.getElementById("deleteBtn");
   };
-
-  console.log(modalOn);
 
   useEffect(() => {
     dispatch(galleryActions.getPhotoAlbumDB(NowFamilyId));

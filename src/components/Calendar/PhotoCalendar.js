@@ -21,7 +21,6 @@ const PhotoCalendar = (props) => {
   const list = useSelector((state) => state.calendar.photoCalendar);
 
   const docs = document.getElementsByClassName("highlight");
-  console.log(docs);
 
   const thisMonth = document.getElementsByClassName(
     "react-calendar__navigation__label__labelText"

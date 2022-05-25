@@ -12,17 +12,12 @@ import PhotoList from "../components/Gallery/PhotoList";
 
 const PhotoListPage = (props) => {
   const { photoAlbumId } = props.match.params;
-  console.log("선택한 앨범Id:", photoAlbumId);
 
   const { photoAlbumName } = props.match.params;
-  console.log("선택한 앨범이름:", photoAlbumName);
 
   const { familyId } = props.match?.params;
-  console.log("현재 사진페이지 패밀리 아이디:", familyId);
 
   const [isEdit, setIsEdit] = useState(false);
-
-  console.log("사진편집모드:", isEdit);
 
   const PracticeEdit = () => {
     setIsEdit(!isEdit);

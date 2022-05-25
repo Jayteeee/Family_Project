@@ -44,41 +44,30 @@ const getFamilyDB = () => {
     await axios
       .get(`${BASE_URL}/family/familylist`, { headers: config })
       .then((res) => {
-        console.log("가족 데이터 GET:", res);
         const { familyList } = res.data;
-        console.log(familyList);
         dispatch(getFamily(familyList));
       })
-      .catch((error) => {
-        console.log("패밀리 데이터 안옴", error);
-        console.log(error.response);
-      });
+      .catch((error) => {});
     // dispatch(getFamily(DummyData.familyList));
   };
 };
 
 const addFamilyDB = (familyTitle) => {
   return async function (dispatch, getState, { history }) {
-    console.log(familyTitle);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .post(`${BASE_URL}/family`, { familyTitle }, { headers: config })
       .then((res) => {
-        console.log(res);
-        console.log(res.msg);
         const { familyId } = res.data;
         history.push(`/family/${familyId}`);
       })
       .catch((err) => {
-        console.log(err);
-        console.log(err.response);
         alert(err.response.data.msg);
       });
   };
 };
 
 const editFamilyNameDB = (familyId, familyTitle) => {
-  console.log(familyTitle);
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -90,14 +79,10 @@ const editFamilyNameDB = (familyId, familyTitle) => {
         }
       )
       .then((res) => {
-        console.log(res);
         const { familyTitle } = res.data;
         dispatch(editFamilyName(familyId, familyTitle));
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
     // dispatch(editFamilyName(familyId, familyTitle));
   };
 };
@@ -109,8 +94,6 @@ const deleteFamilyDB = (familyId, otherFamilyId) => {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
-
         dispatch(deleteFamily(familyId));
         dispatch(userActions.deleteUserFamily(familyId));
 
@@ -121,10 +104,7 @@ const deleteFamilyDB = (familyId, otherFamilyId) => {
         }
         // history.go(0);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -156,7 +136,6 @@ export default handleActions(
       produce(state, (draft) => {
         const { familyId } = action.payload;
         let newArr = draft.familyList.filter((l) => l.familyId !== familyId);
-        console.log(state.familyList.filter((l) => l.familyId !== familyId));
         draft.familyList = newArr;
       }),
   },

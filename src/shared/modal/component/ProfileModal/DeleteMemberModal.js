@@ -16,8 +16,6 @@ import { familyMemberActions } from "../../../../redux/modules/familymember";
 const DeleteMemberModal = (props) => {
   const { onClose, familyId, familyMemberId, familyMemberNickname } = props;
   const dispatch = useDispatch();
-  console.log(familyId, familyMemberId);
-  console.log(familyMemberNickname);
 
   const deleteMember = () => {
     dispatch(
@@ -26,7 +24,6 @@ const DeleteMemberModal = (props) => {
     onClose();
   };
 
-  console.log(familyMemberId);
   return (
     <ModalPortal>
       <Background

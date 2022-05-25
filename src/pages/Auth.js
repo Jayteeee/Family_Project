@@ -42,7 +42,7 @@ const Auth = () => {
         `https://doremilan.shop/auth/kakao?code=${code}`,
         payload
       );
-      console.log(res);
+
       // Kakao Javascript SDK 초기화
       window.Kakao.init(REST_API_KEY);
       // access token 설정
@@ -50,9 +50,7 @@ const Auth = () => {
       insertToken(res.data.token);
       history.replace("/");
       history.go(0);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
     // };
 
     // await axios

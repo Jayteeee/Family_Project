@@ -36,13 +36,7 @@ const PhotoList = ({
 
   const userId = useSelector((state) => state.user);
 
-  console.log("접속한Id", userId);
-
-  console.log("선택한 앨범Id:", photoAlbumId);
-
   const { photoList } = useSelector((state) => state.gallery);
-
-  console.log("선택한 앨범 사진리스트:", photoList);
 
   // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
@@ -51,10 +45,7 @@ const PhotoList = ({
   const DeletePhoto = (photoId) => {
     setModalOn(!modalOn);
     setPhotoId(photoId);
-    console.log(photoAlbumId);
   };
-
-  console.log("사진ID:", photoId);
 
   const handleModal = () => {
     setModalOn(!modalOn);
@@ -85,7 +76,6 @@ const PhotoList = ({
 
   // 사진 추가
   const photoImgInput = useRef();
-  console.log("포토앨범 이름:", photoAlbumName);
 
   const onImgInputBtnClick = () => {
     const file = photoImgInput.current.files[0];
@@ -93,7 +83,6 @@ const PhotoList = ({
     if (file) {
       formData.append("photoFile", file);
     }
-    console.log("이미지파일", file);
 
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };
@@ -257,7 +246,6 @@ const ImageBox = styled.img`
   margin-top: 2%;
   border-radius: 13px;
 `;
-
 const NoneContentWrap = styled.div`
   background: #fff;
   display: flex;
@@ -284,6 +272,7 @@ const NoneContentWrap = styled.div`
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     /* min-height: 480px; */
+
     margin: 28px 16px;
     /* margin: 20px 9px; */
   }
@@ -312,7 +301,7 @@ const NoneContentItem = styled.div`
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    padding: 1rem 12rem;
+    padding: 1rem 7rem;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -320,12 +309,12 @@ const NoneContentItem = styled.div`
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    padding: 1rem 5.4rem;
+    padding: 1rem 4rem;
   }
 
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    padding: 1rem 4.6rem;
+    padding: 1rem 3.5rem;
   }
 `;
 
@@ -335,14 +324,12 @@ const EmptyContentImg = styled.div`
   ${({ src }) => `background-image: url(${src});`};
   background-position: center;
   background-size: cover;
-  border-radius: 12px;
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    ${({ S_photo }) => `background-image: url(${S_photo});`};
     padding: 70%;
   }
   // Small (Tablet)

@@ -24,8 +24,6 @@ const HomeMissionStatus = ({ familyId }) => {
 
   const percenTage = missionStatus?.completePercentage;
 
-  console.log("미션현황:", missionStatus);
-
   let nowMonth = dayjs(new Date()).format("M월");
 
   useEffect(() => {

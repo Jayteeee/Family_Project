@@ -29,8 +29,6 @@ const EditFamilyModal = ({ onClose }) => {
 
   const { familyTitle, familyId } = useContext(MainContext)[0];
 
-  console.log("현재 가족 이름:", familyTitle, "현재 가족 아이디:", familyId);
-
   // 가족 타이틀 수정 input
   const [changeTitle, setChangeTitle] = useState(familyTitle);
 
@@ -51,8 +49,6 @@ const EditFamilyModal = ({ onClose }) => {
   const familyMemberList = useSelector(
     (state) => state.familymember.familyMemberList
   );
-
-  console.log("가족 맴버 리스트:", familyMemberList);
 
   // 가족 이름 수정하기 Input
   const [showBorder, setShowBorder] = useState(false);

@@ -26,8 +26,6 @@ const DeleteMissionModal = ({
     dispatch(missionActions.deleteMissionDB(familyId, missionId));
   };
 
-  console.log(missionId);
-
   // socket 부분
 
   let socket = useSelector((state) => state.socket?.socket);

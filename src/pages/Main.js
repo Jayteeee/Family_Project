@@ -42,20 +42,15 @@ const Main = (props) => {
 
   // familList
   const familyList = useSelector((state) => state.family.familyList);
-  console.log("전체 familyList: ", familyList);
 
   const NowFamily = familyList.filter((f) => f.familyId == familyId);
-  console.log("현재 가족 ", NowFamily);
 
   // 현재 가족 familyId
   const NowFamilyId = NowFamily[0]?.familyId;
-  console.log("현재 familyId: ", NowFamilyId);
 
   const NowFamilyTitle = NowFamily[0]?.familyTitle;
-  console.log("현재 familyTitle: ", NowFamilyTitle);
 
   const { user } = useSelector((state) => state?.user?.user);
-  console.log("메인유저정보: ", user);
 
   // const { familyMemberList } = useSelector((state) => state.familymember);
 

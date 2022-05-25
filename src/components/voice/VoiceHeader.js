@@ -38,25 +38,27 @@ const VoiceHeader = ({
   return (
     <>
       <VoiceHeaderBox>
-        {voiceAlbumId ? (
-          <Text
-            size="40px"
-            fontWeight="600"
-            margin="10px 0 0 0"
-            className="voiceHeaderBox"
-          >
-            {voiceAlbumName}
-          </Text>
-        ) : (
-          <Text
-            size="40px"
-            fontWeight="600"
-            margin="10px 0 0 0"
-            className="voiceHeaderBox"
-          >
-            음성 메시지
-          </Text>
-        )}
+        <div style={{ position: "relative" }}>
+          {voiceAlbumId ? (
+            <Text
+              size="40px"
+              fontWeight="600"
+              margin="10px 0 0 0"
+              className="voiceHeaderBox"
+            >
+              {voiceAlbumName}
+            </Text>
+          ) : (
+            <Text
+              size="40px"
+              fontWeight="600"
+              margin="10px 0 0 0"
+              className="voiceHeaderBox"
+            >
+              음성 메시지
+            </Text>
+          )}
+        </div>
         <InfoBox
           onMouseOver={() => setToolTipOn(true)}
           onMouseOut={() => setToolTipOn(false)}
@@ -424,7 +426,7 @@ const ToolTip = styled.div`
   align-items: center;
   justify-content: center;
   left: 14%;
-  top: 38%;
+  top: 0;
   color: rgba(117, 117, 117, 1);
   background-color: rgba(99, 113, 247, 1);
   border-radius: 2px;

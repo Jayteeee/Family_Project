@@ -27,7 +27,6 @@ const LogoutModal = ({ onClose }) => {
   //소켓부분
   const socket = useSelector((state) => state.socket.socket);
   const userId = useSelector((state) => state.user.user?.user?.userId);
-  console.log("유저아이디, ", userId);
 
   const socketExit = () => {
     socket.emit("imOut", { userId: userId });

@@ -33,8 +33,6 @@ const MissionList = ({
 }) => {
   const dispatch = useDispatch();
 
-  console.log(monthMissionList);
-
   // 이번달 미션, 지난 미션토클
   const [status, setStatus] = useState(true);
 
@@ -50,7 +48,6 @@ const MissionList = ({
       )
     );
   };
-  console.log(pastMissionList);
 
   // 미션 제거하기 모달
   const [deleteModalOn, setDeleteModalOn] = useState(false);

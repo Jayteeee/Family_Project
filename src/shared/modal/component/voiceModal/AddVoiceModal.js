@@ -60,7 +60,6 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
           // formData
         )
       );
-      console.log(audioUrl);
       onClose();
       setCount(0);
     } else {
@@ -96,7 +95,6 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
       setStream(stream);
       setMedia(mediaRecorder);
       makeSound(stream);
-      console.log(mediaRecorder);
 
       analyser.onaudioprocess = function (e) {
         // 3분(180초) 지나면 자동으로 음성 저장 및 녹음 중지
@@ -122,7 +120,6 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
 
   // 사용자가 음성 녹음을 중지 했을 때
   const offRecAudio = () => {
-    console.log("녹음 중지");
     end();
 
     // dataavailable 이벤트로 Blob 데이터에 대한 응답을 받을 수 있음
@@ -283,7 +280,6 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
   const play = () => {
     // howler.play();
     myRef.current.play();
-    console.log(myRef.current);
     setDisabled(true);
   };
 

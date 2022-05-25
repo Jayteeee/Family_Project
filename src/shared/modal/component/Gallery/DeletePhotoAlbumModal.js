@@ -16,7 +16,6 @@ import { galleryActions } from "../../../../redux/modules/gallery";
 
 const DeletePhotoAlbumModal = ({ onClose, photoAlbumId, photoAlbumName }) => {
   const dispatch = useDispatch();
-  console.log("선택한 포토앨범ID:", photoAlbumId);
   const deletePhotoAlbum = () => {
     dispatch(galleryActions.deletePhotoAlbumDB(photoAlbumId));
     onClose();

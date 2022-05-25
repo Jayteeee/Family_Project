@@ -18,11 +18,7 @@ import { familyActions } from "../../../../redux/modules/family";
 const AddFamilyModal = ({ onClose }) => {
   const dispatch = useDispatch();
 
-  console.log(onClose);
-
   const NowFamilyTitle = useContext(MainContext)[0]?.familyTitle;
-
-  console.log("현재 가족 이름: ", NowFamilyTitle);
 
   // 가족 이름 input
   const [familyTitle, setfamilyTitle] = useState("");
@@ -36,8 +32,6 @@ const AddFamilyModal = ({ onClose }) => {
     const { value } = e.target;
     setfamilyTitle(value);
   };
-
-  console.log(familyTitle);
 
   // 소켓 부분
   const socket = useSelector((state) => state.socket.socket);

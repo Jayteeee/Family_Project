@@ -22,8 +22,6 @@ const DeleteVoiceModal = ({ onClose, voiceFileId, familyId }) => {
     onClose();
   };
 
-  console.log("음성메시지ID", voiceFileId);
-
   // socket 부분
 
   let socket = useSelector((state) => state.socket?.socket);

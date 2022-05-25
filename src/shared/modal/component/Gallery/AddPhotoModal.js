@@ -25,7 +25,6 @@ const AddPhotoModal = ({ onClose }) => {
 
   // 현재 familyId
   const familyId = useContext(MissionContext);
-  console.log("현재 familyId:", familyId);
 
   //  미션 제목 input
   const [albumTitle, setAlbumTitle] = useState("");
@@ -34,8 +33,6 @@ const AddPhotoModal = ({ onClose }) => {
     const { value } = e.target;
     setAlbumTitle(value);
   };
-
-  console.log("미션 제목:", albumTitle);
 
   const addPhotoAlbum = () => {
     if (albumTitle) {

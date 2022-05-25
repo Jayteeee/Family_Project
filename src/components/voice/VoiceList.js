@@ -26,14 +26,11 @@ import S_voicemail from "../../shared/images/S_voicemail.svg";
 const VoiceList = ({ voiceAlbumId, familyId }) => {
   const dispatch = useDispatch();
 
-  console.log("선택한 앨범Id:", voiceAlbumId);
   const voiceAlbumName = useSelector(
     (state) => state.voice.voiceList.voiceAlbumName
   );
 
   const voiceList = useSelector((state) => state.voice?.voiceFileList);
-
-  console.log("선택한 음성리스트:", voiceList);
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -339,7 +336,7 @@ const NoneContentItem = styled.div`
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    padding: 1rem 12rem;
+    padding: 1rem 7rem;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -347,12 +344,12 @@ const NoneContentItem = styled.div`
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    padding: 1rem 5.4rem;
+    padding: 1rem 4rem;
   }
 
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    padding: 1rem 4.6rem;
+    padding: 1rem 3.5rem;
   }
 `;
 
@@ -362,14 +359,12 @@ const EmptyContentImg = styled.div`
   ${({ src }) => `background-image: url(${src});`};
   background-position: center;
   background-size: cover;
-  border-radius: 12px;
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    ${({ S_voicemail }) => `background-image: url(${S_voicemail});`};
     padding: 70%;
   }
   // Small (Tablet)

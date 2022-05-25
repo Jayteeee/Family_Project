@@ -16,8 +16,6 @@ import { familyActions } from "../../../../redux/modules/family";
 const FirstFamilyModal = ({ onClose }) => {
   const dispatch = useDispatch();
 
-  console.log(onClose);
-
   // 가족 이름 input
   const [familyTitle, setfamilyTitle] = useState("");
 
@@ -25,8 +23,6 @@ const FirstFamilyModal = ({ onClose }) => {
     const { value } = e.target;
     setfamilyTitle(value);
   };
-
-  console.log(familyTitle);
 
   // 가족 생성 함수
   const addFamily = () => {

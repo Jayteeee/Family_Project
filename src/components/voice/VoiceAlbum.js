@@ -31,11 +31,9 @@ import VoiceAlbumHeader from "./VoiceAlbumHeader";
 
 const VoiceAlbum = ({ familyId }) => {
   const dispatch = useDispatch();
-  console.log("현재 가족Id:", familyId);
 
   // 음성 앨범 리스트
   const voiceAlbumList = useSelector((state) => state.voice.nowVoiceData);
-  console.log("음성 앨범 리스트:", voiceAlbumList);
 
   // const nowPhotoAlbum = `${({ AlbumName }) => `${AlbumName};`}`;
 
@@ -58,13 +56,6 @@ const VoiceAlbum = ({ familyId }) => {
     setVoiceAlbumId(voiceAlbumId);
     setModalOn(!modalOn);
   };
-
-  console.log(
-    "선택한 앨범이름:",
-    voiceAlbumName,
-    "선택한 앨범Id:",
-    voiceAlbumId
-  );
 
   const EditVoiceAlbum = () => {
     dispatch(
@@ -146,7 +137,6 @@ const VoiceAlbum = ({ familyId }) => {
                     <Figure
                       key={i}
                       onClick={() => {
-                        console.log(familyId);
                         history.push(
                           `/family/${familyId}/voiceMsg/${v.voiceAlbumId}`
                         );

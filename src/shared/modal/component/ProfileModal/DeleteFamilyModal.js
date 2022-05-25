@@ -23,15 +23,9 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
 
   const family = useContext(MainContext);
 
-  console.log(family);
-
-  console.log(familyId);
-
   const otherFamilyId = familyList.find(
     (f) => f?.familyId !== familyId
   )?.familyId;
-
-  console.log("다른 패밀리아이디:", otherFamilyId);
 
   const deleteFamily = () => {
     dispatch(familyActions.deleteFamilyDB(familyId, otherFamilyId));

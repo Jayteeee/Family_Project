@@ -34,14 +34,9 @@ const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
 
   const { userId } = useSelector((state) => state.user.user?.user);
 
-  console.log(userId);
-
   const deleteComment = (commentId) => {
-    console.log(commentId);
     dispatch(detailPhotoActions.deleteCommentDB(commentId));
   };
-
-  console.log(userInfo);
 
   return (
     <>

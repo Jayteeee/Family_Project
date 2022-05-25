@@ -57,12 +57,10 @@ const signUpDB = (inputs) => {
     await axios
       .post(`${BASE_URL}/auth/signup`, inputs)
       .then((res) => {
-        console.log(res);
         alert(res.data.msg);
         history.go(0);
       })
       .catch((err) => {
-        console.log(err);
         // alert(err.data.msg);
       });
   };
@@ -75,10 +73,8 @@ const loginDB = (inputs) => {
     await axios
       .post(`${BASE_URL}/auth/login`, inputs)
       .then((res) => {
-        console.log("로그인 시 들어오는 데이터:", res);
         const token = res.data.logIntoken;
         const { userInfo } = res.data;
-        console.log(userInfo);
         const familyId = res.data.familyList[0]?.familyId;
         insertToken(token);
         const { familyList } = res.data;
@@ -91,7 +87,6 @@ const loginDB = (inputs) => {
 
         // 로그인시 들어오는 데이터 GET_USER시 들어오는 데이터와 똑같이 맞추기 위함.
         let userData = { familyList, user: userInfo };
-        console.log(userData);
 
         dispatch(login(userData));
 
@@ -102,7 +97,6 @@ const loginDB = (inputs) => {
         dispatch(familyMemberActions.getFamilyMemberDB(familyId));
       })
       .catch((err) => {
-        console.log(err);
         alert("로그인 정보를 확인해주세요.");
       });
   };
@@ -112,19 +106,15 @@ const loginDB = (inputs) => {
 const getUserInfo = (token) => {
   return async function (dispatch, getState, { history }) {
     const dUser = jwt(token);
-    console.log(dUser);
     const config = { Authorization: `Bearer ${token}` };
     await axios
       .get(`${BASE_URL}/user/me`, { headers: config })
       .then((res) => {
-        console.log("유저정보:", res.data);
         const user = res.data;
         dispatch(getUser(user));
         localStorage.setItem("isLogin", token);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -140,9 +130,7 @@ const editTodayMoodDB = (todayMood, myFamiyMemberId) => {
         }
       )
       .then((res) => {
-        console.log(res);
         const { todayMood } = res.data;
-        console.log(todayMood);
 
         dispatch(
           familyMemberActions.editFamilyMemberTodayMood(
@@ -152,7 +140,6 @@ const editTodayMoodDB = (todayMood, myFamiyMemberId) => {
         );
       })
       .catch((err) => {
-        console.log(err);
         alert("새로고침 해주세요.");
       });
   };
@@ -160,15 +147,12 @@ const editTodayMoodDB = (todayMood, myFamiyMemberId) => {
 
 const editProfileImgDB = (formData, myFamiyMemberId) => {
   return async function (dispatch, getState, { history }) {
-    console.log("formData:", formData);
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .put(`${BASE_URL}/user/myProfile`, formData, {
         headers: config,
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.msg);
         const newProfileImg = res.data.photoFile;
 
         dispatch(
@@ -187,10 +171,7 @@ const editProfileImgDB = (formData, myFamiyMemberId) => {
         // );
         window.alert("프로필 이미지가 수정되었습니다.");
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -225,9 +206,7 @@ export default handleActions(
         let newArr = draft.user.familyList.filter(
           (l) => l.familyId !== familyId
         );
-        console.log(
-          state.user.familyList.filter((l) => l.familyId !== familyId)
-        );
+
         draft.user.familyList = newArr;
       }),
   },
