@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
-import jwt from "jwt-decode";
 
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/Token";
@@ -111,8 +110,6 @@ const loginDB = (inputs) => {
 // /user/me
 const getUserInfo = (token) => {
   return async function (dispatch, getState, { history }) {
-    const dUser = jwt(token);
-    console.log(dUser);
     const config = { Authorization: `Bearer ${token}` };
     await axios
       .get(`${BASE_URL}/user/me`, { headers: config })

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdCancel, MdPlayArrow, MdOutlinePause } from "react-icons/md";
 import { ReactMic } from "react-mic";
-import lamejs from "lamejs";
 
 // 모달
 import { ModalPortal } from "../../portals";

@@ -33,14 +33,11 @@ function App() {
   // // 소켓
   const ENDPOINT = "https://doremilan.shop/";
   const userId = useSelector((state) => state?.user?.user?.user?.userId);
-  console.log(userId);
 
   const socket = io.connect(ENDPOINT, {
     transports: ["websocket"],
     // forceNew: true,
   });
-
-  console.log("소켓연결, ", socket);
 
   useEffect(() => {
     dispatch(socketActions.getSocketDB(socket));
@@ -50,7 +47,6 @@ function App() {
     if (token) {
       socket?.emit("newUser", { userId: userId });
       socket?.emit("join", userId);
-      console.log("유저아이디, ", userId);
       // socket.on("connect", () => {
       //   if (socket.disconnected) {
       //     socket.emit("imOut", { userId: userId });
@@ -63,9 +59,7 @@ function App() {
     if (token) {
       socket?.emit("getPhotoAlert", { receiverId: userId });
       socket?.on("getNotification", (data) => {
-        console.log("처음,", data);
         dispatch(socketActions.setNotiDB(data));
-        console.log(data);
       });
     }
   }, [socket]);
@@ -73,12 +67,9 @@ function App() {
   useEffect(() => {
     if (token) {
       socket?.emit("getMyAlert", { userId: userId, type: "초대" });
-      console.log({ userId: userId, type: "초대" });
       socket?.on("newInviteDB", (data) => {
-        console.log("newInviteDB, ", data);
         dispatch(socketActions.setAlertDB(data));
 
-        console.log("리턴,", data);
         return;
       });
     }
