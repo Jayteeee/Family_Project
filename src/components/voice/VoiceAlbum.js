@@ -24,7 +24,7 @@ import albumCover1 from "../../shared/images/albumCover1.svg";
 import albumCover2 from "../../shared/images/albumCover2.svg";
 import albumCover3 from "../../shared/images/albumCover3.svg";
 import albumCover4 from "../../shared/images/albumCover4.svg";
-import emptyContent from "../../shared/images/emptyContent.svg";
+import L_album from "../../shared/images/L_album.svg";
 
 // 컴포넌트
 import VoiceAlbumHeader from "./VoiceAlbumHeader";
@@ -204,8 +204,7 @@ const VoiceAlbum = ({ familyId }) => {
             <NoneContentWrap>
               <NoneContentBox>
                 <NoneContentItem>
-                  <EmptyContentImg src={emptyContent} />
-                  <Text>아직 앨범이 없어요.</Text>
+                  <EmptyContentImg src={L_album} />
                 </NoneContentItem>
               </NoneContentBox>
               <FloatingButton onClick={addAlbumHandleModal}>
@@ -455,7 +454,6 @@ const NoneContentWrap = styled.div`
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     /* min-height: 480px; */
-    padding: 16px;
     margin: 28px 16px;
     /* margin: 20px 9px; */
   }
@@ -468,93 +466,67 @@ const NoneContentWrap = styled.div`
 const NoneContentBox = styled.div`
   width: 100%;
   height: 90%;
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-    height: 50%;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-    height: 50%;
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    height: 55%;
-  }
 `;
 
 const NoneContentItem = styled.div`
   width: 100%;
   height: 100%;
-  padding: 10% 20% 0 20%;
+  padding: 1rem 13rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  & > p {
-    font-size: 24px;
-    font-weight: 600;
-    position: absolute;
-    top: 100px;
-  }
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    & > p {
-      font-size: 30px;
-      font-weight: 600;
-      position: absolute;
-      top: 55px;
-    }
-    padding: 10% 15% 0 15%;
+    padding: 1rem 5rem;
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
+    padding: 1rem 7rem;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    & > p {
-      font-size: 20px;
-      font-weight: 600;
-      position: absolute;
-      top: 50px;
-    }
-    padding: 10% 15% 0 15%;
   }
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    & > p {
-      font-size: 15px;
-      font-weight: 600;
-      position: absolute;
-      top: 70px;
-    }
-    padding: 10% 15% 0 15%;
+    padding: 1rem 4rem;
   }
 
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    & > p {
-      font-size: 15px;
-      font-weight: 600;
-      position: absolute;
-      top: 50px;
-    }
-    padding: 10% 15% 0 15%;
+    padding: 1rem 3.5rem;
   }
 `;
 
 const EmptyContentImg = styled.div`
   width: 100%;
-
-  padding: 22.2%;
+  padding: 30%;
   ${({ src }) => `background-image: url(${src});`};
   background-position: center;
   background-size: cover;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    padding: 70%;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    padding: 80%;
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    padding: 100%;
+  }
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    padding: 100%;
+  }
 `;
 
 // 플로팅 버튼

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 import { FiPlus } from "react-icons/fi";
 import { FaPen } from "react-icons/fa";
-import { MdCheck } from "react-icons/md";
+import { MdCheck, MdError, MdErrorOutline } from "react-icons/md";
 
 // 리덕스
 import { useDispatch } from "react-redux";
@@ -33,6 +33,8 @@ const VoiceHeader = ({
     setModalOn(!modalOn);
   };
 
+  const [toolTipOn, setToolTipOn] = useState(false);
+
   return (
     <>
       <VoiceHeaderBox>
@@ -55,6 +57,18 @@ const VoiceHeader = ({
             음성 메시지
           </Text>
         )}
+        <InfoBox
+          onMouseOver={() => setToolTipOn(true)}
+          onMouseOut={() => setToolTipOn(false)}
+        >
+          <MdErrorOutline />
+        </InfoBox>
+        {toolTipOn ? (
+          <ToolTip>
+            <Text C>현재 애플제품은 서비스가 지원되지 않아요!</Text>
+            <div className="triangle" />
+          </ToolTip>
+        ) : null}
         {!isEdit ? (
           <BtnWrap>
             <VoiceBtn className="addBtn">
@@ -163,7 +177,7 @@ const VoiceHeader = ({
 };
 
 const VoiceHeaderBox = styled.div`
-  display: flex;
+  position: relative;
   justify-content: space-between;
   display: flex;
   align-items: center;
@@ -385,6 +399,73 @@ const CompletedEditBtnText = styled.div`
       font-size: 18px;
       margin-right: 7px;
     }
+  }
+`;
+
+const InfoBox = styled.div`
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 12%;
+  top: 30%;
+  svg {
+    width: 100%;
+    height: 100%;
+    color: rgba(168, 168, 168, 1);
+    :hover {
+      color: rgba(66, 66, 66, 1);
+    }
+  }
+`;
+
+const ToolTip = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 14%;
+  top: 38%;
+  color: rgba(117, 117, 117, 1);
+  background-color: rgba(99, 113, 247, 1);
+  border-radius: 2px;
+  padding: 10px 20px;
+  z-index: 999;
+  P {
+    color: white;
+  }
+  svg {
+    margin-left: 18px;
+    color: white;
+    cursor: pointer;
+  }
+  /* .triangle {
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+    border-right: 8px solid rgba(99, 113, 247, 1);
+    position: absolute;
+    left: -5%;
+  } */
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    /* bottom: 90px;
+    left: unset;
+    right: 10px;
+    .triangle {
+      border-bottom: unset;
+      border-top: 8px solid rgba(99, 113, 247, 1);
+      left: unset;
+      right: 20%;
+      top: 95%;
+    } */
+  }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
   }
 `;
 

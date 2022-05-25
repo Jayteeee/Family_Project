@@ -14,11 +14,12 @@ import { history } from "../../redux/configureStore";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
+import emptyPhoto from "../../shared/images/emptyPhoto.svg";
+import L_photo from "../../shared/images/L_photo.svg";
+import S_photo from "../../shared/images/S_photo.svg";
 
 // 컴포넌트
 import PhotoHeader from "./PhotoHeader";
-import emptyPhoto from "../../shared/images/emptyPhoto.svg";
-import emptyContent from "../../shared/images/emptyContent.svg";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
@@ -159,8 +160,7 @@ const PhotoList = ({
         <NoneContentWrap>
           <NoneContentBox>
             <NoneContentItem>
-              <EmptyContentImg src={emptyContent} />
-              <Text>아직 사진이 없네요! 사진 등록하러 가볼까요?</Text>
+              <EmptyContentImg src={L_photo} S_photo={S_photo} />
             </NoneContentItem>
           </NoneContentBox>
           <FloatingButton>
@@ -261,10 +261,10 @@ const ImageBox = styled.img`
 const NoneContentWrap = styled.div`
   background: #fff;
   display: flex;
-  height: 100%;
   /* min-height: 880px; */
   justify-content: center;
   align-items: center;
+  height: 100%;
   margin: 20px 40px 40px;
   padding: 20px;
   border: none;
@@ -280,12 +280,10 @@ const NoneContentWrap = styled.div`
     margin: 40px 24px;
     /* margin-top: 0px !important; */
     padding-left: 20px !important;
-    height: 100%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     /* min-height: 480px; */
-    padding: 16px;
     margin: 28px 16px;
     /* margin: 20px 9px; */
   }
@@ -298,93 +296,69 @@ const NoneContentWrap = styled.div`
 const NoneContentBox = styled.div`
   width: 100%;
   height: 90%;
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-    height: 50%;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-    height: 50%;
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    height: 55%;
-  }
 `;
 
 const NoneContentItem = styled.div`
   width: 100%;
   height: 100%;
-  padding: 10% 20% 0 20%;
+  padding: 1rem 13rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  & > p {
-    font-size: 24px;
-    font-weight: 600;
-    position: absolute;
-    top: 100px;
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+    padding: 1rem 5rem;
   }
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    padding: 1rem 12rem;
+  }
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    padding: 1rem 5.4rem;
+  }
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    padding: 1rem 4.6rem;
+  }
+`;
+
+const EmptyContentImg = styled.div`
+  width: 100%;
+  padding: 30%;
+  ${({ src }) => `background-image: url(${src});`};
+  background-position: center;
+  background-size: cover;
+  border-radius: 12px;
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    & > p {
-      font-size: 30px;
-      font-weight: 600;
-      position: absolute;
-      top: 55px;
-    }
-    padding: 10% 15% 0 15%;
+    ${({ S_photo }) => `background-image: url(${S_photo});`};
+    padding: 70%;
   }
-
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    & > p {
-      font-size: 20px;
-      font-weight: 600;
-      position: absolute;
-      top: 50px;
-    }
-    padding: 10% 15% 0 15%;
+    padding: 80%;
   }
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    & > p {
-      font-size: 15px;
-      font-weight: 600;
-      position: absolute;
-      top: 70px;
-    }
-    padding: 10% 15% 0 15%;
+    padding: 100%;
   }
 
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
-    & > p {
-      font-size: 15px;
-      font-weight: 600;
-      position: absolute;
-      top: 50px;
-    }
-    padding: 10% 15% 0 15%;
+    padding: 100%;
   }
-`;
-
-const EmptyContentImg = styled.div`
-  width: 100%;
-
-  padding: 22.2%;
-  ${({ src }) => `background-image: url(${src});`};
-  background-position: center;
-  background-size: cover;
 `;
 
 // 플로팅 버튼
