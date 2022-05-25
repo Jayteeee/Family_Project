@@ -278,8 +278,8 @@ const Styled_Slide = styled(Slider)`
     }
   }
   img {
-    height: 70%;
-    width: 70%;
+    height: 60%;
+    width: 60%;
     margin: auto;
     display: flex;
     align-items: center;
@@ -352,13 +352,13 @@ const Styled_Slide = styled(Slider)`
 `;
 
 const Web = styled.div`
-  @media only screen and (max-width: 839px) {
+  @media only screen and (max-width: 1024px) {
     display: none;
   }
 `;
 const Mobile = styled.div`
   display: none;
-  @media only screen and (max-width: 839px) {
+  @media only screen and (max-width: 1024px) {
     display: unset;
   }
 `;
