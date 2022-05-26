@@ -166,7 +166,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
   const start = () => {
     intervalRef.current = setInterval(async () => {
       setCount((c) => c + 1);
-    }, 300);
+    }, 1000);
   };
 
   const end = () => {
