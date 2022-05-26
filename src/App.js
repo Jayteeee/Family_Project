@@ -52,6 +52,9 @@ function App() {
       //     socket.emit("imOut", { userId: userId });
       //   }
       // });
+      socket.on("disconnect", () => {
+        socket.connect();
+      });
     }
   }, [socket, userId]);
 
