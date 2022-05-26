@@ -163,6 +163,7 @@ const addVoiceDB = (
           profileImg: userInfo.profileImg,
           createdAt: Date.now(),
         };
+        window.alert(res.data.msg);
         dispatch(addVoice(newVoice));
       })
       .catch((err) => {});
