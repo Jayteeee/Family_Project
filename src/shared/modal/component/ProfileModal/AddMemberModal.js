@@ -87,7 +87,7 @@ const AddMemberModal = ({ onClose }) => {
       ? checkMemberHandleModal()
       : familyMemberNicknameChk !== undefined
       ? checkMemberNicknameHandleModal()
-      : familyMemberNickname === ""
+      : familyMemberNickname === "" || selectEmail === ""
       ? checkNicknameNullHandleModal()
       : addFamilyMemberSocket();
     // if (    familyMemberChk !== undefined) {
@@ -216,7 +216,7 @@ const AddMemberModal = ({ onClose }) => {
         {checkNicknameNullModalOn && (
           <AlertModal
             onClose={checkNicknameNullHandleModal}
-            content={"가족 구성원 이름을 입력해주세요!"}
+            content={"가족 구성원 이메일과 이름을 확인해주세요!"}
           ></AlertModal>
         )}
       </ModalPortal>
