@@ -251,6 +251,7 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                       className="inputSaheduleTitle"
                       id="changeName"
                       size="16px"
+                      maxLength="14"
                       onChange={handleAddSchedule}
                       value={event}
                       style={{

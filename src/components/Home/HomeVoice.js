@@ -22,25 +22,25 @@ const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
   const v = recentVoiceFile;
   const voiceAlbumCover = voiceAlbumInfo;
   const [run, setRun] = useState(true);
-  const [count, setCount] = useState(0);
-  const [currentMinutes, setCurrentMinutes] = useState(0);
-  const [currentSeconds, setCurrentSeconds] = useState(0);
+  // const [count, setCount] = useState(0);
+  // const [currentMinutes, setCurrentMinutes] = useState(0);
+  // const [currentSeconds, setCurrentSeconds] = useState(0);
 
   const myRef = useRef();
 
-  const timer = () => {
-    const minutes = [Math.floor(myRef.current?.currentTime / 60)];
-    const seconds = [Math.floor(myRef.current?.currentTime)];
-    setTimeout(() => {
-      setCount(seconds);
-    }, 1000);
-    setCurrentMinutes(minutes);
-    setCurrentSeconds(seconds);
-  };
+  // const timer = () => {
+  //   const minutes = [Math.floor(myRef.current?.currentTime / 60)];
+  //   const seconds = [Math.floor(myRef.current?.currentTime)];
+  //   setTimeout(() => {
+  //     setCount(seconds);
+  //   }, 1000);
+  //   setCurrentMinutes(minutes);
+  //   setCurrentSeconds(seconds);
+  // };
 
   const handlePlay = async () => {
     if (run) {
-      timer();
+      // timer();
       setRun(false);
       play();
     } else {
@@ -55,13 +55,13 @@ const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
   };
 
   const pause = async () => {
-    setCount(0);
+    // setCount(0);
     await myRef.current.pause();
   };
 
-  useEffect(() => {
-    timer();
-  }, []);
+  // useEffect(() => {
+  //   timer();
+  // }, []);
 
   return (
     <>
@@ -120,7 +120,7 @@ const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
                 </PlayBtn>
               </div>
               <audio ref={myRef} src={v?.voiceFile} />
-              {v?.voiceFile ? (
+              {/* {v?.voiceFile ? (
                 <Text S3 className="homeVoiceRunTime">
                   {currentMinutes[0] < 10
                     ? `0${currentMinutes[0]}`
@@ -145,7 +145,7 @@ const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
                   {" "}
                   {`00 : 00 / 00 : 00`}
                 </Text>
-              )}
+              )} */}
             </VoiceBox>
           </VoiceWrap>
         </Figure>

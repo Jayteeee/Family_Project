@@ -81,6 +81,13 @@ const AddMemberModal = ({ onClose }) => {
     });
     addMemberHandleModal();
   };
+
+  //   socket?.on("errorMsg", (data) => {
+  //     window.alert(data);
+  //     socket?.off("errorMsg");
+  //   });
+  // };
+
   // 가족 구성원 추가하기 함수
   const addFamilyMember = () => {
     familyMemberChk !== undefined
