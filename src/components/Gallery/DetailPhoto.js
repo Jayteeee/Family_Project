@@ -228,7 +228,7 @@ const DetailPhoto = ({
               <ContentBoxFooter />
             </ImageContentBox>
             <CommentBox>
-              <CommentHeder>
+              <CommentHeder userChk={nowUserId === detailPhoto?.userId}>
                 <div
                   style={{
                     fontSize: "10px",
@@ -258,7 +258,6 @@ const DetailPhoto = ({
                         : Profile01
                     }
                   />
-
                   <Text size="15px" padding="0 10px 0 10px" fontWeight="600">
                     {detailPhoto?.userInfo.familyMemberNickname}
                   </Text>
@@ -273,17 +272,17 @@ const DetailPhoto = ({
                 >
                   {createdAt}
                 </p>
-                <PhotoDeleteBtn
-                  onClick={() => {
-                    // handleModalPosition(e);
-                    handleModal();
-                  }}
-                  className="photoDeleteBtn"
-                >
-                  {nowUserId === detailPhoto?.userId && (
+                {nowUserId === detailPhoto?.userId && (
+                  <PhotoDeleteBtn
+                    onClick={() => {
+                      // handleModalPosition(e);
+                      handleModal();
+                    }}
+                    className="photoDeleteBtn"
+                  >
                     <CgMoreVerticalAlt style={{ fontSize: "30px" }} />
-                  )}
-                </PhotoDeleteBtn>
+                  </PhotoDeleteBtn>
+                )}
               </CommentHeder>
               <CommentListBox>
                 {commentList?.length ? (
@@ -592,15 +591,21 @@ const CommentHeder = styled.div`
   padding-left: 10px;
   border-bottom: 1px solid #dbdbdb;
   position: relative;
-
-  &:hover {
+  ${({ userChk }) =>
+    userChk
+      ? `  &:hover {
     .photoDeleteBtn {
       display: flex;
     }
     .photoCreatedAt {
       margin-right: 30px !important;
     }
-  }
+  }`
+      : `  &:hover {
+    .photoDeleteBtn {
+      display: none;
+    }
+    `};
 `;
 
 const PhotoDeleteBtn = styled.div`
