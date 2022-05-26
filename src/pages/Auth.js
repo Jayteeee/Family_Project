@@ -44,13 +44,14 @@ const Auth = () => {
       );
       // Kakao Javascript SDK 초기화
       window.Kakao.init(REST_API_KEY);
+      console.log(res);
       // access token 설정
       // window.Kakao.Auth.setAccessToken(res.data.access_token);
       insertToken(res.data.token);
       history.replace("/");
       history.go(0);
     } catch (err) {
-      console.log(err.data);
+      console.log(err);
     }
     // };
 

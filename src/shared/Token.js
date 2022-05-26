@@ -3,7 +3,7 @@ const getToken = () => {
 };
 
 const insertToken = (token) => {
-  localStorage.setItem("token", token);
+  sessionStorage.setItem("token", token);
 };
 
 const removeToken = () => {
