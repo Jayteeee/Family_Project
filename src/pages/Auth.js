@@ -49,7 +49,9 @@ const Auth = () => {
       insertToken(res.data.token);
       history.replace("/");
       history.go(0);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err.data);
+    }
     // };
 
     // await axios
