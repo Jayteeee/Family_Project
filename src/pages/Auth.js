@@ -48,7 +48,7 @@ const Auth = () => {
       // window.Kakao.Auth.setAccessToken(res.data.access_token);
       insertToken(res.data.token);
       history.replace("/");
-      history.go(0);
+      // history.go(0);
     } catch (err) {}
     // };
 

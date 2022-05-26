@@ -72,7 +72,6 @@ function App() {
       socket?.emit("getMyAlert", { userId: userId, type: "초대" });
       socket?.on("newInviteDB", (data) => {
         dispatch(socketActions.setAlertDB(data));
-
         return;
       });
     }

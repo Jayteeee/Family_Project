@@ -102,7 +102,7 @@ const addPhotoAlbumDB = (familyId, photoAlbumName) => {
           photoAlbumId: `${photoAlbumId}`,
           photoAlbumName: `${photoAlbumName}`,
         };
-
+        window.alert(res.data.msg);
         dispatch(addPhotoAlbum(newPhotoAlbum));
       })
       .catch((err) => {});
@@ -126,6 +126,7 @@ const addPhotoDB = (familyId, photoAlbumId, formData) => {
       .then((res) => {
         const newPhoto = res.photoFile;
         dispatch(addPhoto(newPhoto));
+        window.alert(res.data.msg);
       })
       .catch((err) => {});
   };
