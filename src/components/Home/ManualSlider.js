@@ -226,6 +226,9 @@ const Styled_Slide = styled(Slider)`
   width: 100%;
   padding: 5%;
   background-color: #eff1fe;
+  & :focus-visible {
+    outline: none;
+  }
   @media screen and (max-width: 1199px) {
     border-radius: 2%;
   }

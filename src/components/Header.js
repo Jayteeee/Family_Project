@@ -249,7 +249,7 @@ const HeaderRightBox = styled.div`
 `;
 
 const Manual = styled.div`
-  margin-right: 10px;
+  margin-right: 25px;
   p {
     color: rgba(117, 117, 117, 1);
   }

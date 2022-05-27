@@ -254,6 +254,9 @@ const Styled_Slide = styled(Slider)`
   justify-content: center;
   height: 100%;
   width: 100%;
+  & :focus-visible {
+    outline: none;
+  }
   .slick-list {
     //얘로 크기조정
     max-width: 100%;
