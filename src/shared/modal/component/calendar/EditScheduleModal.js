@@ -25,7 +25,6 @@ const EditScheduleModal = ({ onClose, eventId }) => {
   const dispatch = useDispatch();
 
   const list = useSelector((state) => state.calendar.scheduleOneList);
-  console.log(list);
 
   const [event, setEvent] = React.useState(list?.event);
   const [selec, setSelec] = React.useState(true);
@@ -37,10 +36,7 @@ const EditScheduleModal = ({ onClose, eventId }) => {
   const eMonth = dayjs(list?.endDate).format("MM");
   const eDay = dayjs(list?.endDate).format("DD");
 
-  const [date, onChange] = React.useState([
-    `${list?.startDate}`,
-    `${list?.endDate}`,
-  ]);
+  const [date, onChange] = React.useState([list?.startDate, list?.endDate]);
   const [myPic, setMyPic] = React.useState(list?.color);
   const [showOptions, setShowOptions] = React.useState(false);
   const [showBorder, setShowBorder] = React.useState(false);
@@ -75,6 +71,10 @@ const EditScheduleModal = ({ onClose, eventId }) => {
   const reset = () => {
     setEvent("");
   };
+
+  React.useEffect(() => {
+    setSelec(false);
+  }, [date]);
 
   return (
     <ContentBox
@@ -226,6 +226,7 @@ const EditScheduleModal = ({ onClose, eventId }) => {
               setSelec(!selec);
               setShowOptions(false);
             }}
+            style={{ cursor: "pointer" }}
           >
             <Text B2 style={{ marginBottom: "6px" }}>
               시작일{" "}
@@ -245,7 +246,11 @@ const EditScheduleModal = ({ onClose, eventId }) => {
           </Box>
         </CommonBox>
         {selec ? (
-          <CalendarBox>
+          <CalendarBox
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <Calendar
               showNeighboringMonth={false}
               formatDay={(locale, date) => dayjs(date).format("DD")}
