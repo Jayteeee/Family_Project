@@ -20,7 +20,7 @@ import albumCover4 from "../../shared/images/albumCover4.svg";
 
 const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
   const v = recentVoiceFile;
-  const { voiceAlbumCover } = voiceAlbumInfo;
+  const voiceAlbumCover = voiceAlbumInfo?.voiceAlbumCover;
   const [run, setRun] = useState(true);
   // const [count, setCount] = useState(0);
   // const [currentMinutes, setCurrentMinutes] = useState(0);
