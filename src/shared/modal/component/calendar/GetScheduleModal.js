@@ -47,7 +47,7 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
         eventId
       )
     );
-  }, [normal]);
+  }, []);
 
   return (
     <ModalPortal>

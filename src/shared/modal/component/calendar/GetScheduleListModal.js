@@ -2,6 +2,7 @@ import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import dayjs from "dayjs";
 import "dayjs/locale/ko";
 
 // 리덕스
@@ -19,24 +20,24 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
   const dispatch = useDispatch();
   const [modalOn, setModalOn] = React.useState(false);
   const [eventId, setEventId] = React.useState();
-  // const [normal, setNormal] = React.useState(false);
-
-  // const list = useSelector((state) => state.calendar.scheduleOneList);
 
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
   };
 
-  // React.useEffect(() => {
-  //   dispatch(
-  //     scheduleActions.getOneScheduleDB(
-  //       dayjs(date).format("YYYY-MM-DD"),
-  //       familyId
-  //       // eventId
-  //     )
-  //   );
-  // }, []);
+  const handleList = (x) => {
+    dispatch(
+      scheduleActions.getOneScheduleDB(
+        dayjs(x.date).format("YYYY-MM-DD"),
+        familyId,
+        x.eventId
+      )
+    );
+    setTimeout(() => {
+      handleModal();
+    }, 50);
+  };
 
   return (
     <ModalPortal>
@@ -61,7 +62,8 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
                 key={`${x.eventId}++`}
                 onClick={() => {
                   setEventId(x.eventId);
-                  handleModal();
+                  // handleModal();
+                  handleList(x);
                 }}
               >
                 <Stitle>
