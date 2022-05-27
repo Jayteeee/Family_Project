@@ -68,7 +68,6 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
 
   const onRecAudio = () => {
     setCount(0); // 재녹음 시 타이머 초기화
-    start(); // 타이머 시작
     setDisabled(true);
 
     // 음원정보를 담은 노드를 생성하거나 음원을 실행또는 디코딩 시키는 일을 한다
@@ -94,6 +93,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
       setStream(stream);
       setMedia(mediaRecorder);
       makeSound(stream);
+      start(); // 타이머 시작
 
       analyser.onaudioprocess = function (e) {
         // 3분(180초) 지나면 자동으로 음성 저장 및 녹음 중지
@@ -127,137 +127,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
       setOnRec(true);
       setSound(URL.createObjectURL(e.data)); // File 정보 출력
       setVoiceFile(new File([e.data], "file", { type: e.data.type }));
-
-      // const fr = new FileReader();
-      // console.log(fr);
-      // fr.readAsDataURL(e.data);
-      // fr.onload = (e) => {
-      //   console.log(fr.result);
-      // };
-
-      //   console.log(audioBufferToWav(e.data));
-
-      //   function audioBufferToWav(aBuffer) {
-      //     let numOfChan = aBuffer.numberOfChannels,
-      //       btwLength = aBuffer.length * numOfChan * 2 + 44,
-      //       btwArrBuff = new ArrayBuffer(btwLength),
-      //       btwView = new DataView(btwArrBuff),
-      //       btwChnls = [],
-      //       btwIndex,
-      //       btwSample,
-      //       btwOffset = 0,
-      //       btwPos = 0;
-      //     setUint32(0x46464952); // "RIFF"
-      //     setUint32(btwLength - 8); // file length - 8
-      //     setUint32(0x45564157); // "WAVE"
-      //     setUint32(0x20746d66); // "fmt " chunk
-      //     setUint32(16); // length = 16
-      //     setUint16(1); // PCM (uncompressed)
-      //     setUint16(numOfChan);
-      //     setUint32(aBuffer.sampleRate);
-      //     setUint32(aBuffer.sampleRate * 2 * numOfChan); // avg. bytes/sec
-      //     setUint16(numOfChan * 2); // block-align
-      //     setUint16(16); // 16-bit
-      //     setUint32(0x61746164); // "data" - chunk
-      //     setUint32(btwLength - btwPos - 4); // chunk length
-
-      //     console.log(numOfChan);
-
-      //     for (btwIndex = 0; btwIndex < aBuffer.numberOfChannels; btwIndex++)
-      //       btwChnls.push(aBuffer.getChannelData(btwIndex));
-
-      //     while (btwPos < btwLength) {
-      //       for (btwIndex = 0; btwIndex < numOfChan; btwIndex++) {
-      //         // interleave btwChnls
-      //         btwSample = Math.max(
-      //           -1,
-      //           Math.min(1, btwChnls[btwIndex][btwOffset])
-      //         ); // clamp
-      //         btwSample =
-      //           (0.5 + btwSample < 0 ? btwSample * 32768 : btwSample * 32767) | 0; // scale to 16-bit signed int
-      //         btwView.setInt16(btwPos, btwSample, true); // write 16-bit sample
-      //         btwPos += 2;
-      //       }
-      //       btwOffset++; // next source sample
-      //     }
-
-      //     let wavHdr = lamejs.WavHeader.readHeader(new DataView(btwArrBuff));
-      //     let wavSamples = new Int16Array(
-      //       btwArrBuff,
-      //       wavHdr.dataOffset,
-      //       wavHdr.dataLen / 2
-      //     );
-
-      //     blobToMp3(wavHdr.channels, wavHdr.sampleRate, wavSamples);
-
-      //     function setUint16(data) {
-      //       btwView.setUint16(btwPos, data, true);
-      //       btwPos += 2;
-      //     }
-
-      //     function setUint32(data) {
-      //       btwView.setUint32(btwPos, data, true);
-      //       btwPos += 4;
-      //     }
-      //   }
     };
-
-    // // ---------------------------
-
-    // function blobToMp3(channels, sampleRate, samples) {
-    //   var buffer = [];
-    //   var mp3enc = new lamejs.Mp3Encoder(channels, sampleRate, 128);
-    //   var remaining = samples.length;
-    //   var samplesPerFrame = 1152;
-    //   for (var i = 0; remaining >= samplesPerFrame; i += samplesPerFrame) {
-    //     var mono = samples.subarray(i, i + samplesPerFrame);
-    //     var mp3buf = mp3enc.encodeBuffer(mono);
-    //     if (mp3buf.length > 0) {
-    //       buffer.push(new Int8Array(mp3buf));
-    //     }
-    //     remaining -= samplesPerFrame;
-    //   }
-    //   var d = mp3enc.flush();
-    //   if (d.length > 0) {
-    //     buffer.push(new Int8Array(d));
-    //   }
-
-    //   var mp3Blob = new Blob(buffer, { type: "audio/mp3" });
-    //   // var bUrl = window.URL.createObjectURL(mp3Blob);
-
-    //   // send the download link to the console
-    //   // console.log("mp3 download:", bUrl);
-    //   return console.log(mp3Blob)
-    // }
-
-    // -------------------------------- 테스트
-    // let channels = 1; //1 for mono or 2 for stereo
-    // let sampleRate = 44100; //44.1khz (normal mp3 samplerate)
-    // let kbps = 128; //encode 128kbps mp3
-    // let mp3encoder = new lamejs.Mp3Encoder(channels, sampleRate, kbps);
-    // var mp3Data = [];
-
-    // let samples = new Int16Array(44100); //one second of silence (get your data from the source you have)
-    // let sampleBlockSize = 1152; //can be anything but make it a multiple of 576 to make encoders life easier
-
-    // for (var i = 0; i < samples.length; i += sampleBlockSize) {
-    //   let sampleChunk = samples.subarray(i, i + sampleBlockSize);
-    //   var mp3buf = mp3encoder.encodeBuffer(sampleChunk);
-    //   if (mp3buf.length > 0) {
-    //     mp3Data.push(mp3buf);
-    //   }
-    // }
-    // mp3buf = mp3encoder.flush(); //finish writing mp3
-
-    // if (mp3buf.length > 0) {
-    //   mp3Data.push(new Int8Array(mp3buf));
-    // }
-
-    // var blob = new Blob(mp3Data, { type: "audio/mp3" });
-    // var url = window.URL.createObjectURL(blob);
-    // console.log("MP3 URl: ", url);
-
-    // ----------------------------------------------------
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
     stream.getAudioTracks().forEach(function (track) {
@@ -277,14 +147,11 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
   const myRef = useRef();
 
   const play = () => {
-    // howler.play();
     myRef.current.play();
     setDisabled(true);
   };
 
   const pause = async () => {
-    // howler.pause();
-
     await myRef.current.pause();
     setDisabled(false);
   };
@@ -413,8 +280,10 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
                     제목
                   </Text>
                   <Input
+                    disabled={disabled}
                     id="albumName"
                     size="24px"
+                    maxLength="10"
                     onChange={handleVoiceTitle}
                     value={voiceTitle}
                     style={{

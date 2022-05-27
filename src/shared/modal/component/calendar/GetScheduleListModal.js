@@ -91,32 +91,13 @@ const GetScheduleListModal = ({ onClose, date, event, familyId, schedule }) => {
 const Background = styled.div`
   z-index: 206;
   position: fixed;
-  /* left: ${(props) =>
-    props.none
-      ? 0
-      : `${
-          props.positionSet.target.offsetLeft +
-          props.positionSet.target.offsetWidth
-        }px`}; */
-  /* top: ${(props) =>
-    props.none
-      ? 0
-      : `${
-          props.positionSet.target.offsetTop +
-          props.positionSet.target.offsetHeight
-        }px`}; */
   top: 0;
   left: 0;
-  /* width: ${(props) => (props.none ? `100%` : null)}; */
   width: 100%;
-  /* height: ${(props) => (props.none ? `100%` : null)}; */
   height: 100%;
   text-align: center;
-  /* background-color: ${(props) =>
-    props.none ? `rgba(0, 0, 0, 0.5)` : null}; */
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 40px rgba(0, 0, 0, 0.25);
-  /* border-radius: ${(props) => (props.none ? null : "20%")}; */
 
   @media only screen and (max-width: 839px) {
     left: 0;

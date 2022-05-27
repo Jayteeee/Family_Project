@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -39,26 +39,6 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
     dispatch(scheduleActions.deleteScheduleDB(list.eventId));
   };
 
-  // socket 부분
-
-  let socket = useSelector((state) => state.socket?.socket);
-
-  const nowUserNickname = useSelector(
-    (state) => state.user.user.user?.nickname
-  );
-
-  const nowUserId = useSelector((state) => state.user.user.user?.userId);
-
-  const handleNotification = (type) => {
-    socket.emit("sendFamilyNoti", {
-      userId: nowUserId,
-      senderName: nowUserNickname,
-      receiverFamily: familyId,
-      category: "캘린더",
-      type,
-    });
-  };
-
   React.useEffect(() => {
     dispatch(
       scheduleActions.getOneScheduleDB(
@@ -67,7 +47,7 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
         eventId
       )
     );
-  }, []);
+  }, [normal]);
 
   return (
     <ModalPortal>
@@ -92,7 +72,6 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                   deleteSchedule();
-                  handleNotification("일정삭제");
                 }}
               >
                 <MdDeleteOutline />
@@ -131,7 +110,6 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
               <SUser>
                 <CircleImage
                   XS
-                  // src={list?.profileImg ? list?.profileImg : noImg}
                   src={
                     list?.profileImg === "Profile01"
                       ? Profile01
@@ -156,7 +134,7 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
           </CheckBox>
           <CheckBox none={!normal}>
             <EditScheduleModal
-              list={list}
+              // list={list}
               onClose={onClose}
               eventId={eventId}
             />
@@ -170,32 +148,13 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
 const Background = styled.div`
   z-index: 206;
   position: ${(props) => (props.none ? "fixed" : "absolute")};
-  /* left: ${(props) =>
-    props.none
-      ? 0
-      : `${
-          props.positionSet.target.offsetLeft +
-          props.positionSet.target.offsetWidth
-        }px`}; */
-  /* top: ${(props) =>
-    props.none
-      ? 0
-      : `${
-          props.positionSet.target.offsetTop +
-          props.positionSet.target.offsetHeight
-        }px`}; */
   top: 0;
   left: 0;
-  /* width: ${(props) => (props.none ? `100%` : null)}; */
   width: 100%;
-  /* height: ${(props) => (props.none ? `100%` : null)}; */
   height: 100%;
   text-align: center;
-  /* background-color: ${(props) =>
-    props.none ? `rgba(0, 0, 0, 0.5)` : null}; */
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 40px rgba(0, 0, 0, 0.25);
-  /* border-radius: ${(props) => (props.none ? null : "20%")}; */
   @media only screen and (max-width: 839px) {
     left: 0;
     top: 0;

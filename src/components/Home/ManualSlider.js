@@ -18,7 +18,7 @@ import right from "../../shared/images/arrow_forward.svg";
 
 import { Text } from "../../elements";
 
-const SimpleSlider = () => {
+const ManualSlider = () => {
   //전체값의 순서랑 게시물 하나의 번호 비교
   const settings = {
     arrows: true, //화살표 x
@@ -79,163 +79,131 @@ const SimpleSlider = () => {
   return (
     <>
       <Web>
-        <Styled_Slide
-          {...settings}
-          dotsClass="reset"
-          className="res-ss res-reset"
-        >
-          <Container className="res-ss">
+        <Styled_Slide {...settings} dotsClass="reset">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
-                  우리가족 소통공간, 도란도란
-                </Text>
+                <Text H2>우리가족 소통공간, 도란도란</Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
+                <Text B1>
                   우리 가족만의 공간에서 추억을 공유하고 소통해보세요.
                 </Text>
               </SubTitle>
             </TextBox>
-            <img alt="description1" src={web1} className="res-ss" />
+            <img alt="description1" src={web1} />
           </Container>
-          <Container className="res-ss">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
-                  함께 달성하는 재미를 느낄 수 있는 미션
-                </Text>
+                <Text H2>함께 달성하는 재미를 느낄 수 있는 미션</Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
+                <Text B1>
                   일상 속 작은 챌린지부터 가족의 버킷리스트도 좋아요!
                 </Text>
               </SubTitle>
             </TextBox>
-            <img alt="description2" src={web2} className="res-ss" />
+            <img alt="description2" src={web2} />
           </Container>
-          <Container className="res-ss">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
-                  가족 모두가 추가하고 편집할 수 있는 가족 캘린더
-                </Text>
+                <Text H2>가족 모두가 추가하고 편집할 수 있는 가족 캘린더</Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
-                  우리 가족의 일정을 한 눈에 파악할 수 있어요.
-                </Text>
+                <Text B1>우리 가족의 일정을 한 눈에 파악할 수 있어요.</Text>
               </SubTitle>
             </TextBox>
-            <img alt="description3" src={web3} className="res-ss" />
+            <img alt="description3" src={web3} />
           </Container>
-          <Container className="res-ss">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
-                  남는 건 사진인 거 아시죠? 우리 가족만의 갤러리
-                </Text>
+                <Text H2>남는 건 사진인 거 아시죠? 우리 가족만의 갤러리</Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
-                  우리 가족의 일정을 한 눈에 파악할 수 있어요.
-                </Text>
+                <Text B1>우리 가족의 일정을 한 눈에 파악할 수 있어요.</Text>
               </SubTitle>
             </TextBox>
-            <img alt="description4" src={web4} className="res-ss" />
+            <img alt="description4" src={web4} />
           </Container>
-          <Container className="res-ss">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
+                <Text H2>
                   듣고 싶은 목소리를 언제든 꺼내들을 수 있는 음성 메시지
                 </Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
+                <Text B1>
                   직접 하지 못했던 말, 음성 메시지로 전해보는 건 어때요?
                 </Text>
               </SubTitle>
             </TextBox>
-            <img alt="description4" src={web5} className="res-ss" />
+            <img alt="description4" src={web5} />
           </Container>
         </Styled_Slide>
       </Web>
       <Mobile>
-        <Styled_Slide
-          {...settings}
-          dotsClass="reset"
-          className="res-ss res-reset"
-        >
-          <Container className="res-ss">
+        <Styled_Slide {...settings} dotsClass="reset">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
-                  우리가족 소통공간, 도란도란
-                </Text>
+                <Text S2>우리가족 소통공간, 도란도란</Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
+                <Text C>
                   우리 가족만의 공간에서 추억을 공유하고 소통해보세요.
                 </Text>
               </SubTitle>
             </TextBox>
-            <img alt="description1" src={Mobile1} className="res-ss" />
+            <img alt="description1" src={Mobile1} />
           </Container>
-          <Container className="res-ss">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
-                  함께 달성하는 재미를 느낄 수 있는 미션
-                </Text>
+                <Text S2>함께 달성하는 재미를 느낄 수 있는 미션</Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
+                <Text C>
                   일상 속 작은 챌린지부터 가족의 버킷리스트도 좋아요!
                 </Text>
               </SubTitle>
             </TextBox>
-            <img alt="description2" src={Mobile2} className="res-ss" />
+            <img alt="description2" src={Mobile2} />
           </Container>
-          <Container className="res-ss">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
-                  가족 모두가 추가하고 편집할 수 있는 가족 캘린더
-                </Text>
+                <Text S2>가족 모두가 추가하고 편집할 수 있는 가족 캘린더</Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
-                  우리 가족의 일정을 한 눈에 파악할 수 있어요.
-                </Text>
+                <Text C>우리 가족의 일정을 한 눈에 파악할 수 있어요.</Text>
               </SubTitle>
             </TextBox>
-            <img alt="description3" src={Mobile3} className="res-ss" />
+            <img alt="description3" src={Mobile3} />
           </Container>
-          <Container className="res-ss">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
-                  남는 건 사진인 거 아시죠? 우리 가족만의 갤러리
-                </Text>
+                <Text S2>남는 건 사진인 거 아시죠? 우리 가족만의 갤러리</Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
-                  차곡차곡 앨범별로 정리하고 댓글도 남겨보세요.
-                </Text>
+                <Text C>차곡차곡 앨범별로 정리하고 댓글도 남겨보세요.</Text>
               </SubTitle>
             </TextBox>
-            <img alt="description4" src={Mobile4} className="res-ss" />
+            <img alt="description4" src={Mobile4} />
           </Container>
-          <Container className="res-ss">
+          <Container>
             <TextBox>
               <Title>
-                <Text H2 className="res-ss">
+                <Text S2>
                   듣고 싶은 목소리를 언제든 꺼내들을 수 있는 음성 메시지
                 </Text>
               </Title>
               <SubTitle>
-                <Text B1 className="res-ss">
+                <Text C className="res-ss">
                   직접 하지 못했던 말, 음성 메시지로 전해보는 건 어때요?
                 </Text>
               </SubTitle>
@@ -252,10 +220,24 @@ const Styled_Slide = styled(Slider)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-height: 100%;
+  max-width: 1000px;
   height: 100%;
   width: 100%;
+  padding: 5%;
+  background-color: #eff1fe;
   & :focus-visible {
     outline: none;
+  }
+  @media screen and (max-width: 1199px) {
+    border-radius: 2%;
+  }
+  @media only screen and (max-width: 839px) {
+    padding: 5%;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    padding: 2% 0;
   }
   .slick-list {
     //얘로 크기조정
@@ -269,24 +251,24 @@ const Styled_Slide = styled(Slider)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    @media screen and (max-width: 1199px) {
-      margin: 0px;
-      width: 100%;
-      height: 100%;
-    }
-    @media only screen and (max-width: 839px) {
-      margin: 0px;
-      width: 100%;
-      height: 100%;
-    }
+    margin: auto;
   }
   img {
-    height: 60%;
-    width: 60%;
+    height: 100%;
+    width: 100%;
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    @media only screen and (max-width: 839px) {
+      width: 55%;
+      height: 55%;
+    }
+    // XSmall (Mobile)
+    @media screen and (max-width: 599px) {
+      width: 60%;
+      height: 60%;
+    }
   }
   .reset {
     transform: none;
@@ -295,12 +277,6 @@ const Styled_Slide = styled(Slider)`
     align-items: center;
     justify-content: center;
     z-index: 1;
-    @media only screen and (max-width: 839px) {
-      display: flex;
-      flex-direction: row;
-      bottom: 0px;
-      position: relative;
-    }
   }
   .PrevArrow {
     display: flex;
@@ -355,25 +331,41 @@ const Styled_Slide = styled(Slider)`
 `;
 
 const Web = styled.div`
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: 839px) {
     display: none;
   }
 `;
 const Mobile = styled.div`
   display: none;
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: 839px) {
     display: unset;
+    width: 100%;
+    height: 100%;
   }
 `;
 
 const Container = styled.div``;
 const TextBox = styled.div`
   margin: 24px 40px;
+  @media only screen and (max-width: 839px) {
+    margin: 12px 24px;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 8px 12px;
+  }
 `;
 
 const Title = styled.div`
   margin: 16px 0;
+  @media only screen and (max-width: 839px) {
+    margin: 8px 0;
+  }
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    margin: 4px 0;
+  }
 `;
 const SubTitle = styled.div``;
 
-export default SimpleSlider;
+export default ManualSlider;

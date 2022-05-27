@@ -803,7 +803,7 @@ const ScheduleArea = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     width: 100%;
-    padding: 15%;
+    padding: 2%;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {

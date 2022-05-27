@@ -149,27 +149,10 @@ const NoneContentBox = styled.div`
   }
 `;
 
-const EmptyContentImg = styled.div`
-  width: 70%;
-  height: 70%;
+const EmptyContentImg = styled.img`
+  width: 100%;
+  height: 100%;
   margin: auto;
-  ${({ src }) => `background-image: url(${src});`};
-  background-position: center;
-  background-size: cover;
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 export default HomeSchedule;
