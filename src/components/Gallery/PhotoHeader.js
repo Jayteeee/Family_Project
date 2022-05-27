@@ -26,7 +26,6 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
 
   const onImgInputBtnClick = () => {
     const file = photoImgInput.current.files[0];
-    console.log(file);
     actionImgCompress(file);
   };
 

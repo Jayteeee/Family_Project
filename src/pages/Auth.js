@@ -46,13 +46,10 @@ const Auth = () => {
       window.Kakao.init(REST_API_KEY);
       // access token 설정
       // window.Kakao.Auth.setAccessToken(res.data.access_token);
-      console.log(res);
       insertToken(res.data.token);
       history.replace("/");
       history.go(0);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
     // };
 
     // await axios
