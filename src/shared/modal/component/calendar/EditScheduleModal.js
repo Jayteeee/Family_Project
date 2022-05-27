@@ -21,20 +21,20 @@ import { ScheduleAlertModal } from "./index";
 import { Input, Button, Text } from "../../../../elements";
 import { scheduleActions } from "../../../../redux/modules/calendar";
 
-const EditScheduleModal = ({ onClose, eventId }) => {
+const EditScheduleModal = ({ onClose, eventId, familyId, startDate }) => {
   const dispatch = useDispatch();
 
   const list = useSelector((state) => state.calendar.scheduleOneList);
 
-  const [event, setEvent] = React.useState(list?.event);
-  const [selec, setSelec] = React.useState(true);
+  const [event, setEvent] = useState(list?.event);
+  const [selec, setSelec] = useState(true);
 
-  const sYear = dayjs(list?.startDate).format("YYYY");
-  const sMonth = dayjs(list?.startDate).format("MM");
-  const sDay = dayjs(list?.startDate).format("DD");
-  const eYear = dayjs(list?.endDate).format("YYYY");
-  const eMonth = dayjs(list?.endDate).format("MM");
-  const eDay = dayjs(list?.endDate).format("DD");
+  const sYear = dayjs(list.startDate).format("YYYY");
+  const sMonth = dayjs(list.startDate).format("MM");
+  const sDay = dayjs(list.startDate).format("DD");
+  const eYear = dayjs(list.endDate).format("YYYY");
+  const eMonth = dayjs(list.endDate).format("MM");
+  const eDay = dayjs(list.endDate).format("DD");
 
   const [date, onChange] = React.useState([list?.startDate, list?.endDate]);
   const [myPic, setMyPic] = React.useState(list?.color);
@@ -71,6 +71,15 @@ const EditScheduleModal = ({ onClose, eventId }) => {
   const reset = () => {
     setEvent("");
   };
+  useEffect(() => {
+    dispatch(
+      scheduleActions.getOneScheduleDB(
+        dayjs(date).format("YYYY-MM-DD"),
+        familyId,
+        eventId
+      )
+    );
+  }, []);
 
   React.useEffect(() => {
     setSelec(false);

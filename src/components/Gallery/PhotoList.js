@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdRemoveCircleOutline, MdRemoveCircle } from "react-icons/md";
 
 // 엘리먼트
 import { Text } from "../../elements";
@@ -13,7 +12,6 @@ import { galleryActions } from "../../redux/modules/gallery";
 import { history } from "../../redux/configureStore";
 
 // 이미지
-import noImage from "../../shared/images/noImage.png";
 import emptyPhoto from "../../shared/images/emptyPhoto.svg";
 import L_photo from "../../shared/images/L_photo.svg";
 import S_photo from "../../shared/images/S_photo.svg";
@@ -84,12 +82,8 @@ const PhotoList = ({
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };
 
-  // 사진 업로드 스피너
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     dispatch(galleryActions.getPhotoDB(photoAlbumId));
-    setLoading(false);
   }, [photoList.length]);
 
   return (
@@ -101,110 +95,94 @@ const PhotoList = ({
         photoAlbumName={photoAlbumName}
         isEdit={isEdit}
       />
-      {loading ? (
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            paddingBottom: "100px",
-          }}
-        >
-          <Spinner />
-        </div>
-      ) : (
-        <>
-          {photoList.length !== 0 ? (
-            <Container>
-              {photoList.map((p) => {
-                return (
-                  <Figure key={p?.photoId}>
-                    <div>
-                      <ImageBox
-                        src={p?.photoFile ? p?.photoFile : emptyPhoto}
-                        onClick={() => {
-                          history.push(
-                            `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
-                          );
-                          // getPhotoList();
-                        }}
-                      />
-                    </div>
-                  </Figure>
-                );
-              })}
-              <FloatingButton>
-                <label
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "400",
-                    marginBottom: "1px",
-                    width: "100%",
-                    height: "99%",
-                    cursor: "pointer",
-                  }}
-                  className="input-file-button"
-                  htmlFor="input-file"
-                >
-                  +
-                </label>
-              </FloatingButton>
-              <input
-                ref={photoImgInput}
-                type="file"
-                id="input-file"
-                accept="image/*"
-                onChange={() => {
-                  onImgInputBtnClick();
-                  handleNotification("사진 등록");
+      <>
+        {photoList.length !== 0 ? (
+          <Container>
+            {photoList.map((p) => {
+              return (
+                <Figure key={p?.photoId}>
+                  <div>
+                    <ImageBox
+                      src={p?.photoFile ? p?.photoFile : emptyPhoto}
+                      onClick={() => {
+                        history.push(
+                          `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
+                        );
+                      }}
+                    />
+                  </div>
+                </Figure>
+              );
+            })}
+            <FloatingButton>
+              <label
+                style={{
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontWeight: "400",
+                  marginBottom: "1px",
+                  width: "100%",
+                  height: "99%",
+                  cursor: "pointer",
                 }}
-                style={{ display: "none" }}
-              />
-            </Container>
-          ) : (
-            <NoneContentWrap>
-              <NoneContentBox>
-                <NoneContentItem>
-                  <EmptyContentImg src={L_photo} S_photo={S_photo} />
-                </NoneContentItem>
-              </NoneContentBox>
-              <FloatingButton>
-                <label
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "400",
-                    marginBottom: "1px",
-                    width: "100%",
-                    height: "99%",
-                    cursor: "pointer",
-                  }}
-                  className="input-file-button"
-                  htmlFor="input-file"
-                >
-                  +
-                </label>
-              </FloatingButton>
-              <input
-                ref={photoImgInput}
-                type="file"
-                id="input-file"
-                accept="image/*"
-                onChange={() => {
-                  onImgInputBtnClick();
-                  handleNotification("사진 등록");
+                className="input-file-button"
+                htmlFor="input-file"
+              >
+                +
+              </label>
+            </FloatingButton>
+            <input
+              ref={photoImgInput}
+              type="file"
+              id="input-file"
+              accept="image/*"
+              onChange={() => {
+                onImgInputBtnClick();
+                handleNotification("사진 등록");
+              }}
+              style={{ display: "none" }}
+            />
+          </Container>
+        ) : (
+          <NoneContentWrap>
+            <NoneContentBox>
+              <NoneContentItem>
+                <EmptyContentImg src={L_photo} S_photo={S_photo} />
+              </NoneContentItem>
+            </NoneContentBox>
+            <FloatingButton>
+              <label
+                style={{
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontWeight: "400",
+                  marginBottom: "1px",
+                  width: "100%",
+                  height: "99%",
+                  cursor: "pointer",
                 }}
-                style={{ display: "none" }}
-              />
-            </NoneContentWrap>
-          )}
-        </>
-      )}
+                className="input-file-button"
+                htmlFor="input-file"
+              >
+                +
+              </label>
+            </FloatingButton>
+            <input
+              ref={photoImgInput}
+              type="file"
+              id="input-file"
+              accept="image/*"
+              onChange={() => {
+                onImgInputBtnClick();
+                handleNotification("사진 등록");
+              }}
+              style={{ display: "none" }}
+            />
+          </NoneContentWrap>
+        )}
+      </>
       <ModalPortal>
         {modalOn && (
           <DeletePhotoModal
@@ -221,6 +199,7 @@ const Container = styled.div`
   column-count: 4;
   column-gap: 1%;
   padding: 40px;
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     column-count: 3;
@@ -249,7 +228,6 @@ const Container = styled.div`
 const Figure = styled.div`
   display: grid;
   grid-template-rows: 1fr auto;
-  /* margin-bottom: 2%; */
   break-inside: avoid;
 
   &:hover {
@@ -271,7 +249,6 @@ const ImageBox = styled.img`
 const NoneContentWrap = styled.div`
   background: #fff;
   display: flex;
-  /* min-height: 880px; */
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -281,10 +258,6 @@ const NoneContentWrap = styled.div`
   border-radius: 12px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-    /* min-height: 680px; */
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin: 40px 24px;
@@ -293,10 +266,7 @@ const NoneContentWrap = styled.div`
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    /* min-height: 480px; */
-
     margin: 28px 16px;
-    /* margin: 20px 9px; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {

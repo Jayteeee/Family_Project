@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -31,7 +31,7 @@ import Profile05 from "../../../../shared/images/Profile05.svg";
 
 const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
   const dispatch = useDispatch();
-  const [normal, setNormal] = React.useState(false);
+  const [normal, setNormal] = useState(false);
 
   const list = useSelector((state) => state.calendar.scheduleOneList);
 
@@ -39,7 +39,9 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
     dispatch(scheduleActions.deleteScheduleDB(list.eventId));
   };
 
-  React.useEffect(() => {
+  let startDate = list.startDate;
+
+  useEffect(() => {
     dispatch(
       scheduleActions.getOneScheduleDB(
         dayjs(date).format("YYYY-MM-DD"),
@@ -134,9 +136,11 @@ const GetScheduleModal = ({ onClose, date, event, familyId, eventId }) => {
           </CheckBox>
           <CheckBox none={!normal}>
             <EditScheduleModal
-              // list={list}
+              list={list}
               onClose={onClose}
               eventId={eventId}
+              familyId={familyId}
+              startDate={startDate}
             />
           </CheckBox>
         </Content>
