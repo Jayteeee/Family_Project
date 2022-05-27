@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -23,7 +23,9 @@ import { scheduleActions } from "../../../../redux/modules/calendar";
 
 const EditScheduleModal = ({ onClose, eventId }) => {
   const dispatch = useDispatch();
-  const list = useSelector((state) => state?.calendar?.scheduleOneList);
+
+  const list = useSelector((state) => state.calendar.scheduleOneList);
+  console.log(list);
 
   const [event, setEvent] = React.useState(list?.event);
   const [selec, setSelec] = React.useState(true);
@@ -72,26 +74,6 @@ const EditScheduleModal = ({ onClose, eventId }) => {
 
   const reset = () => {
     setEvent("");
-  };
-
-  // socket 부분
-
-  let socket = useSelector((state) => state.socket?.socket);
-
-  const nowUserNickname = useSelector(
-    (state) => state.user.user.user?.nickname
-  );
-
-  const nowUserId = useSelector((state) => state.user.user.user?.userId);
-
-  const handleNotification = (type) => {
-    socket.emit("sendFamilyNoti", {
-      userId: nowUserId,
-      senderName: nowUserNickname,
-      receiverFamily: list.familyId,
-      category: "캘린더",
-      type,
-    });
   };
 
   return (
