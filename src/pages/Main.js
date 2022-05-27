@@ -11,7 +11,6 @@ import { Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { familyActions } from "../redux/modules/family";
 import { history } from "../redux/configureStore";
-import { familyMemberActions } from "../redux/modules/familymember";
 
 // 페이지
 import {
@@ -28,7 +27,6 @@ import {
 // 컴포넌트
 import SidebarMenu from "../components/SidebarMenu";
 import Header from "../components/Header";
-import Spinner from "../components/Spinner";
 
 export const MainContext = createContext();
 
@@ -121,13 +119,7 @@ const Main = (props) => {
               {/* 가족 타이틀 수정시 label에 바로 적용 안되는 문제 있음 */}
               <Label className="res-label">
                 {NowFamilyTitle ? NowFamilyTitle : "Family Title"}
-                <TiArrowSortedDown
-                // style={{
-                //   margin: "0 15px",
-                //   textAlign: "center",
-                //   fontSize: "16px",
-                // }}
-                />
+                <TiArrowSortedDown />
               </Label>
               <SelectOptions
                 className="res-selectOptions"
@@ -340,12 +332,10 @@ const SelectBox = styled.div`
 
 const Label = styled.div`
   display: flex;
-  /* font-size: 24px; */
   font-size: 24px;
   font-weight: 600;
   width: 100%;
-  /* justify-content: center; */
-  /* justify-items: center; */
+
   align-items: center;
   cursor: pointer;
   &:hover {
@@ -354,17 +344,11 @@ const Label = styled.div`
   padding: 55px 55px 55px 20px;
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    /* justify-content: center;
-    justify-items: center; */
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    /* justify-content: center;
-    justify-items: center; */
-    /* margin-left: 5px; */
     border-bottom: 1px solid #dbdbdb;
     font-weight: 400;
-
     font-size: 20px !important;
     padding: 10px 0 10px 20px !important;
   }
@@ -516,16 +500,6 @@ const SidebarBottom = styled.nav`
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
   }
-  /* // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-    max-height: 6vh;
-  }
-  @media screen and (max-width: 360px) {
-    max-height: 7vh;
-  }
-  @media screen and (max-width: 320px) {
-    max-height: 7vh;
-  } */
 `;
 
 export default Main;

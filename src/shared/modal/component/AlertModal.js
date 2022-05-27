@@ -10,7 +10,7 @@ import { ModalPortal } from "../portals";
 import { Text } from "../../../elements";
 
 const AlertModal = (props) => {
-  const { onClose, content } = props;
+  const { onClose, content, todayMoodClose } = props;
 
   return (
     <ModalPortal>
@@ -19,6 +19,7 @@ const AlertModal = (props) => {
         onClick={(e) => {
           e.stopPropagation();
           onClose();
+          todayMoodClose();
         }}
       >
         <Content
@@ -26,6 +27,7 @@ const AlertModal = (props) => {
           onClick={(e) => {
             e.stopPropagation();
             onClose();
+            todayMoodClose();
           }}
         >
           <EditFamilyTitleBox>

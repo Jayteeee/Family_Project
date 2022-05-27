@@ -3,9 +3,6 @@ import React, { useRef, useState, useEffect } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 
-// 엘리먼트
-import { Text } from "../../elements";
-
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 import { galleryActions } from "../../redux/modules/gallery";
@@ -82,6 +79,13 @@ const PhotoList = ({
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };
 
+  const [imgHeight, setImgHeight] = useState("");
+  const imageHeight = () => {
+    const image = document.getElementById("photoImage");
+    console.log(image.height);
+    setImgHeight(image.height);
+  };
+
   useEffect(() => {
     dispatch(galleryActions.getPhotoDB(photoAlbumId));
   }, [photoList.length]);
@@ -108,7 +112,9 @@ const PhotoList = ({
                         history.push(
                           `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
                         );
+                        imageHeight();
                       }}
+                      id="photoImage"
                     />
                   </div>
                 </Figure>

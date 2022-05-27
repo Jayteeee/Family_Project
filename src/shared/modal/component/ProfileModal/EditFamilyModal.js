@@ -12,14 +12,13 @@ import { familyMemberActions } from "../../../../redux/modules/familymember";
 
 // 모달
 import { ModalPortal } from "../../portals";
-import { AddMemberModal, EditFamilyTitleModal } from "./index";
+import { AddMemberModal } from "./index";
 import AlertModal from "../AlertModal";
 
 // 엘리먼트
-import { CircleImage, Input, Text } from "../../../../elements";
+import { Input, Text } from "../../../../elements";
 
 // 이미지
-import profileImg from "../../../images/profileImg.png";
 
 // 컴포넌트
 import EditOneFamilyMember from "./EditOneFamilyMember";
@@ -47,7 +46,7 @@ const EditFamilyModal = ({ onClose }) => {
   };
 
   const familyMemberList = useSelector(
-    (state) => state.familymember.familyMemberList
+    (state) => state?.familymember?.familyMemberList
   );
 
   // 가족 이름 수정하기 Input
@@ -65,7 +64,6 @@ const EditFamilyModal = ({ onClose }) => {
 
   const handleAddMemberModal = () => {
     setAddMemberModal(!addMemberModal);
-    //  document.getElementById("profileMenu").style.display = "none";
   };
 
   useEffect(() => {
