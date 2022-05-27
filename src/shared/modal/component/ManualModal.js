@@ -59,6 +59,7 @@ const Content = styled.div`
   width: 100%;
   border-radius: 2%;
   position: relative;
+  overflow: scroll;
   background-color: transparent;
   @media only screen and (max-width: 839px) {
     width: 80%;

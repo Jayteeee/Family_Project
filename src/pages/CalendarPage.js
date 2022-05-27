@@ -41,6 +41,12 @@ const CalendarPage = (props) => {
     "react-calendar__navigation__label__labelText"
   )[0]?.childNodes[0]?.data;
 
+  // const target = document.getElementsByClassName(
+  //   "react-calendar__navigation__label__labelText"
+  // );
+
+  // const observer = new MutationObserver();
+
   const arr = { thisMonth };
 
   let scheduleList = list.map((x) =>

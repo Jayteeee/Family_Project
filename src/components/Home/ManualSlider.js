@@ -224,10 +224,10 @@ const Styled_Slide = styled(Slider)`
   max-width: 1000px;
   height: 100%;
   width: 100%;
-  padding: 5%;
+  padding: 1% 5%;
   background-color: #eff1fe;
   & :focus-visible {
-    outline: none;
+    outline: none !important;
   }
   @media screen and (max-width: 1199px) {
     border-radius: 2%;
@@ -243,8 +243,8 @@ const Styled_Slide = styled(Slider)`
     //얘로 크기조정
     max-width: 100%;
     max-height: 100%;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     border-radius: 10px;
     display: flex;
@@ -254,12 +254,16 @@ const Styled_Slide = styled(Slider)`
     margin: auto;
   }
   img {
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    @media only screen and (max-width: 1650px) {
+      width: 100%;
+      height: 100%;
+    }
     @media only screen and (max-width: 839px) {
       width: 55%;
       height: 55%;
@@ -331,6 +335,8 @@ const Styled_Slide = styled(Slider)`
 `;
 
 const Web = styled.div`
+  width: 100%;
+  height: 100%;
   @media only screen and (max-width: 839px) {
     display: none;
   }
@@ -344,7 +350,10 @@ const Mobile = styled.div`
   }
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 const TextBox = styled.div`
   margin: 24px 40px;
   @media only screen and (max-width: 839px) {
