@@ -52,7 +52,7 @@ const AddFamilyModal = ({ onClose }) => {
   // 가족 생성 함수
   const addFamily = () => {
     const nameCheck = (familyTitle) => {
-      let _reg = /^[가-힣ㄱ-ㅎa-zA-Z0-9._ -]{1,8}$/;
+      let _reg = /^[가-힣ㄱ-ㅎa-zA-Z0-9._ -]{1,10}$/;
 
       return _reg.test(familyTitle);
     };
@@ -107,7 +107,7 @@ const AddFamilyModal = ({ onClose }) => {
                   placeholder="가족 이름을 입력해주세요."
                   onChange={handleAddFamily}
                   value={familyTitle}
-                  maxLength="8"
+                  maxLength="10"
                 />
               </InputBox>
               <Button

@@ -6,6 +6,7 @@ import {
   MdCheckBox,
   MdCheckBoxOutlineBlank,
   MdCheckCircle,
+  MdDeleteForever,
 } from "react-icons/md";
 import { CgMoreVerticalAlt } from "react-icons/cg";
 import dayjs from "dayjs";
@@ -44,34 +45,11 @@ const OneMission = (props) => {
     missionMemberList,
     familyId,
     myMissionChk,
-    missionStatus,
   } = props;
 
-  // console.log("받아온 나의미션리스트:", monthMissionList);
-
-  // console.log("나의 패밀리멤버ID:", myFamilyMemberId);
-
-  // console.log(missionId);
-
-  // console.log(props);
-
-  // console.log("미션 달성여부:", familyMissionChk);
-
   const newCompletedAt = dayjs(completedAt).format("MM월 DD일");
-  // console.log("달성 날짜:", newCompletedAt);
 
   const userId = useSelector((state) => state.user.user.user?.userId);
-
-  // console.log("userId:", userId);
-
-  // 미션 체크
-  // const [check, setCheck] = useState(false);
-
-  // const handleCheck = () => {
-  //   setCheck(!check);
-  // };
-
-  // console.log("check:", check);
 
   const checkedItemHandler = (missionId, missionChk) => {
     if (!familyMissionChk) {
@@ -103,29 +81,10 @@ const OneMission = (props) => {
 
   // 미션 제거하기 모달
   const [deleteModalOn, setDeleteModalOn] = useState(false);
-  // const [modalPosition, setModalPosition] = useState();
 
   const handleDeleteModal = () => {
     setDeleteModalOn(!deleteModalOn);
   };
-
-  // 삭제 버튼 위차찾는 함수
-  // const handleModalPosition = (e) => {
-  //   console.log(e);
-  //   // 배열의 각 div를 특정해주기 위해 각각 존재하는 missionId값을 넣어줍니다.
-  //   const element = document.getElementById(missionId);
-  //   // let x = element.offsetTop + element.offsetHeight;
-  //   // let y = element.offsetLeft + element.offsetWidth;
-  //   // let x = e.clientX;
-  //   // let y = e.clientY;
-  //   let x = e.screenX;
-  //   let y = e.screenY;
-  //   // element.style.display = "none";
-  //   console.log("좌표:", x, y);
-  //   setModalPosition([x, y]);
-  //   console.log(element.offsetTop);
-  // };
-  // console.log(modalPosition);
 
   return (
     <>
@@ -142,6 +101,7 @@ const OneMission = (props) => {
               onClick={() => {
                 checkedItemHandler.bind(this, missionId, false)();
               }}
+              className="missionChkBox"
             />
           ) : (
             <MdCheckBoxOutlineBlank
@@ -154,10 +114,17 @@ const OneMission = (props) => {
               onClick={() => {
                 checkedItemHandler.bind(this, missionId, true)();
               }}
+              className="missionChkBox"
             />
           )}
           <MissionTitleBox>
-            <Text size="20px" margin="0" width="100%" height="60px">
+            <Text
+              size="20px"
+              margin="0"
+              width="100%"
+              height="60px"
+              className="missionTitle"
+            >
               {missionTitle}
             </Text>
           </MissionTitleBox>
@@ -174,15 +141,12 @@ const OneMission = (props) => {
           </div>
           {!familyMissionChk && (
             <MissionDeleteWrap
-              onClick={
-                // handleModalPosition(e);
-                handleDeleteModal
-              }
+              onClick={handleDeleteModal}
               id={missionId}
               className="deleteMissionBtn"
             >
               <MissionDeleteBtn>
-                <CgMoreVerticalAlt style={{ fontSize: "30px" }} />
+                <MdDeleteForever style={{ fontSize: "30px" }} />
               </MissionDeleteBtn>
             </MissionDeleteWrap>
           )}
@@ -303,16 +267,27 @@ const MissionTitle = styled.div`
   @media screen and (max-width: 599px) {
     height: 55px;
     font-size: 10px;
+    .missionChkBox {
+      max-width: 30px;
+      max-height: 30px;
+    }
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
+    .missionChkBox {
+      max-width: 20px;
+      max-height: 20px;
+    }
   }
 `;
 
 const MissionTitleBox = styled.div`
   padding: 5px 0;
   margin-left: 15px;
-  /* margin: 0 3%; */
+  .missionTitle {
+    word-break: normal;
+  }
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
@@ -548,11 +523,11 @@ const MissionDeleteBtn = styled.div`
   align-items: center;
   border: none;
   border-radius: 6px;
-  color: #757575;
+  color: #c2c2c2;
   margin-left: 5px;
   &:hover {
     background: #fff;
-    color: black;
+    color: #757575;
   }
 
   // Medium (Desktop)

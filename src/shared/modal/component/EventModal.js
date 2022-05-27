@@ -76,6 +76,12 @@ const Content = styled.div`
 
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
+    min-height: 400px;
+    max-width: 400px;
+  }
+
+  // XXSmall (Mobile)
+  @media screen and (max-width: 414px) {
     min-height: 300px;
     max-width: 300px;
   }

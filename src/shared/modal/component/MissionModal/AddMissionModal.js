@@ -8,18 +8,17 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 // 모달
 import { ModalPortal } from "../../portals";
 import { MissionMemberModal } from "./index";
+import AlertModal from "../AlertModal";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 import { missionActions } from "../../../../redux/modules/mission";
 import { familyMemberActions } from "../../../../redux/modules/familymember";
-import { history } from "../../../../redux/configureStore";
 
 // 엘리먼트
 import { Button, RactangleImage, Text, Input } from "../../../../elements";
 
 // 이미지
-// import profileImg from "../../../images/profileImg.png";
 import Profile01 from "../../../images/Profile01.svg";
 import Profile02 from "../../../images/Profile02.svg";
 import Profile03 from "../../../images/Profile03.svg";
@@ -29,10 +28,6 @@ import Profile05 from "../../../images/Profile05.svg";
 const AddMissionModal = ({ onClose, familyId }) => {
   const dispatch = useDispatch();
 
-  // 현재 familyId
-  // const familyId = useContext(MissionContext);
-  // console.log("현재 familyId:", familyId);
-
   //  미션 제목 input
   const [missionTitle, setMissionTitle] = useState("");
 
@@ -40,8 +35,6 @@ const AddMissionModal = ({ onClose, familyId }) => {
     const { value } = e.target;
     setMissionTitle(value);
   };
-
-  // console.log("미션 제목:", missionTitle);
 
   // 참여 구성원 추가하기 모달
   const [AddMissionMemberModal, setAddMissionMemberModal] = useState(false);
@@ -58,25 +51,37 @@ const AddMissionModal = ({ onClose, familyId }) => {
   const selectedMemberList = useSelector(
     (state) => state.mission?.selectedMemberList
   );
+  console.log(selectedMemberList);
   // 선택한 미션 구성원 Id 리스트
   const selectedMemeberIdList = useSelector(
     (state) => state.mission.selectedMemberIdList
   );
 
   const AddMission = () => {
-    if (missionTitle) {
-      dispatch(
-        missionActions.addMissionDB(
-          familyId,
-          missionTitle,
-          selectedMemeberIdList,
-          selectedMemberList
-        )
-      );
-      onClose();
-    } else {
-      alert("미션 제목을 입력하지 않았습니다.");
-    }
+    missionTitle === ""
+      ? emptyTitleHandleModal()
+      : selectedMemberList.length === 0
+      ? emptyMemberHandleModal()
+      : dispatch(
+          missionActions.addMissionDB(
+            familyId,
+            missionTitle,
+            selectedMemeberIdList,
+            selectedMemberList,
+            onClose
+          )
+        );
+  };
+
+  // 미션 제목 공백 모달
+  const [emptyTitleModalOn, setEmptyTitleModalOn] = useState(false);
+  const emptyTitleHandleModal = () => {
+    setEmptyTitleModalOn(!emptyTitleModalOn);
+  };
+  // 미션 맴버 공백 모달
+  const [emptyMemberModalOn, setEmptyMemberModalOn] = useState(false);
+  const emptyMemberHandleModal = () => {
+    setEmptyMemberModalOn(!emptyMemberModalOn);
   };
 
   // socket 부분
@@ -148,6 +153,7 @@ const AddMissionModal = ({ onClose, familyId }) => {
                   onChange={handleMissionTitle}
                   borderRadius="20px"
                   borderColor="#DBDBDB"
+                  maxLength="17"
                 />
               </MissionTitleBox>
               <FamilyMemberTitle>
@@ -236,6 +242,24 @@ const AddMissionModal = ({ onClose, familyId }) => {
             onClose={handleMissionMemberModal}
             familyMemberList={familyMemberList}
           />
+        )}
+      </ModalPortal>
+      {/* 미션 제목 공백 체크 모달 */}
+      <ModalPortal>
+        {emptyTitleModalOn && (
+          <AlertModal
+            onClose={emptyTitleHandleModal}
+            content={"미션 제목을 입력해주세요!"}
+          ></AlertModal>
+        )}
+      </ModalPortal>
+      {/* 미션 맴버 공백 체크 모달 */}
+      <ModalPortal>
+        {emptyMemberModalOn && (
+          <AlertModal
+            onClose={emptyMemberHandleModal}
+            content={"참여 구성원을 추가해주세요!"}
+          ></AlertModal>
         )}
       </ModalPortal>
     </>
