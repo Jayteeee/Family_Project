@@ -68,6 +68,8 @@ const getPhotoAlbumDB = (familyId) => {
         dispatch(getPhotoAlbum(photoAlbumList));
       })
       .catch((error) => {});
+
+    // dispatch(getPhotoAlbum(DummyData.photoAlbumList));
   };
 };
 
@@ -81,6 +83,7 @@ const getPhotoDB = (photoAlbumId) => {
         dispatch(getPhoto(photoList));
       })
       .catch((error) => {});
+    // dispatch(getPhoto(DummyData.photoList));
   };
 };
 
@@ -99,10 +102,17 @@ const addPhotoAlbumDB = (familyId, photoAlbumName) => {
           photoAlbumId: `${photoAlbumId}`,
           photoAlbumName: `${photoAlbumName}`,
         };
-        window.alert(res.data.msg);
+
         dispatch(addPhotoAlbum(newPhotoAlbum));
       })
       .catch((err) => {});
+
+    // const newPhotoAlbum = {
+    //   photoAlbumId: `${familyId}`,
+    //   photoAlbumName: `${photoAlbumName}`,
+    // };
+
+    // dispatch(addPhotoAlbum(newPhotoAlbum));
   };
 };
 
@@ -116,8 +126,6 @@ const addPhotoDB = (familyId, photoAlbumId, formData) => {
       .then((res) => {
         const newPhoto = res.photoFile;
         dispatch(addPhoto(newPhoto));
-        window.alert(res.data.msg);
-        // history.go(0);
       })
       .catch((err) => {});
   };
@@ -145,6 +153,7 @@ const editPhotoAlbumDB = (
       .catch((err) => {
         PracticeEdit(false);
       });
+    // dispatch(editPhotoAlbum(photoAlbumId, photoAlbumName));
   };
 };
 
@@ -259,6 +268,7 @@ export default handleActions(
         let newArr = draft.photoAlbumList.filter(
           (l) => l.photoAlbumId !== photoAlbumId
         );
+
         draft.photoAlbumList = newArr;
       }),
     [DELETE_PHOTO]: (state, action) =>

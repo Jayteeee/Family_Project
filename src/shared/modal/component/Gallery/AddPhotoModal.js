@@ -1,24 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
-import { MissionContext } from "../../../../pages/MissionPage";
+import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { RiArrowLeftSLine } from "react-icons/ri";
 
 // 모달
 import { ModalPortal } from "../../portals";
-import { MissionMemberModal } from "./index";
-
-// 리덕스
-import { useDispatch, useSelector } from "react-redux";
-import { missionActions } from "../../../../redux/modules/mission";
-import { history } from "../../../../redux/configureStore";
 
 // 엘리먼트
-import { Button, CircleImage, Text, Input } from "../../../../elements";
-
-// 이미지
-import profileImg from "../../../images/profileImg.png";
+import { Button, Text } from "../../../../elements";
 
 const AddPhotoModal = ({ onClose, addPhoto }) => {
   return (
@@ -29,7 +18,6 @@ const AddPhotoModal = ({ onClose, addPhoto }) => {
           onClick={(e) => {
             e.stopPropagation();
             onClose();
-            // history.replace()
           }}
         >
           <Content
@@ -56,6 +44,7 @@ const AddPhotoModal = ({ onClose, addPhoto }) => {
                   margin="30px 10px 0 0"
                   fontSize="16px"
                   borderRadius="4px"
+                  className="cancelBtn"
                 >
                   취소
                 </Button>
@@ -136,6 +125,12 @@ const ButtonWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: end;
+  .cancelBtn {
+    :hover {
+      background-color: black;
+      color: #fff;
+    }
+  }
 `;
 
 export default AddPhotoModal;

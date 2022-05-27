@@ -1,21 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import RollingSpinner from "../shared/images/rollingSpinner.gif";
-import { RiLoader4Fill } from "react-icons/ri";
+import yellowface from "../shared/images/yellowface.svg";
 
 const Spinner = () => {
   return (
     <>
-      <BadgeImg src={RollingSpinner} />
+      <Rogo src={yellowface} className="spinner" />
     </>
   );
 };
 
-const BadgeImg = styled.div`
+const Rogo = styled.div`
   width: 3%;
   padding: 3%;
   ${({ src }) => `background-image: url(${src});`};
   background-position: center;
   background-size: cover;
+
+  animation: rotate_image 1.5s linear infinite;
+  transform-origin: 50% 50%;
+
+  @keyframes rotate_image {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
 export default Spinner;
