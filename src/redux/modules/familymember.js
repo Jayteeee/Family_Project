@@ -125,7 +125,6 @@ const getSearchMemberDB = (email) => {
       .then((res) => {
         const { userEmail } = res.data;
         dispatch(getSearchMember(userEmail));
-        console.log(res);
       })
       .catch((error) => {
         dispatch(getSearchMember(error.response.data.msg));
