@@ -63,7 +63,7 @@ const Content = styled.div`
   background-color: transparent;
   @media only screen and (max-width: 839px) {
     width: 80%;
-    height: 80%;
+    height: 70%;
   }
 `;
 
