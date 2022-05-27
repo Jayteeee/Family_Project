@@ -61,24 +61,9 @@ const AddScheduleModal = ({ onClose, familyId }) => {
     setEvent("");
   };
 
-  // socket 부분
-
-  // let socket = useSelector((state) => state.socket?.socket);
-
-  // const nowUserNickname = useSelector(
-  //   (state) => state.user.user.user?.nickname
-  // );
-  // const nowUserId = useSelector((state) => state.user.user.user?.userId);
-
-  // const handleNotification = (type) => {
-  //   socket.emit("sendFamilyNoti", {
-  //     userId: nowUserId,
-  //     senderName: nowUserNickname,
-  //     receiverFamily: familyId,
-  //     category: "캘린더",
-  //     type,
-  //   });
-  // };
+  React.useEffect(() => {
+    setSelec(false);
+  }, [date]);
 
   return (
     <ModalPortal>
@@ -277,6 +262,7 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                     setSelec(!selec);
                     setShowOptions(false);
                   }}
+                  style={{ cursor: "pointer" }}
                 >
                   <Text B2 style={{ marginBottom: "6px" }}>
                     시작일
