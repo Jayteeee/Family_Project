@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdRemoveCircleOutline, MdRemoveCircle } from "react-icons/md";
 
 // 엘리먼트
 import { Text } from "../../elements";
@@ -13,7 +12,6 @@ import { galleryActions } from "../../redux/modules/gallery";
 import { history } from "../../redux/configureStore";
 
 // 이미지
-import noImage from "../../shared/images/noImage.png";
 import emptyPhoto from "../../shared/images/emptyPhoto.svg";
 import L_photo from "../../shared/images/L_photo.svg";
 import S_photo from "../../shared/images/S_photo.svg";
@@ -128,7 +126,6 @@ const PhotoList = ({
                           history.push(
                             `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
                           );
-                          // getPhotoList();
                         }}
                       />
                     </div>
@@ -221,6 +218,7 @@ const Container = styled.div`
   column-count: 4;
   column-gap: 1%;
   padding: 40px;
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     column-count: 3;
@@ -249,7 +247,6 @@ const Container = styled.div`
 const Figure = styled.div`
   display: grid;
   grid-template-rows: 1fr auto;
-  /* margin-bottom: 2%; */
   break-inside: avoid;
 
   &:hover {
@@ -271,7 +268,6 @@ const ImageBox = styled.img`
 const NoneContentWrap = styled.div`
   background: #fff;
   display: flex;
-  /* min-height: 880px; */
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -281,10 +277,6 @@ const NoneContentWrap = styled.div`
   border-radius: 12px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-    /* min-height: 680px; */
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin: 40px 24px;
@@ -293,10 +285,7 @@ const NoneContentWrap = styled.div`
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    /* min-height: 480px; */
-
     margin: 28px 16px;
-    /* margin: 20px 9px; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {

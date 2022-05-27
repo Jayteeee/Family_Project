@@ -68,8 +68,6 @@ const getPhotoAlbumDB = (familyId) => {
         dispatch(getPhotoAlbum(photoAlbumList));
       })
       .catch((error) => {});
-
-    // dispatch(getPhotoAlbum(DummyData.photoAlbumList));
   };
 };
 
@@ -83,7 +81,6 @@ const getPhotoDB = (photoAlbumId) => {
         dispatch(getPhoto(photoList));
       })
       .catch((error) => {});
-    // dispatch(getPhoto(DummyData.photoList));
   };
 };
 
@@ -106,13 +103,6 @@ const addPhotoAlbumDB = (familyId, photoAlbumName) => {
         dispatch(addPhotoAlbum(newPhotoAlbum));
       })
       .catch((err) => {});
-
-    // const newPhotoAlbum = {
-    //   photoAlbumId: `${familyId}`,
-    //   photoAlbumName: `${photoAlbumName}`,
-    // };
-
-    // dispatch(addPhotoAlbum(newPhotoAlbum));
   };
 };
 
@@ -155,7 +145,6 @@ const editPhotoAlbumDB = (
       .catch((err) => {
         PracticeEdit(false);
       });
-    // dispatch(editPhotoAlbum(photoAlbumId, photoAlbumName));
   };
 };
 

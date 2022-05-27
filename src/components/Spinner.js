@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import RollingSpinner from "../shared/images/rollingSpinner.gif";
-import { RiLoader4Fill } from "react-icons/ri";
 
 const Spinner = () => {
   return (
