@@ -127,6 +127,7 @@ const addPhotoDB = (familyId, photoAlbumId, formData) => {
         const newPhoto = res.photoFile;
         dispatch(addPhoto(newPhoto));
         window.alert(res.data.msg);
+        // history.go(0);
       })
       .catch((err) => {});
   };

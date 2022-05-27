@@ -3,25 +3,17 @@ import React, { useState, useEffect, useRef } from "react";
 // 라이브러리, 패키지
 import styled from "styled-components";
 import {
-  MdRemoveCircleOutline,
   MdRemoveCircle,
   MdArrowUpward,
   MdOutlineFavorite,
   MdFavoriteBorder,
-  MdClose,
+  MdDeleteForever,
 } from "react-icons/md";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import { CgMoreVerticalAlt } from "react-icons/cg";
 import dayjs from "dayjs";
 
 // 엘리먼트
-import {
-  Button,
-  CircleImage,
-  Text,
-  Input,
-  RactangleImage,
-} from "../../elements";
+import { Text, RactangleImage } from "../../elements";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +22,6 @@ import { history } from "../../redux/configureStore";
 
 // 이미지
 import noImage from "../../shared/images/noImage.png";
-// import profileImg from "../../shared/images/profileImg.png";
 import Profile01 from "../../shared/images/Profile01.svg";
 import Profile02 from "../../shared/images/Profile02.svg";
 import Profile03 from "../../shared/images/Profile03.svg";
@@ -38,7 +29,6 @@ import Profile04 from "../../shared/images/Profile04.svg";
 import Profile05 from "../../shared/images/Profile05.svg";
 
 // 컴포넌트
-import PhotoHeader from "./PhotoHeader";
 import DetailPhotoHeader from "./DetailPhotoHeader";
 import OneComment from "./OneComment";
 
@@ -158,10 +148,6 @@ const DetailPhoto = ({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [commentList]);
-
   return (
     <>
       <div className="detailPhotoHeader">
@@ -220,9 +206,7 @@ const DetailPhoto = ({
                 <ImageBox
                   id="image"
                   src={detailPhoto?.photoFile ? detailPhoto.photoFile : noImage}
-                  onClick={() => {
-                    // history.push(`/detail/${p._id}`);
-                  }}
+                  onClick={() => {}}
                 />
               </ImageWrap>
               <ContentBoxFooter />
@@ -275,12 +259,11 @@ const DetailPhoto = ({
                 {nowUserId === detailPhoto?.userId && (
                   <PhotoDeleteBtn
                     onClick={() => {
-                      // handleModalPosition(e);
                       handleModal();
                     }}
                     className="photoDeleteBtn"
                   >
-                    <CgMoreVerticalAlt style={{ fontSize: "30px" }} />
+                    <MdDeleteForever style={{ fontSize: "30px" }} />
                   </PhotoDeleteBtn>
                 )}
               </CommentHeder>
@@ -494,7 +477,6 @@ const ImageContentBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* position: relative; */
   height: 100%;
   width: 100%;
 `;
@@ -503,8 +485,6 @@ const ContentBoxHeader = styled.div`
   width: 100%;
   height: 46px;
   padding: 10px;
-  /* border-bottom: 1px solid black; */
-  /* position: absolute; */
   position: relative;
   top: 0;
 `;
@@ -517,13 +497,11 @@ const ImageBox = styled.img`
   width: 100%;
   background-size: cover;
   height: 100%;
+
   // Medium (Desktop)
   object-fit: cover;
   @media screen and (max-width: 1199px) {
-    /* flex-direction: column;
-    width: 100%; */
   }
-
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     flex-direction: column;
@@ -553,15 +531,11 @@ const CommentBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   margin-bottom: auto;
-  /* border-left: 1px solid #dbdbdb; */
   height: 100%;
   width: 35%;
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    /* border: none;
-    flex-direction: column;
-    width: 100%; */
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
@@ -617,18 +591,19 @@ const PhotoDeleteBtn = styled.div`
   border: none;
   border-radius: 6px;
   margin-right: 5px;
-  color: #757575;
+  color: #c2c2c2;
   display: none;
   position: absolute;
   &:hover {
     background: #f5f5f5;
-    color: black;
+    color: #757575;
   }
 `;
 
 const CommentListBox = styled.div`
   height: 100%;
   overflow-y: scroll;
+
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
     height: 35vh;

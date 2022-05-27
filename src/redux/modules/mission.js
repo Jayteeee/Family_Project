@@ -31,11 +31,10 @@ const GET_MY_MISSION_CHK = "GET_MY_MISSION_CHK";
 const GET_MISSION_STATUS = "GET_MISSION_STATUS";
 const ADD_MISSION = "ADD_MISSION";
 const ADD_MISSION_MEMBER = "ADD_MISSION_MEMBER";
-// const EDIT_MISSION_MEMBER_PROFILE_IMG = "EDIT_MISSION_MEMBER_PROFILE_IMG";
 const CHECK_MISSION = "CHECK_MISSION";
 const CHECK_MISSION_MEMBER = "CHECK_MISSION_MEMBER";
-const MISSION_STATUS_UPDATE = "MISSION_UPDATE";
 const DELETE_MISSION = "DELETE_MISSION";
+const RESET_SELECTED_MISSION_MEMBER = "RESET_SELECTED_MISSION_MEMBER";
 
 // 액션 생성함수
 const getMission = createAction(GET_MISSION, (thisMonthMissionList) => ({
@@ -72,13 +71,6 @@ const addMissionMember = createAction(
     selectedMemberIdList,
   })
 );
-// const editMissionMemberProfileImg = createAction(
-//   EDIT_MISSION_MEMBER_PROFILE_IMG,
-//   (profileImg, familyMemberId) => ({
-//     profileImg,
-//     familyMemberId,
-//   })
-// );
 const checkMission = createAction(CHECK_MISSION, (missionChkData) => ({
   missionChkData,
 }));
@@ -88,15 +80,13 @@ const checkMissionMember = createAction(
     checkedMissionMember,
   })
 );
-const missionStatusUpdate = createAction(
-  MISSION_STATUS_UPDATE,
-  (missionStatus) => ({
-    missionStatus,
-  })
-);
 const deleteMission = createAction(DELETE_MISSION, (missionId) => ({
   missionId,
 }));
+const resetSelectedMissionMember = createAction(
+  RESET_SELECTED_MISSION_MEMBER,
+  () => ({})
+);
 
 const getMissionPage = (familyId) => {
   return async function (dispatch, getState, { history }) {
@@ -191,7 +181,8 @@ const addMissionDB = (
   familyId,
   missionTitle,
   familyMemberId,
-  selectedMemberList
+  selectedMemberList,
+  onClose
 ) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
@@ -214,9 +205,11 @@ const addMissionDB = (
         };
         dispatch(addMission(newMission));
         dispatch(getMissionStatusDB(familyId));
+        dispatch(resetSelectedMissionMember());
+        onClose();
       })
       .catch((err) => {
-        window.alert(err.response.data.msg);
+        // window.alert(err.response.data.msg);
       });
   };
 };
@@ -322,32 +315,6 @@ export default handleActions(
         draft.selectedMemberList = action.payload.selectedMemberList;
         draft.selectedMemberIdList = action.payload.selectedMemberIdList;
       }),
-    // [EDIT_MISSION_MEMBER_PROFILE_IMG]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     const { profileImg, familyMemberId } = action.payload;
-    //     // 현재 가족
-    //     let nowThisMonthMissionList =
-    //       state.nowMissionData.thisMonthMissionList.map(
-    //         (f) =>
-    //           f.missionMemberList.filter(
-    //             (m) => m.familymemberId === familyMemberId
-    //           )
-    //         // .map((l) => (l.profileImg = profileImg))
-    //       );
-
-    //     console.log(nowThisMonthMissionList);
-    //     // // // 변경해야할 배열 인덱스
-    //     // let index = draft.familyMemberList.findIndex(
-    //     //   (l) => l.familyMemberId === familyMemberId
-    //     // );
-
-    //     // nowFamilyMember = {
-    //     //   ...nowFamilyMember,
-    //     //   profileImg: profileImg,
-    //     // };
-
-    //     draft.nowMissionData.thisMonthMissionList = nowThisMonthMissionList;
-    //   }),
     [CHECK_MISSION]: (state, action) =>
       produce(state, (draft) => {
         const { missionId, familyMissionChk, myMissionChk, completedAt } =
@@ -367,7 +334,6 @@ export default handleActions(
           myMissionChk: myMissionChk,
           completedAt: completedAt,
         };
-
         // 선택한 미션 주입
         draft.thisMonthMissionList[missionIdx] = thisMonthMissionList;
       }),
@@ -399,12 +365,6 @@ export default handleActions(
         draft.thisMonthMissionList[missionIdx].missionMemberList[memberIdx] =
           checkedMissionMember;
       }),
-    [MISSION_STATUS_UPDATE]: (state, action) =>
-      produce(state, (draft) => {
-        const { missionStatus } = action.payload;
-
-        draft.nowMissionData = missionStatus;
-      }),
     [DELETE_MISSION]: (state, action) =>
       produce(state, (draft) => {
         const { missionId } = action.payload;
@@ -414,6 +374,11 @@ export default handleActions(
         );
 
         draft.thisMonthMissionList = thisMonthMissionList;
+      }),
+    [RESET_SELECTED_MISSION_MEMBER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.selectedMemberIdList = [];
+        draft.selectedMemberList = [];
       }),
   },
   initialState
@@ -427,7 +392,6 @@ export const missionActions = {
   getMissionStatusDB,
   addMissionDB,
   addMissionMember,
-  // editMissionMemberProfileImg,
   checkMissionDB,
   deleteMissionDB,
 };

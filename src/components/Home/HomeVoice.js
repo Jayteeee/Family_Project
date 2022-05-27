@@ -20,7 +20,7 @@ import albumCover4 from "../../shared/images/albumCover4.svg";
 
 const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
   const v = recentVoiceFile;
-  const voiceAlbumCover = voiceAlbumInfo;
+  const { voiceAlbumCover } = voiceAlbumInfo;
   const [run, setRun] = useState(true);
   const [count, setCount] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
@@ -88,7 +88,7 @@ const HomeVoice = ({ recentVoiceFile, voiceAlbumInfo }) => {
               >
                 <PlayBtnImg
                   src={
-                    v?.voiceAlbumCover === "albumCover1"
+                    voiceAlbumCover === "albumCover1"
                       ? albumCover1
                       : voiceAlbumCover === "albumCover2"
                       ? albumCover2

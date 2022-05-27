@@ -125,6 +125,7 @@ const ContantBox = styled.div`
     font-size: 28px;
     font-weight: 600;
     padding: 1%;
+    word-break: normal;
   }
   .missionUser {
     font-size: 16px;
@@ -171,33 +172,6 @@ const CompletedCicle = styled.div`
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
   }
-`;
-
-const MissionChkBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  font-size: 17px;
-  border-radius: 30px;
-  border: 2px solid #fff;
-  background-color: #fff;
-  position: absolute;
-  bottom: 0px;
-  right: -5px;
-  background-color: #6371f7;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
-  background-position: center;
-`;
-
-const MissionChk = styled.div`
-  width: 24px;
-  height: 24px;
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
 `;
 
 export default HomeMission;
