@@ -47,7 +47,7 @@ const EditFamilyModal = ({ onClose }) => {
   };
 
   const familyMemberList = useSelector(
-    (state) => state.familymember.familyMemberList
+    (state) => state.familymember?.familyMemberList
   );
 
   // 가족 이름 수정하기 Input
