@@ -60,7 +60,7 @@ const LeaveFamilyModal = (props) => {
             <Text S3 className="deleteMemberText">
               한번 나간 가족은 다시 복구할 수 없어요.
               <br />
-              정말 나기실 건가요?
+              정말 나가실 건가요?
             </Text>
             <ButtonWrap>
               <Button

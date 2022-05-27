@@ -20,49 +20,7 @@ import { Button, CircleImage, Text, Input } from "../../../../elements";
 // 이미지
 import profileImg from "../../../images/profileImg.png";
 
-const AddPhotoModal = ({ onClose }) => {
-  const dispatch = useDispatch();
-
-  // 현재 familyId
-  const familyId = useContext(MissionContext);
-
-  //  미션 제목 input
-  const [albumTitle, setAlbumTitle] = useState("");
-
-  const handleAlbumTitle = (e) => {
-    const { value } = e.target;
-    setAlbumTitle(value);
-  };
-
-  const addPhotoAlbum = () => {
-    if (albumTitle) {
-      dispatch(missionActions.addMissionDB(familyId, albumTitle));
-      onClose();
-    } else {
-      alert("미션 제목을 입력하지 않았습니다.");
-    }
-  };
-
-  // socket 부분
-
-  let socket = useSelector((state) => state.socket?.socket);
-
-  const nowUserNickname = useSelector(
-    (state) => state.user.user.user?.nickname
-  );
-
-  const nowUserId = useSelector((state) => state.user.user.user?.userId);
-
-  const handleNotification = (type) => {
-    socket.emit("sendFamilyNoti", {
-      userId: nowUserId,
-      senderName: nowUserNickname,
-      receiverFamily: familyId,
-      category: "갤러리",
-      type,
-    });
-  };
-
+const AddPhotoModal = ({ onClose, addPhoto }) => {
   return (
     <>
       <ModalPortal>
@@ -81,31 +39,12 @@ const AddPhotoModal = ({ onClose }) => {
             }}
           >
             <AddPhotoAlbumWrap>
-              <AddPhothAlbumHeader>
-                <CancelBtn
-                  className="flex-row"
-                  onClick={() => {
-                    onClose();
-                  }}
-                >
-                  {/* <RiArrowLeftSLine size={24} /> */}x
-                </CancelBtn>
-              </AddPhothAlbumHeader>
               <PhotoAlbumTitleBox>
                 <Text size="24px" fontWeight="600">
-                  새 앨범 만들기
+                  사진을 정말 추가할까요?
                 </Text>
-                <Input
-                  placeholder="ex) 가족 사진 찍기"
-                  padding="15px"
-                  margin="16px 0 0 0"
-                  onChange={handleAlbumTitle}
-                  borderRadius="20px"
-                  borderColor="#DBDBDB"
-                />
               </PhotoAlbumTitleBox>
-              <Text>앨범 생성 후 사진을 넣어주세요</Text>
-              <div>
+              <ButtonWrap>
                 <Button
                   M
                   onClick={onClose}
@@ -114,7 +53,7 @@ const AddPhotoModal = ({ onClose }) => {
                   color="#757575"
                   width="110px"
                   height="53px"
-                  margin="30px 0 0 0"
+                  margin="30px 10px 0 0"
                   fontSize="16px"
                   borderRadius="4px"
                 >
@@ -123,8 +62,7 @@ const AddPhotoModal = ({ onClose }) => {
                 <Button
                   M
                   onClick={() => {
-                    addPhotoAlbum();
-                    handleNotification("사진등록");
+                    addPhoto();
                   }}
                   borderColor="transparent"
                   bg="#6371F7"
@@ -137,7 +75,7 @@ const AddPhotoModal = ({ onClose }) => {
                 >
                   저장
                 </Button>
-              </div>
+              </ButtonWrap>
             </AddPhotoAlbumWrap>
           </Content>
         </Background>
@@ -164,7 +102,7 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 750px;
+  height: 200px;
   max-width: 470px;
   width: 100%;
   border-radius: 20px;
@@ -184,32 +122,6 @@ const AddPhotoAlbumWrap = styled.div`
   height: 100%;
 `;
 
-const CancelBtn = styled.div`
-  display: flex;
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  border-radius: 4px;
-  text-align: right;
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin-left: 15px;
-  margin-top: 15px;
-  color: #5c5c5c;
-  &:hover {
-    background: rgba(29, 28, 29, 0.1);
-    color: rgba(29, 28, 29, 1);
-  }
-`;
-
-const AddPhothAlbumHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  padding-top: 40px;
-`;
-
 const PhotoAlbumTitleBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -218,6 +130,12 @@ const PhotoAlbumTitleBox = styled.div`
   font-size: 18px;
   width: 100%;
   margin-top: 3px;
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
 `;
 
 export default AddPhotoModal;

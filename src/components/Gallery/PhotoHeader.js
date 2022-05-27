@@ -2,9 +2,8 @@ import React, { useRef, useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import dayjs from "dayjs";
-import { io } from "socket.io-client";
 import { FiPlus } from "react-icons/fi";
+import imageCompression from "browser-image-compression";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -15,20 +14,48 @@ import { Text, Button } from "../../elements/index";
 
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
+import AddPhotoModal from "../../shared/modal/component/Gallery/AddPhotoModal";
 
 const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
   const dispatch = useDispatch();
 
   const photoImgInput = useRef();
 
+  const [formData, setFormData] = useState("");
+  const [addPhotoModal, setAddPhotoModa] = useState(false);
+
   const onImgInputBtnClick = () => {
     const file = photoImgInput.current.files[0];
-    const formData = new FormData();
-    if (file) {
-      formData.append("photoFile", file);
-    }
+    console.log(file);
+    actionImgCompress(file);
+  };
 
+  const actionImgCompress = async (fileSrc) => {
+    const options = {
+      maxSizeMB: 0.1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    try {
+      // 압축 결과
+      const compressedFile = await imageCompression(fileSrc, options);
+      const formData = new FormData();
+      if (compressedFile) {
+        formData.append("photoFile", compressedFile);
+      }
+      setFormData(formData);
+      handleAddPhotoModal();
+      // dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
+    } catch (error) {}
+  };
+
+  const handleAddPhotoModal = () => {
+    setAddPhotoModa(!addPhotoModal);
+  };
+
+  const addPhoto = () => {
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
+    handleAddPhotoModal();
   };
 
   // socket 부분
@@ -114,6 +141,11 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
           />
         </BtnWrap>
       </GalleryHeaderBox>
+      <ModalPortal>
+        {addPhotoModal && (
+          <AddPhotoModal onClose={handleAddPhotoModal} addPhoto={addPhoto} />
+        )}
+      </ModalPortal>
     </>
   );
 };
@@ -133,6 +165,9 @@ const GalleryHeaderBox = styled.div`
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin: 10px 10px 10px 10px;
+    .addPhotoBtn {
+      display: none;
+    }
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
@@ -144,9 +179,6 @@ const GalleryHeaderBox = styled.div`
     margin: 10px 6px 5px 6px;
     .photoHeaderBox {
       font-size: 30px;
-    }
-    .addPhotoBtn {
-      display: none;
     }
   }
   // XXSmall (Mobile)

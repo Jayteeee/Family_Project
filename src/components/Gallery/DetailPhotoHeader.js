@@ -21,10 +21,6 @@ const DetailPhotoHeader = ({
   photoAlbumId,
   photoAlbumName,
 }) => {
-  const dispatch = useDispatch();
-
-  const photoImgInput = useRef();
-
   return (
     <>
       <GalleryHeaderBox>
@@ -68,19 +64,6 @@ const GalleryHeaderBox = styled.div`
     }
     padding: 0;
     margin: 18px 16px;
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-  }
-`;
-
-const BtnWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    margin: 0;
   }
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {

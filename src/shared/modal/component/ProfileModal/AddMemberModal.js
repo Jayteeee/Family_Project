@@ -21,6 +21,8 @@ const AddMemberModal = ({ onClose }) => {
   const searchMember = useSelector(
     (state) => state?.familymember?.searchMember
   );
+
+  console.log(searchMember);
   const myNickname = useSelector((state) => state?.user?.user?.user?.nickname);
   const familyMemberList = useSelector(
     (state) => state.familymember.familyMemberList
