@@ -25,11 +25,10 @@ import {
   DetailPhotoPage,
 } from "./index";
 
-// import FirstPage from "./FirstPage";
-
 // 컴포넌트
 import SidebarMenu from "../components/SidebarMenu";
 import Header from "../components/Header";
+import Spinner from "../components/Spinner";
 
 export const MainContext = createContext();
 
@@ -51,20 +50,9 @@ const Main = (props) => {
 
   const { user } = useSelector((state) => state?.user?.user);
 
-  // const { familyMemberList } = useSelector((state) => state.familymember);
-
-  // const myFamilyMemberNickname = familyMemberList?.find(
-  //   (m) => m?.userId === user?.userId
-  // )?.familyMemberNickname;
-
-  // console.log(user?.userId);
-  // console.log(familyMemberList);
-  // console.log("나의 가족구성원호칭", myFamilyMemberNickname);
-
   // familyId 변경될때마다 리랜더링
   useEffect(() => {
     dispatch(familyActions.getFamilyDB());
-    // dispatch(familyMemberActions.getFamilyMemberDB(familyId));
   }, [familyId]);
 
   // 소켓 부분
@@ -105,9 +93,6 @@ const Main = (props) => {
 
   return (
     <>
-      {/* <MainContext.Provider value={NowFamily}>
-        <Header bg={bg} />
-      </MainContext.Provider> */}
       <MainWrap
         className="res-mainWrap"
         onClick={(e) => {

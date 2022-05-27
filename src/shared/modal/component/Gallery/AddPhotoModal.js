@@ -18,7 +18,6 @@ const AddPhotoModal = ({ onClose, addPhoto }) => {
           onClick={(e) => {
             e.stopPropagation();
             onClose();
-            // history.replace()
           }}
         >
           <Content
@@ -45,6 +44,7 @@ const AddPhotoModal = ({ onClose, addPhoto }) => {
                   margin="30px 10px 0 0"
                   fontSize="16px"
                   borderRadius="4px"
+                  className="cancelBtn"
                 >
                   취소
                 </Button>
@@ -125,6 +125,12 @@ const ButtonWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: end;
+  .cancelBtn {
+    :hover {
+      background-color: black;
+      color: #fff;
+    }
+  }
 `;
 
 export default AddPhotoModal;

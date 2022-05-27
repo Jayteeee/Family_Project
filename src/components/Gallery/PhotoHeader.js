@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -16,6 +16,9 @@ import { Text, Button } from "../../elements/index";
 import { ModalPortal } from "../../shared/modal/portals";
 import AddPhotoModal from "../../shared/modal/component/Gallery/AddPhotoModal";
 
+// 컴포넌트
+import WhiteSpinner from "../WhiteSpinner";
+
 const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
   const dispatch = useDispatch();
 
@@ -25,8 +28,8 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
   const [addPhotoModal, setAddPhotoModa] = useState(false);
 
   const onImgInputBtnClick = () => {
+    setLoading(true);
     const file = photoImgInput.current.files[0];
-    console.log(file);
     actionImgCompress(file);
   };
 
@@ -43,9 +46,11 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
       if (compressedFile) {
         formData.append("photoFile", compressedFile);
       }
+
       setFormData(formData);
+
       handleAddPhotoModal();
-      // dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
+      setLoading(false);
     } catch (error) {}
   };
 
@@ -58,23 +63,8 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
     handleAddPhotoModal();
   };
 
-  // socket 부분
-  const socket = useSelector((state) => state.socket.socket);
-  const nowUserNickname = useSelector(
-    (state) => state?.user?.user?.user?.nickname
-  );
-
-  const nowUserId = useSelector((state) => state.user.user.user?.userId);
-
-  const handleNotification = (type) => {
-    socket.emit("sendFamilyNoti", {
-      userId: nowUserId,
-      senderName: nowUserNickname,
-      receiverFamily: NowFamilyId,
-      category: "갤러리",
-      type,
-    });
-  };
+  // 사진 업로드 스피너
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -108,23 +98,39 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
                 margin="10px 0 0 0"
                 className="addPhotoBtn"
               >
-                <label
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "600",
-                    marginBottom: "1px",
-                    width: "100%",
-                    height: "99%",
-                    cursor: "pointer",
-                  }}
-                  className="input-file-button"
-                  htmlFor="input-file"
-                >
-                  <FiPlus />
-                  사진 추가
-                </label>
+                {loading ? (
+                  <div
+                    style={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                      fontWeight: "600",
+                      marginBottom: "1px",
+                      width: "100%",
+                      height: "99%",
+                    }}
+                  >
+                    <WhiteSpinner />
+                  </div>
+                ) : (
+                  <label
+                    style={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                      fontWeight: "600",
+                      marginBottom: "1px",
+                      width: "100%",
+                      height: "99%",
+                      cursor: "pointer",
+                    }}
+                    className="input-file-button"
+                    htmlFor="input-file"
+                  >
+                    <FiPlus />
+                    사진 추가
+                  </label>
+                )}
               </Button>
             </label>
           </PhotoBtn>
@@ -135,17 +141,18 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
             accept="image/*"
             onChange={() => {
               onImgInputBtnClick();
-              handleNotification("사진 등록");
             }}
             style={{ display: "none" }}
           />
         </BtnWrap>
       </GalleryHeaderBox>
-      <ModalPortal>
-        {addPhotoModal && (
-          <AddPhotoModal onClose={handleAddPhotoModal} addPhoto={addPhoto} />
-        )}
-      </ModalPortal>
+      {!loading && (
+        <ModalPortal>
+          {addPhotoModal && (
+            <AddPhotoModal onClose={handleAddPhotoModal} addPhoto={addPhoto} />
+          )}
+        </ModalPortal>
+      )}
     </>
   );
 };

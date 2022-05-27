@@ -82,12 +82,8 @@ const PhotoList = ({
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };
 
-  // 사진 업로드 스피너
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     dispatch(galleryActions.getPhotoDB(photoAlbumId));
-    setLoading(false);
   }, [photoList.length]);
 
   return (
@@ -99,109 +95,94 @@ const PhotoList = ({
         photoAlbumName={photoAlbumName}
         isEdit={isEdit}
       />
-      {loading ? (
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            paddingBottom: "100px",
-          }}
-        >
-          <Spinner />
-        </div>
-      ) : (
-        <>
-          {photoList.length !== 0 ? (
-            <Container>
-              {photoList.map((p) => {
-                return (
-                  <Figure key={p?.photoId}>
-                    <div>
-                      <ImageBox
-                        src={p?.photoFile ? p?.photoFile : emptyPhoto}
-                        onClick={() => {
-                          history.push(
-                            `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
-                          );
-                        }}
-                      />
-                    </div>
-                  </Figure>
-                );
-              })}
-              <FloatingButton>
-                <label
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "400",
-                    marginBottom: "1px",
-                    width: "100%",
-                    height: "99%",
-                    cursor: "pointer",
-                  }}
-                  className="input-file-button"
-                  htmlFor="input-file"
-                >
-                  +
-                </label>
-              </FloatingButton>
-              <input
-                ref={photoImgInput}
-                type="file"
-                id="input-file"
-                accept="image/*"
-                onChange={() => {
-                  onImgInputBtnClick();
-                  handleNotification("사진 등록");
+      <>
+        {photoList.length !== 0 ? (
+          <Container>
+            {photoList.map((p) => {
+              return (
+                <Figure key={p?.photoId}>
+                  <div>
+                    <ImageBox
+                      src={p?.photoFile ? p?.photoFile : emptyPhoto}
+                      onClick={() => {
+                        history.push(
+                          `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
+                        );
+                      }}
+                    />
+                  </div>
+                </Figure>
+              );
+            })}
+            <FloatingButton>
+              <label
+                style={{
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontWeight: "400",
+                  marginBottom: "1px",
+                  width: "100%",
+                  height: "99%",
+                  cursor: "pointer",
                 }}
-                style={{ display: "none" }}
-              />
-            </Container>
-          ) : (
-            <NoneContentWrap>
-              <NoneContentBox>
-                <NoneContentItem>
-                  <EmptyContentImg src={L_photo} S_photo={S_photo} />
-                </NoneContentItem>
-              </NoneContentBox>
-              <FloatingButton>
-                <label
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "400",
-                    marginBottom: "1px",
-                    width: "100%",
-                    height: "99%",
-                    cursor: "pointer",
-                  }}
-                  className="input-file-button"
-                  htmlFor="input-file"
-                >
-                  +
-                </label>
-              </FloatingButton>
-              <input
-                ref={photoImgInput}
-                type="file"
-                id="input-file"
-                accept="image/*"
-                onChange={() => {
-                  onImgInputBtnClick();
-                  handleNotification("사진 등록");
+                className="input-file-button"
+                htmlFor="input-file"
+              >
+                +
+              </label>
+            </FloatingButton>
+            <input
+              ref={photoImgInput}
+              type="file"
+              id="input-file"
+              accept="image/*"
+              onChange={() => {
+                onImgInputBtnClick();
+                handleNotification("사진 등록");
+              }}
+              style={{ display: "none" }}
+            />
+          </Container>
+        ) : (
+          <NoneContentWrap>
+            <NoneContentBox>
+              <NoneContentItem>
+                <EmptyContentImg src={L_photo} S_photo={S_photo} />
+              </NoneContentItem>
+            </NoneContentBox>
+            <FloatingButton>
+              <label
+                style={{
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontWeight: "400",
+                  marginBottom: "1px",
+                  width: "100%",
+                  height: "99%",
+                  cursor: "pointer",
                 }}
-                style={{ display: "none" }}
-              />
-            </NoneContentWrap>
-          )}
-        </>
-      )}
+                className="input-file-button"
+                htmlFor="input-file"
+              >
+                +
+              </label>
+            </FloatingButton>
+            <input
+              ref={photoImgInput}
+              type="file"
+              id="input-file"
+              accept="image/*"
+              onChange={() => {
+                onImgInputBtnClick();
+                handleNotification("사진 등록");
+              }}
+              style={{ display: "none" }}
+            />
+          </NoneContentWrap>
+        )}
+      </>
       <ModalPortal>
         {modalOn && (
           <DeletePhotoModal

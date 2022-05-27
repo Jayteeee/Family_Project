@@ -24,7 +24,17 @@ const initialState = {
       ],
     },
   ],
-  scheduleOneList: [],
+  scheduleOneList: [
+    {
+      // Response
+      event: "",
+      startDate: "",
+      endDate: "",
+      color: "#DFDAGAD",
+      familyMemberNickname: "",
+      profileImg: "",
+    },
+  ],
   photoCalendar: [
     {
       // Response
