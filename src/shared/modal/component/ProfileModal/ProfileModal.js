@@ -33,11 +33,7 @@ import Profile04 from "../../../images/Profile04.svg";
 import Profile05 from "../../../images/Profile05.svg";
 import Smile from "../../../images/smile.svg";
 
-const ProfileModal = ({
-  onClose,
-  user,
-  // myFamilyMemberNickname
-}) => {
+const ProfileModal = ({ onClose, user }) => {
   const dispatch = useDispatch();
 
   const params = useParams();
@@ -71,6 +67,7 @@ const ProfileModal = ({
     const selectBox = document.getElementById("selectList");
     const selectTodayMood = selectBox.options[selectBox.selectedIndex].value;
     dispatch(userActions.editTodayMoodDB(selectTodayMood, myFamiyMemberId));
+    handleTodayMoodAlert();
   };
 
   // 프로필 이미지 수정
@@ -102,6 +99,20 @@ const ProfileModal = ({
   };
 
   const EditFamilyMemberNickname = () => {
+    myFamilyMemberNickname === changeMemberNickname
+      ? handleUnEditAlert()
+      : changeMemberNickname === ""
+      ? handleEmptyFamilyMemberName()
+      : handleEditAlert();
+  };
+
+  // 알림 모달
+  const [editAlertOn, setEditAlertOn] = useState(false);
+  const [unEditAlertOn, setUnEditAlertOn] = useState(false);
+  const [emptyFamilyMemberName, setEmptyFamilyMemberName] = useState(false);
+
+  const handleEditAlert = () => {
+    setEditAlertOn(!editAlertOn);
     dispatch(
       familyMemberActions.editFamilyMemberNicknameDB(
         NowFamilyId,
@@ -110,24 +121,14 @@ const ProfileModal = ({
         user.userId
       )
     );
-    if (myFamilyMemberNickname !== changeMemberNickname) {
-      handleEditAlert();
-    } else {
-      handleUnEditAlert();
-    }
-    hadleEditFamilyMembeNickname();
-  };
-
-  // 알림 모달
-  const [editAlertOn, setEditAlertOn] = useState(false);
-  const [unEditAlertOn, setUnEditAlertOn] = useState(false);
-
-  const handleEditAlert = () => {
-    setEditAlertOn(!editAlertOn);
   };
 
   const handleUnEditAlert = () => {
     setUnEditAlertOn(!unEditAlertOn);
+  };
+
+  const handleEmptyFamilyMemberName = () => {
+    setEmptyFamilyMemberName(!emptyFamilyMemberName);
   };
 
   // 가족 생성하기 모달
@@ -167,6 +168,13 @@ const ProfileModal = ({
   const handleLogoutModal = () => {
     setlogoutModal(!logoutModal);
     document.getElementById("profileMenu").style.display = "none";
+  };
+
+  // 오늘의 기분 알람
+  const [todayMoodAlert, setTodayMoodAlert] = useState(false);
+
+  const handleTodayMoodAlert = () => {
+    setTodayMoodAlert(!todayMoodAlert);
   };
 
   return (
@@ -296,7 +304,10 @@ const ProfileModal = ({
                         id="selectList"
                         onChange={editTodayMood}
                       >
-                        <option value="default">
+                        <option
+                          value="default"
+                          style={{ border: "1px solid gray" }}
+                        >
                           {myTodayMood === "good" ? (
                             <p>🙂&ensp;좋아요</p>
                           ) : myTodayMood === "love" ? (
@@ -315,6 +326,7 @@ const ProfileModal = ({
                             <p>🙂&ensp;좋아요</p>
                           )}
                         </option>
+                        <hr />
                         <option value="good">🙂&ensp;좋아요</option>
                         <option value="love">🥰&ensp;사랑해요</option>
                         <option value="nice">😎&ensp;멋져요</option>
@@ -379,6 +391,24 @@ const ProfileModal = ({
             <AlertModal
               onClose={handleUnEditAlert}
               content={"이전과 동일한 호칭이에요."}
+            />
+          )}
+        </ModalPortal>
+        <ModalPortal>
+          {emptyFamilyMemberName && (
+            <AlertModal
+              onClose={handleEmptyFamilyMemberName}
+              content={"가족 구성원 호칭을 입력해주세요."}
+            />
+          )}
+        </ModalPortal>
+        {/* 오늘의 기분 수정 알람 */}
+        <ModalPortal>
+          {todayMoodAlert && (
+            <AlertModal
+              onClose={handleTodayMoodAlert}
+              todayMoodClose={onClose}
+              content={"오늘의 기분이 변경되었어요!"}
             />
           )}
         </ModalPortal>

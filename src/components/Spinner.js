@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import RollingSpinner from "../shared/images/rollingSpinner.gif";
 import yellowface from "../shared/images/yellowface.svg";
 
 const Spinner = () => {

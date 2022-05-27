@@ -148,6 +148,18 @@ const DetailPhoto = ({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const [imgHeight, setImgHeight] = useState("");
+  const imageHeight = () => {
+    const image = document.getElementById("photoImage");
+    console.log(image.height);
+    console.log(image);
+    setImgHeight(image.height);
+  };
+
+  useEffect(() => {
+    imageHeight();
+  }, []);
+
   return (
     <>
       <div className="detailPhotoHeader">
@@ -195,20 +207,25 @@ const DetailPhoto = ({
                   </LikeBtn>
                 )}
               </ContentBoxHeader>
-              <ImageWrap
-                style={{
-                  // width: "100%",
-                  // height: "100%",
-                  position: "relative",
-                }}
-                img={noImage}
-              >
-                <ImageBox
-                  id="image"
-                  src={detailPhoto?.photoFile ? detailPhoto.photoFile : noImage}
-                  onClick={() => {}}
-                />
-              </ImageWrap>
+              <div id="photoImage" style={{ hegiht: "100%" }}>
+                <ImageWrap
+                  style={{
+                    // width: "100%",
+                    // height: "100%",
+                    position: "relative",
+                  }}
+                  img={noImage}
+                >
+                  <ImageBox
+                    src={
+                      detailPhoto?.photoFile ? detailPhoto.photoFile : noImage
+                    }
+                    // onChange={imageHeight}
+                    onClick={() => {}}
+                    // id="photoImage"
+                  />
+                </ImageWrap>
+              </div>
               <ContentBoxFooter />
             </ImageContentBox>
             <CommentBox>
@@ -420,26 +437,11 @@ const DetailPhoto = ({
 };
 
 const Container = styled.div`
-  /* width: 100%; */
   padding: 40px;
-  /* height: 100%; */
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
 
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     padding: 0px;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -456,20 +458,12 @@ const ContentBox = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     flex-direction: column;
     border-radius: 0;
     box-shadow: none;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
   }
 `;
 
