@@ -151,8 +151,6 @@ const DetailPhoto = ({
   const [imgHeight, setImgHeight] = useState("");
   const imageHeight = () => {
     const image = document.getElementById("photoImage");
-    console.log(image.height);
-    console.log(image);
     setImgHeight(image.height);
   };
 

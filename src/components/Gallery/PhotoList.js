@@ -82,7 +82,6 @@ const PhotoList = ({
   const [imgHeight, setImgHeight] = useState("");
   const imageHeight = () => {
     const image = document.getElementById("photoImage");
-    console.log(image.height);
     setImgHeight(image.height);
   };
 
