@@ -48,7 +48,9 @@ const getDetailPhotoDB = (familyId, photoId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
-      .get(`${BASE_URL}/photo/${familyId}/${photoId}`, { headers: config })
+      .get(`${BASE_URL}/photo/${familyId}/detail/${photoId}`, {
+        headers: config,
+      })
       .then((res) => {
         const detailPhoto = res.data;
         dispatch(getDetailPhoto(detailPhoto));
