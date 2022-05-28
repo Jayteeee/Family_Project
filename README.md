@@ -1,10 +1,10 @@
-![readme](https://imagedelivery.net/v7-TZByhOiJbNM9RaUdzSA/ff671ecb-6cbe-443b-9f63-f589ae677000/public)
+![readme](https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653736311587blob)
 <br>
 
 👨‍👩‍👧‍👦도란도란
 =============
 ## 🙌 Introduce Dorandoran
->“우리가족 || 소통공간”
+>👨‍👩‍👧‍👧  가족 네트워킹 프로젝트 ⭐️ (FNS)
 <br>**가족 단위의 네트워킹 서비스로, 가족 구성원들 간의 소통을 활성화하고 연결할 수 있는 공간을 제공합니다.**
 
 - 🚩가족의 목표를 설정하여 매주 친밀도 미션을 진행할 수 있습니다.
@@ -12,34 +12,33 @@
 - 부가적으로💞 가족의 사진을 공유하고 관리할 수 있는 갤러리와(댓글, 좋아요 기능 포함), 가족 기념일, 모임, 여행 등 일정을 관리할 수 있는 캘린더 서비스를 제공합니다.
 - 음성메시지함을 두어, 🎙가족 간의 따뜻한 잔소리를 녹음하고 기록할 수 있는 서비스도 제공합니다.
 - 각각의 기능들에 따라 반응하는 실시간 알림 기능을 제공하고, 구성원들의 접속 상태도 확인할 수 있습니다.<br>
-<!-- <br><img src="https://velog.velcdn.com/images/hyejin4169/post/4752d8a3-b598-4086-b18d-7942a7f322e2/image.png">
+<br><img src="https://www.dorandorans.com/static/media/Web_01.29cbf948c7a423b343f6.png">
 
-[![바로가기](https://imagedelivery.net/v7-TZByhOiJbNM9RaUdzSA/8d36b691-b8d4-48a2-b021-54b481b3ab00/public)](https://ty-ing.com/)
+[도란도란 바로가기](https://dorandorans.com/)
 
 * * *
 
 ## 📣 Project
 ### 📆 Project Timeline
-- 총 기간: 2022/02/25 ~ 2022/04/08
-- 배포: 2022/03/29
+- 총 기간: 2022/04/22 ~ 2022/06/03
+- 배포: 2022/05/26
 
 ### 👨‍💻👩‍💻 FE Team
-|                                                         [정현수🔰](https://github.com/ricky0813)                                            |                                                         [윤혜진](https://github.com/hyejin4169)                                                          |                                                      [김기덕](https://github.com/nikemaniaa1987)                                                       |                                                                                                            
-| :----------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://imagedelivery.net/v7-TZByhOiJbNM9RaUdzSA/719da9c7-f9fd-4150-60c5-c54cdf3d9b00/public" alt="프로필 이미지" width="200px"/> |  <img src="https://imagedelivery.net/v7-TZByhOiJbNM9RaUdzSA/fc3eb0a5-5c66-451a-f7c5-0ab0fdc61200/public" alt="프로필 이미지" width="200px"/> | <img src="https://imagedelivery.net/v7-TZByhOiJbNM9RaUdzSA/df1fa9e2-6f31-47da-9924-02e02a9b4000/public" alt="프로필 이미지" width="200px" /> |
-|                                                                      `Front-End`                                               |                                                                      `Front-End`                                                                       |                                                                      `Front-End`                                                                          |
-#### 정현수
+|                                                         [김정태🔰](https://github.com/Jayteeee)                                            |                                                         [이덕행🖌](https://github.com/Deokhaeng)                                                          |                                                                                             
+| :----------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653737369229blob" alt="프로필 이미지" width="200px"/> |  <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653737642793blob" alt="프로필 이미지" width="200px"/> | <img 
+|                                                                      `Front-End`                                               |                                                                      `Front-End`                                                                       |              
+#### 김정태
 
-`메인페이지` `타이핑 기능` `스크립트 카테고리 페이지 & 리스트` `UI`
+`로그인` `회원가입` `CI/CD 세팅 및 배포환경 구축(w/ AWS Route53, Amplify)`
+</br>
+`캘린더` `음성메시지` `알림` `랜딩페이지`
 
-#### 윤혜진
+#### 이덕행
 
-`로그인` `회원가입` `인증서 다운로드` `UI` `CI/CD 세팅(w/ Github Actions)`
-</br>`배포환경 구축(w/ AWS S3, Route53, Cloudfront)` `GA세팅 및 적용`
-
-#### 김기덕
-
-`마이페이지` `UI`
+`홈페이지` `전반적인 반응형CSS 구현` `갤러리` `미션페이지`
+<br/>
+`가족관련기능` `프로필관련기능`
 
 * * *
 
@@ -56,23 +55,21 @@
 </br>
 <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
 <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
-<img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"> 
+<img src="https://img.shields.io/badge/amazonamplify-orange?style=for-the-badge&logo=amazonsamplify&logoColor=white"> 
 <img src="https://img.shields.io/badge/route53-F7A81B?style=for-the-badge&logo=route53&logoColor=white">
-<img src="https://img.shields.io/badge/cloudfront-04ACE6?style=for-the-badge&logo=cloudfront&logoColor=white">
+<img src="https://img.shields.io/badge/socketio-blue?style=for-the-badge&logo=socketio&logoColor=white">
 <br>
 </p>
 
 ### **Design**
 <p>
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white"/>
-<img src="https://img.shields.io/badge/Adobe Photoshop-31A8FF?style=for-the-badge&logo=Adobe Photoshop&logoColor=white"/>
+<img src="https://img.shields.io/badge/Adobe Illustrator-yellow?style=for-the-badge&logo=Adobe Illustrator&logoColor=white"/>
 </p>
 
 ### **Tools**
 <p>
 <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"/>
-<img src="https://img.shields.io/badge/googleanalytics-E37400?style=for-the-badge&logo=googleanalytics&logoColor=white">
-<img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>
 <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=github&logoColor=white">
 <br>
@@ -85,30 +82,29 @@
 ## 📚 Library
 |Name|Appliance|Version|
 |:---:|:---:|:---:|
+|React|리액트|18.0.0|
 |Axios|HTTP 클라이언트 라이브러리|0.26.1|
-|React-redux|상태관리|7.2.6|
-|React-router-dom|라우터|5.2.0|
+|browser-image-compression|이미지 압축 라이브러리|2.0.0|
+|connected-react-router|라우터|6.8.0|
+|dayjs|날짜, 시간 출력|1.11.1|
+|History|페이지 이동|4.10.1|
+|Immer|불변성 유지|9.0.12|
+|React-calendar|캘린더|3.7.0|
 |React-dom|브라우저 렌더링|17.0.2|
+|React-icons|아이콘|4.3.1|
+|React-mic|녹음|12.4.6|
+|React-redux|상태관리|7.2.8|
+|React-router-dom|라우터|5.2.0|
+|React-slick|슬라이드|0.28.1|
 |Redux|상태 관리|4.1.2|
 |Redux-actions|액션 관리|2.6.5|
 |Redux-logger|리덕스 미들웨어|3.0.6|
 |Redux-thunk|리덕스 미들웨어|2.4.1|
-|Connected-react-router|라우터|6.9.2|
-|Immer|불변성 유지|9.0.12|
-|History|페이지 이동|4.10.1|
-|Dotenv|환경변수 설정|16.0.0|
-|React-intersection-observer|무한스크롤|8.33.1|
-|React-slick|슬라이드|0.28.1|
 |Slick-carousel|슬라이드|1.8.1|
-|Lodash|Throttle 사용|4.17.21|
-|Dom-to-image|이미지 생성 및 다운로드|2.6.0|
-|File-saver|파일 내보내기|2.0.5|
-|React-chartjs-2|차트|4.0.1|
-|Chart.js|차트|3.7.1|
-|Dayjs|날짜, 시간 출력|1.11.0|
-|Sweetalert2|Alert창|11.4.8|
-|Styled-components|CSS in JS|5.3.3|
-|React-ga|구글 애널리틱스|3.3.0|
+|Socket.io|실시간알림|4.4.1|
+|Socket.io-client|실시간알림|4.4.1|
+|Styled-components|CSS in JS|5.3.5|
+<!-- |Lodash|Throttle 사용|4.17.21| -->
 
 * * *
 
@@ -169,23 +165,19 @@
 1. 프로젝트 클론
 
 ```console
-$ git clone https://github.com/ty-ing/ty-ing_FE.git
+$ git clone https://github.com/Jayteeee/Family_Project.git
 ```
 
 2. 패키지 설치
 
 ```console
-$ cd ty-ing_FE
+$ cd Family_Project
 $ yarn install
 ```
 
 3. 환경변수 설정
 
 ```text
-// ty-ing_FE 폴더 안에 .env 파일 생성 후 아래의 내용을 기입 후 저장해주세요.
-REACT_APP_API_URL = "API URL"
-
-// 카카오 로그인 설정 시 : /shared/social/Kakao.js
-REACT_APP_REST_API_KEY="카카오에서 받은 REST API Key"
+// FAMILY_PROJECT 폴더 안에 .env 파일 생성 후 아래의 내용을 기입 후 저장해주세요.
+REACT_APP_KAKAO_REST_API="카카오에서 받은 REST API Key"
 REACT_APP_REDIRECT_URI="설정한 Redirect URI"
-``` -->
