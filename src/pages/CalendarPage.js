@@ -12,7 +12,6 @@ import { scheduleActions } from "../redux/modules/calendar";
 import { history } from "../redux/configureStore";
 
 // 이미지
-import emptyPhoto from "../shared/images/emptyPhoto.svg";
 import emptyContent from "../shared/images/M_calendar.svg";
 
 // 컴포넌트
@@ -20,7 +19,7 @@ import ScheduleCalendar from "../components/Calendar/ScheduleCalendar";
 import PhotoCalendar from "../components/Calendar/PhotoCalendar";
 
 //엘리먼트
-import { Text, Button } from "../elements";
+import { Text } from "../elements";
 
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
@@ -33,16 +32,21 @@ const CalendarPage = (props) => {
 
   const [status, setStatus] = React.useState("schedule");
   const [modalOn, setModalOn] = React.useState(false);
-
-  // let list = [];
-  const list = useSelector((state) => state.calendar.scheduleList);
-
-  // const thisMonth = document.getElementsByClassName(
-  //   "react-calendar__navigation__label__labelText"
-  // )[0]?.childNodes[0]?.data;
-
   const [thisMonth, setThisMonth] = useState();
 
+  const list = useSelector((state) => state.calendar.scheduleList);
+
+  const arr = { thisMonth };
+
+  let scheduleList = list.map((x) =>
+    dayjs(x?.startDate).format("YYYY년 M월") === thisMonth ? x : null
+  );
+
+  const YYYY = Object.values(arr)[0]?.split(" ")[0]?.split("년")[0];
+  const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
+  const date = `${MM < 10 ? `${YYYY}-0${MM}` : `${YYYY}-${MM}`}`;
+
+  // DOM 데이터 변화 감지 부분
   const target = document.getElementsByClassName(
     "react-calendar__navigation__label__labelText"
   )[0];
@@ -57,16 +61,6 @@ const CalendarPage = (props) => {
     setThisMonth(mutationList[0]?.target.data);
   });
 
-  const arr = { thisMonth };
-
-  let scheduleList = list.map((x) =>
-    dayjs(x?.startDate).format("YYYY년 M월") === thisMonth ? x : null
-  );
-
-  const YYYY = Object.values(arr)[0]?.split(" ")[0]?.split("년")[0];
-  const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
-  const date = `${MM < 10 ? `${YYYY}-0${MM}` : `${YYYY}-${MM}`}`;
-
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
@@ -76,6 +70,7 @@ const CalendarPage = (props) => {
     dispatch(scheduleActions.getScheduleDB(familyId, date));
   }, [thisMonth]);
 
+  // 월 바뀌는 부분 체크
   React.useEffect(() => {
     setThisMonth(
       document.getElementsByClassName(
