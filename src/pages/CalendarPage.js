@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -37,15 +37,25 @@ const CalendarPage = (props) => {
   // let list = [];
   const list = useSelector((state) => state.calendar.scheduleList);
 
-  const thisMonth = document.getElementsByClassName(
-    "react-calendar__navigation__label__labelText"
-  )[0]?.childNodes[0]?.data;
-
-  // const target = document.getElementsByClassName(
+  // const thisMonth = document.getElementsByClassName(
   //   "react-calendar__navigation__label__labelText"
-  // );
+  // )[0]?.childNodes[0]?.data;
 
-  // const observer = new MutationObserver();
+  const [thisMonth, setThisMonth] = useState();
+
+  const target = document.getElementsByClassName(
+    "react-calendar__navigation__label__labelText"
+  )[0];
+
+  const options = {
+    childList: true, // observe direct children
+    subtree: true, // and lower descendants too
+    characterData: true,
+  };
+
+  const observer = new MutationObserver((mutationList, observer) => {
+    setThisMonth(mutationList[0]?.target.data);
+  });
 
   const arr = { thisMonth };
 
@@ -64,7 +74,18 @@ const CalendarPage = (props) => {
 
   React.useEffect(() => {
     dispatch(scheduleActions.getScheduleDB(familyId, date));
-  }, [list.length, thisMonth]);
+  }, [thisMonth]);
+
+  React.useEffect(() => {
+    setThisMonth(
+      document.getElementsByClassName(
+        "react-calendar__navigation__label__labelText"
+      )[0]?.childNodes[0]?.data
+    );
+    setTimeout(() => {
+      observer.observe(target, options);
+    }, 50);
+  }, [observer]);
 
   // 토큰 없을 시 랜딩페이지로
   if (!sessionStorage.getItem("token")) {
