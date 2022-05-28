@@ -41,8 +41,10 @@
 `가족관련기능` `프로필관련기능`
 
 * * *
-## ⚙ Architecture
+## ⚙ **Architecture**
 <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653743416323blob" />
+
+* * *
 
 ## 🛠 Tech Stack & Platform
 ### **Tech**
