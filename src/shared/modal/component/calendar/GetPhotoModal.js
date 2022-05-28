@@ -24,7 +24,7 @@ const GetPhotoModal = ({ onClose, date, familyId }) => {
     );
   }, []);
 
-  const list = useSelector((state) => state.calendar.photoOneList[0]);
+  const list = useSelector((state) => state.calendar?.photoOneList[0]);
   return (
     <ModalPortal>
       <Background

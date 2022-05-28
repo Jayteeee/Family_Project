@@ -9,22 +9,17 @@ import { ModalPortal } from "../../shared/modal/portals";
 import GetPhotoModal from "../../shared/modal/component/calendar/GetPhotoModal";
 import { useDispatch, useSelector } from "react-redux";
 import { scheduleActions } from "../../redux/modules/calendar";
-import { ViewDaySharp } from "@material-ui/icons";
 
 const PhotoCalendar = (props) => {
   const familyId = props.familyId;
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(new Date());
-  const [style, setStyle] = React.useState("");
   const [modalOn, setModalOn] = React.useState(false);
   const [day, setDay] = React.useState("");
-  const list = useSelector((state) => state.calendar.photoCalendar);
+  const [thisMonth, setThisMonth] = React.useState();
+  const list = useSelector((state) => state.calendar?.photoCalendar);
 
   const docs = document.getElementsByClassName("highlight");
-
-  const thisMonth = document.getElementsByClassName(
-    "react-calendar__navigation__label__labelText"
-  )[0]?.childNodes[0]?.data;
 
   const arr = { thisMonth };
 
@@ -37,15 +32,48 @@ const PhotoCalendar = (props) => {
     setModalOn(!modalOn);
   };
 
-  for (let i = 0; i < docs.length; i++) {
-    if (style !== "") {
-      docs[i].firstChild.style.backgroundImage = `url(${list[i]?.photoFile})`;
+  setTimeout(() => {
+    for (let i = 0; i < docs.length; i++) {
+      let newList = list?.filter((x) => {
+        return (
+          x?.createdAt?.slice(8) ===
+          docs[i]?.firstChild?.ariaLabel.split("월 ")[1].split("일")[0]
+        );
+      });
+      docs[
+        i
+      ].firstChild.style.backgroundImage = `url(${newList[0]?.photoFile})`;
     }
-  }
+  }, 10);
 
   React.useEffect(() => {
     dispatch(scheduleActions.getPhotoCalendarDB(familyId, date));
   }, [thisMonth]);
+
+  const target = document.getElementsByClassName(
+    "react-calendar__navigation__label__labelText"
+  )[0];
+
+  const options = {
+    childList: true, // observe direct children
+    subtree: true, // and lower descendants too
+    characterData: true,
+  };
+
+  const observer = new MutationObserver((mutationList, observer) => {
+    setThisMonth(mutationList[0]?.target.data);
+  });
+
+  React.useEffect(() => {
+    setThisMonth(
+      document.getElementsByClassName(
+        "react-calendar__navigation__label__labelText"
+      )[0]?.childNodes[0]?.data
+    );
+    setTimeout(() => {
+      observer.observe(target, options);
+    }, 10);
+  }, [observer]);
 
   return (
     <div>
@@ -61,10 +89,6 @@ const PhotoCalendar = (props) => {
           formatDay={(locale, date) => dayjs(date).format("D")} // 날'일' 제외하고 숫자만 보이도록 설정
           showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
           onClickDay={(value, event) => {
-            // const PList = ""
-            // list?
-            // {PList = list.filter((x) => dayjs(x.createdAt).format("YYYY-MM-DD") ===
-            // dayjs(value).format("YYYY-MM-DD"))}: null
             if (
               list.find(
                 (x) =>
@@ -84,7 +108,6 @@ const PhotoCalendar = (props) => {
                   dayjs(date).format("YYYY-MM-DD")
               )
             ) {
-              setStyle(true);
               return "highlight";
             }
           }}
@@ -150,7 +173,6 @@ const Container = styled.div`
     @media screen and (max-width: 599px) {
       top: 10px;
       margin-right: 0;
-      /* width: 220px; */
     }
     // XXSmall (Mobile)
     @media screen and (max-width: 375px) {
@@ -203,15 +225,6 @@ const Container = styled.div`
     align-items: center;
     color: black;
     padding: 0;
-    @media only screen and (max-width: 1199px) {
-    }
-    // Medium (Tablet)
-    @media screen and (max-width: 1024px) {
-      /* align-items: flex-start; */
-    }
-    @media only screen and (max-width: 839px) {
-      /* align-items: flex-start; */
-    }
     // XSmall (Mobile)
     @media screen and (max-width: 599px) {
       height: 70px;
@@ -246,8 +259,6 @@ const Container = styled.div`
       background-position: center;
       width: 80%;
       height: 80%;
-      @media only screen and (max-width: 1199px) {
-      }
       // Medium (Tablet)
       @media screen and (max-width: 1024px) {
         border-radius: 8px;

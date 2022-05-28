@@ -132,7 +132,7 @@ const CalendarPage = (props) => {
               {status === "schedule" ? (
                 <ScheduleCalendar familyId={familyId} list={list} />
               ) : (
-                <PhotoCalendar familyId={familyId} list={list} />
+                <PhotoCalendar familyId={familyId} />
               )}
             </CalendarArea>
           </SBox>
