@@ -122,6 +122,11 @@
 <li><strong>원인</strong>
 <p>- IOS15부터는 webm audio를 지원하지만 이전 버전은 지원하지 않는다는 사실을 알게되었습니다.
 <li><strong>해결방안</strong>
+    <br />
+    <br />
+    <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653831407598blob" />
+    <br />
+    <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653831401208blob" />
 <p>- IOS에서 지원하는 포맷이 mp3, wav, ogg 라는 것을 알고 서버에서 s3로 저장할 때 mp3로 컨버팅하여 저장하기로 하였습니다.
 <p>- ffmpeg를 이용하여 저장하고자 하였고 클라이언트에서 기존에 보내줬던 blob형태로 파일을 전송할 시 변환되지 않는 이슈가 생겨 file 형태로 전달하였습니다.
 <li><strong>결과</strong>
@@ -130,18 +135,32 @@
 </details>
   
 <details>
-<summary><strong>캘린더</strong></summary>
+<summary><strong>캘린더에서 다음달 일정조회가 되지 않는 문제</strong></summary>
   <br/>
   <ul>
 <li><strong>문제상황</strong>
-<p>- 녹음된 음성을 인코딩할때 MediaRecorder에서 지원하는 코덱중 대부분 플랫폼에서 사용가능한 vp8 코덱과 해당 코덱으로 만들 수 있는 webm컨테이너를 사용하여 음성을 인코딩하였더니, IOS에서는 재생되지 않는 문제가 발생하였습니다.
+<p>- 이번달 일정등록 후 문제없이 조회가 되는 것을 확인하고 다음달 일정을 등록하였으나 서버에는 업로드된 것을 확인하였고 뷰에서는 보여주지 못하는 문제가 발생하였습니다.
 <li><strong>원인</strong>
-<p>- IOS15부터는 webm audio를 지원하지만 이전 버전은 지원하지 않는다는 사실을 알게되었습니다.
+<p>- 개발자도구를 통해 span 태그 내에 데이터가 동적으로 변화하는 것을 감지하고 변화에 따라 페이지가 렌더링될 수 있도록 코드를 작성하였다고 생각하였으나
+    코드는 변화를 감지하지 못한채 처음 렌더링된 일정만을 보여주고 있었습니다.
 <li><strong>해결방안</strong>
-<p>- IOS에서 지원하는 포맷이 mp3, wav, ogg 라는 것을 알고 서버에서 s3로 저장할 때 mp3로 컨버팅하여 저장하기로 하였습니다.
-<p>- ffmpeg를 이용하여 저장하고자 하였고 클라이언트에서 기존에 보내줬던 blob형태로 파일을 전송할 시 변환되지 않는 이슈가 생겨 file 형태로 전달하였습니다.
+<p>- 해당월을 나타내주는 코드를 감지해서 새롭게 렌더링시켜주는 것이 필요하겠다 생각했습니다.
+<p>- DOM의 변화를 감지해야했고 가장 적절해보이는 MutationObserver를 통해 span태그 내의 데이터 변화를 감지한 뒤 해당하는 월의 데이터를 조회할 수 있도록 하였습니다.
 <li><strong>결과</strong>
-<p>- mp3형태로 저장되어 아이폰에서는 녹음된 음성을 바로 들을 수 없지만 업로드 후 재생시킬 수 있었습니다.
+        <p> -이전코드
+            <br />
+    <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653832263586blob" />
+    <br />
+    <p> -이후코드
+        <br />
+    <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653832268359blob" />
+    <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653832272332blob" />
+    <br />
+    <p> -결과페이지
+    <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653832342281blob" />
+    <img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653832347064blob" />
+    
+<p>- 처음 렌더링되는 월에 대한 조회뿐만 아니라 화살표 클릭시 다음달 혹은 이전달의 일정데이터를 조회할 수 있게 되었습니다.
   </ul>
 </details>
 
