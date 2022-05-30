@@ -37,10 +37,6 @@ const CalendarPage = (props) => {
   // let list = [];
   const list = useSelector((state) => state.calendar.scheduleList);
 
-  // const thisMonth = document.getElementsByClassName(
-  //   "react-calendar__navigation__label__labelText"
-  // )[0]?.childNodes[0]?.data;
-
   const [thisMonth, setThisMonth] = useState();
 
   const target = document.getElementsByClassName(
@@ -267,6 +263,9 @@ const AddButton = styled.button`
   width: 159px;
   height: 56px;
   margin-top: 1px;
+  &:hover {
+    background-color: #3245f5;
+  }
   p {
     display: flex;
     align-items: center;

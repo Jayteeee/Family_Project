@@ -299,29 +299,13 @@ const AddScheduleModal = ({ onClose, familyId }) => {
                 </CalendarBox>
               ) : null}
             </InnerBox>
-            <ButtonBox>
-              <Text
-                BL
-                style={{
-                  minWidth: "96px",
-                  height: "56px",
-                  width: "96px",
-                  backgroundColor: "#6371F7",
-                  color: "white",
-                  margin: "40px 0 0 0",
-                  borderRadius: "8px",
-                  alignText: "center",
-                  padding: "16px 32px",
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  // onClose();
-                  addSchedule();
-                  // handleNotification("일정추가");
-                }}
-              >
-                저장
-              </Text>
+            <ButtonBox
+              onClick={(e) => {
+                e.stopPropagation();
+                addSchedule();
+              }}
+            >
+              <Text BL>저장</Text>
             </ButtonBox>
           </ContentBox>
         </Content>
@@ -631,7 +615,20 @@ const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 14px;
-
+  & > p {
+    min-width: 96px;
+    height: 56px;
+    width: 96px;
+    background-color: #6371f7;
+    color: white;
+    margin: 40px 0 0 0;
+    border-radius: 8px;
+    text-align: center;
+    padding: 16px 32px;
+    &:hover {
+      background-color: #3245f5;
+    }
+  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     margin-top: 5px;

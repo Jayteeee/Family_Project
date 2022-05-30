@@ -20,7 +20,7 @@ const PhotoSlider = ({ onClose }) => {
     slidesToShow: 1, //한화면에 보이는 개수
     slidesToScroll: 1, //넘어가는 화면 수
     customPaging: function (i) {
-      const imgSrc = list[i].photoFile;
+      const imgSrc = list[i]?.photoFile;
       return (
         <PagingAnchor>
           {" "}
@@ -44,8 +44,8 @@ const PhotoSlider = ({ onClose }) => {
         {list
           ? list.map((x) => {
               return (
-                <PhotoBox className="res-ss" key={x.photoId}>
-                  <Photo alt="photoId" src={x.photoFile} className="res-ss" />
+                <PhotoBox className="res-ss" key={x?.photoId}>
+                  <Photo alt="photoId" src={x?.photoFile} className="res-ss" />
                 </PhotoBox>
               );
             })

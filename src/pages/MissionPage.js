@@ -72,10 +72,14 @@ const MissionPage = (props) => {
 const MissionPageWrap = styled.div`
   width: 100%;
   height: calc(100vh - 40px);
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  // Medium (Tablet)
+  @media screen and (max-width: 1024px) {
+    height: 100%;
+  }
 `;
 
 export default MissionPage;
