@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { MdCheckBox } from "react-icons/md";
+import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
 
 // 엘리먼트
-import { Button, CircleImage, Text } from "../../elements";
+import { CircleImage, Text } from "../../elements";
 
 // 이미지
-// import profileImg from "../../shared/images/profileImg.png";
 import Profile01 from "../../shared/images/Profile01.svg";
 import Profile02 from "../../shared/images/Profile02.svg";
 import Profile03 from "../../shared/images/Profile03.svg";
@@ -73,7 +71,6 @@ const PastMissionList = ({ pastMissionList }) => {
                           >
                             <CircleImage
                               XS
-                              // src={f.profileImg ? f.profileImg : profileImg}
                               src={
                                 f.profileImg === "Profile01"
                                   ? Profile01

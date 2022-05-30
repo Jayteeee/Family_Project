@@ -1,28 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import {
-  MdRemoveCircleOutline,
-  MdRemoveCircle,
-  MdArrowUpward,
-  MdOutlineFavorite,
-  MdCancel,
-  MdClose,
-} from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import dayjs from "dayjs";
 
 // 엘리먼트
-import { Button, RactangleImage, Text, Input } from "../../elements";
+import { RactangleImage, Text } from "../../elements";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 import { detailPhotoActions } from "../../redux/modules/detailphoto";
-import { history } from "../../redux/configureStore";
 
 // 이미지
-import noImage from "../../shared/images/noImage.png";
-import profileImg from "../../shared/images/profileImg.png";
 import Profile01 from "../../shared/images/Profile01.svg";
 import Profile02 from "../../shared/images/Profile02.svg";
 import Profile03 from "../../shared/images/Profile03.svg";
@@ -90,7 +80,6 @@ const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
 
 const OneCommentBox = styled.div`
   padding: 10px;
-  /* border-bottom: 1px solid #dbdbdb; */
 `;
 
 const CommentContentWrap = styled.div`

@@ -1,14 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdPlayArrow, MdOutlinePause } from "react-icons/md";
-import dayjs from "dayjs";
 
 // 리덕스
-import { history } from "../../redux/configureStore";
 import { useDispatch } from "react-redux";
-import { missionActions } from "../../redux/modules/mission";
 
 // 엘리먼트
 import { Text } from "../../elements";
@@ -22,13 +18,7 @@ import BadgeOn_04 from "../../shared/images/BadgeOn_04.svg";
 import BadgeOn_05 from "../../shared/images/BadgeOn_05.svg";
 import BadgeOn_06 from "../../shared/images/BadgeOn_06.svg";
 
-// 모달
-import { ModalPortal } from "../../shared/modal/portals";
-import { BadgeModal } from "../../shared/modal/component/MissionModal";
-
 const HomeBadge = ({ randomBadge, familyId }) => {
-  const dispatch = useDispatch();
-
   return (
     <>
       <Container>
@@ -71,21 +61,6 @@ const HomeBadge = ({ randomBadge, familyId }) => {
 const Container = styled.div`
   width: 90%;
   height: 100%;
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-    /* column-count: 1; */
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-    /* column-count: 1;
-    padding: 24px; */
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    /* column-count: 1;
-    padding: 8px; */
-  }
 `;
 
 const Figure = styled.div`
@@ -101,8 +76,6 @@ const ContantBox = styled.div`
   height: 100%;
   width: 100%;
   background-color: #fff;
-  /* border-radius: 20px;
-  border: 1px solid #c4c4c4; */
   .homeBadgeTitle {
     font-size: 16px;
     color: #757575;
