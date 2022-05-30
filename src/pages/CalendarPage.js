@@ -262,6 +262,9 @@ const AddButton = styled.button`
   width: 159px;
   height: 56px;
   margin-top: 1px;
+  &:hover {
+    background-color: #3245f5;
+  }
   p {
     display: flex;
     align-items: center;

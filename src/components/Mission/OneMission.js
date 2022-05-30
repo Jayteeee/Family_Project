@@ -29,6 +29,7 @@ import checkImg from "../../shared/images/checkImg.png";
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
 import { DeleteMissionModal } from "../../shared/modal/component/MissionModal";
+import { CompleteMissionModal } from "../../shared/modal/component/MissionModal";
 import AlertModal from "../../shared/modal/component/AlertModal";
 
 // 컴포넌트
@@ -86,6 +87,13 @@ const OneMission = (props) => {
     setDeleteModalOn(!deleteModalOn);
   };
 
+  // 미션 완료하기 모달
+  const [completeModalOn, setCompleteModalOn] = useState(false);
+
+  const handleCompleteModal = () => {
+    setCompleteModalOn(!completeModalOn);
+  };
+
   return (
     <>
       <MissionBox key={missionId}>
@@ -113,6 +121,7 @@ const OneMission = (props) => {
               }}
               onClick={() => {
                 checkedItemHandler.bind(this, missionId, true)();
+                handleCompleteModal();
               }}
               className="missionChkBox"
             />
@@ -206,6 +215,16 @@ const OneMission = (props) => {
             familyId={familyId}
             missionId={missionId}
           ></DeleteMissionModal>
+        )}
+      </ModalPortal>
+      {/* 미션 완료하기 모달 */}
+      <ModalPortal>
+        {completeModalOn && (
+          <CompleteMissionModal
+            onClose={handleCompleteModal}
+            familyId={familyId}
+            missionId={missionId}
+          ></CompleteMissionModal>
         )}
       </ModalPortal>
       {/* 달성 완료 알람 */}
