@@ -119,9 +119,6 @@ const MissionStatusWrap = styled.div`
   background: transparent;
   margin: 10px 30px;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     flex-direction: column !important;
@@ -137,9 +134,6 @@ const MissionStatusWrap = styled.div`
     flex-direction: column !important;
     margin: 0 6px !important;
   }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-  }
 `;
 
 const TwoStatusBox = styled.div`
@@ -147,21 +141,9 @@ const TwoStatusBox = styled.div`
   width: 100%;
   background: transparent;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     display: flex;
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -170,7 +152,6 @@ const StatusBox = styled.div`
   justify-content: space-between;
   text-align: left;
   background: #fff;
-  /* align-items: center; */
   margin: 10px 10px;
   padding: 24px;
   width: 100%;
@@ -187,20 +168,8 @@ const StatusBox = styled.div`
     align-items: baseline;
   }
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    /* padding: 0px 20px !important;
-    height: 8rem !important;
-    margin: 10px 9px; */
     height: 60px;
     padding: 16px;
     .missionStatusTitle {

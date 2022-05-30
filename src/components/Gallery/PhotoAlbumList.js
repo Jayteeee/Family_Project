@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdRemoveCircleOutline, MdRemoveCircle } from "react-icons/md";
+import { MdRemoveCircle } from "react-icons/md";
 
 // 엘리먼트
 import { Text, Input } from "../../elements";
@@ -35,9 +35,6 @@ const PhotoAlbumList = ({
   // 갤러리 앨범 리스트
   const { photoAlbumList } = useSelector((state) => state.gallery);
 
-  // const nowPhotoAlbum = `${({ AlbumName }) => `${AlbumName};`}`;
-
-  // console.log(nowPhotoAlbum);
   //  앨범 제목 input
   const [photoAlbumName, setPhotoAlbumName] = useState("");
   const [photoAlbumId, setPhotoAlbumId] = useState("");
@@ -50,19 +47,14 @@ const PhotoAlbumList = ({
   };
 
   const EditPhotoAlbum = () => {
-    // if (photoAlbumName) {
     dispatch(
       galleryActions.editPhotoAlbumDB(NowFamilyId, photoAlbumId, photoAlbumName)
     );
-    // } else {
-    //   alert("앨범 제목을 입력하지 않았습니다.");
-    // }
   };
 
   // 앨범 삭제하기 모달
   const [modalOn, setModalOn] = useState(false);
   const DeleteAlbum = (photoAlbumId, photoAlbumName) => {
-    // setModalOn(!modalOn);
     setPhotoAlbumId(photoAlbumId);
     setPhotoAlbumName(photoAlbumName);
     handleModal();
@@ -284,12 +276,9 @@ const Figure = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 2fr);
   grid-template-rows: 1fr auto;
-  /* margin-bottom: 2%; */
   break-inside: avoid;
   width: 100%;
   height: 100%;
-  /* width: 300px;
-  min-height: 300px; */
 
   &:hover {
     border-radius: 13px;
@@ -328,7 +317,6 @@ const ImageBox = styled.div`
 const EditFigure = styled.div`
   display: grid;
   grid-template-rows: 1fr auto;
-  /* margin-bottom: 2%; */
   break-inside: avoid;
 
   &:hover {
@@ -374,7 +362,6 @@ const DeleteIcon = styled.div`
 const NoneContentWrap = styled.div`
   background: #fff;
   display: flex;
-  /* min-height: 880px; */
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -386,20 +373,15 @@ const NoneContentWrap = styled.div`
 
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
-    /* min-height: 680px; */
   }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin: 40px 24px;
-    /* margin-top: 0px !important; */
     padding-left: 20px !important;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    /* min-height: 480px; */
-
     margin: 28px 16px;
-    /* margin: 20px 9px; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
@@ -428,15 +410,10 @@ const NoneContentItem = styled.div`
   @media screen and (max-width: 1024px) {
     padding: 1rem 7rem;
   }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     padding: 1rem 4rem;
   }
-
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
     padding: 1rem 3.5rem;
@@ -450,9 +427,6 @@ const EmptyContentImg = styled.div`
   background-position: center;
   background-size: cover;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     padding: 70%;
@@ -461,14 +435,8 @@ const EmptyContentImg = styled.div`
   @media screen and (max-width: 839px) {
     padding: 80%;
   }
-
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
-    padding: 100%;
-  }
-
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
     padding: 100%;
   }
 `;

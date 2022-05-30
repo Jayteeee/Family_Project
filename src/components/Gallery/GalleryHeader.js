@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import dayjs from "dayjs";
 import { FaPen } from "react-icons/fa";
 import { MdCheck } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
@@ -156,9 +155,6 @@ const GalleryHeaderBox = styled.div`
   margin: 15px 20px 10px 20px;
   padding: 16px 20px;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin: 10px 10px 10px 10px;
@@ -174,9 +170,6 @@ const GalleryHeaderBox = styled.div`
     .galleryHeaderBox {
       font-size: 30px;
     }
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -197,9 +190,6 @@ const BtnWrap = styled.div`
       width: 140px;
     }
   }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-  }
 `;
 
 const PhotoAlbumBtn = styled.div`
@@ -217,13 +207,6 @@ const AddBtnText = styled.div`
     font-size: 20px;
     margin-right: 5px;
   }
-
-  // Small (Tablet)
-  @media only screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
 `;
 
 const EditBtnText = styled.div`
@@ -237,9 +220,6 @@ const EditBtnText = styled.div`
     margin-right: 7px;
   }
 
-  // Small (Tablet)
-  @media only screen and (max-width: 839px) {
-  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     font-size: 17px;
@@ -261,9 +241,6 @@ const CompletedEditBtnText = styled.div`
     margin-right: 5px;
   }
 
-  // Small (Tablet)
-  @media only screen and (max-width: 839px) {
-  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     font-size: 17px;

@@ -208,8 +208,6 @@ const DetailPhoto = ({
               <div id="photoImage" style={{ hegiht: "100%" }}>
                 <ImageWrap
                   style={{
-                    // width: "100%",
-                    // height: "100%",
                     position: "relative",
                   }}
                   img={noImage}
@@ -218,9 +216,7 @@ const DetailPhoto = ({
                     src={
                       detailPhoto?.photoFile ? detailPhoto.photoFile : noImage
                     }
-                    // onChange={imageHeight}
                     onClick={() => {}}
-                    // id="photoImage"
                   />
                 </ImageWrap>
               </div>
@@ -453,10 +449,6 @@ const ContentBox = styled.div`
   background-color: #fff;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     flex-direction: column;
@@ -489,21 +481,12 @@ const ImageBox = styled.img`
   width: 100%;
   background-size: cover;
   height: 100%;
-
-  // Medium (Desktop)
   object-fit: cover;
-  @media screen and (max-width: 1199px) {
-  }
+
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     flex-direction: column;
     width: 100%;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
   }
 `;
 
@@ -526,23 +509,11 @@ const CommentBox = styled.div`
   height: 100%;
   width: 35%;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     border: none;
     flex-direction: column;
     width: 100%;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -600,15 +571,9 @@ const CommentListBox = styled.div`
   @media screen and (max-width: 1199px) {
     height: 35vh;
   }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     height: 30vh;
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -636,7 +601,6 @@ const CommentFooter = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* align-items: center; */
   border-top: 1px solid #dbdbdb;
   width: 100%;
   height: 10%;

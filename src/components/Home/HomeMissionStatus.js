@@ -1,20 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdPlayArrow, MdOutlinePause } from "react-icons/md";
-import dayjs from "dayjs";
 
 // 리덕스
-import { history } from "../../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 
 // 엘리먼트
-import { CircleImage, Text } from "../../elements";
+import { CircleImage } from "../../elements";
 import { missionActions } from "../../redux/modules/mission";
 
 // 이미지
-import homeMissionStatus from "../../shared/images/homeMissionStatus.png";
 import yellowface from "../../shared/images/yellowface.svg";
 
 const HomeMissionStatus = ({ familyId }) => {
@@ -23,8 +19,6 @@ const HomeMissionStatus = ({ familyId }) => {
   const { missionStatus } = useSelector((state) => state.mission);
 
   const percenTage = missionStatus?.completePercentage;
-
-  let nowMonth = dayjs(new Date()).format("M월");
 
   useEffect(() => {
     dispatch(missionActions.getMissionStatusDB(familyId));
@@ -72,20 +66,6 @@ const HomeMissionStatus = ({ familyId }) => {
 const Container = styled.div`
   width: 100%;
   height: 70%;
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-    /* column-count: 1; */
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-    /* column-count: 1;
-    padding: 24px; */
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    /* column-count: 1;
-    padding: 8px; */
-  }
 `;
 
 const Figure = styled.div`
@@ -168,11 +148,11 @@ const BadgeBar = styled.div`
   width: 100%;
   height: 20px;
   background-color: #f5f5f5;
-  /* margin-bottom: auto; */
   border: none;
   border-radius: 50px;
   font-size: 16px;
   position: relative;
+
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
     width: 100%;
@@ -193,6 +173,7 @@ const BadgeBarPercentage = styled.div`
   position: absolute;
   top: 0px;
   left: 0;
+
   @media screen and (max-width: 375px) {
     height: 20px;
   }
@@ -210,8 +191,8 @@ const CompletedBadgeBar = styled.div`
   font-size: 16px;
   color: white;
   font-weight: 600;
+
   @media screen and (max-width: 375px) {
-    /* width: 130px; */
     height: 20px;
   }
 `;
@@ -230,11 +211,10 @@ const BadgeBarBox = styled.div`
   font-weight: 600;
   outline: 3px solid #fff;
   outline-width: 10px;
+
   @media screen and (max-width: 375px) {
-    /* width: 130px; */
     height: 20px;
   }
-  /* over border: 3px solid #fff; */
 `;
 
 export default HomeMissionStatus;

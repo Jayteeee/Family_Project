@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdCheckBox } from "react-icons/md";
-import { CgMoreVerticalAlt } from "react-icons/cg";
 import dayjs from "dayjs";
 
 // 리덕스
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // 엘리먼트
-import { Button, CircleImage, Text } from "../../elements";
+import { Text } from "../../elements";
 
 // 이미지
 import L_Mission_previous from "../../shared/images/L_Mission_previous.svg";
@@ -35,26 +33,6 @@ const MissionList = ({
 
   // 이번달 미션, 지난 미션토클
   const [status, setStatus] = useState(true);
-
-  const checkedItemHandler = (missionId, isCheck) => {
-    let completedAt = dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss");
-    dispatch(
-      missionActions.checkMissionDB(
-        missionId,
-        isCheck,
-        isCheck,
-        completedAt,
-        familyId
-      )
-    );
-  };
-
-  // 미션 제거하기 모달
-  const [deleteModalOn, setDeleteModalOn] = useState(false);
-
-  const handleDeleteModal = () => {
-    setDeleteModalOn(!deleteModalOn);
-  };
 
   // 남은 날짜 구하기
   let endMonth = dayjs().daysInMonth();
@@ -275,15 +253,9 @@ const MissionListWrap = styled.div`
   display: flex;
   margin: 20px 30px;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin: 16px 14px !important;
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
@@ -300,9 +272,6 @@ const MissionListBox = styled.div`
   border-radius: 12px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 0px 24px rgba(0, 0, 0, 0.05);
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin-top: 0px !important;
@@ -368,10 +337,6 @@ const NoneMissionBox = styled.div`
   @media screen and (max-width: 1024px) {
     padding: 1rem 12rem;
   }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     padding: 1rem 4rem;
@@ -390,9 +355,6 @@ const EmptyContentImg = styled.div`
   background-position: center;
   background-size: cover;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     padding: 70%;
@@ -401,12 +363,10 @@ const EmptyContentImg = styled.div`
   @media screen and (max-width: 839px) {
     padding: 80%;
   }
-
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     padding: 100%;
   }
-
   // XXSmall (Mobile)
   @media screen and (max-width: 375px) {
     padding: 100%;

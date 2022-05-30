@@ -85,9 +85,7 @@ const MissionHeaderBox = styled.div`
   background: transparent;
   margin: 15px 20px 10px 20px;
   padding: 16px 20px;
-  // Medium (Desktop)
-  @media only screen and (max-width: 1199px) {
-  }
+
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin: 10px 10px 10px 10px;
@@ -124,13 +122,6 @@ const AddBtnText = styled.div`
     font-size: 20px;
     margin-right: 5px;
   }
-
-  // Small (Tablet)
-  @media only screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
 `;
 
 const MissionLowerHeader = styled.div`
@@ -140,21 +131,9 @@ const MissionLowerHeader = styled.div`
   margin: 10px 20px 10px 20px;
   padding: 0px 20px;
 
-  // Medium (Desktop)
-  @media only screen and (max-width: 1199px) {
-    /* margin: 10px; */
-    .missionMonth {
-    }
-    /* margin: 0px 0 15px 0px !important;
-    display: flex !important;
-    text-align: right !important;
-    padding: 0; */
-    /* justify-content: center !important; */
-  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     padding: 0px;
-    /* margin: 10px; */
   }
   // Small (Tablet)
   @media only screen and (max-width: 839px) {
@@ -164,7 +143,6 @@ const MissionLowerHeader = styled.div`
     .missionMonth {
       font-size: 20px;
     }
-    /* justify-content: center !important; */
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {

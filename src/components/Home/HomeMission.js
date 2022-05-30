@@ -1,20 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
-import { MdPlayArrow, MdOutlinePause, MdCheckCircle } from "react-icons/md";
-import dayjs from "dayjs";
-
-// 리덕스
-import { history } from "../../redux/configureStore";
 
 // 엘리먼트
 import { RactangleImage, Text, CircleImage } from "../../elements";
 
 // 이미지
-import noImage from "../../shared/images/noImage.png";
-// import profileImg from "../../shared/images/profileImg.png";
-import missionChkImg from "../../shared/images/missionChkImg.png";
 import Profile01 from "../../shared/images/Profile01.svg";
 import Profile02 from "../../shared/images/Profile02.svg";
 import Profile03 from "../../shared/images/Profile03.svg";
@@ -57,7 +49,6 @@ const HomeMission = ({
                       <Profile>
                         <RactangleImage
                           S
-                          // src={f.profileImg ? f.profileImg : profileImg}
                           src={
                             f.profileImg === "Profile01"
                               ? Profile01
@@ -102,14 +93,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width: 1199px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
 `;
 
 const Figure = styled.div`
@@ -159,19 +142,6 @@ const CompletedCicle = styled.div`
   position: absolute;
   top: 34px;
   right: 6px;
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
 `;
 
 export default HomeMission;

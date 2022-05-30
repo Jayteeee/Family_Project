@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import { getToken } from "../../shared/Token";
 
 const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
+const TEST_URL = "http://13.209.48.153";
 
 const initialState = {
   photoAlbumList: [],
@@ -17,6 +17,7 @@ const initialState = {
 // 액션
 const GET_PHOTO_ALBUM = "GET_PHOTO_ALBUM";
 const GET_PHOTO = "GET_PHOTO";
+const ADD_PHOTO_LIST = "ADD_PHOTO_LIST";
 const ADD_PHOTO_ALBUM = "ADD_PHOTO_ALBUM";
 const ADD_PHOTO = "ADD_PHOTO";
 const EDIT_PHOTO_ALBUM = "EDIT_PHOTO_ALBUM";
@@ -31,12 +32,16 @@ const getPhotoAlbum = createAction(GET_PHOTO_ALBUM, (photoAlbumList) => ({
 const getPhoto = createAction(GET_PHOTO, (photoList) => ({
   photoList,
 }));
+const addPhotoList = createAction(ADD_PHOTO_LIST, (photoList) => ({
+  photoList,
+}));
 const addPhotoAlbum = createAction(ADD_PHOTO_ALBUM, (newPhotoAlbum) => ({
   newPhotoAlbum,
 }));
 const addPhoto = createAction(ADD_PHOTO, (newPhoto) => ({
   newPhoto,
 }));
+
 const editPhotoAlbum = createAction(
   EDIT_PHOTO_ALBUM,
   (photoAlbumId, photoAlbumName) => ({
@@ -71,7 +76,29 @@ const getPhotoAlbumDB = (familyId) => {
   };
 };
 
-const getPhotoDB = (photoAlbumId) => {
+const getPhotoDB = (photoAlbumId, pageNum, setLoading) => {
+  // console.log("페이지:", pageNum);
+  // return async function (dispatch, getState, { history }) {
+  //   setLoading(true);
+  //   const config = { Authorization: `Bearer ${getToken()}` };
+  //   await axios
+  //     .get(`${BASE_URL}/photo/${photoAlbumId}/${pageNum}`, { headers: config })
+  //     .then((res) => {
+  //       console.log(res);
+  //       const { photoList } = res.data;
+  //       if (pageNum === 1) {
+  //         dispatch(getPhoto(photoList));
+  //       } else {
+  //         if (photoList.lengt !== 0) {
+  //           dispatch(addPhotoList(photoList));
+  //           setLoading(false);
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => {});
+  // };
+  // // 6291c60ecbe41bd5d9666037
+
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
@@ -216,6 +243,12 @@ export default handleActions(
     [GET_PHOTO]: (state, action) =>
       produce(state, (draft) => {
         draft.photoList = action.payload.photoList;
+      }),
+    [ADD_PHOTO_LIST]: (state, action) =>
+      produce(state, (draft) => {
+        const { photoList } = action.payload;
+        // photoList = { ...photoList };
+        draft.photoList.push(...photoList);
       }),
     [ADD_PHOTO_ALBUM]: (state, action) =>
       produce(state, (draft) => {
