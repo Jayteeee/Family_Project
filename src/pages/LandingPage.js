@@ -56,7 +56,6 @@ const LandingPage = () => {
 
   const handleClose = () => {
     setModalOn(false);
-    localStorage.removeItem("hasVisitedBefore");
   };
   const dayClose = () => {
     let expires = new Date();
