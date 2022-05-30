@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import { useInView } from "react-intersection-observer";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -17,10 +18,6 @@ import S_photo from "../../shared/images/S_photo.svg";
 import PhotoHeader from "./PhotoHeader";
 import Spinner from "../Spinner";
 
-// 모달
-import { ModalPortal } from "../../shared/modal/portals";
-import { DeletePhotoModal } from "../../shared/modal/component/Gallery";
-
 const PhotoList = ({
   photoAlbumId,
   photoAlbumName,
@@ -30,23 +27,7 @@ const PhotoList = ({
 }) => {
   const dispatch = useDispatch();
 
-  const userId = useSelector((state) => state.user);
-
   const { photoList } = useSelector((state) => state.gallery);
-
-  // 앨범 삭제하기 모달
-  const [modalOn, setModalOn] = useState(false);
-
-  const [photoId, setPhotoId] = useState("");
-
-  const DeletePhoto = (photoId) => {
-    setModalOn(!modalOn);
-    setPhotoId(photoId);
-  };
-
-  const handleModal = () => {
-    setModalOn(!modalOn);
-  };
 
   // socket 부분
   let socket = useSelector((state) => state.socket?.socket);
@@ -82,13 +63,29 @@ const PhotoList = ({
   const [imgHeight, setImgHeight] = useState("");
   const imageHeight = () => {
     const image = document.getElementById("photoImage");
-    console.log(image.height);
+    // console.log(image.height);
     setImgHeight(image.height);
   };
 
+  const [pageNum, setPageNum] = useState(1);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [ref, inView] = useInView();
+
   useEffect(() => {
-    dispatch(galleryActions.getPhotoDB(photoAlbumId));
-  }, [photoList.length]);
+    dispatch(galleryActions.getPhotoDB(photoAlbumId, pageNum, setLoading));
+  }, []);
+
+  useEffect(() => {
+    // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
+    if (inView && !loading) {
+      setPageNum((prevState) => prevState + 1);
+    }
+  }, [inView, loading]);
+
+  // console.log("로딩:", loading);
+  // console.log("inView:", inView);
+  // console.log("pageNum:", pageNum);
 
   return (
     <>
@@ -102,21 +99,36 @@ const PhotoList = ({
       <>
         {photoList.length !== 0 ? (
           <Container>
-            {photoList.map((p) => {
+            {photoList.map((p, i) => {
               return (
                 <Figure key={p?.photoId}>
-                  <div>
-                    <ImageBox
-                      src={p?.photoFile ? p?.photoFile : emptyPhoto}
-                      onClick={() => {
-                        history.push(
-                          `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
-                        );
-                        imageHeight();
-                      }}
-                      id="photoImage"
-                    />
-                  </div>
+                  {photoList.length - 1 == i ? (
+                    <div ref={ref}>
+                      <ImageBox
+                        src={p?.photoFile ? p?.photoFile : emptyPhoto}
+                        onClick={() => {
+                          history.push(
+                            `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
+                          );
+                          imageHeight();
+                        }}
+                        id="photoImage"
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <ImageBox
+                        src={p?.photoFile ? p?.photoFile : emptyPhoto}
+                        onClick={() => {
+                          history.push(
+                            `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
+                          );
+                          imageHeight();
+                        }}
+                        id="photoImage"
+                      />
+                    </div>
+                  )}
                 </Figure>
               );
             })}
@@ -189,14 +201,6 @@ const PhotoList = ({
           </NoneContentWrap>
         )}
       </>
-      <ModalPortal>
-        {modalOn && (
-          <DeletePhotoModal
-            onClose={handleModal}
-            photoId={photoId}
-          ></DeletePhotoModal>
-        )}
-      </ModalPortal>
     </>
   );
 };
@@ -301,10 +305,6 @@ const NoneContentItem = styled.div`
   @media screen and (max-width: 1024px) {
     padding: 1rem 7rem;
   }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     padding: 1rem 4rem;
