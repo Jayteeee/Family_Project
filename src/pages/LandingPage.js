@@ -30,14 +30,6 @@ const LandingPage = () => {
   };
   const isLogin = useSelector((state) => state.user.isLogin);
   const isMember = useSelector((state) => state.user?.user?.familyList);
-  const familyList = useSelector((state) => state.family?.familyList);
-  // const isLikeFamilyList = useSelector(
-  //   (state) => state.user?.user.familyListUnique
-  // );
-
-  // if (isLogin && familyList?.length !== 0) {
-  //   history.replace(`/family/${familyList[0]?.familyId}`);
-  // }
 
   if (isLogin && isMember?.length !== 0) {
     history.replace(`/family/${isMember[0]?.familyId}`);
@@ -45,14 +37,33 @@ const LandingPage = () => {
 
   const [modalOn, setModalOn] = useState(false);
 
-  const handleModal = () => {
-    setModalOn(!modalOn);
-  };
+  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
+  console.log(HAS_VISITED_BEFORE);
+  console.log(new Date());
 
   useEffect(() => {
-    handleModal();
-  }, []);
+    const handleModal = () => {
+      if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
+        return;
+      }
 
+      if (!HAS_VISITED_BEFORE) {
+        setModalOn(true);
+      }
+    };
+    window.setTimeout(handleModal, 2000);
+  }, [HAS_VISITED_BEFORE]);
+
+  const handleClose = () => {
+    setModalOn(false);
+    localStorage.removeItem("hasVisitedBefore");
+  };
+  const dayClose = () => {
+    let expires = new Date();
+    expires = expires.setHours(expires.getHours() + 24);
+    localStorage.setItem("hasVisitedBefore", expires);
+    setModalOn(false);
+  };
   return (
     <Container>
       <UpperBox>
@@ -115,7 +126,9 @@ const LandingPage = () => {
       </LowerBox>
       {/* 이벤트 모달 */}
       <ModalPortal>
-        {modalOn && <EventModal onClose={handleModal}></EventModal>}
+        {modalOn && (
+          <EventModal onClose={handleClose} dayClose={dayClose}></EventModal>
+        )}
       </ModalPortal>
     </Container>
   );

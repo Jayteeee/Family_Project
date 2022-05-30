@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
 import {
   MdCheckBox,
   MdCheckBoxOutlineBlank,
-  MdCheckCircle,
   MdDeleteForever,
 } from "react-icons/md";
-import { CgMoreVerticalAlt } from "react-icons/cg";
 import dayjs from "dayjs";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 
 // 엘리먼트
-import { Button, CircleImage, RactangleImage, Text } from "../../elements";
+import { CircleImage, RactangleImage, Text } from "../../elements";
 
 // 이미지
-// import profileImg from "../../shared/images/profileImg.png";
 import Profile01 from "../../shared/images/Profile01.svg";
 import Profile02 from "../../shared/images/Profile02.svg";
 import Profile03 from "../../shared/images/Profile03.svg";
@@ -63,7 +60,6 @@ const OneMission = (props) => {
           completedAt,
           familyId,
           userId
-          // missionStatus
         )
       );
       dispatch(missionActions.getMissionStatusDB(familyId));
@@ -161,7 +157,6 @@ const OneMission = (props) => {
                       S
                       borderRadius="12px"
                       size="32px"
-                      // src={f.profileImg ? f.profileImg : profileImg}
                       src={
                         f.profileImg === "Profile01"
                           ? Profile01
@@ -182,7 +177,6 @@ const OneMission = (props) => {
                     />
                     {f.myMissionChk && (
                       <CompletedCicle>
-                        {/* <MdCheckCircle /> */}
                         <CircleImage S size="20px" src={checkImg} />
                       </CompletedCicle>
                     )}
@@ -229,19 +223,6 @@ const MissionBox = styled.div`
       display: flex;
     }
   }
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
 `;
 
 const MissionTitle = styled.div`
@@ -254,15 +235,6 @@ const MissionTitle = styled.div`
   background-color: #f9f9ff;
   border-radius: 8px;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     height: 55px;
@@ -288,23 +260,11 @@ const MissionTitleBox = styled.div`
     word-break: normal;
   }
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     & p {
       font-size: 15px;
     }
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
   }
 `;
 
@@ -312,75 +272,15 @@ const MissionMemberWrap = styled.div`
   display: flex;
   align-items: center;
   padding: 10px 10px 15px 55px;
-  /* width: 100%; */
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    /* padding: 0 12px 10px 0 !important;
-    margin: 0 -35px 0 0 !important; */
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-    /* padding: 0 0px 0 0 !important;
-    margin: 0 0 0 0 !important; */
-  }
 `;
 
 const MissionMemberBox = styled.div`
   display: flex;
   overflow-x: scroll;
-
-  /* margin: 0 6.5%; */
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-    /* margin: 0 5.8% !important; */
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    /* margin: 0 11% !important; */
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-  }
 `;
 
 const ProfileBox = styled.div`
   position: relative;
-
-  /* width: 100%; */
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    .CicleImage {
-    }
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-    .CicleImage {
-    }
-  }
 `;
 
 const CompletedCicle = styled.div`
@@ -392,19 +292,6 @@ const CompletedCicle = styled.div`
   position: absolute;
   top: 15px;
   right: 11px;
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
 `;
 
 const CompletedMission = styled.div`
@@ -420,18 +307,9 @@ const CompletedMission = styled.div`
   background: #6371f7;
   color: white;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     height: 35px;
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
   }
 `;
 
@@ -449,18 +327,9 @@ const UncompletedMission = styled.div`
   border: 1px solid #6371f7;
   color: #6371f7;
 
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
     height: 35px;
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
   }
 `;
 
@@ -469,50 +338,13 @@ const CompletedAtBox = styled.div`
   flex-grow: 1;
   font-size: 12px;
   color: #a8a8a8;
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-  }
 `;
 
 const MissionDeleteWrap = styled.div`
-  /* width: 3vw; */
-  /* display: flex; */
   float: right;
   justify-content: right;
   align-items: center;
   display: none;
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-    /* margin-left: 1%; */
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    /* margin-left: 1%; */
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-    /* margin-left: 2%; */
-  }
 `;
 
 const MissionDeleteBtn = styled.div`
@@ -528,19 +360,6 @@ const MissionDeleteBtn = styled.div`
   &:hover {
     background: #fff;
     color: #757575;
-  }
-
-  // Medium (Desktop)
-  @media screen and (max-width: 1199px) {
-  }
-  // Medium (Tablet)
-  @media screen and (max-width: 1024px) {
-  }
-  // Small (Tablet)
-  @media screen and (max-width: 839px) {
-  }
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
   }
 `;
 

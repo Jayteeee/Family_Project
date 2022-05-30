@@ -13,9 +13,7 @@ import { RactangleImage, Text } from "../../../elements";
 // 이미지
 import eventImg from "../../images/eventImg.svg";
 
-const EventModal = (props) => {
-  const { onClose, content } = props;
-
+const EventModal = ({ onClose, dayClose }) => {
   return (
     <ModalPortal>
       <Background
@@ -45,6 +43,14 @@ const EventModal = (props) => {
           >
             <RiCloseFill />
           </CloseBox>
+          <DayCloseBox
+            onClick={(e) => {
+              e.stopPropagation();
+              dayClose();
+            }}
+          >
+            하루 동안 보지 않기
+          </DayCloseBox>
         </Content>
       </Background>
     </ModalPortal>
@@ -135,6 +141,22 @@ const CloseBox = styled.div`
       font-size: 20px;
       color: gray;
     }
+  }
+`;
+
+const DayCloseBox = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+  bottom: 0;
+  left: 0;
+  margin: 16px;
+  border-radius: 4px;
+  :hover {
+    filter: brightness(70%);
   }
 `;
 

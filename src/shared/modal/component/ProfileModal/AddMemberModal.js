@@ -198,7 +198,7 @@ const AddMemberModal = ({ onClose }) => {
           <AddMemberAlertModal
             onClose={addMemberHandleModal}
             onCloseAddMember={onClose}
-            content={`${familyMemberNickname}님에게 초대 메시지를 보냈어요!`}
+            content={`${familyMemberNickname}님의 도란도란에 초대 메시지를 보냈어요!`}
           ></AddMemberAlertModal>
         )}
       </ModalPortal>
