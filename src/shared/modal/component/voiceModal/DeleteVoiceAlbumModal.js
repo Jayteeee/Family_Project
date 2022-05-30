@@ -61,6 +61,7 @@ const DeleteVoiceAlbumModal = ({ onClose, voiceAlbumId }) => {
                   fontSize="18px"
                   fontWeight="600"
                   borderRadius="8px"
+                  className="cancelBtn"
                 >
                   취소
                 </Button>
@@ -158,5 +159,13 @@ const CancelBtn = styled.div`
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: end;
+  .cancelBtn {
+    background-color: rgba(219, 219, 219, 1);
+    cursor: pointer;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
 `;
 export default DeleteVoiceAlbumModal;

@@ -56,6 +56,7 @@ const DeletePhotoAlbumModal = ({ onClose, photoAlbumId, photoAlbumName }) => {
                 fontSize="18px"
                 fontWeight="600"
                 borderRadius="8px"
+                className="cancelBtn"
               >
                 취소
               </Button>
@@ -112,6 +113,14 @@ const ButtonWrap = styled.div`
   margin-bottom: 10px;
   width: 100%;
   justify-content: center;
+  .cancelBtn {
+    background-color: rgba(219, 219, 219, 1);
+    cursor: pointer;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
 `;
 
 export default DeletePhotoAlbumModal;

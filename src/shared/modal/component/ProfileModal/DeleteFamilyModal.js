@@ -61,8 +61,7 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
                 color="rgba(117, 117, 117, 1)"
                 borderColor="rgba(219, 219, 219, 1)"
                 borderRadius="12px"
-                style={{ backgroundColor: "rgba(219, 219, 219, 1)" }}
-                className="deleteBtn"
+                className="cancelBtn"
               >
                 취소
               </Button>
@@ -72,7 +71,6 @@ const DeleteFamilyModal = ({ onClose, familyList }) => {
                 color="#fff"
                 borderColor="#fff"
                 borderRadius="12px"
-                style={{ backgroundColor: "#6371F7" }}
                 margin="0 0 0 10px"
                 className="deleteBtn"
               >
@@ -132,9 +130,20 @@ const ButtonWrap = styled.div`
   .deleteBtn {
     height: 56px;
     width: 221px;
+    background-color: #6371f7;
     cursor: pointer;
     &:hover {
-      filter: brightness(70%);
+      background-color: #3245f5;
+    }
+  }
+  .cancelBtn {
+    height: 56px;
+    width: 221px;
+    background-color: rgba(219, 219, 219, 1);
+    cursor: pointer;
+    &:hover {
+      background-color: black;
+      color: white;
     }
   }
 
