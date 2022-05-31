@@ -220,7 +220,7 @@ const MissionList = ({
           className="res-wepPastMissionList"
           style={{ width: "100%", height: "100%", textAlign: "left" }}
         >
-          <Text margin="0 10px" fontWeight="700" size="24px">
+          <Text margin="0 10px" fontWeight="600" size="24px">
             지난 미션
           </Text>
           <MissionListBox>

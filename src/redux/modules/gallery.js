@@ -1,17 +1,15 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
-import { DummyData } from "../../shared/DummyData";
-import dayjs from "dayjs";
 
 import { getToken } from "../../shared/Token";
 
 const BASE_URL = "https://doremilan.shop";
-const TEST_URL = "http://13.209.48.153";
 
 const initialState = {
   photoAlbumList: [],
   photoList: [],
+  loading: false,
 };
 
 // 액션
@@ -21,9 +19,9 @@ const ADD_PHOTO_LIST = "ADD_PHOTO_LIST";
 const ADD_PHOTO_ALBUM = "ADD_PHOTO_ALBUM";
 const ADD_PHOTO = "ADD_PHOTO";
 const EDIT_PHOTO_ALBUM = "EDIT_PHOTO_ALBUM";
-const EDIT_PHOTO = "EDIT_PHOTO";
 const DELETE_PHOTO_ALBUM = "DELETE_PHOTO_ALBUM";
 const DELETE_PHOTO = "DELETE_PHOTO";
+const UPDATE_LOADING = "UPDATE_LOADING";
 
 // 액션 생성함수
 const getPhotoAlbum = createAction(GET_PHOTO_ALBUM, (photoAlbumList) => ({
@@ -41,7 +39,6 @@ const addPhotoAlbum = createAction(ADD_PHOTO_ALBUM, (newPhotoAlbum) => ({
 const addPhoto = createAction(ADD_PHOTO, (newPhoto) => ({
   newPhoto,
 }));
-
 const editPhotoAlbum = createAction(
   EDIT_PHOTO_ALBUM,
   (photoAlbumId, photoAlbumName) => ({
@@ -49,17 +46,14 @@ const editPhotoAlbum = createAction(
     photoAlbumName,
   })
 );
-const editPhoto = createAction(EDIT_PHOTO, (familyId, photoAlbumId, photo) => ({
-  familyId,
-  photoAlbumId,
-  photo,
-}));
-
 const deletePhotoAlbum = createAction(DELETE_PHOTO_ALBUM, (photoAlbumId) => ({
   photoAlbumId,
 }));
 const deletePhoto = createAction(DELETE_PHOTO, (photoId) => ({
   photoId,
+}));
+const updateLoading = createAction(UPDATE_LOADING, (loading) => ({
+  loading,
 }));
 
 // api 응답 받는 미들웨어
@@ -76,36 +70,20 @@ const getPhotoAlbumDB = (familyId) => {
   };
 };
 
-const getPhotoDB = (photoAlbumId, pageNum, setLoading) => {
-  // console.log("페이지:", pageNum);
-  // return async function (dispatch, getState, { history }) {
-  //   setLoading(true);
-  //   const config = { Authorization: `Bearer ${getToken()}` };
-  //   await axios
-  //     .get(`${BASE_URL}/photo/${photoAlbumId}/${pageNum}`, { headers: config })
-  //     .then((res) => {
-  //       console.log(res);
-  //       const { photoList } = res.data;
-  //       if (pageNum === 1) {
-  //         dispatch(getPhoto(photoList));
-  //       } else {
-  //         if (photoList.lengt !== 0) {
-  //           dispatch(addPhotoList(photoList));
-  //           setLoading(false);
-  //         }
-  //       }
-  //     })
-  //     .catch((error) => {});
-  // };
-  // // 6291c60ecbe41bd5d9666037
-
+const getPhotoDB = (photoAlbumId, pageNum) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
-      .get(`${BASE_URL}/photo/${photoAlbumId}`, { headers: config })
+      .get(`${BASE_URL}/photo/${photoAlbumId}/${pageNum}`, { headers: config })
       .then((res) => {
         const { photoList } = res.data;
-        dispatch(getPhoto(photoList));
+        if (pageNum === 1) {
+          dispatch(getPhoto(photoList));
+        } else {
+          if (photoList.length !== 0) {
+            dispatch(addPhotoList(photoList));
+          }
+        }
       })
       .catch((error) => {});
   };
@@ -141,7 +119,8 @@ const addPhotoDB = (familyId, photoAlbumId, formData) => {
         headers: config,
       })
       .then((res) => {
-        const newPhoto = res.photoFile;
+        console.log(res);
+        const newPhoto = res.data.createdPhoto;
         dispatch(addPhoto(newPhoto));
         window.alert(res.data.msg);
         // history.go(0);
@@ -175,29 +154,6 @@ const editPhotoAlbumDB = (
   };
 };
 
-const editPhotoDB = (familyId, familyTitle) => {
-  return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
-    // await axios
-    //   .put(
-    //     `${BASE_URL}/family/${familyId}`,
-    //     { familyTitle },
-    //     {
-    //       headers: config,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     dispatch(editFamilyName(familyId, familyTitle));
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.response);
-    //   });
-    dispatch(editPhoto(familyId, familyTitle));
-  };
-};
-
 const deletePhotoAlbumDB = (photoAlbumId) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
@@ -227,7 +183,6 @@ const deletePhotoDB = (photoId, NowFamilyId, PhotoAlbumName, photoAlbumId) => {
         history.push(
           `/family/${NowFamilyId}/gallery/${PhotoAlbumName}/${photoAlbumId}`
         );
-        // history.go(0);
       })
       .catch((err) => {});
   };
@@ -256,7 +211,7 @@ export default handleActions(
       }),
     [ADD_PHOTO]: (state, action) =>
       produce(state, (draft) => {
-        draft.photoList.push(action.payload.newFamily);
+        draft.photoList.unshift(action.payload.newPhoto);
       }),
     [EDIT_PHOTO_ALBUM]: (state, action) =>
       produce(state, (draft) => {
@@ -274,18 +229,6 @@ export default handleActions(
 
         draft.photoAlbumList[index] = nowPhotoAlbum;
       }),
-    [EDIT_PHOTO]: (state, action) =>
-      produce(state, (draft) => {
-        const { familyId, familyTitle } = action.payload;
-        // 현재 가족
-        let nowFamily = draft.photoList.find((l) => l.familyId === familyId);
-        // 변경해야할 배열 인덱스
-        let index = draft.photoList.findIndex((l) => l.familyId === familyId);
-
-        nowFamily = { ...nowFamily, familyTitle: familyTitle };
-
-        draft.photoList[index] = nowFamily;
-      }),
     [DELETE_PHOTO_ALBUM]: (state, action) =>
       produce(state, (draft) => {
         const { photoAlbumId } = action.payload;
@@ -299,6 +242,10 @@ export default handleActions(
         const { photoId } = action.payload;
         let newArr = draft.photoList.filter((l) => l.photoId !== photoId);
         draft.photoList = newArr;
+      }),
+    [UPDATE_LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.loading = action.payload.loading;
       }),
   },
   initialState
