@@ -35,7 +35,7 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
 
   const actionImgCompress = async (fileSrc) => {
     const options = {
-      maxSizeMB: 0.1,
+      maxSizeMB: 0.9,
       maxWidthOrHeight: 1920,
       useWebWorker: true,
     };

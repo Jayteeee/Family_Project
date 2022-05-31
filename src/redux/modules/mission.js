@@ -1,15 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import dayjs from "dayjs";
-import { history } from "../configureStore";
 import axios from "axios";
-// import { familyActions } from "./family";
 import { getToken } from "../../shared/Token";
 
-import { DummyData } from "../../shared/DummyData";
-
 const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   thisMonthMissionList: [],
@@ -98,18 +92,7 @@ const getMissionPage = (familyId) => {
         const { thisMonthMissionList } = res.data;
         dispatch(getMission(thisMonthMissionList));
       })
-      .catch((err) => {
-        // window.alert(err.response.data.msg);
-      });
-
-    const nowMissionData = DummyData.missionPage;
-
-    // console.log("현재 미션 데이터:", nowMissionData);
-
-    // const nowMissionData = DummyData.missionPage;
-    // console.log("이번달 미션 데이터:", nowMissionData);
-
-    // dispatch(getMission(nowMissionData));
+      .catch((err) => {});
   };
 };
 
@@ -122,9 +105,7 @@ const getPastMissionDB = (familyId) => {
         const { familyList } = res.data;
         // dispatch(getFamily(familyList));
       })
-      .catch((err) => {
-        // window.alert(err.response.data.msg);
-      });
+      .catch((err) => {});
   };
 };
 

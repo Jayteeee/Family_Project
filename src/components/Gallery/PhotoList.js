@@ -16,7 +16,6 @@ import S_photo from "../../shared/images/S_photo.svg";
 
 // 컴포넌트
 import PhotoHeader from "./PhotoHeader";
-import Spinner from "../Spinner";
 
 const PhotoList = ({
   photoAlbumId,
@@ -28,6 +27,7 @@ const PhotoList = ({
   const dispatch = useDispatch();
 
   const { photoList } = useSelector((state) => state.gallery);
+  const { loading } = useSelector((state) => state.gallery);
 
   // socket 부분
   let socket = useSelector((state) => state.socket?.socket);
@@ -60,32 +60,15 @@ const PhotoList = ({
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
   };
 
-  const [imgHeight, setImgHeight] = useState("");
-  const imageHeight = () => {
-    const image = document.getElementById("photoImage");
-    // console.log(image.height);
-    setImgHeight(image.height);
-  };
-
   const [pageNum, setPageNum] = useState(1);
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView();
 
   useEffect(() => {
-    dispatch(galleryActions.getPhotoDB(photoAlbumId, pageNum, setLoading));
-  }, []);
-
-  useEffect(() => {
-    // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
-    if (inView && !loading) {
+    if (inView) {
       setPageNum((prevState) => prevState + 1);
+      dispatch(galleryActions.getPhotoDB(photoAlbumId, pageNum));
     }
-  }, [inView, loading]);
-
-  // console.log("로딩:", loading);
-  // console.log("inView:", inView);
-  // console.log("pageNum:", pageNum);
+  }, [inView]);
 
   return (
     <>
@@ -102,33 +85,17 @@ const PhotoList = ({
             {photoList.map((p, i) => {
               return (
                 <Figure key={p?.photoId}>
-                  {photoList.length - 1 == i ? (
-                    <div ref={ref}>
-                      <ImageBox
-                        src={p?.photoFile ? p?.photoFile : emptyPhoto}
-                        onClick={() => {
-                          history.push(
-                            `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
-                          );
-                          imageHeight();
-                        }}
-                        id="photoImage"
-                      />
-                    </div>
-                  ) : (
-                    <div>
-                      <ImageBox
-                        src={p?.photoFile ? p?.photoFile : emptyPhoto}
-                        onClick={() => {
-                          history.push(
-                            `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
-                          );
-                          imageHeight();
-                        }}
-                        id="photoImage"
-                      />
-                    </div>
-                  )}
+                  <div>
+                    <ImageBox
+                      src={p?.photoFile ? p?.photoFile : emptyPhoto}
+                      onClick={() => {
+                        history.push(
+                          `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
+                        );
+                      }}
+                      id="photoImage"
+                    />
+                  </div>
                 </Figure>
               );
             })}
@@ -199,6 +166,28 @@ const PhotoList = ({
               style={{ display: "none" }}
             />
           </NoneContentWrap>
+        )}
+        {photoList.length !== 0 ? (
+          <div
+            ref={ref}
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              background: "transparent",
+              width: "30px",
+              minHeight: "30px",
+            }}
+          ></div>
+        ) : (
+          <div
+            ref={ref}
+            style={{
+              background: "transparent",
+              width: "30px",
+              minHeight: "30px",
+              position: "absolute",
+            }}
+          ></div>
         )}
       </>
     </>
@@ -271,7 +260,6 @@ const NoneContentWrap = styled.div`
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin: 40px 24px;
-    /* margin-top: 0px !important; */
     padding-left: 20px !important;
   }
   // Small (Tablet)

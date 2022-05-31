@@ -148,18 +148,6 @@ const DetailPhoto = ({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const [imgHeight, setImgHeight] = useState("");
-  const imageHeight = () => {
-    const image = document.getElementById("photoImage");
-    // console.log(image.height);
-    // console.log(image);
-    setImgHeight(image.height);
-  };
-
-  useEffect(() => {
-    imageHeight();
-  }, []);
-
   return (
     <>
       <div className="detailPhotoHeader">

@@ -290,7 +290,7 @@ const CompletedCicle = styled.div`
   border: none;
   background-color: transparent;
   position: absolute;
-  top: 15px;
+  top: 13px;
   right: 11px;
 `;
 
