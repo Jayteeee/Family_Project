@@ -1,58 +1,26 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
-import { DummyData } from "../../shared/DummyData";
 import dayjs from "dayjs";
 
 import { getToken } from "../../shared/Token";
 
 const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   scheduleList: [
     {
-      // Response
-      eventCalendarList: [
-        {
-          eventId: "",
-          event: "",
-          startDate: "",
-          endDate: "",
-          color: "",
-        },
-      ],
+      eventCalendarList: [],
     },
   ],
   scheduleOneList: [],
   photoCalendar: [
     {
-      // Response
-      eventCalendarList: [
-        {
-          eventId: "asdfasdf434",
-          event: "부모님께 연락하기",
-          startDate: "2022-04-15 01:30",
-          endDate: "2022-04-15 01:30",
-          color: "red",
-        },
-      ],
-      photoCalendarList: [
-        {
-          photoId: "454fdw",
-          photoFile: "url",
-          createdAt: "YYYY-MM-DD",
-        },
-      ],
+      eventCalendarList: [],
+      photoCalendarList: [],
     },
   ],
-  photoOneList: [
-    // Response 최신순 정렬
-    {
-      photoId: "454fdw",
-      photoFile: "url",
-    },
-  ],
+  photoOneList: [],
 };
 
 // 액션
@@ -131,9 +99,7 @@ const getOneScheduleDB = (date, familyId, eventId) => {
         const scheduleOneList = res.data.event;
         dispatch(getOneSchedule(scheduleOneList));
       })
-      .catch((error) => {
-        // console.log(error.response);
-      });
+      .catch((error) => {});
   };
 };
 const getOnePhotoDB = (date, familyId) => {
@@ -154,12 +120,6 @@ const getOnePhotoDB = (date, familyId) => {
 const addScheduleDB = (familyId, event, myPic, date) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
-    // const dataList = {
-    //   event: event,
-    //   startDate: dayjs(date[0]).format("YYYY-MM-DD"),
-    //   endDate: dayjs(date[1]).format("YYYY-MM-DD"),
-    //   color: myPic,
-    // };
     await axios
       .post(
         `${BASE_URL}/calendar/${familyId}`,

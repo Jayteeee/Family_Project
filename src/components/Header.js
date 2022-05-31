@@ -89,7 +89,7 @@ const Header = (props) => {
     // });
     setNotiOn(!notiOn);
   };
-  const [toolTipOn, setToolTipOn] = useState(true);
+  // const [toolTipOn, setToolTipOn] = useState(true);
 
   // 사이드바 매뉴 색상
   const handleMenuColor = () => {
@@ -120,7 +120,7 @@ const Header = (props) => {
             </Manual>
             {manualOn ? <ManualModal onClose={handleManual} /> : null}
             <NotiWrap>
-              <Research
+              {/* <Research
                 onMouseOver={() => {
                   setToolTipOn(true);
                 }}
@@ -144,7 +144,7 @@ const Header = (props) => {
                     <div className="triangle" />
                   </ToolTip>
                 ) : null}
-              </Research>
+              </Research> */}
               <NotiBox
                 onClick={handleNoti}
                 onBlur={() => {

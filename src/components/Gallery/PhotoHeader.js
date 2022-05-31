@@ -1,38 +1,28 @@
 import React, { useRef, useState, useEffect } from "react";
-
 // 라이브러리, 패키지
 import styled from "styled-components";
 import { FiPlus } from "react-icons/fi";
 import imageCompression from "browser-image-compression";
-
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
 import { galleryActions } from "../../redux/modules/gallery";
-
 // 엘리먼트
 import { Text, Button } from "../../elements/index";
-
 // 모달
 import { ModalPortal } from "../../shared/modal/portals";
 import AddPhotoModal from "../../shared/modal/component/Gallery/AddPhotoModal";
-
 // 컴포넌트
 import WhiteSpinner from "../WhiteSpinner";
-
 const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
   const dispatch = useDispatch();
-
   const photoImgInput = useRef();
-
   const [formData, setFormData] = useState("");
   const [addPhotoModal, setAddPhotoModa] = useState(false);
-
   const onImgInputBtnClick = () => {
     setLoading(true);
     const file = photoImgInput.current.files[0];
     actionImgCompress(file);
   };
-
   const actionImgCompress = async (fileSrc) => {
     const options = {
       maxSizeMB: 0.9,
@@ -46,26 +36,20 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
       if (compressedFile) {
         formData.append("photoFile", compressedFile);
       }
-
       setFormData(formData);
-
       handleAddPhotoModal();
       setLoading(false);
     } catch (error) {}
   };
-
   const handleAddPhotoModal = () => {
     setAddPhotoModa(!addPhotoModal);
   };
-
   const addPhoto = () => {
     dispatch(galleryActions.addPhotoDB(NowFamilyId, photoAlbumId, formData));
     handleAddPhotoModal();
   };
-
   // 사진 업로드 스피너
   const [loading, setLoading] = useState(false);
-
   return (
     <>
       <GalleryHeaderBox>
@@ -156,7 +140,6 @@ const PhotoHeader = ({ NowFamilyId, photoAlbumId, photoAlbumName }) => {
     </>
   );
 };
-
 const GalleryHeaderBox = styled.div`
   display: flex;
   align-items: center;
@@ -165,7 +148,6 @@ const GalleryHeaderBox = styled.div`
   background: transparent;
   margin: 15px 20px 10px 20px;
   padding: 16px 20px;
-
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
@@ -192,11 +174,9 @@ const GalleryHeaderBox = styled.div`
   @media screen and (max-width: 375px) {
   }
 `;
-
 const BtnWrap = styled.div`
   display: flex;
   flex-direction: row;
-
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
     margin: 0;
@@ -205,15 +185,12 @@ const BtnWrap = styled.div`
   @media screen and (max-width: 375px) {
   }
 `;
-
 const PhotoBtn = styled.label`
   text-align: right;
   flex-grow: 1;
-
   svg {
     font-size: 20px;
     margin-right: 5px;
   }
 `;
-
 export default PhotoHeader;

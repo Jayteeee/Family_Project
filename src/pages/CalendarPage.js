@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -12,7 +12,6 @@ import { scheduleActions } from "../redux/modules/calendar";
 import { history } from "../redux/configureStore";
 
 // 이미지
-import emptyPhoto from "../shared/images/emptyPhoto.svg";
 import emptyContent from "../shared/images/M_calendar.svg";
 
 // 컴포넌트
@@ -20,7 +19,7 @@ import ScheduleCalendar from "../components/Calendar/ScheduleCalendar";
 import PhotoCalendar from "../components/Calendar/PhotoCalendar";
 
 //엘리먼트
-import { Text, Button } from "../elements";
+import { Text } from "../elements";
 
 // 모달
 import { ModalPortal } from "../shared/modal/portals";
@@ -33,13 +32,9 @@ const CalendarPage = (props) => {
 
   const [status, setStatus] = React.useState("schedule");
   const [modalOn, setModalOn] = React.useState(false);
+  const [thisMonth, setThisMonth] = useState();
 
-  // let list = [];
   const list = useSelector((state) => state.calendar.scheduleList);
-
-  const thisMonth = document.getElementsByClassName(
-    "react-calendar__navigation__label__labelText"
-  )[0]?.childNodes[0]?.data;
 
   const arr = { thisMonth };
 
@@ -51,6 +46,21 @@ const CalendarPage = (props) => {
   const MM = Object.values(arr)[0]?.split(" ")[1]?.split("월")[0];
   const date = `${MM < 10 ? `${YYYY}-0${MM}` : `${YYYY}-${MM}`}`;
 
+  // DOM 데이터 변화 감지 부분
+  const target = document.getElementsByClassName(
+    "react-calendar__navigation__label__labelText"
+  )[0];
+
+  const options = {
+    childList: true, // observe direct children
+    subtree: true, // and lower descendants too
+    characterData: true,
+  };
+
+  const observer = new MutationObserver((mutationList, observer) => {
+    setThisMonth(mutationList[0]?.target.data);
+  });
+
   // 토글
   const handleModal = () => {
     setModalOn(!modalOn);
@@ -58,7 +68,19 @@ const CalendarPage = (props) => {
 
   React.useEffect(() => {
     dispatch(scheduleActions.getScheduleDB(familyId, date));
-  }, [list.length, thisMonth]);
+  }, [thisMonth]);
+
+  // 월 바뀌는 부분 체크
+  React.useEffect(() => {
+    setThisMonth(
+      document.getElementsByClassName(
+        "react-calendar__navigation__label__labelText"
+      )[0]?.childNodes[0]?.data
+    );
+    setTimeout(() => {
+      observer.observe(target, options);
+    }, 50);
+  }, [observer]);
 
   // 토큰 없을 시 랜딩페이지로
   if (!sessionStorage.getItem("token")) {
@@ -110,7 +132,7 @@ const CalendarPage = (props) => {
               {status === "schedule" ? (
                 <ScheduleCalendar familyId={familyId} list={list} />
               ) : (
-                <PhotoCalendar familyId={familyId} list={list} />
+                <PhotoCalendar familyId={familyId} />
               )}
             </CalendarArea>
           </SBox>
@@ -240,6 +262,9 @@ const AddButton = styled.button`
   width: 159px;
   height: 56px;
   margin-top: 1px;
+  &:hover {
+    background-color: #3245f5;
+  }
   p {
     display: flex;
     align-items: center;

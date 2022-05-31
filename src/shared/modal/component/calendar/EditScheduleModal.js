@@ -25,7 +25,6 @@ const EditScheduleModal = ({ onClose, eventId, familyId, startDate }) => {
   const dispatch = useDispatch();
 
   const list = useSelector((state) => state.calendar.scheduleOneList);
-  // console.log(list);
 
   const [event, setEvent] = useState(list?.event);
   const [selec, setSelec] = useState(true);
@@ -37,22 +36,10 @@ const EditScheduleModal = ({ onClose, eventId, familyId, startDate }) => {
   const eMonth = dayjs(list.endDate).format("MM");
   const eDay = dayjs(list.endDate).format("DD");
 
-  // let newStartDate = list.startDate;
-
-  const [date, onChange] = useState([list.startDate, list.endDate]);
-
-  let [newstartDate, setStartDate] = useState(startDate);
-
-  console.log(date[0]);
-  const [myPic, setMyPic] = useState(list.color);
-  const [showOptions, setShowOptions] = useState(false);
-  const [showBorder, setShowBorder] = useState(false);
-
-  console.log(list.color);
-  console.log(newstartDate);
-  console.log(myPic);
-  console.log(date);
-  console.log(startDate);
+  const [date, onChange] = React.useState([list?.startDate, list?.endDate]);
+  const [myPic, setMyPic] = React.useState(list?.color);
+  const [showOptions, setShowOptions] = React.useState(false);
+  const [showBorder, setShowBorder] = React.useState(false);
 
   const handleAddSchedule = (e) => {
     const { value } = e.target;
@@ -93,6 +80,10 @@ const EditScheduleModal = ({ onClose, eventId, familyId, startDate }) => {
       )
     );
   }, []);
+
+  React.useEffect(() => {
+    setSelec(false);
+  }, [date]);
 
   return (
     <ContentBox
@@ -244,6 +235,7 @@ const EditScheduleModal = ({ onClose, eventId, familyId, startDate }) => {
               setSelec(!selec);
               setShowOptions(false);
             }}
+            style={{ cursor: "pointer" }}
           >
             <Text B2 style={{ marginBottom: "6px" }}>
               시작일{" "}
@@ -263,7 +255,11 @@ const EditScheduleModal = ({ onClose, eventId, familyId, startDate }) => {
           </Box>
         </CommonBox>
         {selec ? (
-          <CalendarBox>
+          <CalendarBox
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <Calendar
               showNeighboringMonth={false}
               formatDay={(locale, date) => dayjs(date).format("DD")}
@@ -280,29 +276,13 @@ const EditScheduleModal = ({ onClose, eventId, familyId, startDate }) => {
           </CalendarBox>
         ) : null}
       </InnerBox>
-      <ButtonBox>
-        <Text
-          BL
-          style={{
-            minWidth: "96px",
-            height: "56px",
-            width: "96px",
-            backgroundColor: "#6371F7",
-            color: "white",
-            margin: "40px 0 0 0",
-            borderRadius: "8px",
-            alignText: "center",
-            padding: "16px 32px",
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            // onClose();
-            editSchedule();
-            // handleNotification("일정수정");
-          }}
-        >
-          저장
-        </Text>
+      <ButtonBox
+        onClick={(e) => {
+          e.stopPropagation();
+          editSchedule();
+        }}
+      >
+        <Text BL>저장</Text>
       </ButtonBox>
       <ModalPortal>
         {scheduleModalOn && (
@@ -555,5 +535,19 @@ const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 14px;
+  & > p {
+    min-width: 96px;
+    height: 56px;
+    width: 96px;
+    background-color: #6371f7;
+    color: white;
+    margin: 40px 0 0 0;
+    border-radius: 8px;
+    text-align: center;
+    padding: 16px 32px;
+    &:hover {
+      background-color: #3245f5;
+    }
+  }
 `;
 export default EditScheduleModal;

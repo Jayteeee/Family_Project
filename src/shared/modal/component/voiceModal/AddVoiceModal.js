@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdCancel, MdPlayArrow, MdOutlinePause } from "react-icons/md";
 import { ReactMic } from "react-mic";
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 
 // 모달
 import { ModalPortal } from "../../portals";
@@ -47,6 +48,13 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
   const [disabled, setDisabled] = useState(false);
 
   // ----------음성 전송 ------------//
+
+  // webm => mp3 변환을 위한 라이브러리
+  // const ffmpeg = createFFmpeg({
+  //   corePath: "http://localhost:3000/ffmpeg-core.worker.js",
+  //   log: true,
+  // });
+
   const AddVoice = () => {
     if (voiceTitle) {
       dispatch(
@@ -84,37 +92,39 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
       analyser.connect(audioCtx.destination);
     }
     // 마이크 사용 권한 획득
-    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-      let options = {
-        mimeType: `audio/webm`,
-      };
-      const mediaRecorder = new MediaRecorder(stream, options);
-      mediaRecorder.start();
-      setStream(stream);
-      setMedia(mediaRecorder);
-      makeSound(stream);
-      start(); // 타이머 시작
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then(async (stream) => {
+        let options = {
+          mimeType: `audio/webm`,
+        };
+        const mediaRecorder = new MediaRecorder(stream, options);
+        mediaRecorder.start();
+        setStream(stream);
+        setMedia(mediaRecorder);
+        makeSound(stream);
+        start(); // 타이머 시작
 
-      analyser.onaudioprocess = function (e) {
-        // 3분(180초) 지나면 자동으로 음성 저장 및 녹음 중지
-        if (e.playbackTime > 180) {
-          stream.getAudioTracks().forEach(function (track) {
-            track.stop();
-          });
-          mediaRecorder.stop();
-          // 메서드가 호출 된 노드 연결 해제
-          analyser.disconnect();
-          audioCtx.createMediaStreamSource(stream).disconnect();
+        analyser.onaudioprocess = function (e) {
+          // 3분(180초) 지나면 자동으로 음성 저장 및 녹음 중지
+          if (e.playbackTime > 180) {
+            stream.getAudioTracks().forEach(function (track) {
+              track.stop();
+            });
+            mediaRecorder.stop();
+            // 메서드가 호출 된 노드 연결 해제
+            analyser.disconnect();
+            audioCtx.createMediaStreamSource(stream).disconnect();
 
-          mediaRecorder.ondataavailable = function (e) {
-            setAudioUrl(e.data);
-            setOnRec(true);
-          };
-        } else {
-          setOnRec(false);
-        }
-      };
-    });
+            mediaRecorder.ondataavailable = function (e) {
+              setAudioUrl(e.data);
+              setOnRec(true);
+            };
+          } else {
+            setOnRec(false);
+          }
+        };
+      });
   };
 
   // 사용자가 음성 녹음을 중지 했을 때
@@ -127,6 +137,15 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
       setOnRec(true);
       setSound(URL.createObjectURL(e.data)); // File 정보 출력
       setVoiceFile(new File([e.data], "file", { type: e.data.type }));
+
+      // ffmpeg 적용
+      // await ffmpeg.load();
+      // ffmpeg.FS("writeFile", "sample", await fetchFile(e.data));
+      // await ffmpeg.run("-i", "sample", "test.mp3");
+      // console.log(ffmpeg);
+      // const data = ffmpeg.FS("readFile", "test.mp3");
+      // console.log(data);
+      // setSound(URL.createObjectURL(new Blob([data], { type: "audio/mp3" })));
     };
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지

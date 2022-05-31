@@ -51,7 +51,6 @@ const AddMissionModal = ({ onClose, familyId }) => {
   const selectedMemberList = useSelector(
     (state) => state.mission?.selectedMemberList
   );
-  console.log(selectedMemberList);
   // 선택한 미션 구성원 Id 리스트
   const selectedMemeberIdList = useSelector(
     (state) => state.mission.selectedMemberIdList

@@ -391,6 +391,7 @@ const Option = styled.div`
   border-radius: 20px;
   padding: 5px;
   margin: 2px;
+  z-index: 2;
   cursor: pointer;
   ${({ value }) =>
     value ? "background-color: white;" : "background-color: transparent;"};
