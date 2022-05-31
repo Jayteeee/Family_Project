@@ -102,6 +102,7 @@
 |React-redux|상태관리|7.2.8|
 |React-router-dom|라우터|5.2.0|
 |React-slick|슬라이드|0.28.1|
+|React-intersection-obserber|무한스크롤 구현을 위해 사용|9.1.0|
 |Redux|상태 관리|4.1.2|
 |Redux-actions|액션 관리|2.6.5|
 |Redux-logger|리덕스 미들웨어|3.0.6|
