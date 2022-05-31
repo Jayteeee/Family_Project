@@ -35,34 +35,34 @@ const LandingPage = () => {
     history.replace(`/family/${isMember[0]?.familyId}`);
   }
 
-  const [modalOn, setModalOn] = useState(false);
+  // const [modalOn, setModalOn] = useState(false);
 
-  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
-  console.log(HAS_VISITED_BEFORE);
-  console.log(new Date());
+  // const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
+  // console.log(HAS_VISITED_BEFORE);
+  // console.log(new Date());
 
-  useEffect(() => {
-    const handleModal = () => {
-      if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
-        return;
-      }
+  // useEffect(() => {
+  //   const handleModal = () => {
+  //     if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
+  //       return;
+  //     }
 
-      if (!HAS_VISITED_BEFORE) {
-        setModalOn(true);
-      }
-    };
-    window.setTimeout(handleModal, 2000);
-  }, [HAS_VISITED_BEFORE]);
+  //     if (!HAS_VISITED_BEFORE) {
+  //       setModalOn(true);
+  //     }
+  //   };
+  //   window.setTimeout(handleModal, 2000);
+  // }, [HAS_VISITED_BEFORE]);
 
-  const handleClose = () => {
-    setModalOn(false);
-  };
-  const dayClose = () => {
-    let expires = new Date();
-    expires = expires.setHours(expires.getHours() + 24);
-    localStorage.setItem("hasVisitedBefore", expires);
-    setModalOn(false);
-  };
+  // const handleClose = () => {
+  //   setModalOn(false);
+  // };
+  // const dayClose = () => {
+  //   let expires = new Date();
+  //   expires = expires.setHours(expires.getHours() + 24);
+  //   localStorage.setItem("hasVisitedBefore", expires);
+  //   setModalOn(false);
+  // };
   return (
     <Container>
       <UpperBox>
@@ -118,17 +118,17 @@ const LandingPage = () => {
           <a href="https://www.instagram.com/dorandoran.official/">
             <img alt="인스타그램" src={insta} />
           </a>
-          <a href="https://forms.gle/cKtMucXktf7et7hs9">
+          <a href="#">
             <img alt="설문조사" src={help} />
           </a>
         </IconBox>
       </LowerBox>
       {/* 이벤트 모달 */}
-      <ModalPortal>
+      {/* <ModalPortal>
         {modalOn && (
           <EventModal onClose={handleClose} dayClose={dayClose}></EventModal>
         )}
-      </ModalPortal>
+      </ModalPortal> */}
     </Container>
   );
 };
