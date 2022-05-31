@@ -44,7 +44,7 @@
 
 * * *
 ## ⚙ **Architecture**
-<img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653743416323blob" />
+<img src="https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1653963459549%EA%B7%B8%EB%A6%BC1.jpg" />
 
 * * *
 
