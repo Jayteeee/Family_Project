@@ -50,9 +50,10 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
   // ----------음성 전송 ------------//
 
   // webm => mp3 변환을 위한 라이브러리
-  const ffmpeg = createFFmpeg({
-    log: true,
-  });
+  // const ffmpeg = createFFmpeg({
+  //   corePath: "http://localhost:3000/ffmpeg-core.worker.js",
+  //   log: true,
+  // });
 
   const AddVoice = () => {
     if (voiceTitle) {
@@ -139,12 +140,12 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
 
       // ffmpeg 적용
       // await ffmpeg.load();
-      // ffmpeg.FS("writeFile", "ffmpeg.wasm", await fetchFile(e.data));
-      // await ffmpeg.run("-i", "ffmpeg.wasm", "test.mp3");
+      // ffmpeg.FS("writeFile", "sample", await fetchFile(e.data));
+      // await ffmpeg.run("-i", "sample", "test.mp3");
       // console.log(ffmpeg);
       // const data = ffmpeg.FS("readFile", "test.mp3");
       // console.log(data);
-      // setSound(data);
+      // setSound(URL.createObjectURL(new Blob([data], { type: "audio/mp3" })));
     };
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
