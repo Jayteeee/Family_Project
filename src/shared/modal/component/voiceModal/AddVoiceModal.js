@@ -136,7 +136,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
     media.ondataavailable = async function (e) {
       setAudioUrl(e.data);
       setOnRec(true);
-      // setSound(URL.createObjectURL(e.data)); // File 정보 출력
+      setSound(URL.createObjectURL(e.data)); // File 정보 출력
       setVoiceFile(new File([e.data], "file", { type: e.data.type }));
 
       // ffmpeg 적용
