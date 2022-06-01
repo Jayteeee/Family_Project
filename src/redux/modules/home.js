@@ -4,7 +4,6 @@ import axios from "axios";
 import { getToken } from "../../shared/Token";
 
 const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   homeData: [],
@@ -44,7 +43,6 @@ const getHomeDB = (familyId) => {
         const homeData = res.data;
         dispatch(getHome(homeData));
         dispatch(getRandomMsg(homeData.randomMsg[0]));
-        // dispatch(getFamilyMemberList(homeData.familyMemberList));
       })
       .catch((err) => {});
   };
@@ -56,12 +54,10 @@ export default handleActions(
     [GET_HOME]: (state, action) =>
       produce(state, (draft) => {
         draft.homeData = action.payload.homeData;
-        // console.log(state.homeData);
       }),
     [GET_RANDUM_MSG]: (state, action) =>
       produce(state, (draft) => {
         draft.nowRandomMsg = action.payload.randomMsg;
-        // console.log(state.homeData);
       }),
     [HOME_MISSION_MEMBER_UPDATE]: (state, action) =>
       produce(state, (draft) => {

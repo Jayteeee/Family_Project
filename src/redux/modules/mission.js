@@ -84,7 +84,6 @@ const resetSelectedMissionMember = createAction(
 
 const getMissionPage = (familyId) => {
   return async function (dispatch, getState, { history }) {
-    const pastMissionList = getState().mission.pastMissionList;
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .get(`${BASE_URL}/mission/${familyId}`, { headers: config })
@@ -115,14 +114,8 @@ const getMissionMemberDB = (familyId) => {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
       .get(`${BASE_URL}/mission/${familyId}/familymember`, { headers: config })
-      .then((res) => {
-        // const {familyList} = res.data
-        // console.log(familyList);
-        // dispatch(getMissionMember(familyList));
-      })
-      .catch((err) => {
-        // window.alert(err.response.data.msg);
-      });
+      .then((res) => {})
+      .catch((err) => {});
   };
 };
 
@@ -133,14 +126,9 @@ const getBadgeListDB = (familyId) => {
       .get(`${BASE_URL}/badge/${familyId}`, { headers: config })
       .then((res) => {
         const { badge } = res.data.badgeList;
-        // console.log(familyList);
         dispatch(getBadgeList(badge));
       })
-      .catch((err) => {
-        // window.alert(err.response.data.msg);
-      });
-    // const badgeList = DummyData.badgePage.badge;
-    // dispatch(getBadgeList(badgeList));
+      .catch((err) => {});
   };
 };
 
@@ -153,9 +141,7 @@ const getMissionStatusDB = (familyId) => {
         const missionStatusData = res.data;
         dispatch(getMissionStatus(missionStatusData));
       })
-      .catch((err) => {
-        // window.alert(err.response.data.msg);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -190,9 +176,7 @@ const addMissionDB = (
         dispatch(resetSelectedMissionMember());
         onClose();
       })
-      .catch((err) => {
-        // window.alert(err.response.data.msg);
-      });
+      .catch((err) => {});
   };
 };
 
@@ -235,8 +219,6 @@ const checkMissionDB = (
         dispatch(checkMissionMember(checkedMissionMember));
         dispatch(checkMission(checkedMission));
         dispatch(getMissionStatusDB(familyId));
-        // dispatch(missionStatusUpdate(missionStatus));
-        // history.go(0);
       })
       .catch((err) => {
         window.alert(err.response.data.msg);
@@ -254,8 +236,6 @@ const deleteMissionDB = (familyId, missionId) => {
       .then((res) => {
         dispatch(deleteMission(missionId));
         dispatch(getMissionStatusDB(familyId));
-        // dispatch(missionStatusUpdate(missionStatus));
-        // history.go(0);
       })
       .catch((err) => {});
   };

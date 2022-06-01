@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
@@ -174,6 +174,37 @@ const ProfileModal = ({ onClose, user }) => {
 
   const handleTodayMoodAlert = () => {
     setTodayMoodAlert(!todayMoodAlert);
+  };
+
+  const Kakao = window.Kakao;
+
+  useEffect(() => {
+    Kakao.init("4b621ae60c3e6f222daf7684e293818e");
+  }, []);
+
+  const shareKakao = () => {
+    Kakao.Link.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "도란도란",
+        description:
+          "몸은 멀리 떨어져 있어도 마음은 가까울 수 있도록, 도란도란과 함께 우리 가족만의 이야기를 만들어 보아요.",
+        imageUrl:
+          "https://family-8.s3.ap-northeast-2.amazonaws.com/photo/1654063453815blob",
+        link: {
+          mobileWebUrl: "https://www.dorandorans.com/",
+          webUrl: "https://www.dorandorans.com/",
+        },
+      },
+      buttons: [
+        {
+          title: "웹으로 이동",
+          link: {
+            mobileWebUrl: "https://www.dorandorans.com/",
+          },
+        },
+      ],
+    });
   };
 
   return (
@@ -365,6 +396,11 @@ const ProfileModal = ({ onClose, user }) => {
                   </Text>
                 </MenuBox>
               )}
+              <MenuBox onClick={shareKakao}>
+                <Text size="15px" fontWeight="700">
+                  카카오톡 공유하기
+                </Text>
+              </MenuBox>
               <Line />
               <LogoutBox onClick={handleLogoutModal}>
                 <p

@@ -51,7 +51,8 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
 
   // webm => mp3 변환을 위한 라이브러리
   // const ffmpeg = createFFmpeg({
-  //   corePath: "http://localhost:3000/ffmpeg-core.worker.js",
+  //   corePath: "static/js/ffmpeg-core.js",
+  //   // corePath: "http://localhost:3000/ffmpeg-core.js",
   //   log: true,
   // });
 
@@ -135,7 +136,7 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
     media.ondataavailable = async function (e) {
       setAudioUrl(e.data);
       setOnRec(true);
-      setSound(URL.createObjectURL(e.data)); // File 정보 출력
+      // setSound(URL.createObjectURL(e.data)); // File 정보 출력
       setVoiceFile(new File([e.data], "file", { type: e.data.type }));
 
       // ffmpeg 적용
@@ -145,6 +146,8 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
       // console.log(ffmpeg);
       // const data = ffmpeg.FS("readFile", "test.mp3");
       // console.log(data);
+      // setSound(URL.createObjectURL(data));
+      // process.exit(0);
       // setSound(URL.createObjectURL(new Blob([data], { type: "audio/mp3" })));
     };
 
