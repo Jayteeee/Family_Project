@@ -44,7 +44,7 @@ const PhotoCalendar = (props) => {
         i
       ].firstChild.style.backgroundImage = `url(${newList[0]?.photoFile})`;
     }
-  }, 10);
+  }, 50);
 
   React.useEffect(() => {
     dispatch(scheduleActions.getPhotoCalendarDB(familyId, date));
