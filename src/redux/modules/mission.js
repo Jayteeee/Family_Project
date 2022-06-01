@@ -102,8 +102,9 @@ const getPastMissionDB = (familyId) => {
     await axios
       .get(`${BASE_URL}/mission/${familyId}/pastmission`, { headers: config })
       .then((res) => {
-        const { familyList } = res.data;
-        // dispatch(getFamily(familyList));
+        const { pastMissionList } = res.data;
+        console.log(res);
+        dispatch(getPastMission(pastMissionList));
       })
       .catch((err) => {});
   };
