@@ -1,14 +1,11 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
-import { DummyData } from "../../shared/DummyData";
-import dayjs from "dayjs";
 import { getToken } from "../../shared/Token";
 import { homeActions } from "./home";
 import { familyActions } from "./family";
 
 const BASE_URL = "https://doremilan.shop";
-// const BASE_URL = "http://52.79.130.222";
 
 const initialState = {
   familyMemberList: [],
@@ -93,9 +90,6 @@ const getFamilyMemberDB = (familyId) => {
         dispatch(getFamilyMember(familyMemberList));
       })
       .catch((error) => {});
-    // const { nowFamilyMemberList } = DummyData;
-    // console.log("현재 멤버 리스트:", nowFamilyMemberList);
-    // dispatch(getFamilyMember(nowFamilyMemberList));
   };
 };
 
@@ -129,14 +123,6 @@ const getSearchMemberDB = (email) => {
       .catch((error) => {
         dispatch(getSearchMember(error.response.data.msg));
       });
-
-    // let familyMemberList = [
-    //   { userId: "abe@gmail.com", userNickname: "홍길동" },
-    //   { userId: "abedfgq@gmail.com", userNickname: "홍길동2" },
-    //   { userId: "abedfgqdfsaf@gmail.com", userNickname: "홍길동3" },
-    // ];
-
-    // dispatch(getSearchMember(familyMemberList));
   };
 };
 
@@ -152,8 +138,6 @@ const addFamilyMemberDB = (familyId, familyMemberNickname, selectuserId) => {
         headers: config,
       })
       .then((res) => {
-        // const addedFamily = getState().family.familyList.find((f) => f.familyId === familyId)
-        // dispatch(addFamilyMember(res.data.familyMember));
         history.push(`/family/${familyId}`);
       })
       .catch((err) => {
@@ -206,9 +190,7 @@ const deleteFamilyMemberDB = (familyId, familyMemberId) => {
         headers: config,
       })
       .then((res) => {
-        // dispatch(familyActions.deleteFamily(familyId));
         dispatch(deleteFamilyMember(familyId, familyMemberId));
-        // history.go(0);
       })
       .catch((err) => {});
   };
@@ -229,7 +211,6 @@ const leaveFamilyDB = (familyId, familyMemberId, otherFamilyId) => {
         } else {
           history.replace("/");
         }
-        // history.go(0);
       })
       .catch((err) => {});
   };
@@ -241,13 +222,11 @@ export default handleActions(
     [GET_FAMILY_MEMBER]: (state, action) =>
       produce(state, (draft) => {
         draft.familyMemberList = action.payload.nowFamilyMemberList;
-        // console.log(state.familyList);
       }),
 
     [GET_FAMILY_MEMBER_STATUS]: (state, action) =>
       produce(state, (draft) => {
         draft.familyMemberStatusList = action.payload.nowFamilyMemberStatusList;
-        // console.log(state.familyList);
       }),
 
     [GET_SEARCH_MEMBER]: (state, action) =>
