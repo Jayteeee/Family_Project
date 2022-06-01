@@ -178,11 +178,8 @@ const ProfileModal = ({ onClose, user }) => {
 
   const Kakao = window.Kakao;
 
-  useEffect(() => {
-    Kakao.init("4b621ae60c3e6f222daf7684e293818e");
-  }, []);
-
   const shareKakao = () => {
+    Kakao.init("4b621ae60c3e6f222daf7684e293818e");
     Kakao.Link.sendDefault({
       objectType: "feed",
       content: {
