@@ -46,19 +46,19 @@ const ProfileModal = ({ onClose, user }) => {
   const familyHost = familyList?.find((h) => h?.familyId === NowFamilyId);
 
   const myFamilyMemberNickname = familyMemberList?.find(
-    (m) => m?.userId === user.userId
+    (m) => m?.userId === user?.userId
   )?.familyMemberNickname;
 
   const myFamiyMemberId = familyMemberList?.find(
-    (m) => m?.userId === user.userId
+    (m) => m?.userId === user?.userId
   )?.familyMemberId;
 
   const myProfileImg = familyMemberList?.find(
-    (m) => m?.userId === user.userId
+    (m) => m?.userId === user?.userId
   )?.profileImg;
 
   const myTodayMood = familyMemberList?.find(
-    (m) => m?.userId === user.userId
+    (m) => m?.userId === user?.userId
   )?.todayMood;
 
   // 오늘의 기분 수정

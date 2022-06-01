@@ -146,9 +146,9 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
       // console.log(ffmpeg);
       // const data = ffmpeg.FS("readFile", "test.mp3");
       // console.log(data);
-      // setSound(URL.createObjectURL(data));
-      // process.exit(0);
+      // // setSound(URL.createObjectURL(data));
       // setSound(URL.createObjectURL(new Blob([data], { type: "audio/mp3" })));
+      // process.exit(0);
     };
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
