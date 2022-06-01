@@ -2,9 +2,10 @@ import React from "react";
 
 // 라이브러리, 패키지
 import styled from "styled-components";
+import dayjs from "dayjs";
 
 // 엘리먼트
-import { CircleImage, Text } from "../../elements";
+import { CircleImage, RactangleImage, Text } from "../../elements";
 
 // 이미지
 import Profile01 from "../../shared/images/Profile01.svg";
@@ -12,6 +13,7 @@ import Profile02 from "../../shared/images/Profile02.svg";
 import Profile03 from "../../shared/images/Profile03.svg";
 import Profile04 from "../../shared/images/Profile04.svg";
 import Profile05 from "../../shared/images/Profile05.svg";
+import checkImg from "../../shared/images/checkImg.png";
 
 const PastMissionList = ({ pastMissionList }) => {
   return (
@@ -22,32 +24,21 @@ const PastMissionList = ({ pastMissionList }) => {
             return (
               <MissionBox key={m.missionId}>
                 <MissionTitle>
-                  <div
-                    style={{
-                      width: "67%",
-                      borderBottom: "2px solid #F5F5F5",
-                      padding: "5px 0",
-                      margin: "0 20px",
-                    }}
-                    className="res-missionTitle"
-                  >
+                  <MissionTitleBox>
                     <Text
-                      size="16px"
-                      padding="0 0 1px 0"
+                      size="20px"
                       margin="0"
                       width="100%"
                       height="60px"
+                      className="missionTitle"
                     >
                       {m.missionTitle}
                     </Text>
-                  </div>
+                  </MissionTitleBox>
                   <div>{m.missionChk}</div>
                   <div
                     style={{
-                      display: "flex",
-                      width: "120px",
-                      justifyContent: "center",
-                      marginRight: "4px",
+                      flexGrow: "1",
                     }}
                   >
                     {m.familyMissionChk ? (
@@ -57,11 +48,8 @@ const PastMissionList = ({ pastMissionList }) => {
                     )}
                   </div>
                 </MissionTitle>
-                <MissionMemberBox className="res-missionMemberBox">
-                  <div
-                    style={{ display: "flex", margin: "0 20px" }}
-                    className="res-pastMissionMember"
-                  >
+                <MissionMemberWrap>
+                  <MissionMemberBox className="res-missionMember">
                     {m.missionMemberList ? (
                       m.missionMemberList.map((f, i) => {
                         return (
@@ -69,8 +57,10 @@ const PastMissionList = ({ pastMissionList }) => {
                             key={f.familyMemberId}
                             style={{ position: "relative" }}
                           >
-                            <CircleImage
-                              XS
+                            <RactangleImage
+                              S
+                              borderRadius="12px"
+                              size="32px"
                               src={
                                 f.profileImg === "Profile01"
                                   ? Profile01
@@ -87,12 +77,11 @@ const PastMissionList = ({ pastMissionList }) => {
                                   : Profile01
                               }
                               margin="0 10px 0 0"
-                              size="24px"
                             />
-                            {f.myMissionChk ? (
-                              <CompletedCicle />
-                            ) : (
-                              <UncompletedCicle />
+                            {f.myMissionChk && (
+                              <CompletedCicle>
+                                <CircleImage S size="20px" src={checkImg} />
+                              </CompletedCicle>
                             )}
                           </div>
                         );
@@ -100,20 +89,13 @@ const PastMissionList = ({ pastMissionList }) => {
                     ) : (
                       <div>미션 진행자 없습니다</div>
                     )}
-                  </div>
-                  <div
-                    style={{
-                      textAlign: "right",
-                      flexGrow: "1",
-                      fontSize: "16px",
-                      color: "#A8A8A8",
-                      marginRight: "8%",
-                    }}
-                    className="res-missionCompletedAt"
-                  >
-                    {m.completedAt} 달성
-                  </div>
-                </MissionMemberBox>
+                  </MissionMemberBox>
+                  {m.familyMissionChk && (
+                    <CompletedAtBox>
+                      {dayjs(m.completedAt).format("MM월 DD일")} 달성
+                    </CompletedAtBox>
+                  )}
+                </MissionMemberWrap>
               </MissionBox>
             );
           })
@@ -127,7 +109,6 @@ const PastMissionList = ({ pastMissionList }) => {
 
 const MissionBox = styled.div`
   text-align: left;
-  padding: 0 0 0 25px;
 `;
 
 const MissionTitle = styled.div`
@@ -135,36 +116,64 @@ const MissionTitle = styled.div`
   display: flex;
   align-items: center;
   font-size: 16px;
-  padding: 10px 0;
-  height: 60px;
+  padding: 8px;
+  height: 48px;
+  background-color: #f9f9ff;
+  border-radius: 8px;
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    height: 55px;
+    font-size: 10px;
+    .missionChkBox {
+      max-width: 30px;
+      max-height: 30px;
+    }
+  }
+  // XXSmall (Mobile)
+  @media screen and (max-width: 375px) {
+    .missionChkBox {
+      max-width: 20px;
+      max-height: 20px;
+    }
+  }
+`;
+
+const MissionTitleBox = styled.div`
+  padding: 5px 0;
+  margin-left: 15px;
+  .missionTitle {
+    word-break: normal;
+  }
+
+  // XSmall (Mobile)
+  @media screen and (max-width: 599px) {
+    & p {
+      font-size: 15px;
+    }
+  }
+`;
+
+const MissionMemberWrap = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px 10px 15px 22px;
 `;
 
 const MissionMemberBox = styled.div`
   display: flex;
-  align-items: center;
-  padding: 0 0 10px 0;
-`;
-
-const UncompletedCicle = styled.div`
-  width: 12px;
-  height: 12px;
-  border-radius: 12px;
-  border: none;
-  background-color: #8f8f8f;
-  position: absolute;
-  top: 13px;
-  right: 7px;
+  overflow-x: scroll;
 `;
 
 const CompletedCicle = styled.div`
   width: 12px;
-  height: 12px;
+  height: 13px;
   border-radius: 12px;
   border: none;
-  background-color: #f4cc4d;
+  background-color: transparent;
   position: absolute;
   top: 13px;
-  right: 7px;
+  right: 11px;
 `;
 
 const CompletedMission = styled.div`
@@ -172,13 +181,18 @@ const CompletedMission = styled.div`
   align-items: center;
   justify-content: center;
   float: right;
-  width: 100px;
-  height: 42px;
+  width: 76px;
+  height: 30px;
   font-size: 14px;
-  font-weight: 500;
-  border-radius: 21px;
+  font-weight: 600;
+  border-radius: 8px;
   background: #6371f7;
   color: white;
+
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: 35px;
+  }
 `;
 
 const UncompletedMission = styled.div`
@@ -186,13 +200,26 @@ const UncompletedMission = styled.div`
   align-items: center;
   justify-content: center;
   float: right;
-  width: 85px;
-  height: 42px;
+  width: 76px;
+  height: 30px;
   font-size: 14px;
   font-weight: 600;
-  border-radius: 21px;
-  background: #f5f5f5;
-  color: #757575;
+  border-radius: 8px;
+  background: #f9f9ff;
+  border: 1px solid #6371f7;
+  color: #6371f7;
+
+  // Small (Tablet)
+  @media screen and (max-width: 839px) {
+    height: 35px;
+  }
+`;
+
+const CompletedAtBox = styled.div`
+  text-align: right;
+  flex-grow: 1;
+  font-size: 12px;
+  color: #a8a8a8;
 `;
 
 export default PastMissionList;
