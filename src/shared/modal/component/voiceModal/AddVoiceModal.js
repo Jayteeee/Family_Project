@@ -51,8 +51,8 @@ const AddVoiceModal = ({ onClose, familyId, voiceAlbumId }) => {
 
   // webm => mp3 변환을 위한 라이브러리
   // const ffmpeg = createFFmpeg({
-  //   corePath: "static/js/ffmpeg-core.js",
-  //   // corePath: "http://localhost:3000/ffmpeg-core.js",
+  //   // corePath: "static/js/ffmpeg.js",
+  //   // corePath: "http://localhost:3000/public/ffmpeg-core.js",
   //   log: true,
   // });
 

@@ -53,6 +53,11 @@ const Main = (props) => {
     dispatch(familyActions.getFamilyDB());
   }, [familyId]);
 
+  const Kakao = window.Kakao;
+  useEffect(() => {
+    Kakao.init("4b621ae60c3e6f222daf7684e293818e");
+  }, []);
+
   // 소켓 부분
 
   const socket = useSelector((state) => state.socket.socket);
