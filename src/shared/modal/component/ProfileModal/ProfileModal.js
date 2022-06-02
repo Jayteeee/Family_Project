@@ -330,28 +330,23 @@ const ProfileModal = ({ onClose, user }) => {
                         id="selectList"
                         onChange={editTodayMood}
                       >
-                        <option
-                          value="default"
-                          style={{ border: "1px solid gray" }}
-                        >
-                          {myTodayMood === "good" ? (
-                            <p>🙂&ensp;좋아요</p>
-                          ) : myTodayMood === "love" ? (
-                            <p>🥰&ensp;사랑해요</p>
-                          ) : myTodayMood === "nice" ? (
-                            <p>😎&ensp;멋져요</p>
-                          ) : myTodayMood === "sad" ? (
-                            <p>😥&ensp;슬퍼요</p>
-                          ) : myTodayMood === "head" ? (
-                            <p>🤯&ensp;머리아파요</p>
-                          ) : myTodayMood === "angry" ? (
-                            <p>😡&ensp;화나요</p>
-                          ) : myTodayMood === "sleepy" ? (
-                            <p>😴&ensp;졸려요</p>
-                          ) : (
-                            <p>🙂&ensp;좋아요</p>
-                          )}
-                        </option>
+                        {myTodayMood === "good" ? (
+                          <option value="default">🙂&ensp;좋아요</option>
+                        ) : myTodayMood === "love" ? (
+                          <option value="default">🥰&ensp;사랑해요</option>
+                        ) : myTodayMood === "nice" ? (
+                          <option value="default">😎&ensp;멋져요</option>
+                        ) : myTodayMood === "sad" ? (
+                          <option value="default">😥&ensp;슬퍼요</option>
+                        ) : myTodayMood === "head" ? (
+                          <option value="default">🤯&ensp;머리아파요</option>
+                        ) : myTodayMood === "angry" ? (
+                          <option value="default">😡&ensp;화나요</option>
+                        ) : myTodayMood === "sleepy" ? (
+                          <option value="default">😴&ensp;졸려요</option>
+                        ) : (
+                          <option value="default">🙂&ensp;좋아요 </option>
+                        )}
                         <hr />
                         <option value="good">🙂&ensp;좋아요</option>
                         <option value="love">🥰&ensp;사랑해요</option>

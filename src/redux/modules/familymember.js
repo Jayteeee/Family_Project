@@ -317,7 +317,7 @@ export default handleActions(
 
     [LEAVE_FAMILY]: (state, action) =>
       produce(state, (draft) => {
-        const { familyId, familyMemberId } = action.payload;
+        const { familyMemberId } = action.payload;
         let newArr = draft.familyMemberList.filter(
           (l) => l.familyMemberId !== familyMemberId
         );

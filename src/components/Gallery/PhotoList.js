@@ -27,7 +27,6 @@ const PhotoList = ({
   const dispatch = useDispatch();
 
   const { photoList } = useSelector((state) => state.gallery);
-  const { loading } = useSelector((state) => state.gallery);
 
   // socket 부분
   let socket = useSelector((state) => state.socket?.socket);
@@ -92,8 +91,9 @@ const PhotoList = ({
                         history.push(
                           `/family/${NowFamilyId}/gallery/${photoAlbumName}/${photoAlbumId}/${p.photoId}/`
                         );
+                        // history.go(0);
                       }}
-                      id="photoImage"
+                      // id="photoImage"
                     />
                   </div>
                 </Figure>

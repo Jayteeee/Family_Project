@@ -80,6 +80,7 @@ const OneComment = ({ _id, userInfo, comment, createdAt, commentId }) => {
 
 const OneCommentBox = styled.div`
   padding: 10px;
+  width: 100%;
 `;
 
 const CommentContentWrap = styled.div`
