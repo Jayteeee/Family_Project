@@ -94,12 +94,6 @@ const Main = (props) => {
     setShowOptions(false);
   };
 
-  const Kakao = window.Kakao;
-
-  useEffect(() => {
-    Kakao.init("4b621ae60c3e6f222daf7684e293818e");
-  }, []);
-
   return (
     <>
       <MainWrap
