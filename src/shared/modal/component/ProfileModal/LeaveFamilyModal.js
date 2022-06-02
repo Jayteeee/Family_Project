@@ -33,11 +33,6 @@ const LeaveFamilyModal = (props) => {
     dispatch(
       familyMemberActions.leaveFamilyDB(familyId, familyMemberId, otherFamilyId)
     );
-    // if (otherFamilyId !== undefined) {
-    //   history.replace(`/family/${otherFamilyId}`);
-    // } else {
-    //   history.replace("/");
-    // }
   };
 
   return (

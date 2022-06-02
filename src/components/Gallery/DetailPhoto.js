@@ -113,6 +113,7 @@ const DetailPhoto = ({
   useEffect(() => {
     dispatch(detailPhotoActions.getDetailPhotoDB(NowFamilyId, photoId));
     dispatch(familyMemberActions.getFamilyMemberDB(NowFamilyId));
+    setHeight(ref.current.clientHeight);
   }, [detailPhotoData.likeChk, userProfile]);
 
   // socket 부분
@@ -147,6 +148,24 @@ const DetailPhoto = ({
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const [height, setHeight] = useState(0);
+  const [imgHeight, setImgHeight] = useState(0);
+  const imageHeight = () => {
+    const image = document.getElementById("photoImage");
+    // console.log(image.height);
+    // console.log(image);
+    setImgHeight(image.height);
+  };
+  const ref = useRef(null);
+  console.log("사진 높이:", height);
+  console.log("사진 높이2:", imgHeight);
+  console.log("ref:", ref.current);
+
+  // useEffect(() => {
+  //   setHeight(ref.current.clientHeight);
+  //   imageHeight();
+  // }, [detailPhoto?.photoFile]);
 
   return (
     <>
@@ -195,20 +214,20 @@ const DetailPhoto = ({
                   </LikeBtn>
                 )}
               </ContentBoxHeader>
-              <div id="photoImage" style={{ hegiht: "100%" }}>
-                <ImageWrap
+              <div>
+                {/* <ImageWrap
                   style={{
                     position: "relative",
                   }}
                   img={noImage}
-                >
-                  <ImageBox
-                    src={
-                      detailPhoto?.photoFile ? detailPhoto.photoFile : noImage
-                    }
-                    onClick={() => {}}
-                  />
-                </ImageWrap>
+                > */}
+                <ImageBox
+                  id="photoImage"
+                  ref={ref}
+                  src={detailPhoto?.photoFile ? detailPhoto.photoFile : noImage}
+                  onClick={() => {}}
+                />
+                {/* </ImageWrap> */}
               </div>
               <ContentBoxFooter />
             </ImageContentBox>
@@ -268,7 +287,7 @@ const DetailPhoto = ({
                   </PhotoDeleteBtn>
                 )}
               </CommentHeder>
-              <CommentListBox>
+              <CommentListBox height={height}>
                 {commentList?.length ? (
                   commentList.map((c) => {
                     return <OneComment {...c} key={c._id} />;
@@ -469,9 +488,8 @@ const ImageWrap = styled.div`
 
 const ImageBox = styled.img`
   width: 100%;
-  background-size: cover;
-  height: 100%;
-  object-fit: cover;
+  /* background-size: cover;
+  object-fit: cover; */
 
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
@@ -554,7 +572,12 @@ const PhotoDeleteBtn = styled.div`
 `;
 
 const CommentListBox = styled.div`
-  height: 100%;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  ${({ height }) => `height: ${height}px;`};
+  /* height: 604px; */
+
   overflow-y: scroll;
 
   // Medium (Desktop)

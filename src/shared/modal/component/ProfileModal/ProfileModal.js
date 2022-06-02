@@ -46,19 +46,19 @@ const ProfileModal = ({ onClose, user }) => {
   const familyHost = familyList?.find((h) => h?.familyId === NowFamilyId);
 
   const myFamilyMemberNickname = familyMemberList?.find(
-    (m) => m?.userId === user.userId
+    (m) => m?.userId === user?.userId
   )?.familyMemberNickname;
 
   const myFamiyMemberId = familyMemberList?.find(
-    (m) => m?.userId === user.userId
+    (m) => m?.userId === user?.userId
   )?.familyMemberId;
 
   const myProfileImg = familyMemberList?.find(
-    (m) => m?.userId === user.userId
+    (m) => m?.userId === user?.userId
   )?.profileImg;
 
   const myTodayMood = familyMemberList?.find(
-    (m) => m?.userId === user.userId
+    (m) => m?.userId === user?.userId
   )?.todayMood;
 
   // 오늘의 기분 수정
@@ -177,10 +177,6 @@ const ProfileModal = ({ onClose, user }) => {
   };
 
   const Kakao = window.Kakao;
-
-  useEffect(() => {
-    Kakao.init("4b621ae60c3e6f222daf7684e293818e");
-  }, []);
 
   const shareKakao = () => {
     Kakao.Link.sendDefault({
@@ -334,28 +330,23 @@ const ProfileModal = ({ onClose, user }) => {
                         id="selectList"
                         onChange={editTodayMood}
                       >
-                        <option
-                          value="default"
-                          style={{ border: "1px solid gray" }}
-                        >
-                          {myTodayMood === "good" ? (
-                            <p>🙂&ensp;좋아요</p>
-                          ) : myTodayMood === "love" ? (
-                            <p>🥰&ensp;사랑해요</p>
-                          ) : myTodayMood === "nice" ? (
-                            <p>😎&ensp;멋져요</p>
-                          ) : myTodayMood === "sad" ? (
-                            <p>😥&ensp;슬퍼요</p>
-                          ) : myTodayMood === "head" ? (
-                            <p>🤯&ensp;머리아파요</p>
-                          ) : myTodayMood === "angry" ? (
-                            <p>😡&ensp;화나요</p>
-                          ) : myTodayMood === "sleepy" ? (
-                            <p>😴&ensp;졸려요</p>
-                          ) : (
-                            <p>🙂&ensp;좋아요</p>
-                          )}
-                        </option>
+                        {myTodayMood === "good" ? (
+                          <option value="default">🙂&ensp;좋아요</option>
+                        ) : myTodayMood === "love" ? (
+                          <option value="default">🥰&ensp;사랑해요</option>
+                        ) : myTodayMood === "nice" ? (
+                          <option value="default">😎&ensp;멋져요</option>
+                        ) : myTodayMood === "sad" ? (
+                          <option value="default">😥&ensp;슬퍼요</option>
+                        ) : myTodayMood === "head" ? (
+                          <option value="default">🤯&ensp;머리아파요</option>
+                        ) : myTodayMood === "angry" ? (
+                          <option value="default">😡&ensp;화나요</option>
+                        ) : myTodayMood === "sleepy" ? (
+                          <option value="default">😴&ensp;졸려요</option>
+                        ) : (
+                          <option value="default">🙂&ensp;좋아요 </option>
+                        )}
                         <hr />
                         <option value="good">🙂&ensp;좋아요</option>
                         <option value="love">🥰&ensp;사랑해요</option>

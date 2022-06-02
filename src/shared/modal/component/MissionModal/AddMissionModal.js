@@ -47,10 +47,16 @@ const AddMissionModal = ({ onClose, familyId }) => {
   const familyMemberList = useSelector(
     (state) => state?.familymember?.familyMemberList
   );
+
   // 선택한 미션 구성원 리스트
   const selectedMemberList = useSelector(
     (state) => state.mission?.selectedMemberList
   );
+
+  const resetSelectedMemberList = () => {
+    dispatch(missionActions.resetSelectedMissionMember());
+  };
+
   // 선택한 미션 구성원 Id 리스트
   const selectedMemeberIdList = useSelector(
     (state) => state.mission.selectedMemberIdList
@@ -104,7 +110,7 @@ const AddMissionModal = ({ onClose, familyId }) => {
 
   useEffect(() => {
     dispatch(familyMemberActions.getFamilyMemberDB(familyId));
-  }, []);
+  }, [familyId]);
 
   return (
     <>
@@ -114,6 +120,7 @@ const AddMissionModal = ({ onClose, familyId }) => {
           onClick={(e) => {
             e.stopPropagation();
             onClose();
+            resetSelectedMemberList();
             // history.replace()
           }}
         >
@@ -129,6 +136,7 @@ const AddMissionModal = ({ onClose, familyId }) => {
                   className="flex-row"
                   onClick={() => {
                     onClose();
+                    resetSelectedMemberList();
                   }}
                 >
                   <RiArrowLeftSLine size={24} />
@@ -283,8 +291,8 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 205;
-  height: 80%;
-  max-width: 470px;
+  height: 88%;
+  max-width: 515px;
   width: 100%;
   border-radius: 20px;
   background-color: #fff;
@@ -295,13 +303,20 @@ const Content = styled.div`
   // Medium (Desktop)
   @media screen and (max-width: 1199px) {
   }
+
+  // Medium (Desktop)
+  @media screen and (max-width: 1199px) {
+  }
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
-    height: 50%;
+    max-width: 485px;
+    height: 88%;
+    padding: 0px;
   }
   // Small (Tablet)
   @media screen and (max-width: 839px) {
-    height: 60%;
+    height: 88%;
+    padding: 0px;
   }
   // XSmall (Mobile)
   @media screen and (max-width: 599px) {
@@ -378,26 +393,18 @@ const FamilyMemberTitle = styled.div`
   background-color: #fff;
   font-size: 18px;
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const FamilyMemberBox = styled.div`
   background-color: #fff;
   width: 100%;
-  padding: 24px 24px;
-  height: 36%;
+  padding: 5px;
+  height: 100%;
   border: 2px solid #dbdbdb;
   border-radius: 20px;
   align-items: center;
   overflow-y: scroll;
-
-  // XSmall (Mobile)
-  @media screen and (max-width: 599px) {
-    margin-top: 20px;
-    padding: 10px 10px;
-  }
-  // XXSmall (Mobile)
-  @media screen and (max-width: 375px) {
-  }
 `;
 
 const AddFamilyMemberBtnBox = styled.div`
