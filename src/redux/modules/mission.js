@@ -19,9 +19,7 @@ const initialState = {
 // 액션
 const GET_MISSION = "GET_MISSION";
 const GET_PAST_MISSION = "GET_PAST_MISSION";
-const GET_MISSION_MEMBER = "GET_MISSION_MEMBER";
 const GET_BADGE_LIST = "GET_BADGE_LIST";
-const GET_MY_MISSION_CHK = "GET_MY_MISSION_CHK";
 const GET_MISSION_STATUS = "GET_MISSION_STATUS";
 const ADD_MISSION = "ADD_MISSION";
 const ADD_MISSION_MEMBER = "ADD_MISSION_MEMBER";
@@ -36,15 +34,6 @@ const getMission = createAction(GET_MISSION, (thisMonthMissionList) => ({
 }));
 const getPastMission = createAction(GET_PAST_MISSION, (pastMissionList) => ({
   pastMissionList,
-}));
-const getMissionMember = createAction(
-  GET_MISSION_MEMBER,
-  (familyMemberList) => ({
-    familyMemberList,
-  })
-);
-const getMyMissionChk = createAction(GET_MY_MISSION_CHK, (myMissionChk) => ({
-  myMissionChk,
 }));
 const getBadgeList = createAction(GET_BADGE_LIST, (badgeList) => ({
   badgeList,
@@ -252,17 +241,9 @@ export default handleActions(
       produce(state, (draft) => {
         draft.pastMissionList = action.payload.pastMissionList;
       }),
-    [GET_MISSION_MEMBER]: (state, action) =>
-      produce(state, (draft) => {
-        draft.missionMemberList = action.payload.familyMemberList;
-      }),
     [GET_BADGE_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.badgeList = action.payload.badgeList;
-      }),
-    [GET_MY_MISSION_CHK]: (state, action) =>
-      produce(state, (draft) => {
-        draft.myMissionChk = action.payload.myMissionChk;
       }),
     [GET_MISSION_STATUS]: (state, action) =>
       produce(state, (draft) => {
@@ -301,7 +282,7 @@ export default handleActions(
       }),
     [CHECK_MISSION_MEMBER]: (state, action) =>
       produce(state, (draft) => {
-        const { missionId, myMissionChk, familyMissionChk, userId } =
+        const { missionId, myMissionChk, userId } =
           action.payload.checkedMissionMember;
 
         let thisMonthMissionList = state.thisMonthMissionList.filter(
@@ -356,4 +337,5 @@ export const missionActions = {
   addMissionMember,
   checkMissionDB,
   deleteMissionDB,
+  resetSelectedMissionMember,
 };

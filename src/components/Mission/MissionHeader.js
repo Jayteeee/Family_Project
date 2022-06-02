@@ -89,6 +89,9 @@ const MissionHeaderBox = styled.div`
   // Medium (Tablet)
   @media screen and (max-width: 1024px) {
     margin: 10px 10px 10px 10px;
+    .missionBtn {
+      display: none;
+    }
   }
   // Small (Tablet)
   @media only screen and (max-width: 839px) {
@@ -100,9 +103,6 @@ const MissionHeaderBox = styled.div`
     margin: 10px 6px 5px 6px;
     .res-missionHeaderBox {
       font-size: 30px;
-    }
-    .missionBtn {
-      display: none;
     }
   }
 `;
