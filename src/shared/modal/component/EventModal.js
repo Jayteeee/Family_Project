@@ -12,6 +12,7 @@ import { RactangleImage, Text } from "../../../elements";
 
 // 이미지
 import eventImg from "../../images/eventImg.svg";
+import notice from "../../images/notice.png";
 
 const EventModal = ({ onClose, dayClose }) => {
   return (
@@ -32,7 +33,7 @@ const EventModal = ({ onClose, dayClose }) => {
         >
           <a href="https://forms.gle/cKtMucXktf7et7hs9" target="_blank">
             <ImgBox>
-              <EventImg src={eventImg} />
+              <EventImg src={notice} />
             </ImgBox>{" "}
           </a>
           <CloseBox
