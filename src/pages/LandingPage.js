@@ -19,8 +19,8 @@ import insta from "../shared/images/Footer_insta.svg";
 import help from "../shared/images/Footer_help.svg";
 
 // 모달
-import { ModalPortal } from "../shared/modal/portals";
-import EventModal from "../shared/modal/component/EventModal";
+// import { ModalPortal } from "../shared/modal/portals";
+// import EventModal from "../shared/modal/component/EventModal";
 
 const LandingPage = () => {
   const history = useHistory();
@@ -35,34 +35,34 @@ const LandingPage = () => {
     history.replace(`/family/${isMember[0]?.familyId}`);
   }
 
-  const [modalOn, setModalOn] = useState(false);
+  // const [modalOn, setModalOn] = useState(false);
 
-  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
+  // const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
   // console.log(HAS_VISITED_BEFORE);
   // console.log(new Date());
 
-  useEffect(() => {
-    const handleModal = () => {
-      if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
-        return;
-      }
+  // useEffect(() => {
+  //   const handleModal = () => {
+  //     if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
+  //       return;
+  //     }
 
-      if (!HAS_VISITED_BEFORE) {
-        setModalOn(true);
-      }
-    };
-    window.setTimeout(handleModal, 2000);
-  }, [HAS_VISITED_BEFORE]);
+  //     if (!HAS_VISITED_BEFORE) {
+  //       setModalOn(true);
+  //     }
+  //   };
+  //   window.setTimeout(handleModal, 2000);
+  // }, [HAS_VISITED_BEFORE]);
 
-  const handleClose = () => {
-    setModalOn(false);
-  };
-  const dayClose = () => {
-    let expires = new Date();
-    expires = expires.setHours(expires.getHours() + 24);
-    localStorage.setItem("hasVisitedBefore", expires);
-    setModalOn(false);
-  };
+  // const handleClose = () => {
+  //   setModalOn(false);
+  // };
+  // const dayClose = () => {
+  //   let expires = new Date();
+  //   expires = expires.setHours(expires.getHours() + 24);
+  //   localStorage.setItem("hasVisitedBefore", expires);
+  //   setModalOn(false);
+  // };
   return (
     <Container>
       <UpperBox>
@@ -124,11 +124,11 @@ const LandingPage = () => {
         </IconBox>
       </LowerBox>
       {/* 이벤트 모달 */}
-      <ModalPortal>
+      {/* <ModalPortal>
         {modalOn && (
           <EventModal onClose={handleClose} dayClose={dayClose}></EventModal>
         )}
-      </ModalPortal>
+      </ModalPortal> */}
     </Container>
   );
 };
