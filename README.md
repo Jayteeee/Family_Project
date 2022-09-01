@@ -16,8 +16,6 @@
 🔔 도란도란은 반응형으로 웹과 모바일 모두 이용 가능한 서비스입니다.<br>
 <br><img src="https://www.dorandorans.com/static/media/Web_01.29cbf948c7a423b343f6.png">
 
-[👉 도란도란 바로가기](https://dorandorans.com/)
-<br />
 [👉 시연영상 보러가기](https://youtu.be/atkUdA8EGhk/)
 <br />
 [👉 발표영상 보러가기](https://youtu.be/Vara_hm9abo/)
